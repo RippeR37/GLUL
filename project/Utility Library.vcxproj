@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A18BA2DC-A847-4094-9A2B-40935A118E4F}</ProjectGuid>
+    <RootNamespace>UtilityLibrary</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\bin\</OutDir>
+    <IntDir>build\$(Configuration)\</IntDir>
+    <TargetExt>.lib</TargetExt>
+    <TargetName>$(ProjectName)_debug</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\bin\</OutDir>
+    <IntDir>build\$(Configuration)\</IntDir>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <AdditionalIncludeDirectories>..\libs\glew-1.11.0\include;..\libs\glfw-3.0.4\include;..\libs\glm-0.9.5.4\include;..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4290;4996;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\libs\glfw-3.0.4\lib-msvc110;..\libs\glew-1.11.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <AdditionalIncludeDirectories>..\libs\glew-1.11.0\include;..\libs\glfw-3.0.4\include;..\libs\glm-0.9.5.4\include;..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4290;4996;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\libs\glfw-3.0.4\lib-msvc110;..\libs\glew-1.11.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glew32.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Utils\Clock.h" />
+    <ClInclude Include="..\include\Utils\Exception.h" />
+    <ClInclude Include="..\include\Utils\Exceptions\FatalError.h" />
+    <ClInclude Include="..\include\Utils\File.h" />
+    <ClInclude Include="..\include\Utils\GL+\Context.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Component.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Container.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Event.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\GWindow.h" />
+    <ClInclude Include="..\include\Utils\GL+\MatrixStack.h" />
+    <ClInclude Include="..\include\Utils\GL+\Pipeline.h" />
+    <ClInclude Include="..\include\Utils\GL+\Program.h" />
+    <ClInclude Include="..\include\Utils\GL+\Shader.h" />
+    <ClInclude Include="..\include\Utils\GL+\Texture.h" />
+    <ClInclude Include="..\include\Utils\GL+\Uniform.h" />
+    <ClInclude Include="..\include\Utils\GL+\VertexArray.h" />
+    <ClInclude Include="..\include\Utils\GL+\VertexAttrib.h" />
+    <ClInclude Include="..\include\Utils\GL+\VertexBuffer.h" />
+    <ClInclude Include="..\include\Utils\GL+\VertexBuffer.hpp" />
+    <ClInclude Include="..\include\Utils\Image.h" />
+    <ClInclude Include="..\include\Utils\Line.h" />
+    <ClInclude Include="..\include\Utils\Point.h" />
+    <ClInclude Include="..\include\Utils\Rectangle.h" />
+    <ClInclude Include="..\include\Utils\TimeEvent.h" />
+    <ClInclude Include="..\include\Utils\TimeLoop.h" />
+    <ClInclude Include="..\include\Utils\Timer.h" />
+    <ClInclude Include="..\include\Utils\Window.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Utils\Clock.cpp" />
+    <ClCompile Include="..\src\Utils\Exception.cpp" />
+    <ClCompile Include="..\src\Utils\Exceptions\FatalError.cpp" />
+    <ClCompile Include="..\src\Utils\File.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\Context.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\GWindow.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\MatrixStack.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\Pipeline.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\Program.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\Shader.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\Texture.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\Uniform.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\VertexArray.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\VertexAttrib.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\VertexBuffer.cpp" />
+    <ClCompile Include="..\src\Utils\Image.cpp" />
+    <ClCompile Include="..\src\Utils\Line.cpp" />
+    <ClCompile Include="..\src\Utils\Point.cpp" />
+    <ClCompile Include="..\src\Utils\Rectangle.cpp" />
+    <ClCompile Include="..\src\Utils\TimeEvent.cpp" />
+    <ClCompile Include="..\src\Utils\TimeLoop.cpp" />
+    <ClCompile Include="..\src\Utils\Timer.cpp" />
+    <ClCompile Include="..\src\Utils\Window.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

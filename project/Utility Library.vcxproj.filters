@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Exceptions">
+      <UniqueIdentifier>{16a504f2-2f8e-43f1-bfed-2cbb6caf52b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GL+">
+      <UniqueIdentifier>{f64fdde1-64a9-4c0e-8689-4c7359dfc8ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GL+\GUI">
+      <UniqueIdentifier>{785a6666-51a4-4ed3-baa3-37504f8182c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Exceptions">
+      <UniqueIdentifier>{4dfe5b47-cb01-484f-861e-b3f277831a9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GL+">
+      <UniqueIdentifier>{d8678c51-c519-45c9-bcc6-dfd52235f5b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GL+\GUI">
+      <UniqueIdentifier>{ff9835f0-232d-4d12-b80b-822bb8b6aeb3}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\include\Utils\Clock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\File.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Line.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\TimeEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\TimeLoop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Exceptions\FatalError.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\Context.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\MatrixStack.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\Pipeline.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\Program.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\Shader.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\Texture.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\Uniform.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\VertexArray.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\VertexAttrib.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\VertexBuffer.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\VertexBuffer.hpp">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Component.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Container.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Event.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\GWindow.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\src\Utils\Clock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Exception.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\File.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Point.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Rectangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\TimeEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\TimeLoop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Exceptions\FatalError.cpp">
+      <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\Context.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\MatrixStack.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\Pipeline.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\Program.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\Shader.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\Texture.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\Uniform.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\VertexArray.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\VertexAttrib.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\VertexBuffer.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\GWindow.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

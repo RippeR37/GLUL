@@ -1,0 +1,5 @@
+bin/*
+libs/*
+personal/*
+project/build/*
+*.sdf
