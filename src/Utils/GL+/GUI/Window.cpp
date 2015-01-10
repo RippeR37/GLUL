@@ -1,4 +1,4 @@
-#include <Utils/GL+/GUI/GWindow.h>
+#include <Utils/GL+/GUI/Window.h>
 
 namespace GL {
 

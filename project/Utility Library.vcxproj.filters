@@ -107,7 +107,10 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Event.h">
       <Filter>Header Files\GL+\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\GWindow.h">
+    <ClInclude Include="..\include\Utils\GL+\GUI\Text.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Window.h">
       <Filter>Header Files\GL+\GUI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -187,7 +190,10 @@
     <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp">
       <Filter>Source Files\GL+\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\GUI\GWindow.cpp">
+    <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp">
       <Filter>Source Files\GL+\GUI</Filter>
     </ClCompile>
   </ItemGroup>

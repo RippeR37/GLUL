@@ -68,8 +68,9 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\libs\glew-1.11.0\include;..\libs\glfw-3.0.4\include;..\libs\glm-0.9.5.4\include;..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libs\glew-1.11.0\include;..\libs\glfw-3.0.4\include;..\libs\glm-0.9.5.4\include;..\libs\freetype-2.5.5\include;..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4290;4996;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <ObjectFileName>$(IntDir)\%(RelativeDir)\</ObjectFileName>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -88,7 +89,8 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Component.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Container.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Event.h" />
-    <ClInclude Include="..\include\Utils\GL+\GUI\GWindow.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Window.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Text.h" />
     <ClInclude Include="..\include\Utils\GL+\MatrixStack.h" />
     <ClInclude Include="..\include\Utils\GL+\Pipeline.h" />
     <ClInclude Include="..\include\Utils\GL+\Program.h" />
@@ -117,7 +119,8 @@
     <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp" />
-    <ClCompile Include="..\src\Utils\GL+\GUI\GWindow.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp" />
     <ClCompile Include="..\src\Utils\GL+\MatrixStack.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Pipeline.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Program.cpp" />
