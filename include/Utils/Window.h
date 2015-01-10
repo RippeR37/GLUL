@@ -9,6 +9,7 @@
 #include <glm/vec2.hpp>
 
 #include <string>
+#include <functional>
 
 namespace Util {
     
@@ -21,13 +22,17 @@ namespace Util {
             virtual void update();
             void destroy();
             
-            void setCountingFPS(bool flag);
-            void setFPSRefreshRate(double refreshRate);
             void setSize(unsigned int width, unsigned int height);
             void setSize(const glm::uvec2& size);
             void setTitle(const std::string& title);
             void appendTitle(const std::string& text);
+
+            void setDisplayingFPS(bool flag);
+            void setCountingFPS(bool flag);
+            void setFPSRefreshRate(double refreshRate);
+            void setFPSCountCallback(std::function<void(int)> function);
             
+            const bool isDisplayingFPS() const;
             const bool isCountingFPS() const;
             const double getFPSRefreshRate() const;
             const int getFPS() const;
@@ -50,6 +55,7 @@ namespace Util {
             static void initializeGLEW() throw(Util::Exception::FatalError);
             
             int _fpsCount;
+            bool _isDisplayingFPS;
             bool _isCountingFPS;
             double _fpsRefreshRate;
             double _frameTime;
@@ -57,6 +63,7 @@ namespace Util {
             std::string _title;
             glm::uvec2 _windowSize;
             GL::Context _context;
+            std::function<void(int)> _fpsCountCallback;
     };
 
 }

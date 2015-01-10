@@ -11,6 +11,7 @@ namespace Util {
         _title = std::string("Title");
 
         setCountingFPS(false);
+        setDisplayingFPS(false);
     }
 
     Window::~Window() {
@@ -53,8 +54,13 @@ namespace Util {
             fpsTime = fpsClock.getElapsedTime();
 
             if(fpsTime > getFPSRefreshRate()) {
-                framesCount = static_cast<unsigned int>(framesCount * (1.0 / fpsTime));
-                appendTitle(std::string(" | FPS: ") + std::to_string(framesCount));
+                setFPSCount(static_cast<unsigned int>(framesCount * (1.0 / fpsTime)));
+
+                if(isDisplayingFPS())
+                    appendTitle(std::string(" | FPS: ") + std::to_string(getFPS()));
+
+                if(_fpsCountCallback)
+                    _fpsCountCallback(getFPS());
 
                 framesCount = 0;
                 fpsClock.reset();
@@ -67,16 +73,6 @@ namespace Util {
             glfwDestroyWindow(_handle);
             _handle = nullptr;
         }
-    }
-
-    void Window::setCountingFPS(bool flag) {
-        _isCountingFPS = flag;
-
-        setFPSCount(-1);
-    }
-    
-    void Window::setFPSRefreshRate(double refreshRate) {
-        _fpsRefreshRate = refreshRate;
     }
 
     void Window::setSize(unsigned int width, unsigned int height) {
@@ -102,6 +98,31 @@ namespace Util {
 
         if(isCreated())
             glfwSetWindowTitle(_handle, appendedTitle.c_str());
+    }
+
+    void Window::setDisplayingFPS(bool flag) {
+        _isDisplayingFPS = flag;
+
+        if(isDisplayingFPS())
+            setCountingFPS(true);
+    }
+
+    void Window::setCountingFPS(bool flag) {
+        _isCountingFPS = flag;
+
+        setFPSCount(-1);
+    }
+    
+    void Window::setFPSRefreshRate(double refreshRate) {
+        _fpsRefreshRate = refreshRate;
+    }
+    
+    void Window::setFPSCountCallback(std::function<void(int)> function) {
+        _fpsCountCallback = function;
+    }
+
+    const bool Window::isDisplayingFPS() const {
+        return _isDisplayingFPS;
     }
 
     const bool Window::isCountingFPS() const {
