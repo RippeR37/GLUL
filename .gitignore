@@ -1,5 +1,7 @@
 bin/*
+examples/basic/bin/*
 libs/*
 personal/*
 project/build/*
+project/Basic example/build/*
 *.sdf

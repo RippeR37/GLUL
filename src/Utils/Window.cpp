@@ -13,6 +13,30 @@ namespace Util {
         setCountingFPS(false);
         setDisplayingFPS(false);
     }
+    
+    Window::Window(unsigned int width, unsigned int height, const std::string& title) {
+        _handle = nullptr;
+
+        setSize(glm::uvec2(width, height));
+        setTitle(title);
+
+        setCountingFPS(false);
+        setDisplayingFPS(false);
+
+        create();
+    }
+
+    Window::Window(const glm::uvec2& size, const std::string& title) {
+        _handle = nullptr;
+
+        setSize(size);
+        setTitle(title);
+
+        setCountingFPS(false);
+        setDisplayingFPS(false);
+
+        create();
+    }
 
     Window::~Window() {
         destroy();
@@ -41,6 +65,11 @@ namespace Util {
         static Clock fpsClock;
         static double fpsTime;
         static unsigned int framesCount = 0;
+
+        if(glfwWindowShouldClose(getHandle())) {
+            destroy();
+            return;
+        }
 
         thisFrame  = glfwGetTime();
         _frameTime = thisFrame - lastFrame;
