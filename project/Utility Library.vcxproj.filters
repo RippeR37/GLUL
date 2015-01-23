@@ -27,6 +27,15 @@
     <Filter Include="Source Files\GL+\GUI">
       <UniqueIdentifier>{ff9835f0-232d-4d12-b80b-822bb8b6aeb3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Interfaces">
+      <UniqueIdentifier>{ac034dfa-b8ce-48fe-a70d-8e48daf1f94e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interfaces">
+      <UniqueIdentifier>{3e736b68-dc96-401a-aab7-f78cb7220fee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interfaces\MVC">
+      <UniqueIdentifier>{a26bf68a-4efa-4103-81c4-5ef9f1ff063b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Utils\Clock.h">
@@ -113,6 +122,18 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Window.h">
       <Filter>Header Files\GL+\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\State.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Camera.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\MVC\ExtendedView.h">
+      <Filter>Header Files\Interfaces\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\MVC\View.h">
+      <Filter>Header Files\Interfaces\MVC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">
@@ -195,6 +216,12 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp">
       <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\State.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Camera.cpp">
+      <Filter>Source Files\Interfaces</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

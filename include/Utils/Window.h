@@ -26,13 +26,17 @@ namespace Util {
             
             void setSize(unsigned int width, unsigned int height);
             void setSize(const glm::uvec2& size);
+            void setPosition(int posX, int posY);
+            void setPosition(const glm::ivec2& position);
             void setTitle(const std::string& title);
             void appendTitle(const std::string& text);
 
             void setDisplayingFPS(bool flag);
             void setCountingFPS(bool flag);
             void setFPSRefreshRate(double refreshRate);
+
             void setFPSCountCallback(std::function<void(int)> function);
+            void setDestroyCallback(std::function<void()> function);
             
             const bool isDisplayingFPS() const;
             const bool isCountingFPS() const;
@@ -41,6 +45,7 @@ namespace Util {
             const unsigned int getWidth() const;
             const unsigned int getHeight() const;
             const glm::uvec2& getSize() const;
+            const glm::ivec2& getPosition() const;
             const std::string& getTitle() const;
 
             const bool isCreated() const;
@@ -64,8 +69,10 @@ namespace Util {
             GLFWwindow* _handle;
             std::string _title;
             glm::uvec2 _windowSize;
+            glm::ivec2 _windowPosition;
             GL::Context _context;
             std::function<void(int)> _fpsCountCallback;
+            std::function<void()> _destroyCallback;
     };
 
 }

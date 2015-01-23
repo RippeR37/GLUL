@@ -8,10 +8,14 @@ namespace Util {
 
         // Default options
         _windowSize = glm::uvec2(640, 480);
+        _windowPosition = glm::ivec2(50, 50);
         _title = std::string("Title");
 
         setCountingFPS(false);
         setDisplayingFPS(false);
+        setDestroyCallback([this]() {
+            destroy();
+        });
     }
     
     Window::Window(unsigned int width, unsigned int height, const std::string& title) {
@@ -53,6 +57,7 @@ namespace Util {
         _handle = glfwCreateWindow(getWidth(), getHeight(), _title.c_str(), nullptr, nullptr);
 
         setContext();
+        setPosition(getPosition());
 
         Window::initializeGLEW();
 
@@ -67,7 +72,9 @@ namespace Util {
         static unsigned int framesCount = 0;
 
         if(glfwWindowShouldClose(getHandle())) {
-            destroy();
+            if(_destroyCallback)
+                _destroyCallback();
+
             return;
         }
 
@@ -115,6 +122,17 @@ namespace Util {
             glfwSetWindowSize(_handle, getWidth(), getHeight());
     }
 
+    void Window::setPosition(int posX, int posY) {
+        setPosition(glm::ivec2(posX, posY));
+    }
+
+    void Window::setPosition(const glm::ivec2& position) {
+        _windowPosition = position;
+
+        if(isCreated())
+            glfwSetWindowPos(getHandle(), getPosition().x, getPosition().y);
+    }
+
     void Window::setTitle(const std::string& title) {
         _title = title;
 
@@ -150,6 +168,10 @@ namespace Util {
         _fpsCountCallback = function;
     }
 
+    void Window::setDestroyCallback(std::function<void()> function) {
+        _destroyCallback = function;
+    }
+
     const bool Window::isDisplayingFPS() const {
         return _isDisplayingFPS;
     }
@@ -177,6 +199,11 @@ namespace Util {
     const glm::uvec2& Window::getSize() const {
         return _windowSize;
     }
+
+    const glm::ivec2& Window::getPosition() const {
+        return _windowPosition;
+    }
+
     const std::string& Window::getTitle() const {
         return _title;
     }

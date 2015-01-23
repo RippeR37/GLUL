@@ -42,6 +42,8 @@ namespace GL {
             GLclampf getClearDepth() const;
             GLint getClearStencil() const;
 
+            static Context& Current;
+
         private:
             void setActive(bool flag);
             bool isActive() const;

@@ -2,6 +2,8 @@
 
 namespace GL {
 
+    Context& Context::Current = Context();
+
     Context::Context() {
         setActive(false);
         _window = nullptr;
