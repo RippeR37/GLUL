@@ -134,6 +134,9 @@
     <ClInclude Include="..\include\Utils\Interfaces\MVC\View.h">
       <Filter>Header Files\Interfaces\MVC</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\String.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">
@@ -222,6 +225,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\Interfaces\Camera.cpp">
       <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\String.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -109,6 +109,7 @@
     <ClInclude Include="..\include\Utils\Line.h" />
     <ClInclude Include="..\include\Utils\Point.h" />
     <ClInclude Include="..\include\Utils\Rectangle.h" />
+    <ClInclude Include="..\include\Utils\String.h" />
     <ClInclude Include="..\include\Utils\TimeEvent.h" />
     <ClInclude Include="..\include\Utils\TimeLoop.h" />
     <ClInclude Include="..\include\Utils\Timer.h" />
@@ -140,6 +141,7 @@
     <ClCompile Include="..\src\Utils\Line.cpp" />
     <ClCompile Include="..\src\Utils\Point.cpp" />
     <ClCompile Include="..\src\Utils\Rectangle.cpp" />
+    <ClCompile Include="..\src\Utils\String.cpp" />
     <ClCompile Include="..\src\Utils\TimeEvent.cpp" />
     <ClCompile Include="..\src\Utils\TimeLoop.cpp" />
     <ClCompile Include="..\src\Utils\Timer.cpp" />
