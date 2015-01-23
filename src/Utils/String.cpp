@@ -4,8 +4,8 @@
 #include <istream>
 
 namespace Util {
-
-    std::vector<std::string> String::split(std::vector<std::string> &input,  const std::string& data, char delimiter,  bool skipEmpty) {
+    
+    std::vector<std::string>& String::split(std::vector<std::string> &input,  const std::string& data, char delimiter,  bool skipEmpty) {
         std::stringstream stream(data);
         std::string token;
 
@@ -17,7 +17,7 @@ namespace Util {
         return input;
     }
 
-    static std::vector<std::string>& split(const std::string& data, char delimiter, bool skipEmpty) {
+    std::vector<std::string> String::split(const std::string& data, char delimiter, bool skipEmpty) {
         std::vector<std::string> tokens;
         String::split(tokens, data, delimiter, skipEmpty);
         return tokens;
