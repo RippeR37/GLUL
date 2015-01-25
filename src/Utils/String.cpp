@@ -10,7 +10,7 @@ namespace Util {
         std::string token;
 
         while(std::getline(stream, token, delimiter)) {
-            if(!token.empty() || skipEmpty)
+            if(!token.empty() || !skipEmpty)
                 input.push_back(token);
         }
 
