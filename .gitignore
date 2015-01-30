@@ -4,4 +4,6 @@ libs/*
 personal/*
 project/build/*
 project/Basic example/build/*
+project/Basic example/Debug/*
+project/Basic example/Release/*
 *.sdf

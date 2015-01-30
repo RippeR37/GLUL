@@ -19,6 +19,8 @@ namespace Util {
             Window(unsigned int width, unsigned int height, const std::string& title);
             Window(const glm::uvec2& size, const std::string& title);
             virtual ~Window();
+
+            operator GLFWwindow*();
             
             bool create() throw(Util::Exception::FatalError);
             virtual void update();
@@ -49,6 +51,7 @@ namespace Util {
             const std::string& getTitle() const;
 
             const bool isCreated() const;
+            const bool shouldClose() const;
             const double getFrameTime() const;
             GLFWwindow* getHandle();
             GL::Context& getContext();

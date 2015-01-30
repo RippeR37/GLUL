@@ -21,10 +21,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\examples\basic\bin\assets\shaders\basic.fs">
+    <None Include="..\..\examples\basic\bin\assets\shaders\basic.fp">
       <Filter>Assets\Shaders\Basic</Filter>
     </None>
-    <None Include="..\..\examples\basic\bin\assets\shaders\basic.vs">
+    <None Include="..\..\examples\basic\bin\assets\shaders\basic.vp">
       <Filter>Assets\Shaders\Basic</Filter>
     </None>
   </ItemGroup>

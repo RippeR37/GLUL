@@ -1,5 +1,7 @@
 #include <Utils/TimeLoop.h>
 
+#include <algorithm>
+
 namespace Util {
 
     TimeLoop::TimeLoop() {

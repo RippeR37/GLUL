@@ -46,6 +46,10 @@ namespace Util {
         destroy();
     }
 
+    Window::operator GLFWwindow*() {
+        return getHandle();
+    }
+
     bool Window::create() {
         if(isCreated())
             destroy();
@@ -57,7 +61,6 @@ namespace Util {
         _handle = glfwCreateWindow(getWidth(), getHeight(), _title.c_str(), nullptr, nullptr);
 
         setContext();
-        setPosition(getPosition());
 
         Window::initializeGLEW();
 
@@ -210,6 +213,10 @@ namespace Util {
 
     const bool Window::isCreated() const {
         return (_handle != nullptr);
+    }
+
+    const bool Window::shouldClose() const {
+        return glfwWindowShouldClose(_handle) == GL_TRUE;
     }
 
     const double Window::getFrameTime() const {
