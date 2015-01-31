@@ -1,4 +1,4 @@
-bin/*
+bin/*.lib
 examples/basic/bin/*
 libs/*
 personal/*
@@ -7,3 +7,4 @@ project/Basic example/build/*
 project/Basic example/Debug/*
 project/Basic example/Release/*
 *.sdf
+*.pdb
