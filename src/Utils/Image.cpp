@@ -1,10 +1,14 @@
 #include <Utils/Image.h>
 
+#include <algorithm>
+#include <iterator>
 #include <cstdio>
 
 namespace Util {
 
     Image::Image(std::string path, Image::Format format) {
+        _data = nullptr;
+
         switch(format) {
             case Format::BMP: 
                 loadBMP(path);
@@ -13,6 +17,29 @@ namespace Util {
             default:
                 break;
         }
+    }
+
+    Image::Image(const Image& image) {
+        _size   = image._size;
+        _width  = image._width;
+        _height = image._height;
+        _bits   = image._bits;
+        _data   = nullptr;
+
+        if(image._data != nullptr)
+            _data = new unsigned char[_size];
+
+        std::copy(image._data, image._data + image._size, _data);
+    }
+
+    Image::Image(Image&& image) :
+        _size(std::move(image._size)),
+        _width(std::move(image._width)),
+        _height(std::move(image._height)),
+        _bits(std::move(image._bits)),
+        _data(std::move(image._data))
+    {
+        image._data = nullptr;
     }
 
     Image::~Image() {

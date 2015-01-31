@@ -19,6 +19,8 @@ namespace Util {
 
         public:
             Image(std::string path, Image::Format format);
+            Image(const Image& image);
+            Image(Image&& image);
             ~Image();
 
             unsigned int getBits() const;
