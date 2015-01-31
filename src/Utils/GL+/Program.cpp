@@ -43,8 +43,12 @@ namespace GL {
         return *this;
     }
 
-    Uniform& Program::operator[](const std::string& uniformName) {
-        return _uniforms[uniformName];
+    Uniform& Program::operator[](const std::string& uniformName) throw(std::out_of_range) {
+        return _uniforms.at(uniformName);
+    }
+
+    const Uniform& Program::operator[](const std::string& uniformName) const throw(std::out_of_range) {
+        return _uniforms.at(uniformName);
     }
     
     void Program::load(const Shader& vertexShader, const Shader& fragmentShader) {

@@ -16,16 +16,16 @@ namespace GL {
 
             GLuint getLocation() const;
             
-            void setSampler(GLint value);
+            void setSampler(GLint value) const;
 
         public:
-            template<typename T> void set(T v0);
-            template<typename T> void set(T v0, T v1);
-            template<typename T> void set(T v0, T v1, T v2);
-            template<typename T> void set(T v0, T v1, T v2, T v3);
+            template<typename T> void set(T v0) const;
+            template<typename T> void set(T v0, T v1) const;
+            template<typename T> void set(T v0, T v1, T v2) const;
+            template<typename T> void set(T v0, T v1, T v2, T v3) const;
             
-            template<typename T> void setVec(const T& value, GLsizei count = 1);
-            template<typename T> void setMatrix(const T& value, GLsizei count = 1, GLboolean transpose = GL_FALSE);
+            template<typename T> void setVec(const T& value, GLsizei count = 1) const;
+            template<typename T> void setMatrix(const T& value, GLsizei count = 1, GLboolean transpose = GL_FALSE) const;
 
         private:
             GLuint _location;

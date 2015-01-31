@@ -24,7 +24,8 @@ namespace GL {
             ~Program();
 
             Program& operator=(Program&& program);
-            Uniform& operator[](const std::string& uniformName);
+            Uniform& operator[](const std::string& uniformName) throw(std::out_of_range);
+            const Uniform& operator[](const std::string& uniformName) const throw(std::out_of_range);
 
             void load(const Shader& vertexShader, const Shader& fragmentShader);
             void use() const;
