@@ -84,6 +84,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\include\Utils\AABB.h" />
     <ClInclude Include="..\include\Utils\Clock.h" />
     <ClInclude Include="..\include\Utils\Exception.h" />
     <ClInclude Include="..\include\Utils\Exceptions\FatalError.h" />
@@ -119,6 +120,7 @@
     <ClInclude Include="..\include\Utils\Window.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\src\Utils\AABB.cpp" />
     <ClCompile Include="..\src\Utils\Clock.cpp" />
     <ClCompile Include="..\src\Utils\Exception.cpp" />
     <ClCompile Include="..\src\Utils\Exceptions\FatalError.cpp" />
