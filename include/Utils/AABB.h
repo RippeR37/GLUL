@@ -42,6 +42,7 @@ namespace Util {
             static std::vector<glm::vec3> getLines(const AABB& box);
 
         private:
+            bool _initialized;
             glm::vec3 _min;
             glm::vec3 _max;
     };

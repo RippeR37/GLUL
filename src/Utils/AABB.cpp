@@ -5,14 +5,14 @@
 
 namespace Util {
 
-    AABB::AABB() {
-        setMin(glm::vec3(0.0f));
-        setMax(glm::vec3(0.0f));
+    AABB::AABB() : AABB(glm::vec3(0.0f), glm::vec3(0.0f)) {
+
     }
 
     AABB::AABB(const glm::vec3& min, const glm::vec3& max) {
         setMin(min);
         setMax(max);
+        _initialized = false;
     }
 
     bool AABB::intersect(const AABB& box2) const {
@@ -28,23 +28,25 @@ namespace Util {
     }
 
     void AABB::updateBy(const glm::vec3& vertex) {
-        if(getMin().x > vertex.x)
+        if(getMin().x > vertex.x || !_initialized)
             setMinX(vertex.x);
 
-        if(getMin().y > vertex.y)
+        if(getMin().y > vertex.y || !_initialized)
             setMinY(vertex.y);
 
-        if(getMin().z > vertex.z)
+        if(getMin().z > vertex.z || !_initialized)
             setMinZ(vertex.z);
 
-        if(getMax().x < vertex.x)
+        if(getMax().x < vertex.x || !_initialized)
             setMaxX(vertex.x);
 
-        if(getMax().y < vertex.y)
+        if(getMax().y < vertex.y || !_initialized)
             setMaxY(vertex.y);
 
-        if(getMax().z < vertex.z)
+        if(getMax().z < vertex.z || !_initialized)
             setMaxZ(vertex.z);
+
+        _initialized = true;
     }
 
     void AABB::setMin(const glm::vec3& min) {
