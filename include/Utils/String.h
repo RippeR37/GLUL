@@ -8,18 +8,14 @@ namespace Util {
 
     class String {
         public:
-            static std::vector<std::string>& split(
-                std::vector<std::string> &input, 
-                const std::string& data, 
-                char delimiter, 
-                bool skipEmpty = true
-            );
+            typedef std::vector<std::string> stringVector;
 
-            static std::vector<std::string> split(
-                const std::string& data, 
-                char delimiter, 
-                bool skipEmpty = true
-            );
+        public:
+            static stringVector& split(stringVector& input, const std::string& data, char delimiter, bool skipEmpty = true);
+            static stringVector  split(const std::string& data, char delimiter, bool skipEmpty = true);
+
+            static bool startsWith(const std::string& string, const std::string& prefix);
+            static bool endsWith(const std::string& string, const std::string& sufix);
     };
 
 }

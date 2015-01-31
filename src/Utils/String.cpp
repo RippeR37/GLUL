@@ -23,4 +23,36 @@ namespace Util {
         return tokens;
     }
 
+    bool String::startsWith(const std::string& string, const std::string& prefix) {
+        bool result = true;
+
+        if(string.size() < prefix.size())
+            result = false;
+
+        else
+            for(int i = 0; i < prefix.size(); ++i)
+                if(string[i] != prefix[i]) {
+                    result = false;
+                    break;
+                }
+
+        return result;
+    }
+
+    bool String::endsWith(const std::string& string, const std::string& sufix) {
+        bool result = true;
+
+        if(string.size() < sufix.size())
+            result = false;
+
+        else
+            for(int i = string.size() - sufix.size(); i < string.size(); ++i)
+                if(string[i] != sufix[i]) {
+                    result = false;
+                    break;
+                }
+
+        return result;
+    }
+
 }
