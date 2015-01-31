@@ -1,5 +1,7 @@
 #include <Utils/GL+/Texture.h>
 
+#include <iostream>
+
 namespace GL {
     
     Texture::Texture() {
@@ -209,7 +211,7 @@ namespace GL {
             setInternalFromat(internalFormat);
         }
 
-        setData2D(image.getWidth(), image.getHeight(), GL_UNSIGNED_INT, image.getData());
+        setData2D(image.getWidth(), image.getHeight(), GL_UNSIGNED_BYTE, image.getData());
     }
     
     void Texture::setWidth(unsigned int width) {
