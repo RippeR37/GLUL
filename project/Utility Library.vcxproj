@@ -89,6 +89,7 @@
     <ClInclude Include="..\include\Utils\Exception.h" />
     <ClInclude Include="..\include\Utils\Exceptions\FatalError.h" />
     <ClInclude Include="..\include\Utils\File.h" />
+    <ClInclude Include="..\include\Utils\Frameworks\Application.h" />
     <ClInclude Include="..\include\Utils\GL+\Context.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Component.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Container.h" />
@@ -126,6 +127,7 @@
     <ClCompile Include="..\src\Utils\Exception.cpp" />
     <ClCompile Include="..\src\Utils\Exceptions\FatalError.cpp" />
     <ClCompile Include="..\src\Utils\File.cpp" />
+    <ClCompile Include="..\src\Utils\Frameworks\Application.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Context.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp" />

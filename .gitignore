@@ -1,12 +1,24 @@
-bin/*.lib
-examples/basic/bin/*
+*.sdf
+*.opensdf
+*.pdb
+*.obj
+*.dll
+*.lib
+*.exe
+
+examples/framework/bin/assets/shaders/*
+
 libs/*
 personal/*
+
 project/build/*
+
 project/Basic example/build/*
 project/Basic example/examples/*
 project/Basic example/Debug/*
 project/Basic example/Release/*
-*.sdf
-*.pdb
-*.obj
+
+project/Framework example/build/*
+project/Framework example/examples/*
+project/Framework example/Debug/*
+project/Framework example/Release/*

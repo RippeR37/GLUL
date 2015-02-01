@@ -21,6 +21,25 @@ namespace Util {
             return _next;
         }
 
+        void State::_update(const double frameTime) {
+            if(!shouldSkip())
+                update(frameTime);
+        }
+
+        void State::_render() {
+            if(!shouldSkip())
+                render();
+        }
+
+        void State::_onLoad() {
+            changeTo(this);
+            onLoad();
+        }
+
+        void State::_onUnload() {
+            onUnload();
+        }
+
         void State::changeTo(State* nextState) {
             _next = nextState;
         }

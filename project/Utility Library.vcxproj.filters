@@ -36,6 +36,12 @@
     <Filter Include="Header Files\Interfaces\MVC">
       <UniqueIdentifier>{a26bf68a-4efa-4103-81c4-5ef9f1ff063b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Frameworks">
+      <UniqueIdentifier>{767d6879-4d6c-416a-b3d6-bafcdca48807}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Frameworks">
+      <UniqueIdentifier>{b7c4b232-2301-4715-99f4-f171a50cc362}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Utils\Clock.h">
@@ -143,6 +149,9 @@
     <ClInclude Include="..\include\Utils\Interfaces\Model.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\Frameworks\Application.h">
+      <Filter>Header Files\Frameworks</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">
@@ -240,6 +249,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\Interfaces\Model.cpp">
       <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Frameworks\Application.cpp">
+      <Filter>Source Files\Frameworks</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
