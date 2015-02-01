@@ -17,7 +17,7 @@ namespace GL {
     Texture::Texture(const std::string& path, Target target, Format format, InternalFormat internalFormat) {
         create();
 
-        Util::Image image(path, Util::Image::Format::BMP);
+        Util::Image image(path, Util::Image::Format::Auto);
         load(image, target, format, internalFormat);
     }
     
@@ -202,7 +202,7 @@ namespace GL {
                     break;
 
                 default:
-                    throw Util::Exception::FatalError("Could not determine texture's color profile");
+                    throw Util::Exception::FatalError("Could not determine texture's color profile (bpp = " + std::to_string(image.getBits()) + ")");
                     break;
             }
 
