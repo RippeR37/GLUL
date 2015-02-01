@@ -73,7 +73,8 @@ namespace Util {
 
         FILE *file = fopen(path.c_str(), "rb");
         if(!file) {
-            
+            error = "Failed to load image file: " + path;
+            throw Exception::FatalError(error.c_str());
         }
 
         if(fread(header, 1, 54, file) != 54) {
