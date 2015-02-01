@@ -1,8 +1,10 @@
 #include <Utils/Image.h>
+#include <utils/File.h>
 
 #include <algorithm>
-#include <iterator>
 #include <cstdio>
+#include <fstream>
+#include <iterator>
 
 namespace Util {
 
@@ -13,8 +15,21 @@ namespace Util {
             case Format::BMP: 
                 loadBMP(path);
                 break;
-                
+
+            case Format::TGA:
+                loadTGA(path);
+                break;
+
             default:
+                std::string extension = Util::File::getExtension(path);
+
+                if(extension == "bmp" || extension == "BMP")
+                    loadBMP(path);
+                else if(extension == "tga" || extension == "TGA")
+                    loadTGA(path);
+                else
+                    throw Exception::FatalError("Unknown image extension: " + extension);
+
                 break;
         }
     }
@@ -113,6 +128,61 @@ namespace Util {
         }
 
         fclose(file);
+    }
+
+    void Image::loadTGA(const std::string& path) throw(Exception::FatalError) {
+        std::ifstream fileStream;
+        std::string error;
+        char buff[256];
+        char c;
+        char si_a[2];
+        char* si = (char*)&si_a[0];
+        int id_len, cm_type, type;
+        int cm_len;
+        int c_mode;
+
+        fileStream.open(path, std::fstream::binary);
+        if(fileStream.is_open() == false) {
+            error = "Failed to load image file: " + path;
+            throw Exception::FatalError(error.c_str());
+        }
+
+        fileStream.read(&c, 1);         id_len  = (int)c;
+        fileStream.read(&c, 1);         cm_type = (int)c;
+        fileStream.read(&c, 1);         type    = (int)c;
+
+        fileStream.read(si, 2);         // cm index
+        fileStream.read(si, 2);         cm_len  = (si[1] << 8) | si[0];
+        fileStream.read(&c, 1);         // cm bpp
+
+        fileStream.read(si, 2);         // x_or
+        fileStream.read(si, 2);         // y_or
+        fileStream.read(si, 2);         _width  = (si[1] << 8) | si[0];
+        fileStream.read(si, 2);         _height = (si[1] << 8) | si[0];
+        fileStream.read(&c, 1);         _bits = (int)c;
+        fileStream.read(&c, 1);         // img descriptor
+
+        c_mode = _bits / 8;
+        _size  = _width * _height * c_mode;
+
+        if(type != 2 && type != 3) {
+            error = "Unsupported TGA format (" + std::to_string(type) + " in file: " + path;
+            throw Exception::FatalError(error.c_str());
+        }
+
+        if(c_mode != 3 && c_mode != 4) {
+            error = "Unsupported TGA color bits (" + std::to_string(c_mode) +") in file: " + path;
+            throw Exception::FatalError(error.c_str());
+        }
+
+        if(id_len > 0)
+            fileStream.read(buff, id_len);
+        if(cm_type != 0 && cm_len > 0)
+            fileStream.read(buff, cm_len);
+
+        _data = new unsigned char[_size];
+        fileStream.read((char*)_data, _size);
+        fileStream.close();
     }
 
 }

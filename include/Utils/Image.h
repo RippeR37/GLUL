@@ -11,10 +11,10 @@ namespace Util {
         public:
             enum Format {
                 BMP,
-                // TGA,
+                TGA,
                 // JPG,
                 // PNG,
-                // AUTO,
+                Auto,
             };
 
         public:
@@ -31,7 +31,8 @@ namespace Util {
 
         private:
             void loadBMP(const std::string& path) throw(Exception::FatalError);
-            
+            void loadTGA(const std::string& path) throw(Exception::FatalError);
+
             unsigned int _size;
             unsigned int _width;
             unsigned int _height;
