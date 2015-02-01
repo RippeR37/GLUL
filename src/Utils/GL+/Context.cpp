@@ -2,7 +2,11 @@
 
 namespace GL {
 
-    Context& Context::Current = Context();
+
+    Context Context::DefaultContext;
+    Context& Context::Current = Context::DefaultContext;
+
+
 
     Context::Context() {
         setActive(false);

@@ -43,6 +43,7 @@ namespace GL {
             GLint getClearStencil() const;
 
             static Context& Current;
+            static Context DefaultContext;
 
         private:
             void setActive(bool flag);
