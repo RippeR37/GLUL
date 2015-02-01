@@ -1,7 +1,10 @@
 #include <Utils/String.h>
 
-#include <sstream>
+#include <algorithm>
+#include <functional>
 #include <istream>
+#include <sstream>
+#include <cctype>
 
 namespace Util {
     
@@ -21,6 +24,35 @@ namespace Util {
         std::vector<std::string> tokens;
         String::split(tokens, data, delimiter, skipEmpty);
         return tokens;
+    }
+
+    std::string& String::trim(std::string &string) {
+        rtrim(ltrim(string));
+        return string;
+    }
+
+    std::string& String::ltrim(std::string &string) {
+        string.erase(
+            string.begin(),
+            std::find_if(
+                string.begin(),
+                string.end(),
+                std::not1(std::ptr_fun<int, int>(std::isspace))
+            )
+        );
+        return string;
+    }
+
+    std::string& String::rtrim(std::string &string) {
+        string.erase(
+            std::find_if(
+                string.rbegin(),
+                string.rend(),
+                std::not1(std::ptr_fun<int, int>(std::isspace))
+            ).base(), 
+            string.end()
+        );
+        return string;
     }
 
     bool String::startsWith(const std::string& string, const std::string& prefix) {
