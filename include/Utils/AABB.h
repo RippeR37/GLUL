@@ -15,6 +15,8 @@ namespace Util {
             AABB();
             AABB(const glm::vec3& min, const glm::vec3& max);
 
+            void clear();
+
             bool intersect(const AABB& box2) const;
             void render(const GL::Pipeline& pipeline) const;
             void updateBy(const glm::vec3& vertex);

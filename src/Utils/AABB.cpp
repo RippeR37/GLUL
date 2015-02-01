@@ -15,6 +15,12 @@ namespace Util {
         _initialized = false;
     }
 
+    void AABB::clear() {
+        setMin(glm::vec3(0.0f));
+        setMax(glm::vec3(0.0f));
+        _initialized = false;
+    }
+
     bool AABB::intersect(const AABB& box2) const {
         bool result;
 
@@ -102,9 +108,13 @@ namespace Util {
     }
 
     bool AABB::intersect(const AABB& box1, const AABB& box2) {
-        //TODO: Finish intersection for AABBes
+        glm::bvec3 intersect(true);
+
+        intersect.x = (box1.getMax().x > box2.getMin().x) && (box1.getMin().x < box2.getMax().x);
+        intersect.y = (box1.getMax().y > box2.getMin().y) && (box2.getMin().y < box2.getMax().y);
+        intersect.z = (box1.getMax().z > box2.getMin().z) && (box2.getMin().y < box2.getMax().y);
         
-        return false;
+        return (intersect.x && intersect.y && intersect.z);
     }
 
     void AABB::render(const AABB& box, const GL::Pipeline& pipeline) {
