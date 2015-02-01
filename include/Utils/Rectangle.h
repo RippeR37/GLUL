@@ -1,7 +1,7 @@
 #ifndef UTILS_RECTANGLE_H_INCLUDED
 #define UTILS_RECTANGLE_H_INCLUDED
 
-#include "Point.h"
+#include <Utils/Point.h>
 
 namespace Util {
 

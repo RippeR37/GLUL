@@ -1,7 +1,7 @@
 #ifndef UTILS_GL_PIPELINE_H_INCLUDED
 #define UTILS_GL_PIPELINE_H_INCLUDED
 
-#include "MatrixStack.h"
+#include <Utils/GL+/MatrixStack.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

@@ -1,8 +1,8 @@
 #ifndef UTILS_GL_GUI_COMPONENT_H_INCLUDED
 #define UTILS_GL_GUI_COMPONENT_H_INCLUDED
 
-#include "Event.h"
-#include "../../Rectangle.h"
+#include <Utils/GL+/GUI/Event.h>
+#include <Utils/Rectangle.h>
 
 #include <glm/vec2.hpp>
 

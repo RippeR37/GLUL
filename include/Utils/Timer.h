@@ -1,8 +1,8 @@
 #ifndef UTILS_TIMER_H_INCLUDED
 #define UTILS_TIMER_H_INCLUDED
 
-#include "Clock.h"
-#include "TimeEvent.h"
+#include <Utils/Clock.h>
+#include <Utils/TimeEvent.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

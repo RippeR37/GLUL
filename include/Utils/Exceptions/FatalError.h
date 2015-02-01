@@ -1,7 +1,7 @@
-#ifndef UTIL_EXCEPTION_FATALERROR_H_INCLUDED
-#define UTIL_EXCEPTION_FATALERROR_H_INCLUDED
+#ifndef UTILS_EXCEPTION_FATALERROR_H_INCLUDED
+#define UTILS_EXCEPTION_FATALERROR_H_INCLUDED
 
-#include "../Exception.h"
+#include <Utils/Exception.h>
 
 namespace Util {
 

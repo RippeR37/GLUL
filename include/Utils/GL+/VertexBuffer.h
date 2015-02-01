@@ -1,8 +1,8 @@
 #ifndef UTILS_GL_VERTEX_BUFFER_H_INCLUDED
 #define UTILS_GL_VERTEX_BUFFER_H_INCLUDED
 
-#include "VertexAttrib.h"
-#include "../Exception.h"
+#include <Utils/Exception.h>
+#include <Utils/GL+/VertexAttrib.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

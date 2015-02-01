@@ -1,8 +1,8 @@
 #ifndef UTILS_LINE_H_INCLUDED
 #define UTILS_LINE_H_INCLUDED
 
-#include "Exception.h"
-#include "Point.h"
+#include <Utils/Exception.h>
+#include <Utils/Point.h>
 
 #include <glm/vec2.hpp>
 #include <glm/geometric.hpp>

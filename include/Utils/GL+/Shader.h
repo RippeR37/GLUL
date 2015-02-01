@@ -1,7 +1,7 @@
 #ifndef UTILS_GL_SHADER_H_INCLUDED
 #define UTILS_GL_SHADER_H_INCLUDED
 
-#include "../Exception.h"
+#include <Utils/Exception.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

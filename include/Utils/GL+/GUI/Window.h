@@ -1,8 +1,8 @@
 #ifndef UTILS_GL_GUI_WINDOW_H_INCLUDED
 #define UTILS_GL_GUI_WINDOW_H_INCLUDED
 
-#include "Container.h"
-#include "../../Window.h"
+#include <Utils/GL+/GUI/Container.h>
+#include <Utils/Window.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

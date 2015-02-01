@@ -1,7 +1,7 @@
 #ifndef UTILS_GL_VERTEX_BUFFER_HPP_INCLUDED
 #define UTILS_GL_VERTEX_BUFFER_HPP_INCLUDED
 
-#include "VertexBuffer.h"
+#include <Utils/GL+/VertexBuffer.h>
 
 namespace GL {
 

@@ -1,7 +1,7 @@
 #ifndef UTILS_GL_GUI_CONTAINER_H_INCLUDED
 #define UTILS_GL_GUI_CONTAINER_H_INCLUDED
 
-#include "Component.h"
+#include <Utils/GL+/GUI/Component.h>
 
 #include <list>
 

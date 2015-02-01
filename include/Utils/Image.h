@@ -1,7 +1,7 @@
 #ifndef UTILS_IMAGE_H_INCLUDED
 #define UTILS_IMAGE_H_INCLUDED
 
-#include "Exception.h"
+#include <Utils/Exception.h>
 
 #include <string>
 

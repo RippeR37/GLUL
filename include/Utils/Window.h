@@ -1,8 +1,8 @@
-#ifndef UTIL_WINDOW_H_INCLUDED
-#define UTIL_WINDOW_H_INCLUDED
+#ifndef UTILS_WINDOW_H_INCLUDED
+#define UTILS_WINDOW_H_INCLUDED
 
-#include "Exception.h"
-#include "GL+/Context.h"
+#include <Utils/Exception.h>
+#include <Utils/GL+/Context.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

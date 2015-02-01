@@ -1,7 +1,7 @@
 #ifndef UTILS_GL_VERTEX_ARRAY_H_INCLUDED
 #define UTILS_GL_VERTEX_ARRAY_H_INCLUDED
 
-#include "VertexBuffer.h"
+#include <Utils/GL+/VertexBuffer.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

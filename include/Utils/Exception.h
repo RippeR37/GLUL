@@ -1,5 +1,5 @@
-#ifndef UTIL_EXCEPTION_H_INCLUDED
-#define UTIL_EXCEPTION_H_INCLUDED
+#ifndef UTILS_EXCEPTION_H_INCLUDED
+#define UTILS_EXCEPTION_H_INCLUDED
 
 #include <string>
 #include <exception>
