@@ -1,7 +1,6 @@
 *.sdf
 *.opensdf
 *.pdb
-*.obj
 *.dll
 *.lib
 *.exe
