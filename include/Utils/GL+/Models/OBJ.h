@@ -19,17 +19,13 @@ namespace GL {
                 OBJ(const std::string& path);
                 ~OBJ();
 
-                bool load(const std::string& path, 
-                    Util::Interface::Model::NormalType forcedNormalType = Util::Interface::Model::NormalType::Default);
-
+                bool load(const std::string& path, NormalType forcedNormalType = NormalType::Default);
                 bool clear();
 
                 void render(const GL::Pipeline& pipeline, const GL::Program& program) const;
                 void printStats(bool withDetails = false) const;
 
-                void computeNormals(
-                    Util::Interface::Model::NormalType type = Util::Interface::Model::NormalType::Default, 
-                    bool overwrite = false);
+                void computeNormals(NormalType type = NormalType::Default, bool overwrite = false);
 
                 const std::vector<Mesh>& getMeshes() const;
                 const std::unordered_map<std::string, Material>& getMaterials() const;
@@ -41,7 +37,7 @@ namespace GL {
                     std::vector<Mesh>& meshes,
                     std::unordered_map<std::string, Material>& materials,
                     std::unordered_map<std::string, GL::Texture>& textures,
-                    Util::Interface::Model::NormalType forcedNormalType = Util::Interface::Model::NormalType::Default
+                    NormalType forcedNormalType = NormalType::Default
                 );
 
                 static bool loadMaterials(

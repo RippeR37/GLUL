@@ -24,7 +24,7 @@ namespace GL {
 
         }
 
-        bool OBJ::load(const std::string& path, Util::Interface::Model::NormalType forcedNormalType) {
+        bool OBJ::load(const std::string& path, NormalType forcedNormalType) {
             return parseFile(path, getAABB(), getMeshes(), getMaterials(), getTextures(), forcedNormalType);
         }
 
@@ -77,7 +77,7 @@ namespace GL {
             }
         }
 
-        void OBJ::computeNormals(Util::Interface::Model::NormalType type, bool overwrite) {
+        void OBJ::computeNormals(NormalType type, bool overwrite) {
             for(auto& mesh : getMeshes()) {
                 mesh.computeNormals(type, overwrite);
                 mesh.build();
@@ -90,7 +90,7 @@ namespace GL {
             std::vector<Mesh>& meshes,
             std::unordered_map<std::string, Material>& materials, 
             std::unordered_map<std::string, GL::Texture>& textures, 
-            Util::Interface::Model::NormalType forcedNormalType) 
+            NormalType forcedNormalType) 
 
         {
             int lineNumber = 0;
@@ -112,7 +112,7 @@ namespace GL {
             fileName = Util::File::getFilenameExtensionless(path);
             relativePath = Util::File::getPath(path) + "/";
             meshInitialized = false;
-            smoothNormals = (forcedNormalType == Util::Interface::Model::NormalType::Smooth);
+            smoothNormals = (forcedNormalType == NormalType::Smooth);
             
             objFile.open(path);
 
@@ -142,13 +142,13 @@ namespace GL {
                         } else if(tokens[0] == "usemtl") {
                             if(tokens.size() > 1) {
                                 if(meshes.size() > 0) {
-                                    if(forcedNormalType != Util::Interface::Model::NormalType::Default) {
+                                    if(forcedNormalType != NormalType::Default) {
                                         meshes.back().computeNormals(forcedNormalType, false);
                                     } else {
                                         if(smoothNormals)
-                                            meshes.back().computeNormals(Util::Interface::Model::NormalType::Smooth);
+                                            meshes.back().computeNormals(NormalType::Smooth);
                                         else
-                                            meshes.back().computeNormals(Util::Interface::Model::NormalType::Flat);
+                                            meshes.back().computeNormals(NormalType::Flat);
                                     }
                                 }
 
@@ -348,13 +348,13 @@ namespace GL {
                 }
 
                 if(meshInitialized) {
-                    if(forcedNormalType != Util::Interface::Model::NormalType::Default) {
+                    if(forcedNormalType != NormalType::Default) {
                         meshes.back().computeNormals(forcedNormalType, false);
                     } else {
                         if(smoothNormals)
-                            meshes.back().computeNormals(Util::Interface::Model::NormalType::Smooth);
+                            meshes.back().computeNormals(NormalType::Smooth);
                         else
-                            meshes.back().computeNormals(Util::Interface::Model::NormalType::Flat);
+                            meshes.back().computeNormals(NormalType::Flat);
                     }
                 }
 
