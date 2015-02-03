@@ -12,16 +12,23 @@ namespace Util {
 
         }
 
-        void Model::reload() {
-            clear();
-            load(getPath());
+        bool Model::reload() {
+            if(clear())
+                if(load(getPath()))
+                    return true;
+            
+            return false;
+        }
+
+        void Model::render(const GL::Pipeline& pipeline) const {
+            render(pipeline, _program);
         }
 
         void Model::renderAABB(const GL::Pipeline& pipeline, bool detailed) const {
             _aabb.render(pipeline);
         }
 
-        void Model::update() {
+        void Model::update(double deltaTime) {
 
         }
 

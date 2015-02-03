@@ -1,6 +1,8 @@
 #ifndef UTILS_GL_PIPELINE_H_INCLUDED
 #define UTILS_GL_PIPELINE_H_INCLUDED
 
+#include <Utils/Exception.h>
+#include <Utils/Interfaces/Camera.h>
 #include <Utils/GL+/MatrixStack.h>
 
 #include <GL/glew.h>
@@ -11,34 +13,43 @@ namespace GL {
 
     class Pipeline {
         public:
+            enum class ViewSource {
+                Camera,
+                Matrix
+            };
+
+        public:
             Pipeline();
             ~Pipeline();
+
+            void setViewSource(ViewSource source);
+            void setCamera(const Util::Interface::Camera* camera);
+
+            void setModel() const;
+            void setModel(const glm::mat4& modelMatrix) const;
+
+            void setView();
+            void setView(const Util::Interface::Camera* camera);
+            void setView(const glm::mat4& viewMatrix);
 
             void setProjection();
             void setProjection(float fov, float aspect, float near, float far);
             void setProjection(const glm::mat4& projectionMatrix);
 
-            glm::mat4  getMVP();
-            MatrixStack& getStack();
-
+            const glm::mat4 getMV() const;
+            const glm::mat4 getMVP() const;
+            const glm::mat4& getModel() const;
+            const glm::mat4& getView() const throw(Util::Exception::FatalError);
             const glm::mat4& getProjection() const;
-            const glm::mat4& getModelView() const;
-            const glm::mat4  getMVP() const;
-            const MatrixStack& getStack() const;
-
-            float getFoV() const;
-            float getAspect() const;
-            float getNear() const;
-            float getFar() const;
+            const Util::Interface::Camera* getCamera() const;
 
         private:
-            float _fieldOfView;
-            float _aspectRation;
-            float _nearClip;
-            float _farClip;
+            glm::mat4 _model;
+            glm::mat4 _view;
+            glm::mat4 _projection;
 
-            glm::mat4   _projection;
-            MatrixStack _modelView;
+            ViewSource _viewSource;
+            const Util::Interface::Camera* _camera;
     };
 
 }

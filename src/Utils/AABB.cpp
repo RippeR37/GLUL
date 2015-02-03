@@ -146,6 +146,8 @@ namespace Util {
             vao.setDrawTarget(GL::VertexArray::DrawTarget::Lines);
         }
 
+        pipeline.setModel();
+
         vbo.bind();
             vbo.setData(vertices);
         vbo.unbind();

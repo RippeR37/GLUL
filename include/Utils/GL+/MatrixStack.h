@@ -14,13 +14,22 @@ namespace GL {
             MatrixStack();
             ~MatrixStack();
 
-            void loadID();
-            void loadMatrix(const glm::mat4& matrix);
-            void multiplyMatrix(const glm::mat4& matrix);
+            MatrixStack& operator*=(const glm::mat4& matrix);   // alias for multiply(const glm::mat4&)
+            MatrixStack& operator+=(const glm::mat4& matrix);   // alias for push(const glm::mat4&)
+            MatrixStack& operator<<(const glm::mat4& matrix);   // alias for push(const glm::mat4&)
+            MatrixStack& operator>>(glm::mat4& matrix);         // alias for pop() with value assignment
+            MatrixStack& operator--();                          // alias for pop()
+            MatrixStack& operator++();                          // alias for push()
 
-            void popMatrix();
-            void pushMatrix();
-            void pushMatrix(const glm::mat4& matrix);
+            void clear();
+
+            void set();
+            void set(const glm::mat4& matrix);
+            void multiply(const glm::mat4& matrix);
+
+            void pop();
+            void push();
+            void push(const glm::mat4& matrix);
 
             void rotate(float angle, float x, float y, float z);
             void rotate(float angle, const glm::vec3& vector);
@@ -31,7 +40,7 @@ namespace GL {
             void scale(float x, float y, float z);
             void scale(const glm::vec3& vector);
 
-            const glm::mat4& getMatrix() const;
+            const glm::mat4& get() const;
 
         private:
             std::stack<glm::mat4> _stack;

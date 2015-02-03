@@ -16,29 +16,64 @@ namespace GL {
 
     }
 
-
-    void MatrixStack::loadID() {
-        loadMatrix(glm::mat4(1.0f));
+    MatrixStack& MatrixStack::operator*=(const glm::mat4& matrix) {
+        multiply(matrix);
+        return *this;
     }
 
-    void MatrixStack::loadMatrix(const glm::mat4& matrix) {
+    MatrixStack& MatrixStack::operator+=(const glm::mat4& matrix) {
+        push(matrix);
+        return *this;
+    }
+
+    MatrixStack& MatrixStack::operator<<(const glm::mat4& matrix) {
+        push(matrix);
+        return *this;
+    }
+
+    MatrixStack& MatrixStack::operator>>(glm::mat4& matrix) {
+        matrix = get();
+        pop();
+        return *this;
+    }
+
+    MatrixStack& MatrixStack::operator--() {
+        pop();
+        return *this;
+    }
+
+    MatrixStack& MatrixStack::operator++() {
+        push();
+        return *this;
+    }
+
+    void MatrixStack::clear() {
+        while(_stack.size() > 0)
+            _stack.pop();
+    }
+
+    void MatrixStack::set() {
+        set(glm::mat4(1.0f));
+    }
+
+    void MatrixStack::set(const glm::mat4& matrix) {
         _stack.top() = matrix;
     }
 
-    void MatrixStack::multiplyMatrix(const glm::mat4& matrix) {
+    void MatrixStack::multiply(const glm::mat4& matrix) {
         _stack.top() *= matrix;
     }
 
 
-    void MatrixStack::popMatrix() {
+    void MatrixStack::pop() {
         _stack.pop();
     }
 
-    void MatrixStack::pushMatrix() {
-        pushMatrix(_stack.top());
+    void MatrixStack::push() {
+        push(_stack.top());
     }
 
-    void MatrixStack::pushMatrix(const glm::mat4& matrix) {
+    void MatrixStack::push(const glm::mat4& matrix) {
         _stack.push(matrix);
     }
 
@@ -70,7 +105,7 @@ namespace GL {
     }
 
 
-    const glm::mat4& MatrixStack::getMatrix() const {
+    const glm::mat4& MatrixStack::get() const {
         return _stack.top();
     }
 

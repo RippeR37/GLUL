@@ -3,6 +3,7 @@
 
 #include <Utils/AABB.h>
 #include <Utils/GL+/Pipeline.h>
+#include <Utils/GL+/Program.h>
 
 #include <string>
 
@@ -15,13 +16,14 @@ namespace Util {
                 Model();
                 virtual ~Model();
 
-                virtual void load(const std::string& path) = 0;
-                virtual void reload();
-                virtual void clear() = 0;
+                virtual bool load(const std::string& path) = 0;
+                virtual bool reload();
+                virtual bool clear() = 0;
 
-                virtual void render(const GL::Pipeline& pipeline) const = 0;
+                virtual void render(const GL::Pipeline& pipeline) const;
+                virtual void render(const GL::Pipeline& pipeline, const GL::Program& program) const = 0;
                 virtual void renderAABB(const GL::Pipeline& pipeline, bool detailed = false) const;
-                virtual void update();
+                virtual void update(double deltaTime = 0.0);
 
                 virtual void printStats(bool detailed = false) const;
 
@@ -34,15 +36,15 @@ namespace Util {
                 const AABB& getAABB() const;
                 const std::string& getPath() const;
 
-            private:
+            protected:
                 AABB& getAABB();
 
-            private:
                 bool _hasVertices;
                 bool _hasTexCoords;
                 bool _hasNormals;
                 AABB _aabb;
                 std::string _path;
+                GL::Program _program;
         };
 
     }
