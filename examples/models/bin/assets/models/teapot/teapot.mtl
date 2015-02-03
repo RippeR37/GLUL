@@ -1,0 +1,11 @@
+# Test material made myself
+# Materials: 1
+
+newmtl green
+Ns 100.0
+Ka 0.000000 0.150000 0.000000
+Kd 0.150000 0.800000 0.150000
+Ks 0.330000 0.330000 0.330000
+Ns 35.00000
+d 1.000000
+illum 2

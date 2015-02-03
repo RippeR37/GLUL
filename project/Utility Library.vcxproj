@@ -97,6 +97,9 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Window.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Text.h" />
     <ClInclude Include="..\include\Utils\GL+\MatrixStack.h" />
+    <ClInclude Include="..\include\Utils\GL+\Models\Material.h" />
+    <ClInclude Include="..\include\Utils\GL+\Models\Mesh.h" />
+    <ClInclude Include="..\include\Utils\GL+\Models\OBJ.h" />
     <ClInclude Include="..\include\Utils\GL+\Pipeline.h" />
     <ClInclude Include="..\include\Utils\GL+\Program.h" />
     <ClInclude Include="..\include\Utils\GL+\Shader.h" />
@@ -135,6 +138,9 @@
     <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp" />
     <ClCompile Include="..\src\Utils\GL+\MatrixStack.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\Models\Material.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\Models\Mesh.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\Models\OBJ.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Pipeline.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Program.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Shader.cpp" />

@@ -12,6 +12,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Basic example", "Basic exam
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Framework example", "Framework example\Framework example.vcxproj", "{47A58469-C5C9-4EE3-9B52-C654D45FC0D0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Models example", "Models example\Models example.vcxproj", "{597F25EF-34F4-4867-97C9-765D20B37A3B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -30,6 +32,10 @@ Global
 		{47A58469-C5C9-4EE3-9B52-C654D45FC0D0}.Debug|Win32.Build.0 = Debug|Win32
 		{47A58469-C5C9-4EE3-9B52-C654D45FC0D0}.Release|Win32.ActiveCfg = Release|Win32
 		{47A58469-C5C9-4EE3-9B52-C654D45FC0D0}.Release|Win32.Build.0 = Release|Win32
+		{597F25EF-34F4-4867-97C9-765D20B37A3B}.Debug|Win32.ActiveCfg = Debug|Win32
+		{597F25EF-34F4-4867-97C9-765D20B37A3B}.Debug|Win32.Build.0 = Debug|Win32
+		{597F25EF-34F4-4867-97C9-765D20B37A3B}.Release|Win32.ActiveCfg = Release|Win32
+		{597F25EF-34F4-4867-97C9-765D20B37A3B}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -42,6 +42,12 @@
     <Filter Include="Source Files\Frameworks">
       <UniqueIdentifier>{b7c4b232-2301-4715-99f4-f171a50cc362}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GL+\Models">
+      <UniqueIdentifier>{a21b1d94-ee0a-4239-9525-9b4ac4ed0fb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GL+\Models">
+      <UniqueIdentifier>{64976592-a0d6-4ffb-a712-7c64efae302f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Utils\Clock.h">
@@ -152,6 +158,15 @@
     <ClInclude Include="..\include\Utils\Frameworks\Application.h">
       <Filter>Header Files\Frameworks</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\Models\OBJ.h">
+      <Filter>Header Files\GL+\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\Models\Mesh.h">
+      <Filter>Header Files\GL+\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\Models\Material.h">
+      <Filter>Header Files\GL+\Models</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">
@@ -252,6 +267,15 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\Frameworks\Application.cpp">
       <Filter>Source Files\Frameworks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\Models\OBJ.cpp">
+      <Filter>Source Files\GL+\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\Models\Mesh.cpp">
+      <Filter>Source Files\GL+\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\Models\Material.cpp">
+      <Filter>Source Files\GL+\Models</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

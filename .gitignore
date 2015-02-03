@@ -7,6 +7,7 @@
 *.exe
 
 examples/framework/bin/assets/shaders/*
+examples/models/bin/assets/shaders/*
 
 libs/*
 personal/*
@@ -22,3 +23,8 @@ project/Framework example/build/*
 project/Framework example/examples/*
 project/Framework example/Debug/*
 project/Framework example/Release/*
+
+project/Models example/build/*
+project/Models example/examples/*
+project/Models example/Debug/*
+project/Models example/Release/*
