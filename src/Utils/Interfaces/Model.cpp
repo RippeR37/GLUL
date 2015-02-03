@@ -14,7 +14,7 @@ namespace Util {
 
         bool Model::reload() {
             if(clear())
-                if(load(getPath()))
+                if(load(getPath(), Util::Interface::Model::NormalType::Default))
                     return true;
             
             return false;
@@ -36,12 +36,12 @@ namespace Util {
 
         }
 
-        void Model::computeFlatNormals(bool overwrite) {
-
+        void Model::setMatrix() {
+            setMatrix(glm::mat4(1.0f));
         }
 
-        void Model::computeSmoothNormals(bool overwrite) {
-
+        void Model::setMatrix(const glm::mat4& matrix) {
+            _matrix = matrix;
         }
 
         const bool Model::hasVertices() const {
@@ -64,8 +64,16 @@ namespace Util {
             return _path;
         }
 
+        const glm::mat4& Model::getMatrix() const {
+            return _matrix;
+        }
+
         AABB& Model::getAABB() {
             return _aabb;
+        }
+
+        glm::mat4& Model::getMatrix() {
+            return _matrix;
         }
     
     }
