@@ -9,6 +9,7 @@ Library provides:
     - states
     - models (i.e. 2D/3D models used by games/visualizations)
 - Framework(s) to speed-up building small-to-medium applications and games
+- Model loaders (i.e. OBJ model loader with full integration to library)
 - Many usefull modules (e.g. timing, clocks, window managers) and algorithms, like:
     - operations on strings, files, etc.
     - collision detection
@@ -21,6 +22,10 @@ Library strongly uses C++11 features like move constructors/assignment operators
 - OpenGL Wrapper
     - Contexts
     - Matrix stacks
+    - Model storage and manipulation
+        - Materials
+        - Meshes
+        - OBJ loader
     - Pipelines
     - Programs
         - Shaders
