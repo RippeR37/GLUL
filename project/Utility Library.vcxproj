@@ -107,8 +107,9 @@
     <ClInclude Include="..\include\Utils\GL+\Uniform.h" />
     <ClInclude Include="..\include\Utils\GL+\VertexArray.h" />
     <ClInclude Include="..\include\Utils\GL+\VertexAttrib.h" />
+    <ClInclude Include="..\include\Utils\GL+\Buffer.h" />
+    <ClInclude Include="..\include\Utils\GL+\Buffer.hpp" />
     <ClInclude Include="..\include\Utils\GL+\VertexBuffer.h" />
-    <ClInclude Include="..\include\Utils\GL+\VertexBuffer.hpp" />
     <ClInclude Include="..\include\Utils\Image.h" />
     <ClInclude Include="..\include\Utils\Interfaces\Camera.h" />
     <ClInclude Include="..\include\Utils\Interfaces\Model.h" />
@@ -148,6 +149,7 @@
     <ClCompile Include="..\src\Utils\GL+\Uniform.cpp" />
     <ClCompile Include="..\src\Utils\GL+\VertexArray.cpp" />
     <ClCompile Include="..\src\Utils\GL+\VertexAttrib.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\Buffer.cpp" />
     <ClCompile Include="..\src\Utils\GL+\VertexBuffer.cpp" />
     <ClCompile Include="..\src\Utils\Image.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\Camera.cpp" />

@@ -79,9 +79,6 @@ namespace Util {
                     }
 
                     virtual void initVBO() {
-                        _vbo.setUsage(GL::VertexBuffer::Usage::StaticDraw);
-                        _vbo.setTarget(GL::VertexBuffer::Target::Array);
-
                         _vbo.bind();
                             setVertexData();
                         _vbo.unbind();

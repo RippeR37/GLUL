@@ -28,11 +28,6 @@ namespace GL {
         }
 
         void Mesh::build() {
-            for(auto& vbo : { &_vboV, &_vboN, &_vboT }) {
-                vbo->setTarget(GL::VertexBuffer::Target::Array);
-                vbo->setUsage(GL::VertexBuffer::Usage::StaticDraw);
-            }
-
             _vao.bind();
 
                 _vboV.bind();

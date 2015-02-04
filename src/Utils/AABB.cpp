@@ -133,8 +133,6 @@ namespace Util {
             );
 
             vbo.setUsage(GL::VertexBuffer::Usage::DynamicDraw);
-            vbo.setTarget(GL::VertexBuffer::Target::Array);
-
             vao.bind();
                 vbo.bind();
                     vao.enableAttrib(0);

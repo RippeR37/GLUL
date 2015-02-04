@@ -113,12 +113,6 @@
     <ClInclude Include="..\include\Utils\GL+\VertexAttrib.h">
       <Filter>Header Files\GL+</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\VertexBuffer.h">
-      <Filter>Header Files\GL+</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\VertexBuffer.hpp">
-      <Filter>Header Files\GL+</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Utils\GL+\GUI\Component.h">
       <Filter>Header Files\GL+\GUI</Filter>
     </ClInclude>
@@ -166,6 +160,15 @@
     </ClInclude>
     <ClInclude Include="..\include\Utils\GL+\Models\Material.h">
       <Filter>Header Files\GL+\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\Buffer.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\Buffer.hpp">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\VertexBuffer.h">
+      <Filter>Header Files\GL+</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -232,9 +235,6 @@
     <ClCompile Include="..\src\Utils\GL+\VertexAttrib.cpp">
       <Filter>Source Files\GL+</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\VertexBuffer.cpp">
-      <Filter>Source Files\GL+</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp">
       <Filter>Source Files\GL+\GUI</Filter>
     </ClCompile>
@@ -276,6 +276,12 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\GL+\Models\Material.cpp">
       <Filter>Source Files\GL+\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\Buffer.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\VertexBuffer.cpp">
+      <Filter>Source Files\GL+</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

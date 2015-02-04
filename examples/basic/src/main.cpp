@@ -30,8 +30,6 @@ void initVBO(GL::VertexBuffer& vbo, std::vector<glm::vec4>& vertices) {
     vertexData.pointers.push_back(GL::VertexAttrib(0, 4, GL_FLOAT, 0, 0)); // vertex attributes description
 
     // VBO settings
-    vbo.setTarget(GL::VertexBuffer::Target::Array);
-    vbo.setUsage(GL::VertexBuffer::Usage::StaticDraw);
     vbo.bind();
         vbo.setData(vertexData);
     vbo.unbind();
