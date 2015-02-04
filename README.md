@@ -20,6 +20,8 @@ Library strongly uses C++11 features like move constructors/assignment operators
 
 ### Modules
 - OpenGL Wrapper
+    - Buffers
+        - VertexBuffers
     - Contexts
     - Matrix stacks
     - Model storage and manipulation
@@ -33,7 +35,6 @@ Library strongly uses C++11 features like move constructors/assignment operators
     - Uniforms
     - Vertex arrays
         - Vertex attributes
-    - Vertex buffers
 - Frameworks
     - State flow application framework
     - _Interfaces for MVC framework elements_
