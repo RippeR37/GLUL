@@ -43,12 +43,29 @@ namespace GL {
         return *this;
     }
 
-    Uniform& Program::operator[](const std::string& uniformName) throw(std::out_of_range) {
-        return _uniforms.at(uniformName);
+    Uniform& Program::operator[](const std::string& uniformName) {
+        auto& uniformIterator = _uniforms.find(uniformName);
+
+        if(uniformIterator == _uniforms.end()) {
+            // TODO: log it
+
+            return _uniforms[uniformName];
+        } else {
+            return uniformIterator->second;
+        }
     }
 
-    const Uniform& Program::operator[](const std::string& uniformName) const throw(std::out_of_range) {
-        return _uniforms.at(uniformName);
+    const Uniform& Program::operator[](const std::string& uniformName) const {
+        auto& uniformIterator = _uniforms.find(uniformName);
+
+        if(uniformIterator == _uniforms.end()) {
+            // TODO: log it
+
+            Program* thisConstless = const_cast<Program*>(this);
+            return thisConstless->_uniforms[uniformName];
+        } else {
+            return uniformIterator->second;
+        }
     }
     
     void Program::load(const Shader& vertexShader, const Shader& fragmentShader) {
@@ -76,12 +93,12 @@ namespace GL {
         return _programID;
     }
 
-    GLuint Program::getUniformLocation(const std::string& uniformName) {
-        return _uniforms[uniformName].getLocation();
+    GLuint Program::getUniformLocation(const std::string& uniformName) const throw(std::out_of_range) {
+        return _uniforms.at(uniformName).getLocation();
     }
 
-    const Uniform& Program::getUniform(const std::string& uniformName) {
-        return _uniforms[uniformName];
+    const Uniform& Program::getUniform(const std::string& uniformName) const throw(std::out_of_range) {
+        return _uniforms.at(uniformName);
     }
 
     void Program::create() {

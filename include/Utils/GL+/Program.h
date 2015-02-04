@@ -8,7 +8,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <vector>
 #include <sstream>
@@ -24,8 +24,8 @@ namespace GL {
             ~Program();
 
             Program& operator=(Program&& program);
-            Uniform& operator[](const std::string& uniformName) throw(std::out_of_range);
-            const Uniform& operator[](const std::string& uniformName) const throw(std::out_of_range);
+            Uniform& operator[](const std::string& uniformName);
+            const Uniform& operator[](const std::string& uniformName) const;
 
             void load(const Shader& vertexShader, const Shader& fragmentShader);
             void use() const;
@@ -33,8 +33,9 @@ namespace GL {
 
             bool isLinked() const;
             GLuint getID() const;
-            GLuint getUniformLocation(const std::string& uniformName);
-            const Uniform& getUniform(const std::string& uniformName);
+
+            GLuint getUniformLocation(const std::string& uniformName) const throw(std::out_of_range);
+            const Uniform& getUniform(const std::string& uniformName) const throw(std::out_of_range);
 
         private:
             Program& operator=(const Program&);
@@ -47,7 +48,7 @@ namespace GL {
 
             bool _linked;
             GLuint _programID;
-            std::map<std::string, Uniform> _uniforms;
+            std::unordered_map<std::string, Uniform> _uniforms;
     };
 
 }
