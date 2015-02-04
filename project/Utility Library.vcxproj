@@ -91,6 +91,7 @@
     <ClInclude Include="..\include\Utils\File.h" />
     <ClInclude Include="..\include\Utils\Frameworks\Application.h" />
     <ClInclude Include="..\include\Utils\GL+\Context.h" />
+    <ClInclude Include="..\include\Utils\GL+\Framebuffer.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Component.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Container.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Event.h" />
@@ -133,6 +134,7 @@
     <ClCompile Include="..\src\Utils\File.cpp" />
     <ClCompile Include="..\src\Utils\Frameworks\Application.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Context.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\Framebuffer.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp" />

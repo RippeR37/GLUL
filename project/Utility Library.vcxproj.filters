@@ -170,6 +170,9 @@
     <ClInclude Include="..\include\Utils\GL+\VertexBuffer.h">
       <Filter>Header Files\GL+</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\Framebuffer.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">
@@ -281,6 +284,9 @@
       <Filter>Source Files\GL+</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Utils\GL+\VertexBuffer.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\Framebuffer.cpp">
       <Filter>Source Files\GL+</Filter>
     </ClCompile>
   </ItemGroup>
