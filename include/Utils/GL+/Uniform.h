@@ -19,6 +19,8 @@ namespace GL {
             void setSampler(GLint value) const;
 
         public:
+            template<typename T> void operator=(const T& value) const;
+
             template<typename T> void set(T v0) const;
             template<typename T> void set(T v0, T v1) const;
             template<typename T> void set(T v0, T v1, T v2) const;

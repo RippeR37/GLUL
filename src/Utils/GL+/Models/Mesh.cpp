@@ -116,12 +116,12 @@ namespace GL {
 
             program.use();
 
-                program["matrixMVP"].setMatrix(pipeline.getMVP());
-                program["uColorD"].setVec(glm::vec4(material.colorDiffuse,  1.0f));
-                program["uColorA"].setVec(glm::vec4(material.colorAmbient,  material.alphaFactor));
-                program["uColorS"].setVec(glm::vec4(material.colorSpecular, material.exponentSpecular));
-                program["hasTextures"].setVec(hasTextures);
-                program["texSampler"].setSampler(0);
+                program["matrixMVP"] = pipeline.getMVP();
+                program["uColorD"] = glm::vec4(material.colorDiffuse, 1.0f);
+                program["uColorA"] = glm::vec4(material.colorAmbient, material.alphaFactor);
+                program["uColorS"] = glm::vec4(material.colorSpecular, material.exponentSpecular);
+                program["hasTextures"] = hasTextures;
+                program["texSampler"] = 0;
 
                 _vao.bind();
                 _vao.drawArrays();
