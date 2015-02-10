@@ -30,12 +30,25 @@ namespace GL {
         glBindBuffer(static_cast<GLenum>(Buffer::Target::Array), getID());
     }
 
+    void VertexBuffer::setData(const VertexBuffer::Data& data) {
+        Buffer::setData(data.size, data.data);
+        setAttributes(data.pointers);
+    }
+
     void VertexBuffer::setTarget() {
         _target = Target::Array;
     }
 
+    void VertexBuffer::setAttributes(const std::list<VertexAttrib> attributes) {
+        _attributePointers = attributes;
+    }
+
     Buffer::Target VertexBuffer::getTarget() const {
         return Target::Array;
+    }
+
+    const std::list<VertexAttrib>& VertexBuffer::getAttributes() const {
+        return _attributePointers;
     }
 
 }

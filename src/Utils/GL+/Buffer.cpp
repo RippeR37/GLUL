@@ -50,9 +50,8 @@ namespace GL {
         glBufferData(static_cast<GLenum>(getTarget()), size, nullptr, static_cast<GLenum>(getUsage()));
     }
     
-    void Buffer::setData(const Data& data) {
+    void Buffer::setData(const Buffer::Data& data) {
         setData(data.size, data.data);
-        setAttributes(data.pointers);
     }
 
     void Buffer::setData(GLsizeiptr size, const GLvoid* data) {
@@ -75,10 +74,6 @@ namespace GL {
     void Buffer::setTarget(Target target) {
         _target = target;
     }
-    
-    void Buffer::setAttributes(const std::list<VertexAttrib> attributes) {
-        _attributePointers = attributes;
-    }
 
     GLuint Buffer::getID() const {
         return _bufferID;
@@ -90,10 +85,6 @@ namespace GL {
 
     Buffer::Target Buffer::getTarget() const {
         return _target;
-    }
-
-    const std::list<VertexAttrib>& Buffer::getAttributes() const {
-        return _attributePointers;
     }
 
     void Buffer::create() {
