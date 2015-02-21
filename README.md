@@ -11,10 +11,11 @@ Library provides:
 - Framework(s) to speed-up building small-to-medium applications and games
 - Model loaders (i.e. OBJ model loader with full integration to library)
 - Many usefull modules (e.g. timing, clocks, window managers) and algorithms, like:
+    - logging module
     - operations on strings, files, etc.
     - collision detection
     - and others...
-- _GUI module (**yet to be created**)_
+- _GUI module (**yet to be finished**)_
 
 Library strongly uses C++11 features like move constructors/assignment operators, lambdas, range-based loops, strongly typed pointers (with nullptr), strongly typed enumerations (_enum class_), hash maps etc. when it's clear much would be gained by it.
 
