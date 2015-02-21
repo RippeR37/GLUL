@@ -99,8 +99,8 @@ namespace GL {
             void destroy();
 
             GLuint _bufferID;
-            Usage  _usage;
             Target _target;
+            Usage  _usage;
     };
 
 }

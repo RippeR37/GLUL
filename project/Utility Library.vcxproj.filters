@@ -173,6 +173,9 @@
     <ClInclude Include="..\include\Utils\GL+\Framebuffer.h">
       <Filter>Header Files\GL+</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\PixelBuffer.h">
+      <Filter>Header Files\GL+</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">
@@ -287,6 +290,9 @@
       <Filter>Source Files\GL+</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Utils\GL+\Framebuffer.cpp">
+      <Filter>Source Files\GL+</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\PixelBuffer.cpp">
       <Filter>Source Files\GL+</Filter>
     </ClCompile>
   </ItemGroup>

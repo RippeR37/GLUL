@@ -44,8 +44,8 @@ namespace GL {
         private:
             std::list<VertexAttrib> _attributePointers;
 
-        public:
-            using GL::Buffer::setData;
+        public: 
+            using Buffer::setData;
     };
 
 }

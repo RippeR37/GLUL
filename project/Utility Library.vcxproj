@@ -102,6 +102,7 @@
     <ClInclude Include="..\include\Utils\GL+\Models\Mesh.h" />
     <ClInclude Include="..\include\Utils\GL+\Models\OBJ.h" />
     <ClInclude Include="..\include\Utils\GL+\Pipeline.h" />
+    <ClInclude Include="..\include\Utils\GL+\PixelBuffer.h" />
     <ClInclude Include="..\include\Utils\GL+\Program.h" />
     <ClInclude Include="..\include\Utils\GL+\Shader.h" />
     <ClInclude Include="..\include\Utils\GL+\Texture.h" />
@@ -147,6 +148,7 @@
     <ClCompile Include="..\src\Utils\GL+\Pipeline.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Program.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Shader.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\PixelBuffer.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Texture.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Uniform.cpp" />
     <ClCompile Include="..\src\Utils\GL+\VertexArray.cpp" />

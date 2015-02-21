@@ -5,13 +5,13 @@ namespace GL {
     VertexBuffer::VertexBuffer() : Buffer(Target::Array) {
 
     }
-
+    
     VertexBuffer::VertexBuffer(Usage usage) : Buffer(Target::Array, usage) {
-         
+
     }
 
     VertexBuffer::VertexBuffer(VertexBuffer&& vbo) : Buffer(std::move(vbo)) {
-
+        std::swap(_attributePointers, vbo._attributePointers);
     }
 
     VertexBuffer::~VertexBuffer() {
@@ -22,6 +22,7 @@ namespace GL {
         std::swap(_usage,    vbo._usage);
         std::swap(_target,   vbo._target);
         std::swap(_bufferID, vbo._bufferID);
+        std::swap(_attributePointers, vbo._attributePointers);
 
         return *this;
     }
