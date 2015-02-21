@@ -119,6 +119,7 @@
     <ClInclude Include="..\include\Utils\Interfaces\MVC\View.h" />
     <ClInclude Include="..\include\Utils\Interfaces\State.h" />
     <ClInclude Include="..\include\Utils\Line.h" />
+    <ClInclude Include="..\include\Utils\Logger.h" />
     <ClInclude Include="..\include\Utils\Point.h" />
     <ClInclude Include="..\include\Utils\Rectangle.h" />
     <ClInclude Include="..\include\Utils\String.h" />
@@ -160,6 +161,7 @@
     <ClCompile Include="..\src\Utils\Interfaces\Model.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\State.cpp" />
     <ClCompile Include="..\src\Utils\Line.cpp" />
+    <ClCompile Include="..\src\Utils\Logger.cpp" />
     <ClCompile Include="..\src\Utils\Point.cpp" />
     <ClCompile Include="..\src\Utils\Rectangle.cpp" />
     <ClCompile Include="..\src\Utils\String.cpp" />
