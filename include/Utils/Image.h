@@ -1,8 +1,6 @@
 #ifndef UTILS_IMAGE_H_INCLUDED
 #define UTILS_IMAGE_H_INCLUDED
 
-#include <Utils/Exception.h>
-
 #include <string>
 
 namespace Util {
@@ -30,8 +28,8 @@ namespace Util {
             unsigned char* getData() const;
 
         private:
-            void loadBMP(const std::string& path) throw(Exception::FatalError);
-            void loadTGA(const std::string& path) throw(Exception::FatalError);
+            void loadBMP(const std::string& path);
+            void loadTGA(const std::string& path);
 
             unsigned int _size;
             unsigned int _width;

@@ -1,5 +1,6 @@
 #include <Utils/Line.h>
 #include <Utils/Point.h>
+#include <Utils/Logger.h>
 
 namespace Util {
 
@@ -7,19 +8,19 @@ namespace Util {
         setLine(Point(0.0f, 0.0f), Point(1.0f, 1.0f));
     }
 
-    Line::Line(const Point& start, const Point& end) throw(Exception::FatalError) {
+    Line::Line(const Point& start, const Point& end) {
         setLine(start, end);
     }
 
-    Line::Line(const glm::vec2& start, const glm::vec2& end) throw(Exception::FatalError) {
+    Line::Line(const glm::vec2& start, const glm::vec2& end) {
         setLine(start, end);
     }
 
-    Line::Line(const Line& line) throw(Exception::FatalError) {
+    Line::Line(const Line& line) {
         setLine(line.getPoint1(), line.getPoint2());
     }
 
-    Line& Line::operator=(const Line& line) throw(Exception::FatalError) {
+    Line& Line::operator=(const Line& line) {
         setLine(line.getPoint1(), line.getPoint2());
         return *this;
     }
@@ -28,13 +29,13 @@ namespace Util {
         setLine(line.getPoint1(), line.getPoint2());
     }
 
-    void Line::setLine(const Point& start, const Point& end) throw(Exception::FatalError) {
+    void Line::setLine(const Point& start, const Point& end) {
         setLine(start.getPosition(), end.getPosition());
     }
 
-    void Line::setLine(const glm::vec2& start, const glm::vec2& end) throw(Exception::FatalError) {
+    void Line::setLine(const glm::vec2& start, const glm::vec2& end) {
         if(start == end)
-            throw Exception::FatalError("Line can't start and end in same point");
+            Util::Log::Stream("_Library").logWarning("Line should not start and end in same point");
 
         if(start.x < end.x || (start.x == end.x && start.y < end.y)) {
             _point1 = start;

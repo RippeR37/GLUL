@@ -1,5 +1,6 @@
 #include <Utils/Window.h>
 #include <Utils/Clock.h>
+#include <Utils/Logger.h>
 
 namespace Util {
 
@@ -64,6 +65,12 @@ namespace Util {
 
         Window::initializeGLEW();
 
+        if(isCreated())
+            Util::Log::Stream("_Library").log(
+                "Window '" + getTitle() + "' has been created with size: " +
+                std::to_string(getSize().x) + "x" + std::to_string(getSize().y)
+            );
+
         return isCreated();
     }
 
@@ -111,6 +118,8 @@ namespace Util {
         if(isCreated()) {
             glfwDestroyWindow(_handle);
             _handle = nullptr;
+
+            Util::Log::Stream("_Library").log("Window '" + getTitle() + "' has been destroyed");
         }
     }
 
@@ -251,10 +260,12 @@ namespace Util {
         static bool initialized = false;
 
         if(initialized == false) {
-            initialized = true;
-
-            if(glfwInit() == false)
+            if(glfwInit() == false) {
+                Util::Log::Stream("_Library").logError("Failed to initialize GLFW library");
                 throw Util::Exception::FatalError(std::string("Failed to initialize GLFW library."));
+            }
+
+            initialized = true;
         }
     }
 
@@ -262,11 +273,14 @@ namespace Util {
         static bool initialized = false;
 
         if(initialized == false) {
-            initialized = true;
             glewExperimental = GL_TRUE;
 
-            if(glewInit() != GLEW_OK)
+            if(glewInit() != GLEW_OK) {
+                Util::Log::Stream("_Library").logError("Failed to initialize GLEW library");
                 throw Util::Exception::FatalError(std::string("Failed to initialize GLEW library."));
+            }
+
+            initialized = true;
         }
     }
 
