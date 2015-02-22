@@ -13,6 +13,8 @@ namespace Util {
                 public:
                     void operator<<(const std::string& message);
                     void log(const std::string& message);
+                    void logError(const std::string& errorMessage);
+                    void logWarning(const std::string& warningMessage);
                     
                 private:
                     LoggerStream();

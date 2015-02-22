@@ -62,6 +62,15 @@ namespace Util {
         _stream << std::endl;
     }
 
+
+    void Logger::LoggerStream::logError(const std::string& errorMessage) {
+        log(std::string("[Error]: ") + errorMessage);
+    }
+
+    void Logger::LoggerStream::logWarning(const std::string& warningMessage) {
+        log(std::string("[Warning]: ") + warningMessage);
+    }
+
     bool Logger::LoggerStream::open() {
         if(_path != "")
             _stream.open(_path, std::ofstream::trunc);
