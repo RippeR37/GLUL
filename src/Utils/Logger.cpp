@@ -6,28 +6,35 @@
 
 namespace Util {
 
-    std::unordered_map<std::string, Logger::LoggerStream> Logger::_streams;
+    Logger::Logger() {
+        Stream("_Library", "logLibrary.log");
+    }
 
     Logger::~Logger() {
         for(auto& stream : _streams)
             stream.second.close();
     }
 
-    Logger::LoggerStream& Logger::Stream(const std::string& streamName, const std::string& streamPath) {
-        _streams.erase(streamName);
+    Logger& Logger::getInstance() {
+        static Logger instance;
+        return instance;
+    }
 
-        _streams[streamName].setName(streamName);
-        _streams[streamName].setPath(streamPath);
-        _streams[streamName].open();
+    Logger::LoggerStream& Logger::Stream(const std::string& streamName, const std::string& streamPath) {
+        getInstance()._streams.erase(streamName);
+
+        getInstance()._streams[streamName].setName(streamName);
+        getInstance()._streams[streamName].setPath(streamPath);
+        getInstance()._streams[streamName].open();
 
         return Stream(streamName);
     }
 
     Logger::LoggerStream& Logger::Stream(const std::string& streamName) {
-        if(_streams.count(streamName))
-            return _streams[streamName];
+        if(getInstance()._streams.count(streamName))
+            return getInstance()._streams[streamName];
         else
-            return _streams["Default"];
+            return getInstance()._streams["Default"];
     }
 
 
@@ -49,17 +56,16 @@ namespace Util {
 
     void Logger::LoggerStream::log(const std::string& message) {
         if(_name == "" || _path == "" || _stream.is_open() == false) {
-            _name = "Default";
-            _path = "logs/default.log";
-            _stream.open(_path, std::ofstream::trunc);
+            Logger::Stream("Default").log(message);
+
+        } else {
+            auto now = std::chrono::system_clock::now();
+            auto in_time_t = std::chrono::system_clock::to_time_t(now);
+
+            _stream << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X\t");
+            _stream << message;
+            _stream << std::endl;
         }
-
-        auto now = std::chrono::system_clock::now();
-        auto in_time_t = std::chrono::system_clock::to_time_t(now);
-
-        _stream << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X\t");
-        _stream << message;
-        _stream << std::endl;
     }
 
 
@@ -73,7 +79,7 @@ namespace Util {
 
     bool Logger::LoggerStream::open() {
         if(_path != "")
-            _stream.open(_path, std::ofstream::trunc);
+            _stream.open(_path, std::ios::out | std::ios::trunc);
 
         return _stream.is_open();
     }

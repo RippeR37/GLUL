@@ -45,7 +45,9 @@ namespace Util {
             Logger();
             ~Logger();
 
-            static std::unordered_map<std::string, LoggerStream> _streams;
+            static Logger& getInstance();
+
+            std::unordered_map<std::string, LoggerStream> _streams;
     };
 
     typedef Logger Log;
