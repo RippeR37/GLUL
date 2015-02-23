@@ -31,13 +31,13 @@ namespace GL {
             };
 
             enum class Format {
-                RED = GL_RED,
+                Red = GL_RED,
                 RG  = GL_RG,
                 RGB = GL_RGB,
                 BGR = GL_BGR,
                 RGBA = GL_RGBA,
                 BGRA = GL_BGRA,
-                REDInt = GL_RED_INTEGER,
+                RedInt = GL_RED_INTEGER,
                 RGInt  = GL_RG_INTEGER,
                 RGBInt = GL_RGB_INTEGER,
                 BGRInt = GL_BGR_INTEGER,
@@ -51,7 +51,7 @@ namespace GL {
             };
 
             enum class InternalFormat {
-                RED = GL_RED,
+                Red = GL_RED,
                 RG  = GL_RG,
                 RGB = GL_RGB,
                 RGBA = GL_RGBA,
