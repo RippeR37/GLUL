@@ -4,6 +4,7 @@
 *.dll
 *.lib
 *.exe
+*.log
 
 examples/framework/bin/assets/shaders/*
 examples/models/bin/assets/shaders/*
