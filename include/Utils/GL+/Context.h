@@ -29,6 +29,7 @@ namespace GL {
             void makeActive(Util::Window* window);
             void bindWindow(Util::Window* window);
 
+            void logErrors(bool flag);
 
             void clearBuffers(Context::BufferMask mask);
             
@@ -41,6 +42,8 @@ namespace GL {
             const glm::vec4& getClearColor() const;
             GLclampf getClearDepth() const;
             GLint getClearStencil() const;
+
+            static void APIENTRY logError(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
 
             static Context& Current;
             static Context DefaultContext;

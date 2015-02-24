@@ -2,7 +2,6 @@
 #define UTILS_GL_BUFFER_H_INCLUDED
 
 #include <Utils/Exception.h>
-#include <Utils/GL+/VertexAttrib.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -52,7 +51,6 @@ namespace GL {
 
                     GLvoid*    data;
                     GLsizeiptr size;
-                    std::list<VertexAttrib> pointers;
             };
 
         public:
@@ -71,19 +69,17 @@ namespace GL {
 
             void resize(GLsizeiptr size);
 
-            void setData(const Data& data);
+            virtual void setData(const Buffer::Data& data);
             void setData(GLsizeiptr size, const GLvoid* data);
             void setData(GLsizeiptr size, const GLvoid* data, Usage usage);
             void setSubData(GLintptr offset, GLsizeiptr size, const GLvoid* data);
             
             void setUsage(Usage usage);
             virtual void setTarget(Target target);
-            void setAttributes(const std::list<VertexAttrib> attributes);
 
             GLuint getID() const;
             Usage  getUsage() const;
             virtual Target getTarget() const;
-            const std::list<VertexAttrib>& getAttributes() const;
 
         public:
             template<typename T> 
@@ -102,11 +98,9 @@ namespace GL {
             void create();
             void destroy();
 
-            std::list<VertexAttrib> _attributePointers;
-
             GLuint _bufferID;
-            Usage  _usage;
             Target _target;
+            Usage  _usage;
     };
 
 }

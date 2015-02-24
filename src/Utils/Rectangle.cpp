@@ -1,5 +1,6 @@
 #include <Utils/Exception.h>
 #include <Utils/Rectangle.h>
+#include <Utils/Logger.h>
 
 namespace Util {
 
@@ -18,15 +19,18 @@ namespace Util {
     }
     
     bool Rectangle::intersect(const Line& line) const {
-        throw Exception::FatalError("Attempt to use not implemented functionality: Rectangle::intersect(line)");
+        Util::Log::Stream("_Library").logError("Attempt to use not implemented functionality: Rectangle::intersect(const Line&)");
+        throw Exception::FatalError("Attempt to use not implemented functionality: Rectangle::intersect(const Line&)");
     }
 
     bool Rectangle::intersect(const Point& point) const {
-        throw Exception::FatalError("Attempt to use not implemented functionality: Rectangle::intersect(point)");
+        Util::Log::Stream("_Library").logError("Attempt to use not implemented functionality: Rectangle::intersect(const Point&)");
+        throw Exception::FatalError("Attempt to use not implemented functionality: Rectangle::intersect(const Point&)");
     }
 
     bool Rectangle::intersect(const Rectangle& rectangle) const {
-        throw Exception::FatalError("Attempt to use not implemented functionality: Rectangle::intersect(rectangle)");
+        Util::Log::Stream("_Library").logError("Attempt to use not implemented functionality: Rectangle::intersect(const Rectangle&)");
+        throw Exception::FatalError("Attempt to use not implemented functionality: Rectangle::intersect(const Rectangle&)");
     }
 
     const Point& Rectangle::getPoint() const {

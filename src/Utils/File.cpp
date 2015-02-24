@@ -1,4 +1,5 @@
 #include <Utils/File.h>
+#include <Utils/Logger.h>
 
 namespace Util {
 
@@ -12,9 +13,13 @@ namespace Util {
             while(std::getline(fileStream, line))
                 result += "\n" + line;
             fileStream.close();
-        } else if(throwException) {
-            std::string errorMsg = "Could not open file: '" + path + "'";
-            throw Exception::FatalError(errorMsg.c_str());
+        } else {
+            Util::Log::Stream("_Library").logError("Could not open file: '" + path + "'");
+
+            if(throwException) {
+                std::string errorMsg = "Could not open file: '" + path + "'";
+                throw Exception::FatalError(errorMsg.c_str());
+            }
         }
 
         return result;
