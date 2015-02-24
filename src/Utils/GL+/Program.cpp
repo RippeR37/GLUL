@@ -124,10 +124,10 @@ namespace GL {
         glGetProgramiv(_programID, GL_LINK_STATUS, &result);
         glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &infoLen);
         programErrorMsg.resize(infoLen);
-        glGetProgramInfoLog(_programID, infoLen, NULL, &programErrorMsg[0]);
+        glGetProgramInfoLog(_programID, infoLen, NULL, programErrorMsg.data());
 
         if(result != GL_TRUE) {
-            std::string errorMsg = std::string("Program linking failed:") + std::string(&programErrorMsg[0]);
+            std::string errorMsg = std::string("Program linking failed:") + std::string(programErrorMsg.data());
             throw Util::Exception::FatalError(errorMsg.c_str());
         }
         
