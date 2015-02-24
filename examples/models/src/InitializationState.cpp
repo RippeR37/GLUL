@@ -3,8 +3,6 @@
 #include <Utils/Frameworks/Application.h>
 #include <Utils/TimeLoop.h>
 
-#include <iostream>
-
 InitializationState::InitializationState() {
 
 }
@@ -16,8 +14,6 @@ InitializationState::~InitializationState() {
 void InitializationState::update(const double frameTime) {
     if(_workState)
         _workState->update(frameTime);
-    else
-        std::cout << "InitializationState::update()" << std::endl;
 }
 
 void InitializationState::render() {

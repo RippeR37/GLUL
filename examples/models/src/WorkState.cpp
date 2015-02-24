@@ -28,7 +28,7 @@ void WorkState::update(const double frameTime) {
 
 void WorkState::render() {
     GL::Context::Current.clearBuffers(GL::Context::BufferMask::Color_Depth);
-    
+
     _modelOBJ[0].render(_pipeline);
     _modelOBJ[1].render(_pipeline);
 }
