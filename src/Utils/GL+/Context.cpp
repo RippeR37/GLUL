@@ -30,9 +30,13 @@ namespace GL {
     void Context::logErrors(bool flag) {
         if(GLEW_ARB_debug_output) {
             if(flag) {
+                glEnable(GL_DEBUG_OUTPUT);
+                glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
                 glDebugMessageCallbackARB(&Context::logError, nullptr);
                 Util::Log::Stream("_OpenGL") << "Logging OpenGL errors has started";
             } else {
+                glDisable(GL_DEBUG_OUTPUT);
+                glDisable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
                 glDebugMessageCallbackARB(nullptr, nullptr);
                 Util::Log::Stream("_OpenGL") << "Logging OpenGL errors has ended";
             }
