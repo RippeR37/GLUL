@@ -30,23 +30,29 @@ namespace GL {
         void Mesh::build() {
             _vao.bind();
 
-                _vboV.bind();
-                    _vboV.setData(vertices);
-                    _vao.enableAttrib(0);
-                    _vao.setAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-                _vboV.unbind();
+                if(vertices.size() > 0) {
+                    _vboV.bind();
+                        _vboV.setData(vertices);
+                        _vao.enableAttrib(0);
+                        _vao.setAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+                    _vboV.unbind();
+                }
 
-                _vboT.bind();
-                    _vboT.setData(texCoords);
-                    _vao.enableAttrib(1);
-                    _vao.setAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
-                _vboT.unbind();
+                if(texCoords.size() > 0) {
+                    _vboT.bind();
+                        _vboT.setData(texCoords);
+                        _vao.enableAttrib(1);
+                        _vao.setAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+                    _vboT.unbind();
+                }
 
-                _vboN.bind();
-                    _vboN.setData(normals);
-                    _vao.enableAttrib(2);
-                    _vao.setAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
-                _vboN.unbind();
+                if(normals.size() > 0) {
+                    _vboN.bind();
+                        _vboN.setData(normals);
+                        _vao.enableAttrib(2);
+                        _vao.setAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
+                    _vboN.unbind();
+                }
 
             _vao.unbind();
 
