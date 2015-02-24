@@ -4,6 +4,8 @@
 #include <chrono>
 #include <ctime>
 
+#include <iostream>
+
 namespace Util {
 
     Logger::Logger() {
@@ -12,8 +14,7 @@ namespace Util {
     }
 
     Logger::~Logger() {
-        for(auto& stream : _streams)
-            stream.second.close();
+
     }
 
     Logger& Logger::getInstance() {
@@ -32,7 +33,7 @@ namespace Util {
     }
 
     Logger::LoggerStream& Logger::Stream(const std::string& streamName) {
-        if(getInstance()._streams.count(streamName))
+        if(getInstance()._streams.count(streamName)) 
             return getInstance()._streams[streamName];
         else
             return getInstance()._streams["Default"];

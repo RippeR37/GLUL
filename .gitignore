@@ -5,6 +5,7 @@
 *.lib
 *.exe
 *.log
+*.ilk
 
 examples/framework/bin/assets/shaders/*
 examples/models/bin/assets/shaders/*

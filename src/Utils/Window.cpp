@@ -17,6 +17,8 @@ namespace Util {
         setDestroyCallback([this]() {
             destroy();
         });
+
+        Util::Log::Stream("_Library"); //create logger instance before window so that logger outlive it
     }
     
     Window::Window(unsigned int width, unsigned int height, const std::string& title) {
