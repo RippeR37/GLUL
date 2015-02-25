@@ -1,4 +1,5 @@
 #include <Utils/GL+/Program.h>
+#include <Utils/Logger.h>
 #include <Utils/File.h>
 
 #include <iostream>
@@ -47,7 +48,7 @@ namespace GL {
         auto& uniformIterator = _uniforms.find(uniformName);
 
         if(uniformIterator == _uniforms.end()) {
-            // TODO: log it
+            Util::Log::Stream("_Library") << "Request for non-existent uniform '" + uniformName + "'";
 
             return _uniforms[uniformName];
         } else {
@@ -59,7 +60,7 @@ namespace GL {
         auto& uniformIterator = _uniforms.find(uniformName);
 
         if(uniformIterator == _uniforms.end()) {
-            // TODO: log it
+            Util::Log::Stream("_Library") << "Request for non-existent uniform '" + uniformName + "'";
 
             Program* thisConstless = const_cast<Program*>(this);
             return thisConstless->_uniforms[uniformName];
@@ -79,6 +80,8 @@ namespace GL {
     void Program::use() const {
         if(_linked)
             glUseProgram(_programID);
+        else
+            Util::Log::Stream("_Library") << "Attempt to use not loaded program";
     }
 
     void Program::unbind() const {

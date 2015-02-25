@@ -1,5 +1,5 @@
 #include <Utils/GL+/VertexArray.h>
-#include <Utils/Exception.h>
+#include <Utils/Logger.h>
 
 #include <utility>
 
@@ -49,7 +49,7 @@ namespace GL {
         if(_isDrawTargetSet && _isDrawCountSet)
             glDrawArrays(static_cast<GLenum>(getDrawTarget()), getDrawOffset(), getDrawCount());
         else
-            throw Util::Exception::FatalError(std::string("Attempt to drawArrays() without setting target/offset/count before"));
+            Util::Log::Stream("_Library") << "Attempt to use draw call (glDrawArrays) without setting target/offset/count";
     }
 
     void VertexArray::enableAttrib(GLuint index) {

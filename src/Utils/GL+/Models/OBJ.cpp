@@ -1,6 +1,7 @@
 #include <Utils/GL+/Models/OBJ.h>
 #include <Utils/File.h>
 #include <Utils/String.h>
+#include <Utils/Logger.h>
 
 #include <iostream>
 #include <fstream>
@@ -32,7 +33,7 @@ namespace GL {
             getMeshes().clear();
             getMaterials().clear();
             getTextures().clear();
-            _aabb.clear();
+            getAABB().clear();
 
             return true;
         }
@@ -117,7 +118,7 @@ namespace GL {
             objFile.open(path);
 
             if(objFile.is_open() == false) {
-                // TODO : log it
+                Util::Log::Stream("_Library") << "Unable to open OBJ model file '" + path + "'";
                 return false;
 
             } else {
@@ -136,7 +137,8 @@ namespace GL {
                             if(tokens.size() > 1) {
                                 loadMaterials(relativePath + tokens[1], materials, textures);
                             } else {
-                                // TODO: log it
+                                Util::Log::Stream("_Library") << 
+                                    "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else if(tokens[0] == "usemtl") {
@@ -157,7 +159,8 @@ namespace GL {
                                 meshes.emplace_back(currentMeshName);
 
                             } else {
-                                // TODO: log it
+                                Util::Log::Stream("_Library") <<
+                                    "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else if(tokens[0] == "s" && tokens.size() > 1) {
@@ -176,7 +179,8 @@ namespace GL {
                                 aabb.updateBy(glm::vec3(v1, v2, v3));
 
                             } catch(...) {
-                                // TODO: log it
+                                Util::Log::Stream("_Library") <<
+                                    "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else if(tokens[0] == "vt" && (tokens.size() == 3 || tokens.size() == 4)) {
@@ -187,7 +191,8 @@ namespace GL {
                                 dataTexCoords.emplace_back(vt1, vt2);
 
                             } catch(...) {
-                                // TODO: log it
+                                Util::Log::Stream("_Library") <<
+                                    "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else if(tokens[0] == "vn" && tokens.size() == 4) {
@@ -199,7 +204,8 @@ namespace GL {
                                 dataNormals.emplace_back(glm::normalize(glm::vec3(vn1, vn2, vn3)));
 
                             } catch(...) {
-                                // TODO: log it
+                                Util::Log::Stream("_Library") <<
+                                    "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else if(tokens[0] == "f" && tokens.size() > 3) {
@@ -237,7 +243,8 @@ namespace GL {
                                         }
 
                                     } catch(...) {
-                                        // TODO: log it
+                                        Util::Log::Stream("_Library") <<
+                                            "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                     }
 
                                 } else if(faceTokens[0].size() == 2) {
@@ -263,7 +270,8 @@ namespace GL {
                                         }
 
                                     } catch(...) {
-                                        // TODO: log it
+                                        Util::Log::Stream("_Library") <<
+                                            "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                     }
 
                                 } else if(faceTokens[0].size() == 3) {
@@ -301,7 +309,8 @@ namespace GL {
                                             }
 
                                         } catch(...) {
-                                            // TODO: log it
+                                            Util::Log::Stream("_Library") <<
+                                                "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                         }
 
 
@@ -328,20 +337,24 @@ namespace GL {
                                             }
 
                                         } catch(...) {
-                                            // TODO: log it
+                                            Util::Log::Stream("_Library") <<
+                                                "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                         }
                                     }
 
                                 } else {
-                                    // TODO: log it
+                                    Util::Log::Stream("_Library") <<
+                                        "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                 }
 
                             } else {
-                                // TODO: log it
+                                Util::Log::Stream("_Library") <<
+                                    "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else {
-                            // TODO: log it
+                            Util::Log::Stream("_Library") <<
+                                "[" + std::to_string(lineNumber) + "] Unsupported parameter '" + tokens[0] + "' in file '" + path + "'";
                         }
 
                     }
@@ -383,7 +396,7 @@ namespace GL {
             mtlFile.open(path);
 
             if(mtlFile.is_open() == false) {
-                // TODO: log it
+                Util::Log::Stream("_Library") << "Unable to open OBJ material file '" + path + "'";
                 return false;
 
             } else {
@@ -408,7 +421,7 @@ namespace GL {
                                         currentDirectory + tokens[1]
                                     );
                                 } else {
-                                    // TODO: log it
+                                    Util::Log::Stream("_Library") << "Unable to open OBJ material's texture '" + currentDirectory + tokens[1] + "'";
                                 }
                             }
 
