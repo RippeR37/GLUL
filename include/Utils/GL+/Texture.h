@@ -143,8 +143,8 @@ namespace GL {
             void setInternalFromat(InternalFormat format);
 
             void setParameters();
-            void setParametersI(std::list<std::pair<GLenum, GLint>> parameters);
-            void setParametersF(std::list<std::pair<GLenum, GLfloat>> parameters);
+            void setParameters(std::list<std::pair<GLenum, GLint>> parameters);
+            void setParameters(std::list<std::pair<GLenum, GLfloat>> parameters);
 
             bool isAlpha() const;
             unsigned int getWidth() const;

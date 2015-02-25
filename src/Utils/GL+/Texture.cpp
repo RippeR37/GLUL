@@ -131,12 +131,12 @@ namespace GL {
         glTexParameteri(static_cast<GLenum>(getTarget()), GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     }
 
-    void Texture::setParametersI(std::list<std::pair<GLenum, GLint>> parameters) {
+    void Texture::setParameters(std::list<std::pair<GLenum, GLint>> parameters) {
         for(auto& parameter : parameters)
             glTexParameteri(static_cast<GLenum>(getTarget()), parameter.first, parameter.second);
     }
 
-    void Texture::setParametersF(std::list<std::pair<GLenum, GLfloat>> parameters) {
+    void Texture::setParameters(std::list<std::pair<GLenum, GLfloat>> parameters) {
         for(auto& parameter : parameters)
             glTexParameterf(static_cast<GLenum>(getTarget()), parameter.first, parameter.second);
     }
