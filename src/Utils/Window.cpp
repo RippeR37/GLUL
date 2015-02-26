@@ -2,6 +2,8 @@
 #include <Utils/Clock.h>
 #include <Utils/Logger.h>
 
+#include <iostream>
+
 namespace Util {
 
     Window::Window() : Window(640, 480, "Title") {
@@ -19,8 +21,6 @@ namespace Util {
         setDestroyCallback([this]() {
             destroy();
         });
-
-        create();
     }
 
     Window::Window(const glm::uvec2& size, const std::string& title) : Window(size.x, size.y, title) {
