@@ -4,8 +4,6 @@
 #include <chrono>
 #include <ctime>
 
-#include <iostream>
-
 namespace Util {
 
     Logger::Logger() {

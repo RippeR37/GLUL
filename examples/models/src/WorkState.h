@@ -8,7 +8,7 @@
 
 class WorkState : public Util::Interface::State {
     public:
-        WorkState(Util::Interface::State* parentState);
+        WorkState(Util::Interface::State* parentState, FW::Application* application);
         ~WorkState();
 
         void update(const double frameTime);
@@ -18,6 +18,7 @@ class WorkState : public Util::Interface::State {
         void signalExit();
 
     private:
+        FW::Application* _application;
         Util::Interface::State* _parentState;
 
         GL::Pipeline _pipeline;

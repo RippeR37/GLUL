@@ -9,7 +9,7 @@
 
 class InitializationState : public Util::Interface::State {
     public:
-        InitializationState();
+        InitializationState(FW::Application* application);
         ~InitializationState();
 
         void update(const double frameTime);
@@ -19,6 +19,7 @@ class InitializationState : public Util::Interface::State {
         void signalExit();
 
     private:
+        FW::Application* _application;
         std::unique_ptr<Util::Interface::State> _workState;
 };
 

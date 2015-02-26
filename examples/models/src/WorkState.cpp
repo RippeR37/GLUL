@@ -9,8 +9,9 @@
 
 #include <iostream>
 
-WorkState::WorkState(Util::Interface::State* parentState) {
+WorkState::WorkState(Util::Interface::State* parentState, FW::Application* application) {
     _parentState = parentState;
+    _application = application;
 }
 
 WorkState::~WorkState() {
@@ -18,11 +19,11 @@ WorkState::~WorkState() {
 }
 
 void WorkState::update(const double frameTime) {
-    Util::TimeLoop::semiFixed(FW::Application::Window.getFrameTime(), 1.0f / 120.0f, [](double deltaTime) {
+    Util::TimeLoop::semiFixed(_application->Window.getFrameTime(), 1.0f / 120.0f, [](double deltaTime) {
         // update objects here
     });
 
-    if(glfwGetKey(FW::Application::Window, GLFW_KEY_ESCAPE))
+    if(glfwGetKey(_application->Window, GLFW_KEY_ESCAPE))
         changeTo(_parentState);
 }
 

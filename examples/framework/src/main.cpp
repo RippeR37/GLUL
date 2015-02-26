@@ -8,10 +8,11 @@
 
 int main(int argc, char* argv[]) {
     try {
-        ExampleState initialState; // could also be taken from some state manager
+        FW::Application application;
+        ExampleState initialState(application);
 
-        FW::Application::setArguments(argc, argv);
-        FW::Application::run(&initialState);
+        application.setArguments(argc, argv);
+        application.run(&initialState);
 
     } catch(const Util::Exception::FatalError& exception) {
         std::cerr << "Fatal error occured:" << std::endl;

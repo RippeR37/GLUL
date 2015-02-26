@@ -4,21 +4,8 @@
 
 namespace Util {
 
-    Window::Window() {
-        _handle = nullptr;
+    Window::Window() : Window(640, 480, "Title") {
 
-        // Default options
-        _windowSize = glm::uvec2(640, 480);
-        _windowPosition = glm::ivec2(50, 50);
-        _title = std::string("Title");
-
-        setCountingFPS(false);
-        setDisplayingFPS(false);
-        setDestroyCallback([this]() {
-            destroy();
-        });
-
-        Util::Log::Stream("_Library"); //create logger instance before window so that logger outlive it
     }
     
     Window::Window(unsigned int width, unsigned int height, const std::string& title) {
@@ -29,20 +16,15 @@ namespace Util {
 
         setCountingFPS(false);
         setDisplayingFPS(false);
+        setDestroyCallback([this]() {
+            destroy();
+        });
 
         create();
     }
 
-    Window::Window(const glm::uvec2& size, const std::string& title) {
-        _handle = nullptr;
+    Window::Window(const glm::uvec2& size, const std::string& title) : Window(size.x, size.y, title) {
 
-        setSize(size);
-        setTitle(title);
-
-        setCountingFPS(false);
-        setDisplayingFPS(false);
-
-        create();
     }
 
     Window::~Window() {
@@ -60,9 +42,7 @@ namespace Util {
         Window::initializeGLFW();
 
         setHints();
-
         _handle = glfwCreateWindow(getWidth(), getHeight(), _title.c_str(), nullptr, nullptr);
-
         setContext();
 
         Window::initializeGLEW();

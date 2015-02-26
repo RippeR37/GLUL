@@ -1,11 +1,9 @@
 #include <Utils/Frameworks/Application.h>
+#include <Utils/Logger.h>
 
 namespace FW {
 
-    Util::Window& Application::Window = Application::getInstance().getWindow();
-
-
-    Application::Application() {
+    Application::Application() : Window(_window) {
         setArguments(0, nullptr);
     }
 
@@ -13,47 +11,43 @@ namespace FW {
 
     }
 
-    Application& Application::getInstance() {
-        static Application instance;
-        return instance;
-    }
-
-    Util::Window& Application::getWindow() {
-        return _window;
-    }
-
     void Application::run(Util::Interface::State* initialState) {
-        getInstance().setState(initialState);
+        setState(initialState);
 
-        while(getInstance().getState() != Util::Interface::State::Quit) {
-            getInstance().getWindow().update();
+        while(getState() != Util::Interface::State::Quit) {
+            getWindow().update();
 
-            getInstance().getState()->handleInput();
-            getInstance().getState()->_update(getInstance().getWindow().getFrameTime());
-            getInstance().getState()->_render();
+            getState()->handleInput();
+            getState()->_update(getWindow().getFrameTime());
+            getState()->_render();
 
-            getInstance().setState(getInstance().getState()->getNext());
+            setState(getState()->getNext());
         }
     }
 
     void Application::signalExit() {
-        if(getInstance().getState())
-            getInstance().getState()->signalExit();
+        if(getState())
+            getState()->signalExit();
     }
 
     const std::string& Application::getArgument(int id) throw(std::out_of_range) {
-        return getInstance()._arguments.at(id);
+        return _arguments.at(id);
     }
 
     const std::vector<std::string>& Application::getArguments() {
-        return getInstance()._arguments;
+        return _arguments;
     }
 
     void Application::setArguments(int argumentCount, char* arguments[]) {
-        getInstance()._arguments.resize(argumentCount);
+        _arguments.resize(argumentCount);
 
         for(int i = 0; i < argumentCount; ++i)
-            getInstance()._arguments[i] = std::string(arguments[i]);
+            _arguments[i] = std::string(arguments[i]);
+    }
+
+
+    Util::Window& Application::getWindow() {
+        return _window;
     }
 
     Util::Interface::State* Application::getState() {
