@@ -2,8 +2,6 @@
 #include <Utils/Clock.h>
 #include <Utils/Logger.h>
 
-#include <iostream>
-
 namespace Util {
 
     Window::Window() : Window(640, 480, "Title") {

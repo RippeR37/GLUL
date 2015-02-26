@@ -1,13 +1,12 @@
 #include "WorkState.h"
 
+#include <Utils/Logger.h>
 #include <Utils/Interfaces/Model.h>
 #include <Utils/Frameworks/Application.h>
 #include <Utils/TimeLoop.h>
 
 #define GLM_FORCE_RADIANS
 #include <GLM/GTC/matrix_transform.hpp>
-
-#include <iostream>
 
 WorkState::WorkState(Util::Interface::State* parentState, FW::Application* application) {
     _parentState = parentState;
@@ -52,9 +51,13 @@ void WorkState::onLoad() {
     _modelOBJ[0].setMatrix(glm::translate(glm::mat4(1.0), glm::vec3(-1.5, -0.5, -4.0)));
     _modelOBJ[1].setMatrix(glm::translate(glm::mat4(1.0), glm::vec3( 1.3,  0.0, -4.0)));
 
-    for(int i : { 0, 1 })
-        if(!loaded[i])
-            std::cerr << "Object #" << i << " not loaded!" << std::endl;
+    if(!loaded[0] || !loaded[1]) {
+        Util::Log::Stream("Example", "logExample.log");
+
+        for(int i : { 0, 1 })
+            if(!loaded[i])
+                Util::Log::Stream("Example") << "OBJ model '" + _modelOBJ[0].getPath() + "' not loaded!";
+    }
 }
 
 void WorkState::onUnload() {

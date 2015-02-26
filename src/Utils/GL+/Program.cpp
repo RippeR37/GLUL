@@ -2,8 +2,6 @@
 #include <Utils/Logger.h>
 #include <Utils/File.h>
 
-#include <iostream>
-
 namespace GL {
 
     Program::Program() {

@@ -1,8 +1,8 @@
+#include <Utils/Logger.h>
 #include <Utils/Window.h>
 #include <Utils/GL+/VertexArray.h>
 #include <Utils/GL+/Program.h>
 
-#include <iostream>
 #include <vector>
 
 /**
@@ -85,15 +85,15 @@ int main() {
         run();
 
     } catch(const Util::Exception::FatalError& exception) {
-        std::cerr << "Cought fatal error exception:\n" << exception.what() << std::endl;
+        Util::Log::Stream("Example", "logExample.log") << "Cought fatal error exception: " + std::string(exception.what());
         return 1;
 
     } catch(const std::exception& exception) {
-        std::cerr << "Cought std::exception:\n" << exception.what() << std::endl;
+        Util::Log::Stream("Example", "logExample.log") << "Cought std::exception: " + std::string(exception.what());
         return 1;
 
     } catch(...) {
-        std::cerr << "Cought unknown exception!" << std::endl;
+        Util::Log::Stream("Example", "logExample.log") << "Cought unknown exception!";
         return 1;
     }
 

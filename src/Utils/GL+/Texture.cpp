@@ -1,7 +1,5 @@
 #include <Utils/GL+/Texture.h>
 
-#include <iostream>
-
 namespace GL {
     
     Texture::Texture() {

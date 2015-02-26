@@ -1,8 +1,6 @@
 #include <Utils/GL+/Context.h>
 #include <Utils/Logger.h>
 
-#include <iostream>
-
 namespace GL {
 
 
@@ -28,12 +26,21 @@ namespace GL {
     }
 
     void Context::logErrors(bool flag) {
+        static bool streamOpened = false;
+
         if(GLEW_ARB_debug_output) {
             if(flag) {
                 glEnable(GL_DEBUG_OUTPUT);
                 glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
                 glDebugMessageCallbackARB(&Context::logError, nullptr);
-                Util::Log::Stream("_OpenGL", "logOpenGL.log") << "Logging OpenGL errors has started";
+
+                if(streamOpened == false) {
+                    Util::Log::Stream("_OpenGL", "logOpenGL.log") << "Logging OpenGL errors has started";
+                    streamOpened = true;
+                } else {
+                    Util::Log::Stream("_OpenGL") << "Logging OpenGL errors is resumed";
+                }
+
             } else {
                 glDisable(GL_DEBUG_OUTPUT);
                 glDisable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
@@ -41,7 +48,7 @@ namespace GL {
                 Util::Log::Stream("_OpenGL") << "Logging OpenGL errors has ended";
             }
         } else if(flag) {
-            Util::Log::Stream("_OpenGL") << "Unable to register logging OpenGL errors due to lack of support for ARB_debug_output extension";
+            Util::Log::Stream("_Library") << "Unable to register logging OpenGL errors due to lack of support for ARB_debug_output extension";
         }
     }
 

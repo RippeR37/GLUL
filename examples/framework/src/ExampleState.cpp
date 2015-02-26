@@ -4,8 +4,6 @@
 #include <Utils/TimeLoop.h>
 #include <Utils/AABB.h>
 
-#include <iostream>
-
 ExampleState::ExampleState(FW::Application& application) : Application(application) {
 
 }

@@ -1,10 +1,8 @@
 #include "ExampleState.h"
 
+#include <Utils/Logger.h>
 #include <utils/Exception.h>
 #include <Utils/Frameworks/Application.h>
-
-#include <iostream>
-#include <cstdlib>
 
 int main(int argc, char* argv[]) {
     try {
@@ -15,18 +13,16 @@ int main(int argc, char* argv[]) {
         application.run(&initialState);
 
     } catch(const Util::Exception::FatalError& exception) {
-        std::cerr << "Fatal error occured:" << std::endl;
-        std::cerr << exception.what() << std::endl;
-        system("pause");
+        Util::Log::Stream("Example", "logExample.log") << "Cought fatal error exception: " + std::string(exception.what());
+        return 1;
 
     } catch(const std::exception& exception) {
-        std::cerr << "Exception thrown:" << std::endl;
-        std::cerr << exception.what() << std::endl;
-        system("pause");
+        Util::Log::Stream("Example", "logExample.log") << "Cought std::exception: " + std::string(exception.what());
+        return 1;
 
     } catch(...) {
-        std::cerr << "Unidentified exception unhandled" << std::endl;
-        system("pause");
+        Util::Log::Stream("Example", "logExample.log") << "Cought unknown exception!";
+        return 1;
     }
 
     return 0;
