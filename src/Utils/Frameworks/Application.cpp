@@ -4,6 +4,7 @@
 namespace FW {
 
     Application::Application() : Window(_window) {
+        Util::Log::Stream("_Library");
         setArguments(0, nullptr);
     }
 

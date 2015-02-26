@@ -50,6 +50,8 @@ void initVAO(GL::VertexArray& vao, const GL::VertexBuffer& vbo, const std::vecto
  */
 void run() {
     Util::Window window(800, 600, "Title"); // Window must use create() before creating any GL::* object!
+    window.create();
+
     GL::Program program;
     GL::VertexArray vao;
     GL::VertexBuffer vbo;
