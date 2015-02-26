@@ -8,7 +8,6 @@ namespace Util {
 
     Logger::Logger() {
         Stream("_Library", "logLibrary.log");
-        Stream("_OpenGL",  "logOpenGL.log");
     }
 
     Logger::~Logger() {
