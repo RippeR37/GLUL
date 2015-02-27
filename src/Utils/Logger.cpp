@@ -33,7 +33,7 @@ namespace Util {
         if(getInstance()._streams.count(streamName)) 
             return getInstance()._streams[streamName];
         else
-            return getInstance()._streams["Default"];
+            return getInstance()._streams["_Library"];
     }
 
 
@@ -55,7 +55,7 @@ namespace Util {
 
     void Logger::LoggerStream::log(const std::string& message) {
         if(_name == "" || _path == "" || _stream.is_open() == false) {
-            Logger::Stream("Default").log(message);
+            Logger::Stream("_Library").log(message);
 
         } else {
             auto now = std::chrono::system_clock::now();

@@ -56,13 +56,13 @@ namespace Util {
             GLFWwindow* getHandle();
             GL::Context& getContext();
 
+            static void initializeGLFW() throw(Util::Exception::FatalError);
+            static void initializeGLEW() throw(Util::Exception::FatalError);
+
         protected:
             void setFPSCount(int fpsCount);
             void setHints();
             void setContext();
-
-            static void initializeGLFW() throw(Util::Exception::FatalError);
-            static void initializeGLEW() throw(Util::Exception::FatalError);
             
             int _fpsCount;
             bool _isDisplayingFPS;

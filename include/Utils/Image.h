@@ -7,7 +7,7 @@ namespace Util {
 
     class Image {
         public:
-            enum Format {
+            enum class Format {
                 BMP,
                 TGA,
                 // JPG,
@@ -16,7 +16,7 @@ namespace Util {
             };
 
         public:
-            Image(std::string path, Image::Format format);
+            Image(const std::string& path, Format format = Format::Auto);
             Image(const Image& image);
             Image(Image&& image);
             ~Image();

@@ -9,7 +9,7 @@
 
 namespace Util {
 
-    Image::Image(std::string path, Image::Format format) {
+    Image::Image(const std::string& path, Format format) {
         _data = nullptr;
 
         switch(format) {

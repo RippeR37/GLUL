@@ -10,7 +10,7 @@ namespace Util {
 
     class File {
         public:
-            enum ReadMode {
+            enum class ReadMode {
                 Text   = 0,
                 Binary = std::fstream::binary, 
             };
