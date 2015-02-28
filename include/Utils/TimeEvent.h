@@ -7,7 +7,7 @@ namespace Util {
 
     class TimeEvent {
         public:
-            enum Type {
+            enum class Type {
                 DelayedEvent,
                 UpdateEvent
             };

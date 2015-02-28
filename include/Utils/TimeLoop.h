@@ -9,9 +9,9 @@ namespace Util {
         public:
             TimeLoop();
 
-            void fixed(double time, double timeStep, std::function<void(double deltaTime)> function);
-            static void variable(double time, std::function<void(double deltaTime)> function);
-            static void semiFixed(double time, double timeStep, std::function<void(double deltaTime)> function);
+            void fixed(double time, double timeStep, const std::function<void(double deltaTime)>& function);
+            static void variable(double time, const std::function<void(double deltaTime)>& function);
+            static void semiFixed(double time, double timeStep, const std::function<void(double deltaTime)>& function);
 
         private:
             double _accumulator;
