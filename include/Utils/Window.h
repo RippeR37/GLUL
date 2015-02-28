@@ -8,7 +8,9 @@
 #include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
 
+#include <list>
 #include <string>
+#include <vector>
 #include <functional>
 
 namespace Util {
@@ -56,12 +58,16 @@ namespace Util {
             GLFWwindow* getHandle();
             GL::Context& getContext();
 
+            static void setHint(int option, int value);
+            static void setHints(const std::list<std::pair<int, int>>& hints);
+            static void setHints(const std::vector<std::pair<int, int>>& hints);
+            static void setDefaultHints();
+
             static void initializeGLFW() throw(Util::Exception::FatalError);
             static void initializeGLEW() throw(Util::Exception::FatalError);
 
         protected:
             void setFPSCount(int fpsCount);
-            void setHints();
             void setContext();
             
             int _fpsCount;
@@ -76,6 +82,8 @@ namespace Util {
             GL::Context _context;
             std::function<void(int)> _fpsCountCallback;
             std::function<void()> _destroyCallback;
+
+            static bool _hintsSet;
     };
 
 }

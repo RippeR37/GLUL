@@ -6,6 +6,7 @@
 *.exe
 *.log
 *.ilk
+*.suo
 
 examples/framework/bin/assets/shaders/*
 examples/models/bin/assets/shaders/*

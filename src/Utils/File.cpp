@@ -8,7 +8,7 @@ namespace Util {
         std::string result = "";
         std::string line   = "";
 
-        fileStream.open(path, std::fstream::in | mode);
+        fileStream.open(path, std::fstream::in | static_cast<std::ios_base::openmode>(mode));
         if(fileStream.is_open()) {
             while(std::getline(fileStream, line))
                 result += "\n" + line;

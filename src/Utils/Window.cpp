@@ -4,12 +4,15 @@
 
 namespace Util {
 
+    bool Window::_hintsSet = false;
+
     Window::Window() : Window(640, 480, "Title") {
 
     }
     
     Window::Window(unsigned int width, unsigned int height, const std::string& title) {
         _handle = nullptr;
+        _hintsSet = false;
 
         setSize(glm::uvec2(width, height));
         setTitle(title);
@@ -37,13 +40,16 @@ namespace Util {
         if(isCreated())
             destroy();
 
-        Window::initializeGLFW();
+        initializeGLFW();
 
-        setHints();
+        if(_hintsSet == false)
+            setDefaultHints();
+
         _handle = glfwCreateWindow(getWidth(), getHeight(), _title.c_str(), nullptr, nullptr);
+
         setContext();
 
-        Window::initializeGLEW();
+        initializeGLEW();
 
         if(isCreated())
             Util::Log::Stream("_Library").log(
@@ -220,22 +226,6 @@ namespace Util {
         return _context;
     }
 
-    void Window::setFPSCount(int fpsCount) {
-        _fpsCount = fpsCount;
-    }
-
-    void Window::setHints() {
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-    }
-
-    void Window::setContext() {
-        glfwMakeContextCurrent(_handle);
-        getContext().makeActive(this);
-    }
-
     void Window::initializeGLFW() {
         static bool initialized = false;
 
@@ -262,6 +252,45 @@ namespace Util {
 
             initialized = true;
         }
+    }
+
+
+    void Window::setHint(int option, int value) {
+        glfwWindowHint(option, value);
+
+        _hintsSet = true;
+    }
+
+    void Window::setHints(const std::list<std::pair<int, int>>& hints) {
+        for(auto& hint : hints)
+            glfwWindowHint(hint.first, hint.second);
+
+        _hintsSet = true;
+    }
+
+    void Window::setHints(const std::vector<std::pair<int, int>>& hints) {
+        for(auto& hint : hints)
+            glfwWindowHint(hint.first, hint.second);
+
+        _hintsSet = true;
+    }
+
+    void Window::setDefaultHints() {
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+        _hintsSet = true;
+    }
+
+    void Window::setFPSCount(int fpsCount) {
+        _fpsCount = fpsCount;
+    }
+
+    void Window::setContext() {
+        glfwMakeContextCurrent(_handle);
+        getContext().makeActive(this);
     }
 
 }
