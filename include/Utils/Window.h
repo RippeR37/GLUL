@@ -1,6 +1,7 @@
 #ifndef UTILS_WINDOW_H_INCLUDED
 #define UTILS_WINDOW_H_INCLUDED
 
+#include <Utils/Clock.h>
 #include <Utils/Exception.h>
 #include <Utils/GL+/Context.h>
 
@@ -39,8 +40,8 @@ namespace Util {
             void setCountingFPS(bool flag);
             void setFPSRefreshRate(double refreshRate);
 
-            void setFPSCountCallback(std::function<void(int)> function);
-            void setDestroyCallback(std::function<void()> function);
+            void setFPSCountCallback(const std::function<void(int)>& function);
+            void setDestroyCallback(const std::function<void()>& function);
             
             const bool isDisplayingFPS() const;
             const bool isCountingFPS() const;
@@ -71,8 +72,12 @@ namespace Util {
             void setContext();
             
             int _fpsCount;
+            unsigned int _framesCount;
             bool _isDisplayingFPS;
             bool _isCountingFPS;
+            double _lastFrame;
+            double _thisFrame;
+            double _fpsTime;
             double _fpsRefreshRate;
             double _frameTime;
             GLFWwindow* _handle;
@@ -82,6 +87,7 @@ namespace Util {
             GL::Context _context;
             std::function<void(int)> _fpsCountCallback;
             std::function<void()> _destroyCallback;
+            Clock _fpsClock;
 
             static bool _hintsSet;
     };

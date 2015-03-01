@@ -1,5 +1,4 @@
 #include <Utils/Window.h>
-#include <Utils/Clock.h>
 #include <Utils/Logger.h>
 
 namespace Util {
@@ -13,6 +12,7 @@ namespace Util {
     Window::Window(unsigned int width, unsigned int height, const std::string& title) {
         _handle = nullptr;
         _hintsSet = false;
+        _framesCount = 0;
 
         setSize(glm::uvec2(width, height));
         setTitle(title);
@@ -51,6 +51,9 @@ namespace Util {
 
         initializeGLEW();
 
+        _lastFrame = glfwGetTime();
+        _fpsClock.reset();
+
         if(isCreated())
             Util::Log::Stream("_Library").log(
                 "Window '" + getTitle() + "' has been created with size: " +
@@ -61,12 +64,6 @@ namespace Util {
     }
 
     void Window::update() {
-        static double lastFrame = glfwGetTime();
-        static double thisFrame;
-        static Clock fpsClock;
-        static double fpsTime;
-        static unsigned int framesCount = 0;
-
         if(glfwWindowShouldClose(getHandle())) {
             if(_destroyCallback)
                 _destroyCallback();
@@ -74,19 +71,19 @@ namespace Util {
             return;
         }
 
-        thisFrame  = glfwGetTime();
-        _frameTime = thisFrame - lastFrame;
-        lastFrame  = thisFrame;
+        _thisFrame  = glfwGetTime();
+        _frameTime = _thisFrame - _lastFrame;
+        _lastFrame  = _thisFrame;
         
         glfwSwapBuffers(_handle);
         glfwPollEvents();
 
         if(isCountingFPS()) {
-            framesCount += 1;
-            fpsTime = fpsClock.getElapsedTime();
+            _framesCount += 1;
+            _fpsTime = _fpsClock.getElapsedTime();
 
-            if(fpsTime > getFPSRefreshRate()) {
-                setFPSCount(static_cast<unsigned int>(framesCount * (1.0 / fpsTime)));
+            if(_fpsTime > getFPSRefreshRate()) {
+                setFPSCount(static_cast<unsigned int>(_framesCount * (1.0 / _fpsTime)));
 
                 if(isDisplayingFPS())
                     appendTitle(std::string(" | FPS: ") + std::to_string(getFPS()));
@@ -94,8 +91,8 @@ namespace Util {
                 if(_fpsCountCallback)
                     _fpsCountCallback(getFPS());
 
-                framesCount = 0;
-                fpsClock.reset();
+                _framesCount = 0;
+                _fpsClock.reset();
             }
         }
     }
@@ -162,11 +159,11 @@ namespace Util {
         _fpsRefreshRate = refreshRate;
     }
     
-    void Window::setFPSCountCallback(std::function<void(int)> function) {
+    void Window::setFPSCountCallback(const std::function<void(int)>& function) {
         _fpsCountCallback = function;
     }
 
-    void Window::setDestroyCallback(std::function<void()> function) {
+    void Window::setDestroyCallback(const std::function<void()>& function) {
         _destroyCallback = function;
     }
 
