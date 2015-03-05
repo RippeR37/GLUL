@@ -51,6 +51,14 @@ namespace GL {
             }
         }
 
+        void OBJ::renderAABB(const GL::Pipeline& pipeline, bool detailed) const {
+            if(detailed)
+                for(auto& mesh : getMeshes())
+                    mesh.getAABB().render(pipeline);
+            else
+                _aabb.render(pipeline);
+        }
+
         void OBJ::printStats(bool withDetails) const {
             std::cout << std::endl;
             std::cout << "Loaded meshes:    " << getMeshes().size() << std::endl;
@@ -156,7 +164,7 @@ namespace GL {
 
                                 meshInitialized = true;
                                 currentMeshName = tokens[1];
-                                meshes.emplace_back(currentMeshName);
+                                meshes.emplace_back(currentMeshName, &textures);
 
                             } else {
                                 Util::Log::Stream("_Library") <<
@@ -210,7 +218,7 @@ namespace GL {
 
                         } else if(tokens[0] == "f" && tokens.size() > 3) {
                             if(meshInitialized == false) {
-                                meshes.emplace_back();
+                                meshes.emplace_back(&textures);
                                 meshInitialized = true;
                             }
 

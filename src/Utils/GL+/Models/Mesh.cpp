@@ -1,16 +1,19 @@
 #include <Utils/GL+/Models/Mesh.h>
 #include <Utils/GL+/Models/Material.h>
 
+#include <iostream>
+
 namespace GL {
 
     namespace Model {
 
-        Mesh::Mesh() : Mesh("defaultMaterial") {
+        Mesh::Mesh(std::unordered_map<std::string, GL::Texture>* textures) : Mesh("defaultMaterial", textures) {
 
         }
 
-        Mesh::Mesh(const std::string& materialName) {
+        Mesh::Mesh(const std::string& materialName, std::unordered_map<std::string, GL::Texture>* textures) {
             this->materialName = materialName;
+            this->_textures = textures;
         }
 
         Mesh::Mesh(Mesh&& mesh) :
@@ -22,7 +25,8 @@ namespace GL {
             _vboV(std::move(mesh._vboV)),
             _vboT(std::move(mesh._vboT)),
             _vboN(std::move(mesh._vboN)),
-            _aabb(std::move(mesh._aabb)) 
+            _aabb(std::move(mesh._aabb)),
+            _textures(std::move(mesh._textures))
         {
 
         }
@@ -113,12 +117,12 @@ namespace GL {
             //hasTextures.z = (material.textureSpecular != "") ? true : false; // not supported yet
             //hasTextures.w = (material.textureBumpmap  != "") ? true : false; // not supported yet
 
-            /*
-            if(hasTextures.x)
-                model.getTextures().at(material->textureDiffuse).bind();
-            else if(hasTextures.y)
-                model.getTextures().at(material->textureAmbient).bind();
-            */
+            if(_textures) {
+                if(hasTextures.x)
+                    _textures->at(material.textureDiffuse).bind();
+                else if(hasTextures.y)
+                    _textures->at(material.textureAmbient).bind();
+            }
 
             program.use();
 
@@ -135,12 +139,12 @@ namespace GL {
 
             program.unbind();
 
-            /*
-            if(hasTextures.x)
-                model.getTextures().at(material->textureDiffuse).unbind();
-            else if(hasTextures.y)
-                model.getTextures().at(material->textureAmbient).unbind();
-            */
+            if(_textures) {
+                if(hasTextures.x)
+                    _textures->at(material.textureDiffuse).unbind();
+                else if(hasTextures.y)
+                    _textures->at(material.textureAmbient).unbind();
+            }
         }
 
         void Mesh::renderAABB(const GL::Pipeline& pipeline) const {

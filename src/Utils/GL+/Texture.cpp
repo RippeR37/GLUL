@@ -7,10 +7,14 @@ namespace GL {
     }
 
     Texture::Texture(const Util::Image& image, Target target, Format format, InternalFormat internalFormat) {
+        _isCreated = false;
+
         load(image, target, format, internalFormat);
     }
 
     Texture::Texture(const std::string& path, Target target, Format format, InternalFormat internalFormat) {
+        _isCreated = false;
+
         Util::Image image(path, Util::Image::Format::Auto);
         load(image, target, format, internalFormat);
     }
@@ -33,8 +37,6 @@ namespace GL {
     }
 
     Texture& Texture::operator=(Texture&& texture) {
-        _isCreated = false;
-
         std::swap(_isAlpha, texture._isAlpha);
         std::swap(_isCreated, texture._isCreated);
         std::swap(_width, texture._width);
