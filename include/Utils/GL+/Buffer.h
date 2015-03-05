@@ -57,11 +57,14 @@ namespace GL {
             Buffer();
             Buffer(Target target, Usage usage = Usage::StaticDraw);
             Buffer(Buffer&& buffer);
-            Buffer& operator=(const Buffer&) = delete;
             Buffer(const Buffer&) = delete;
             virtual ~Buffer();
 
+            Buffer& operator=(const Buffer&) = delete;
             Buffer& operator=(Buffer&& buffer);
+
+            void create();
+            void destroy();
 
             virtual void bind() const;
             void bind(Target target);
@@ -95,9 +98,9 @@ namespace GL {
             void setSubData(const std::vector<T>& data, GLintptr offset, GLsizeiptr size);
 
         protected:
-            void create();
-            void destroy();
+            bool isCreated() const;
 
+            bool _isCreated;
             GLuint _bufferID;
             Target _target;
             Usage  _usage;

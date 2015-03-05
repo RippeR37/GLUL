@@ -21,11 +21,17 @@ namespace GL {
             Program(Program&& program);
             Program(const std::string& vsPath, const std::string& fsPath);
             Program(const Shader& vertexShader, const Shader& fragmentShader);
+            Program(const Program&) = delete;
             ~Program();
 
+            Program& operator=(const Program&) = delete;
             Program& operator=(Program&& program);
+
             Uniform& operator[](const std::string& uniformName);
             const Uniform& operator[](const std::string& uniformName) const;
+
+            void create();
+            void destroy();
 
             void load(const Shader& vertexShader, const Shader& fragmentShader);
             void use() const;
@@ -38,15 +44,13 @@ namespace GL {
             const Uniform& getUniform(const std::string& uniformName) const throw(std::out_of_range);
 
         private:
-            Program& operator=(const Program&);
-            Program(const Program&);
-
-            void create();
-            void destroy();
             void mapUniforms(const Shader& shader);
             bool link(const Shader& vertexShader, const Shader& fragmentShader) throw(Util::Exception::FatalError);
 
-            bool _linked;
+            bool isCreated() const;
+
+            bool _isLinked;
+            bool _isCreated;
             GLuint _programID;
             std::unordered_map<std::string, Uniform> _uniforms;
     };

@@ -24,11 +24,10 @@ namespace GL {
             VertexBuffer();
             VertexBuffer(Usage usage);
             VertexBuffer(VertexBuffer&& vbo);
+            VertexBuffer(const VertexBuffer&) = delete;
             ~VertexBuffer();
 
-            VertexBuffer(const VertexBuffer&) = delete;
             VertexBuffer& operator=(const VertexBuffer&) = delete;
-
             VertexBuffer& operator=(VertexBuffer&& vbo);
 
             void bind() const;

@@ -124,10 +124,14 @@ namespace GL {
                 Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat);
 
             Texture(Texture&& texture);
-
+            Texture(const Texture&) = delete;
             ~Texture();
 
+            Texture& operator=(const Texture&) = delete;
             Texture& operator=(Texture&& texture);
+
+            void create();
+            void destroy();
 
             void bind() const;
             void unbind() const;
@@ -155,26 +159,23 @@ namespace GL {
             GLuint getID() const;
 
         private:
-            Texture& operator=(const Texture&);
-            Texture(const Texture&);
-
-            void create();
-            void destroy();
-
             void assingData(const Util::Image& image, const Format format, const InternalFormat internalFormat) throw(Util::Exception::FatalError);
 
             void setWidth(unsigned int width);
             void setHeight(unsigned int height);
 
+            bool isCreated() const;
+
+
             bool _isAlpha;
+            bool _isCreated;
             unsigned int _width;
             unsigned int _height;
+            GLuint _textureID;
 
             Target _target;
             Format _format;
             InternalFormat _internalFormat;
-
-            GLuint _textureID;
     };
 
 }

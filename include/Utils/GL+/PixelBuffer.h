@@ -78,11 +78,10 @@ namespace GL {
             PixelBuffer();
             PixelBuffer(OperationType operation, Usage usage = Usage::StaticCopy);
             PixelBuffer(PixelBuffer&& pbo);
+            PixelBuffer(const PixelBuffer&) = delete;
             ~PixelBuffer();
 
-            PixelBuffer(const PixelBuffer&) = delete;
             PixelBuffer& operator=(const PixelBuffer&) = delete;
-
             PixelBuffer& operator=(PixelBuffer&& pbo);
 
             void bind() const;

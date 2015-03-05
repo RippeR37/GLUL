@@ -3,17 +3,42 @@
 namespace GL {
 
     Framebuffer::Framebuffer() {
-        create();
+        _isCreated = false;
     }
 
     Framebuffer::Framebuffer(Framebuffer&& framebuffer) {
-        _framebufferID = 0;
+        _isCreated = false;
 
+        std::swap(_isCreated,     framebuffer._isCreated);
         std::swap(_framebufferID, framebuffer._framebufferID);
     }
 
     Framebuffer::~Framebuffer() {
         destroy();
+    }
+
+    Framebuffer& Framebuffer::operator=(Framebuffer&& framebuffer) {
+        _isCreated = false;
+
+        std::swap(_isCreated, framebuffer._isCreated);
+        std::swap(_framebufferID, framebuffer._framebufferID);
+
+        return *this;
+    }
+
+    void Framebuffer::create() {
+        destroy();
+
+        glGenFramebuffers(1, &_framebufferID);
+        _isCreated = true;
+    }
+
+    void Framebuffer::destroy() {
+        if(isCreated()) {
+            glDeleteFramebuffers(1, &_framebufferID);
+
+            _isCreated = false;
+        }
     }
 
     void Framebuffer::bind() const {
@@ -25,15 +50,10 @@ namespace GL {
     }
 
     GLuint Framebuffer::getID() const {
+        if(!isCreated())
+            const_cast<Framebuffer*>(this)->create();
+
         return _framebufferID;
-    }
-
-    void Framebuffer::create() {
-        glGenFramebuffers(1, &_framebufferID);
-    }
-
-    void Framebuffer::destroy() {
-        glDeleteFramebuffers(1, &_framebufferID);
     }
 
 }

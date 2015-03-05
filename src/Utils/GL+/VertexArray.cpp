@@ -6,13 +6,14 @@
 namespace GL {
 
     VertexArray::VertexArray() {
-        create();
+        _isCreated = false;
     }
     
     VertexArray::VertexArray(VertexArray&& vao) {
-        create();
+        _isCreated = false;
 
         std::swap(_vaoID, vao._vaoID);
+        std::swap(_isCreated, vao._isCreated);
         std::swap(_isDrawTargetSet, vao._isDrawTargetSet);
         std::swap(_isDrawCountSet,  vao._isDrawCountSet);
         std::swap(_drawOffset, vao._drawOffset);
@@ -26,7 +27,10 @@ namespace GL {
     }
 
     VertexArray& VertexArray::operator=(VertexArray&& vao) {
+        _isCreated = false;
+        
         std::swap(_vaoID, vao._vaoID);
+        std::swap(_isCreated, vao._isCreated);
         std::swap(_isDrawTargetSet, vao._isDrawTargetSet);
         std::swap(_isDrawCountSet,  vao._isDrawCountSet);
         std::swap(_drawOffset, vao._drawOffset);
@@ -37,8 +41,27 @@ namespace GL {
         return *this;
     }
 
+    void VertexArray::create() {
+        destroy();
+
+        glGenVertexArrays(1, &_vaoID);
+        _isCreated = true;
+
+        setDrawOffset(0);
+    }
+
+    void VertexArray::destroy() {
+        if(isCreated()) {
+            glDeleteVertexArrays(1, &_vaoID);
+
+            _isCreated = false;
+            _isDrawTargetSet = false;
+            _isDrawCountSet = false;
+        }
+    }
+
     void VertexArray::bind() const {
-        glBindVertexArray(_vaoID);
+        glBindVertexArray(getID());
     }
 
     void VertexArray::unbind() const {
@@ -115,6 +138,9 @@ namespace GL {
     }
 
     GLuint VertexArray::getID() const {
+        if(!isCreated())
+            const_cast<VertexArray*>(this)->create();
+
         return _vaoID;
     }
     
@@ -122,17 +148,8 @@ namespace GL {
         return _attachedVBOs;
     }
 
-    void VertexArray::create() {
-        glGenVertexArrays(1, &_vaoID);
-
-        _isDrawTargetSet = false;
-        _isDrawCountSet  = false;
-        
-        setDrawOffset(0);
-    }
-
-    void VertexArray::destroy() {
-        glDeleteVertexArrays(1, &_vaoID);
+    bool VertexArray::isCreated() const {
+        return _isCreated;
     }
 
 }

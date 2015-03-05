@@ -23,23 +23,28 @@ namespace GL {
             Shader(Type type);
             Shader(const std::string& path, Type type);
             Shader(Shader&& shader);
+            Shader(const Shader&) = delete;
             ~Shader();
 
+            Shader& operator=(const Shader&) = delete;
             Shader& operator=(Shader&& shader);
 
+            void create();
+            void destroy();
+
+            void load(const std::string& path);
+
+            bool isCompiled() const;
             GLuint getID() const;
             Type getType() const;
 
         private:
-            Shader& operator=(const Shader&);
-            Shader(const Shader&);
-
-            void create(Type type);
-            void destroy();
-            void load(const std::string& path, Type type);
             bool compile() throw(Util::Exception::FatalError);
+
+            bool isCreated() const;
             
-            bool _compiled;
+            bool _isCreated;
+            bool _isCompiled;
             Type _type;
             GLuint _shaderID;
             std::string _path;

@@ -13,10 +13,14 @@ namespace GL {
         public:
             Framebuffer();
             Framebuffer(Framebuffer&& framebuffer);
+            Framebuffer(const Framebuffer&) = delete;
             ~Framebuffer();
 
-            Framebuffer(const Framebuffer&) = delete;
             Framebuffer& operator=(const Framebuffer&) = delete;
+            Framebuffer& operator=(Framebuffer&& framebuffer);
+
+            void create();
+            void destroy();
 
             void bind() const;
             void unbind() const;
@@ -24,9 +28,9 @@ namespace GL {
             GLuint getID() const;
 
         private:
-            void create();
-            void destroy();
+            bool isCreated() const;
 
+            bool _isCreated;
             GLuint _framebufferID;
     };
 

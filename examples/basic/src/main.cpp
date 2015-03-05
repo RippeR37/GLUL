@@ -49,20 +49,19 @@ void initVAO(GL::VertexArray& vao, const GL::VertexBuffer& vbo, const std::vecto
  * Main loop
  */
 void run() {
-    Util::Window window(800, 600, "Title"); // Window must use create() before creating any GL::* object!
-    window.create();
-
+    Util::Window window(800, 600, "Title");
     GL::Program program;
     GL::VertexArray vao;
     GL::VertexBuffer vbo;
     std::vector<glm::vec4> vertices;
 
+    window.create(); // You have to create OpenGL context before using most of GL::* functionality
+    window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f));
+
     initVertices(vertices);         // initialize vertices for VBO
     initProgram(program);           // load program (vertex shader & fragment shader)
     initVBO(vbo, vertices);         // set-up VBO
     initVAO(vao, vbo, vertices);    // set-up VAO & attach VBO to it
-
-    window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f));
 
     while(window.isCreated() && window.shouldClose() == false) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);

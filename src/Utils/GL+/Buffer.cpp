@@ -3,22 +3,23 @@
 namespace GL {
 
     Buffer::Buffer() {
-        create();
+        _isCreated = false;
     }
 
     Buffer::Buffer(Target target, Usage usage) {
-        create();
+        _isCreated = false;
 
         setTarget(target);
         setUsage(usage);
     }
 
     Buffer::Buffer(Buffer&& buffer) {
-        create();
+        _isCreated = false;
 
-        std::swap(_usage,    buffer._usage);
-        std::swap(_target,   buffer._target);
-        std::swap(_bufferID, buffer._bufferID);
+        std::swap(_usage,     buffer._usage);
+        std::swap(_target,    buffer._target);
+        std::swap(_bufferID,  buffer._bufferID);
+        std::swap(_isCreated, buffer._isCreated);
     }
 
     Buffer::~Buffer() {
@@ -26,11 +27,29 @@ namespace GL {
     }
 
     Buffer& Buffer::operator=(Buffer&& buffer) {
-        std::swap(_usage,    buffer._usage);
-        std::swap(_target,   buffer._target);
-        std::swap(_bufferID, buffer._bufferID);
+        _isCreated = false;
+
+        std::swap(_usage,     buffer._usage);
+        std::swap(_target,    buffer._target);
+        std::swap(_bufferID,  buffer._bufferID);
+        std::swap(_isCreated, buffer._isCreated);
 
         return *this;
+    }
+
+    void Buffer::create() {
+        destroy();
+
+        glGenBuffers(1, &_bufferID);
+        _isCreated = true;
+    }
+
+    void Buffer::destroy() {
+        if(isCreated()) {
+            glDeleteBuffers(1, &_bufferID);
+
+            _isCreated = false;
+        }
     }
 
     void Buffer::bind() const {
@@ -76,6 +95,9 @@ namespace GL {
     }
 
     GLuint Buffer::getID() const {
+        if(!isCreated())
+            const_cast<Buffer*>(this)->create();
+
         return _bufferID;
     }
     
@@ -87,12 +109,8 @@ namespace GL {
         return _target;
     }
 
-    void Buffer::create() {
-        glGenBuffers(1, &_bufferID);
-    }
-
-    void Buffer::destroy() {
-        glDeleteBuffers(1, &_bufferID);
+    bool Buffer::isCreated() const {
+        return _isCreated;
     }
 
 }

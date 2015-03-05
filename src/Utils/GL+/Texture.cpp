@@ -3,31 +3,28 @@
 namespace GL {
     
     Texture::Texture() {
-        create();
+        _isCreated = false;
     }
 
     Texture::Texture(const Util::Image& image, Target target, Format format, InternalFormat internalFormat) {
-        create();
-
         load(image, target, format, internalFormat);
     }
 
     Texture::Texture(const std::string& path, Target target, Format format, InternalFormat internalFormat) {
-        create();
-
         Util::Image image(path, Util::Image::Format::Auto);
         load(image, target, format, internalFormat);
     }
     
     Texture::Texture(Texture&& texture) {
-        create();
+        _isCreated = false;
 
-        std::swap(_isAlpha, texture._isAlpha);
-        std::swap(_width, texture._width);
+        std::swap(_isAlpha,   texture._isAlpha);
+        std::swap(_isCreated, texture._isCreated);
+        std::swap(_width,  texture._width);
         std::swap(_height, texture._height);
         std::swap(_target, texture._target);
-        std::swap(_textureID, texture._textureID);
         std::swap(_format, texture._format);
+        std::swap(_textureID, texture._textureID);
         std::swap(_internalFormat, texture._internalFormat);
     }
 
@@ -36,15 +33,36 @@ namespace GL {
     }
 
     Texture& Texture::operator=(Texture&& texture) {
+        _isCreated = false;
+
         std::swap(_isAlpha, texture._isAlpha);
+        std::swap(_isCreated, texture._isCreated);
         std::swap(_width, texture._width);
         std::swap(_height, texture._height);
         std::swap(_target, texture._target);
-        std::swap(_textureID, texture._textureID);
         std::swap(_format, texture._format);
+        std::swap(_textureID, texture._textureID);
         std::swap(_internalFormat, texture._internalFormat);
 
         return *this;
+    }
+
+    void Texture::create() {
+        destroy();
+
+        glGenTextures(1, &_textureID);
+        _isCreated = true;
+
+        setWidth(0);
+        setHeight(0);
+    }
+
+    void Texture::destroy() {
+        if(isCreated()) {
+            glDeleteTextures(1, &_textureID);
+
+            _isCreated = false;
+        }
     }
 
     void Texture::bind() const {
@@ -172,18 +190,10 @@ namespace GL {
     }
 
     GLuint Texture::getID() const {
+        if(!isCreated())
+            const_cast<Texture*>(this)->create();
+
         return _textureID;
-    }
-
-    void Texture::create() {
-        glGenTextures(1, &_textureID);
-
-        setWidth(0);
-        setHeight(0);
-    }
-
-    void Texture::destroy() {
-        glDeleteTextures(1, &_textureID);
     }
 
     void Texture::assingData(const Util::Image& image, const Format format, const InternalFormat internalFormat) {
@@ -218,6 +228,10 @@ namespace GL {
 
     void Texture::setHeight(unsigned int height) {
         _height = height;
+    }
+
+    bool Texture::isCreated() const {
+        return _isCreated;
     }
 
 }
