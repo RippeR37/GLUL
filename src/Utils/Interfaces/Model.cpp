@@ -68,10 +68,6 @@ namespace Util {
             return _matrix;
         }
 
-        AABB& Model::getAABB() {
-            return _aabb;
-        }
-
         glm::mat4& Model::getMatrix() {
             return _matrix;
         }

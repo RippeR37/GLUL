@@ -47,7 +47,6 @@ namespace Util {
                 const glm::mat4& getMatrix() const;
 
             protected:
-                AABB& getAABB();
                 glm::mat4& getMatrix();
 
                 bool _hasVertices;

@@ -43,6 +43,8 @@ namespace GL {
             GLclampf getClearDepth() const;
             GLint getClearStencil() const;
 
+            Util::Window* getWindow();
+
             static void APIENTRY logError(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
 
             static Context& Current;

@@ -119,6 +119,10 @@ namespace GL {
         return _clearStencil;
     }
 
+    Util::Window* Context::getWindow() {
+        return _window;
+    }
+
 
 
     void Context::setActive(bool flag) {

@@ -26,14 +26,14 @@ namespace GL {
         }
 
         bool OBJ::load(const std::string& path, NormalType forcedNormalType) {
-            return parseFile(path, getAABB(), getMeshes(), getMaterials(), getTextures(), forcedNormalType);
+            return parseFile(path, _aabb, getMeshes(), getMaterials(), getTextures(), forcedNormalType);
         }
 
         bool OBJ::clear() {
             getMeshes().clear();
             getMaterials().clear();
             getTextures().clear();
-            getAABB().clear();
+            _aabb.clear();
 
             return true;
         }
