@@ -81,6 +81,9 @@ Documentation for each module should be created soon.
 ### License
 [GNU GPLv2](LICENSE).
 
+### Examples of usage
+You can find examples of this library's usage [here](https://github.com/RippeR37/Utility-Library/wiki/ExampleProjects).
+
 ### Author
 Most of the code is written completly by me. Some parts may be inspired by publicly shared code on websites like Stack Overflow. Unfortunatly that code traveled with me between projects for so long that i cannot remember every detail. I would happily mention you here though, so please inform me of any usage of your work.
 
