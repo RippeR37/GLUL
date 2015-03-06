@@ -27,8 +27,6 @@ namespace GL {
     }
 
     Buffer& Buffer::operator=(Buffer&& buffer) {
-        _isCreated = false;
-
         std::swap(_usage,     buffer._usage);
         std::swap(_target,    buffer._target);
         std::swap(_bufferID,  buffer._bufferID);

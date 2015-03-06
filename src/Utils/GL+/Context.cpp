@@ -1,5 +1,6 @@
 #include <Utils/GL+/Context.h>
 #include <Utils/Logger.h>
+#include <Utils/Window.h>
 
 namespace GL {
 
@@ -12,6 +13,9 @@ namespace GL {
     Context::Context() {
         setActive(false);
         _window = nullptr;
+
+        _viewportSize = glm::ivec2(0, 0);
+        _viewportPosition = glm::ivec2(0, 0);
     }
 
 
@@ -20,9 +24,12 @@ namespace GL {
         setActive(true);
         bindWindow(window);
     }
-    
+
     void Context::bindWindow(Util::Window* window) {
         _window = window;
+
+        if(window)
+            _viewportSize = window->getSize();
     }
 
     void Context::logErrors(bool flag) {
@@ -57,20 +64,20 @@ namespace GL {
         std::string logPriority;
 
         switch(severity) {
-            case GL_DEBUG_SEVERITY_HIGH_ARB:    logPriority = "[High]   "; break;
-            case GL_DEBUG_SEVERITY_MEDIUM_ARB:  logPriority = "[Medium] "; break;
-            case GL_DEBUG_SEVERITY_LOW_ARB:     logPriority = "[Low]    "; break;
-            default:                            logPriority = "[Other]  "; break;
+        case GL_DEBUG_SEVERITY_HIGH_ARB:    logPriority = "[High]   "; break;
+        case GL_DEBUG_SEVERITY_MEDIUM_ARB:  logPriority = "[Medium] "; break;
+        case GL_DEBUG_SEVERITY_LOW_ARB:     logPriority = "[Low]    "; break;
+        default:                            logPriority = "[Other]  "; break;
         };
 
         switch(type) {
-            case GL_DEBUG_TYPE_ERROR_ARB:               logType = "[Error]       ";  break;
-            case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB: logType = "[Deprecated]  ";  break;
-            case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB:  logType = "[Undefined]   ";  break;
-            case GL_DEBUG_TYPE_PORTABILITY_ARB:         logType = "[Portability] ";  break;
-            case GL_DEBUG_TYPE_PERFORMANCE_ARB:         logType = "[Performance] ";  break;
-            case GL_DEBUG_TYPE_OTHER_ARB:               logType = "[Other]       ";  break;
-            default:                                    logType = "[Unknown]     ";  break;
+        case GL_DEBUG_TYPE_ERROR_ARB:               logType = "[Error]       ";  break;
+        case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB: logType = "[Deprecated]  ";  break;
+        case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB:  logType = "[Undefined]   ";  break;
+        case GL_DEBUG_TYPE_PORTABILITY_ARB:         logType = "[Portability] ";  break;
+        case GL_DEBUG_TYPE_PERFORMANCE_ARB:         logType = "[Performance] ";  break;
+        case GL_DEBUG_TYPE_OTHER_ARB:               logType = "[Other]       ";  break;
+        default:                                    logType = "[Unknown]     ";  break;
         }
 
         Util::Log::Stream("_OpenGL") << logPriority + logType + message;
@@ -81,7 +88,7 @@ namespace GL {
         if(isActive())
             glClear(static_cast<GLbitfield>(type));
     }
-            
+
 
 
     void Context::setClearColor(const glm::vec4& data) {
@@ -90,7 +97,7 @@ namespace GL {
         if(isActive())
             glClearColor(data.r, data.g, data.b, data.a);
     }
-    
+
     void Context::setClearDepth(const GLclampf value) {
         _clearDepth = value;
 
@@ -103,6 +110,17 @@ namespace GL {
 
         if(isActive())
             glClearStencil(value);
+    }
+
+    void Context::setViewport(GLint x, GLint y, GLint width, GLint height) {
+        setViewport(glm::ivec2(x, y), glm::ivec2(width, height));
+    }
+
+    void Context::setViewport(const glm::ivec2& position, const glm::ivec2& size) {
+        _viewportSize = size;
+        _viewportPosition = position;
+
+        glViewport(position.x, position.y, size.x, size.y);
     }
 
 
@@ -118,6 +136,15 @@ namespace GL {
     GLint Context::getClearStencil() const {
         return _clearStencil;
     }
+
+    const glm::ivec2& Context::getViewportSize() const {
+        return _viewportSize;
+    }
+
+    const glm::ivec2& Context::getViewportPosition() const {
+        return _viewportPosition;
+    }
+
 
     Util::Window* Context::getWindow() {
         return _window;

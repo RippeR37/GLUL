@@ -3,6 +3,7 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
 
 namespace Util {
@@ -37,11 +38,17 @@ namespace GL {
             void setClearColor(const glm::vec4& data);
             void setClearDepth(const GLclampf value);
             void setClearStencil(const GLint value);
+
+            void setViewport(GLint x, GLint y, GLint width, GLint height);
+            void setViewport(const glm::ivec2& position, const glm::ivec2& size);
             
 
             const glm::vec4& getClearColor() const;
             GLclampf getClearDepth() const;
             GLint getClearStencil() const;
+
+            const glm::ivec2& getViewportSize() const;
+            const glm::ivec2& getViewportPosition() const;
 
             Util::Window* getWindow();
 
@@ -59,6 +66,9 @@ namespace GL {
             glm::vec4 _clearColor;
             GLclampf _clearDepth;
             GLint _clearStencil;
+
+            glm::ivec2 _viewportSize;
+            glm::ivec2 _viewportPosition;
 
             Util::Window* _window;
     };
