@@ -42,6 +42,12 @@
     <Filter Include="Source Files\GL+\Models">
       <UniqueIdentifier>{64976592-a0d6-4ffb-a712-7c64efae302f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GL+\GUI">
+      <UniqueIdentifier>{c4aa9fa4-7c71-4e4f-9307-8d9c257c5dca}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GL+\GUI">
+      <UniqueIdentifier>{8dc44671-e7a6-4819-ac83-e5e5096dfbe6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Utils\Clock.h">
@@ -158,6 +164,21 @@
     <ClInclude Include="..\include\Utils\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Component.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Container.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Event.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Text.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Window.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">
@@ -264,6 +285,21 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\Logger.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

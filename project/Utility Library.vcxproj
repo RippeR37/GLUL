@@ -53,7 +53,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\libs\glew-1.12.0\include;..\libs\glfw-3.1\include;..\libs\glm-0.9.5.4\include;..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libs\glew-1.12.0\include;..\libs\glfw-3.1\include;..\libs\glm-0.9.5.4\include;..\libs\freetype-2.5.5\include;..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4290;4996;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ObjectFileName>$(IntDir)\%(RelativeDir)\</ObjectFileName>
       <PreprocessorDefinitions>GLFW_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -70,7 +70,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\libs\glew-1.12.0\include;..\libs\glfw-3.1\include;..\libs\glm-0.9.5.4\include;..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libs\glew-1.12.0\include;..\libs\glfw-3.1\include;..\libs\glm-0.9.5.4\include;..\libs\freetype-2.5.5\include;..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4290;4996;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ObjectFileName>$(IntDir)\%(RelativeDir)\</ObjectFileName>
       <PreprocessorDefinitions>GLFW_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -92,6 +92,11 @@
     <ClInclude Include="..\include\Utils\Frameworks\Application.h" />
     <ClInclude Include="..\include\Utils\GL+\Context.h" />
     <ClInclude Include="..\include\Utils\GL+\Framebuffer.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Component.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Container.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Event.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Text.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Window.h" />
     <ClInclude Include="..\include\Utils\GL+\MatrixStack.h" />
     <ClInclude Include="..\include\Utils\GL+\Models\Material.h" />
     <ClInclude Include="..\include\Utils\GL+\Models\Mesh.h" />
@@ -132,6 +137,11 @@
     <ClCompile Include="..\src\Utils\Frameworks\Application.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Context.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Framebuffer.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp" />
     <ClCompile Include="..\src\Utils\GL+\MatrixStack.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Models\Material.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Models\Mesh.cpp" />
