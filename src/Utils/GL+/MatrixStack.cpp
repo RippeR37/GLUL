@@ -27,7 +27,7 @@ namespace GL {
     }
 
     MatrixStack& MatrixStack::operator<<(const glm::mat4& matrix) {
-        push(matrix);
+        load(matrix);
         return *this;
     }
 
@@ -50,6 +50,8 @@ namespace GL {
     void MatrixStack::clear() {
         while(_stack.size() > 0)
             _stack.pop();
+
+        _stack.push(glm::mat4(1.0));
     }
 
     void MatrixStack::set() {
@@ -64,7 +66,6 @@ namespace GL {
         _stack.top() *= matrix;
     }
 
-
     void MatrixStack::pop() {
         _stack.pop();
     }
@@ -77,6 +78,9 @@ namespace GL {
         _stack.push(matrix);
     }
 
+    void MatrixStack::load(const glm::mat4& matrix) {
+        _stack.top() = matrix;
+    }
 
     void MatrixStack::rotate(float angle, float x, float y, float z) {
         rotate(angle, glm::vec3(x, y, z));

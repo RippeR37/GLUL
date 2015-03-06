@@ -30,6 +30,7 @@ namespace GL {
             void pop();
             void push();
             void push(const glm::mat4& matrix);
+            void load(const glm::mat4& matrix);
 
             void rotate(float angle, float x, float y, float z);
             void rotate(float angle, const glm::vec3& vector);

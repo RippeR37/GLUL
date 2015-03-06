@@ -19,8 +19,6 @@ namespace GL {
     }
 
     PixelBuffer& PixelBuffer::operator=(PixelBuffer&& pbo) {
-        _isCreated = false;
-
         std::swap(_usage, pbo._usage);
         std::swap(_target, pbo._target);
         std::swap(_bufferID, pbo._bufferID);
