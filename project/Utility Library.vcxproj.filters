@@ -15,17 +15,11 @@
     <Filter Include="Header Files\GL+">
       <UniqueIdentifier>{f64fdde1-64a9-4c0e-8689-4c7359dfc8ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GL+\GUI">
-      <UniqueIdentifier>{785a6666-51a4-4ed3-baa3-37504f8182c1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Exceptions">
       <UniqueIdentifier>{4dfe5b47-cb01-484f-861e-b3f277831a9e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\GL+">
       <UniqueIdentifier>{d8678c51-c519-45c9-bcc6-dfd52235f5b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GL+\GUI">
-      <UniqueIdentifier>{ff9835f0-232d-4d12-b80b-822bb8b6aeb3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Interfaces">
       <UniqueIdentifier>{ac034dfa-b8ce-48fe-a70d-8e48daf1f94e}</UniqueIdentifier>
@@ -112,21 +106,6 @@
     </ClInclude>
     <ClInclude Include="..\include\Utils\GL+\VertexAttrib.h">
       <Filter>Header Files\GL+</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Component.h">
-      <Filter>Header Files\GL+\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Container.h">
-      <Filter>Header Files\GL+\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Event.h">
-      <Filter>Header Files\GL+\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Text.h">
-      <Filter>Header Files\GL+\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Window.h">
-      <Filter>Header Files\GL+\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Utils\Interfaces\State.h">
       <Filter>Header Files\Interfaces</Filter>
@@ -243,21 +222,6 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\GL+\VertexAttrib.cpp">
       <Filter>Source Files\GL+</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp">
-      <Filter>Source Files\GL+\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp">
-      <Filter>Source Files\GL+\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp">
-      <Filter>Source Files\GL+\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp">
-      <Filter>Source Files\GL+\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp">
-      <Filter>Source Files\GL+\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Utils\Interfaces\State.cpp">
       <Filter>Source Files\Interfaces</Filter>
