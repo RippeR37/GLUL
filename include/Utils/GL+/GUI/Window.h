@@ -15,6 +15,8 @@ namespace GL {
         class Window : public Container, public Util::Window {
             public:
                 Window();
+                Window(unsigned int width, unsigned int height, const std::string& title);
+                Window(const glm::uvec2& size, const std::string& title);
                 virtual ~Window();
             
                 virtual void update();

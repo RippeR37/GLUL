@@ -19,6 +19,12 @@
     <None Include="..\..\examples\font\bin\assets\shaders\font.vp">
       <Filter>Assets\Shaders</Filter>
     </None>
+    <None Include="..\..\examples\font\bin\assets\shaders\utilGUIText.fp">
+      <Filter>Assets\Shaders</Filter>
+    </None>
+    <None Include="..\..\examples\font\bin\assets\shaders\utilGUIText.vp">
+      <Filter>Assets\Shaders</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\examples\font\src\main.cpp">

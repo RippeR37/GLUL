@@ -96,6 +96,8 @@
   <ItemGroup>
     <None Include="..\..\examples\font\bin\assets\shaders\font.fp" />
     <None Include="..\..\examples\font\bin\assets\shaders\font.vp" />
+    <None Include="..\..\examples\font\bin\assets\shaders\utilGUIText.fp" />
+    <None Include="..\..\examples\font\bin\assets\shaders\utilGUIText.vp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\examples\font\src\main.cpp" />

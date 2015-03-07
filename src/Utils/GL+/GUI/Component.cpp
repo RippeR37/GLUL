@@ -8,6 +8,7 @@ namespace GL {
         Component::Component(Container* const parent) {
             clearListeners();
             setParent(parent);
+            setInvalid();
         }
 
         Component::~Component() {

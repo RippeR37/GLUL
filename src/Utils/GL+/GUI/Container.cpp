@@ -48,7 +48,10 @@ namespace GL {
         }
 
         void Container::add(Component* const component) {
-            _components.push_back(component);
+            if(component) {
+                component->setParent(this);
+                _components.push_back(component);
+            }
         }
 
         void Container::setInvalid() {
