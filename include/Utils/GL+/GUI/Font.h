@@ -20,7 +20,8 @@ namespace GL {
                 struct Metric {
                     glm::vec2 advance;
                     glm::vec2 size;
-                    glm::vec2 texPos;
+                    glm::vec2 texPosStart;
+                    glm::vec2 texPosEnd;
                     glm::vec2 glyphPos;
                 };
 

@@ -53,18 +53,19 @@ namespace GL {
             int totalHeight = 1;
             int maxWidth = 2048;
             unsigned int maxHeight = 0;
+            unsigned int pixelGlyphInterval = 2;
 
 
             // Calculate texture size
-            for(char glyph = 0; glyph < 128; ++glyph) {
+            for(int glyph = 0; glyph < 128; ++glyph) {
                 if(FT_Load_Char(_face, glyph, FT_LOAD_RENDER)) {
                     Util::Log::Stream("_Library").logWarning(
-                        "[FreeType] Unable to load glyph of '" + std::to_string(glyph) +  
+                        "[FreeType] Unable to load glyph of '" + std::to_string(static_cast<char>(glyph)) +
                         "' (" + std::to_string(static_cast<int>(glyph)) + ")"
                     );
 
                 } else {
-                    totalWidth += _face->glyph->bitmap.width;
+                    totalWidth += _face->glyph->bitmap.width + pixelGlyphInterval;
                     maxHeight = std::max(maxHeight, _face->glyph->bitmap.rows);
 
                     if(totalWidth > maxWidth) {
@@ -75,6 +76,8 @@ namespace GL {
                 }
             }
 
+            maxHeight += pixelGlyphInterval;
+
 
             // Qucik-function to get next power of 2 value
             auto nextPowOf2 = [](int x) -> int {
@@ -82,7 +85,6 @@ namespace GL {
                 while(i < x) (i = i << 1);
                 return i;
             };
-
 
             // Create texture
             if(maxWidthReached)
@@ -105,16 +107,17 @@ namespace GL {
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, totalWidth, totalHeight, 0, GL_RED, GL_UNSIGNED_BYTE, nullptr);
 
 
+
             // Fill texture with glyphs
             int offsetX = 0;
             int offsetY = 0;
             int currentWidth = 0;
             int currentHeight = 0;
 
-            for(char glyph = 0; glyph < 128; ++glyph) {
+            for(int glyph = 0; glyph < 128; ++glyph) {
                 if(FT_Load_Char(_face, glyph, FT_LOAD_RENDER)) {
                     Util::Log::Stream("_Library").logWarning(
-                        "[FreeType] Unable to load glyph of '" + std::to_string(glyph) +
+                        "[FreeType] Unable to load glyph of '" + std::to_string(static_cast<char>(glyph)) +
                         "' (" + std::to_string(static_cast<int>(glyph)) + ")"
                     );
 
@@ -137,17 +140,23 @@ namespace GL {
                         static_cast<float>(_face->glyph->advance.y) / 64.0f
                     );
 
-                    _glyphs[glyph].texPos   = glm::vec2(
+                    _glyphs[glyph].texPosStart = glm::vec2(
                         static_cast<float>(offsetX) / static_cast<float>(totalWidth),
+                        static_cast<float>(offsetY + currentHeight) / static_cast<float>(totalHeight)
+                    );
+
+                    _glyphs[glyph].texPosEnd = glm::vec2(
+                        static_cast<float>(offsetX + currentWidth)  / static_cast<float>(totalWidth),
                         static_cast<float>(offsetY) / static_cast<float>(totalHeight)
                     );
+
 
                     // Write glyph on texture
                     // TODO: Fix this to use GL::Texture's functionality
                     glTexSubImage2D(GL_TEXTURE_2D, 0, offsetX, offsetY, currentWidth, currentHeight, GL_RED, GL_UNSIGNED_BYTE, _face->glyph->bitmap.buffer);
 
                     // Move to next glyph
-                    offsetX += currentWidth;
+                    offsetX += currentWidth + pixelGlyphInterval;
                 }
             }
 
@@ -156,6 +165,14 @@ namespace GL {
 
         const std::string& Font::getPath() const {
             return _path;
+        }
+
+        const Texture& Font::getTexture() const {
+            return _texture;
+        }
+
+        const Font::Metric& Font::getMetric(char character) const {
+            return _glyphs[character];
         }
 
         void Font::setPath(const std::string& path) {

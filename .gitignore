@@ -30,3 +30,8 @@ project/Models example/build/*
 project/Models example/examples/*
 project/Models example/Debug/*
 project/Models example/Release/*
+
+project/Font example/build/*
+project/Font example/examples/*
+project/Font example/Debug/*
+project/Font example/Release/*
