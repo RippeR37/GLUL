@@ -10,6 +10,14 @@
 /**
  * Initialize functions
  */
+
+void initFont(GL::GUI::Font& font) {
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    font.load("assets/fonts/arial.ttf", 128);
+}
+
 void initVertices(std::vector<glm::vec4>& vertices, const GL::GUI::Font& font) {
     /*
     // Display whole texture
@@ -20,19 +28,19 @@ void initVertices(std::vector<glm::vec4>& vertices, const GL::GUI::Font& font) {
     */
     
     // Display only one character
-    char character = 'W';
+    char character = '@';
     float xS = font.getMetric(character).texPosStart.x;
     float yS = font.getMetric(character).texPosStart.y;
     float xE = font.getMetric(character).texPosEnd.x;
     float yE = font.getMetric(character).texPosEnd.y;
 
-    vertices.push_back(glm::vec4(-0.5f, -0.5f, xS, yS));
-    vertices.push_back(glm::vec4( 0.5f, -0.5f, xE, yS));
-    vertices.push_back(glm::vec4(-0.5f,  0.5f, xS, yE));
+    vertices.push_back(glm::vec4(-0.1f, -0.1f, xS, yS));
+    vertices.push_back(glm::vec4( 0.1f, -0.1f, xE, yS));
+    vertices.push_back(glm::vec4(-0.1f,  0.1f, xS, yE));
 
-    vertices.push_back(glm::vec4(-0.5f,  0.5f, xS, yE));
-    vertices.push_back(glm::vec4( 0.5f, -0.5f, xE, yS));
-    vertices.push_back(glm::vec4( 0.5f,  0.5f, xE, yE));
+    vertices.push_back(glm::vec4(-0.1f,  0.1f, xS, yE));
+    vertices.push_back(glm::vec4( 0.1f, -0.1f, xE, yS));
+    vertices.push_back(glm::vec4( 0.1f,  0.1f, xE, yE));
 }
 
 void initProgram(GL::Program& program) {
@@ -64,10 +72,6 @@ void initVAO(GL::VertexArray& vao, const GL::VertexBuffer& vbo, const std::vecto
         vao.attachVBO(&vbo);
         vao.setAttribPointers();
     vao.unbind();
-}
-
-void initFont(GL::GUI::Font& font) {
-    font.load("assets/fonts/arial.ttf", 200);
 }
 
 /**
