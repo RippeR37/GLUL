@@ -68,6 +68,23 @@ namespace GL {
             return uniformIterator->second;
         }
     }
+
+    void Program::create() {
+        destroy();
+
+        _programID = glCreateProgram();
+        _isCreated = true;
+        _isLinked = false;
+    }
+
+    void Program::destroy() {
+        if(isCreated()) {
+            glDeleteProgram(_programID);
+
+            _isCreated = false;
+            _isLinked = false;
+        }
+    }
     
     void Program::load(const Shader& vertexShader, const Shader& fragmentShader) {
         if(!isCreated())
@@ -108,23 +125,6 @@ namespace GL {
 
     const Uniform& Program::getUniform(const std::string& uniformName) const throw(std::out_of_range) {
         return _uniforms.at(uniformName);
-    }
-
-    void Program::create() {
-        destroy();
-
-        _programID = glCreateProgram();
-        _isCreated = true;
-        _isLinked = false;
-    }
-
-    void Program::destroy() {
-        if(isCreated()) {
-            glDeleteProgram(_programID);
-
-            _isCreated = false;
-            _isLinked = false;
-        }
     }
 
     bool Program::link(const Shader& vertexShader, const Shader& fragmentShader) {

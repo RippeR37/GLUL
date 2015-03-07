@@ -44,6 +44,8 @@ namespace GL {
             glDeleteFramebuffers(1, &_framebufferID);
 
             _isCreated = false;
+            _isComplete = false;
+            _isCompleteValid = true;
         }
     }
 
