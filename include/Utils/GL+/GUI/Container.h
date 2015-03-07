@@ -16,19 +16,16 @@ namespace GL {
 
                 virtual void render();
                 virtual void update(double deltaTime);
+                virtual void validate();
 
-                void add(Component* const component);
-                void validate();
+                virtual void add(Component* const component);
 
-                void setInvalid();
-
-                bool isValid() const;
+                virtual void setInvalid();
 
             private:
-                void setValid();
+                void notifyChildsOfInvalidState();
                 void handleChildDestruction(Component* component);
 
-                bool _isValid;
                 std::list<Component*> _components;
 
             public:
