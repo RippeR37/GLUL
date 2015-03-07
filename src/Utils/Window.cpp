@@ -227,6 +227,14 @@ namespace Util {
         static bool initialized = false;
 
         if(initialized == false) {
+            // Setting error callback
+            static auto& errorCallbackFunc = [](int error, const char* description) {
+                Util::Log::Stream("_Library").logError(std::string("[GLFW] ") + description);
+            };
+
+            glfwSetErrorCallback(errorCallbackFunc);
+
+            // Initializing library
             if(glfwInit() == false) {
                 Util::Log::Stream("_Library").logError("Failed to initialize GLFW library");
                 throw Util::Exception::FatalError(std::string("Failed to initialize GLFW library."));
