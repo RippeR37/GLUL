@@ -11,7 +11,7 @@ namespace GL {
         }
 
         Component::~Component() {
-            notifyDestructionParent();
+            notifyParentOfDestruction();
         }
 
         void Component::processEvent(const Event& event) {
@@ -44,6 +44,10 @@ namespace GL {
             return _isVisible;
         }
 
+        bool Component::isValid() const {
+            return _isValid;
+        }
+
         const glm::vec2& Component::getSize() const {
             return _size;
         }
@@ -70,45 +74,48 @@ namespace GL {
         void Component::setEnabled(bool flag) {
             _isEnabled = flag;
 
-            notifyInvalidParent();
+            setInvalid();
         }
         
         void Component::setFocused(bool flag) {
             _isFocused = flag;
 
-            notifyInvalidParent();
+            setInvalid();
         }
 
         void Component::setVisible(bool flag) {
             _isVisible = flag;
 
-            notifyInvalidParent();
+            setInvalid();
+        }
+
+        void Component::setInvalid() {
+            _isValid = false;
         }
 
         void Component::setSize(const glm::vec2& size) {
             _size = size;
 
-            notifyInvalidParent();
+            setInvalid();
         }
 
         void Component::setPosition(const Util::Point& position) {
             _position = position;
 
-            notifyInvalidParent();
+            setInvalid();
+        }
+
+        void Component::setValid() {
+            _isValid = true;
         }
         
         void Component::setParent(Container* const parent) {
             _parent = parent;
         }
 
-        void Component::notifyDestructionParent() {
+        void Component::notifyParentOfDestruction() {
             if(getParent())
                 getParent()->handleChildDestruction(this);
-        }
-        
-        void Component::notifyInvalidParent() {
-            if(getParent())
-                getParent()->setInvalid();
         }
 
     }
