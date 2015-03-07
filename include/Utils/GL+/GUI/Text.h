@@ -3,9 +3,6 @@
 
 #include <Utils/GL+/GUI/Component.h>
 
-#include <ft2build.h>
-#include FT_FREETYPE_H
-
 namespace GL {
 
     namespace GUI {

@@ -95,6 +95,7 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Component.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Container.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Event.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Font.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Text.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Window.h" />
     <ClInclude Include="..\include\Utils\GL+\MatrixStack.h" />
@@ -140,6 +141,7 @@
     <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Font.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp" />
     <ClCompile Include="..\src\Utils\GL+\MatrixStack.cpp" />
