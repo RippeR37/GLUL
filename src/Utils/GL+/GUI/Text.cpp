@@ -141,10 +141,6 @@ namespace GL {
                 posEnd   = posStart  + _font->getMetric(character).size;
                 posCursor += _font->getMetric(character).advance;
 
-                Util::Log::Stream("_Library") << "Glyph '" + std::to_string(character) + "'";
-                Util::Log::Stream("_Library") << "Start: (" + std::to_string(posStart.x) + ", " + std::to_string(posStart.y) + ")";
-                Util::Log::Stream("_Library") << "End:   (" + std::to_string(posEnd.x)   + ", " + std::to_string(posEnd.y) + ")";
-
                 // Vertices
                 if(_font->getMetric(character).size.x > 0 && _font->getMetric(character).size.y > 0) {
                     result.emplace_back(posStart.x, posStart.y, texStart.x, texStart.y);
