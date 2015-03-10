@@ -18,7 +18,7 @@ namespace GL {
             _components.clear();
         }
 
-        void Container::render() {
+        void Container::render() const {
             if(!isValid())
                 validate();
 
@@ -36,7 +36,7 @@ namespace GL {
                     component->update(deltaTime);
         }
 
-        void Container::validate() {
+        void Container::validate() const {
             if(isValid())
                 return;
 
@@ -44,13 +44,17 @@ namespace GL {
                 if(component)
                     component->validate();
 
-            setValid();
+            const_cast<Container*>(this)->setValid();
         }
 
         void Container::add(Component* const component) {
             if(component) {
-                component->setParent(this);
-                _components.push_back(component);
+                if(component->getParent() != this) {
+                    component->notifyParentOfDestruction();
+
+                    component->setParent(this);
+                    _components.push_back(component);
+                }
             }
         }
 

@@ -7,6 +7,7 @@ namespace GL {
 
         Text::Text(Container* const parent) : Component(parent) {
             setFont(nullptr);
+            setColor(glm::vec4(1.0f));
 
             _glInitialized = false;
         }
@@ -15,29 +16,32 @@ namespace GL {
 
         }
 
-        void Text::render() {
-            if(_font == nullptr) {
-                Util::Log::Stream("_Library").logError("[GUI] Attempt to render render text '" + _text + "' without font");
-                return;
-            }
+        void Text::render() const {
+            if(isVisible() && getAlpha() > 0.0f) {
+                if(_font == nullptr) {
+                    Util::Log::Stream("_Library").logError("[GUI] Attempt to render render text '" + _text + "' without font");
+                    return;
+                }
 
-            if(!isValid())
-                validate();
+                if(!isValid())
+                    validate();
 
-            // Render using font
-            if(_text != "") {
-                _font->getTexture().bind();
+                // Render using font
+                if(_text != "") {
+                    _font->getTexture().bind();
 
                     getProgram().use();
                     getProgram()["glyphAtlas"].setSampler(0);
+                    getProgram()["fontColor"].setVec(getColor());
 
-                        _vao.bind();
-                        _vao.drawArrays();
-                        _vao.unbind();
+                    _vao.bind();
+                    _vao.drawArrays();
+                    _vao.unbind();
 
                     getProgram().unbind();
 
-                _font->getTexture().unbind();
+                    _font->getTexture().unbind();
+                }
             }
         }
 
@@ -48,7 +52,9 @@ namespace GL {
             // Nothing to update here
         }
 
-        void Text::validate() {
+        void Text::validate() const {
+            Text* thisConstless = const_cast<Text*>(this);
+
             if(_text != "" && _font != nullptr) {
                 // (Re)build VBO
                 GL::VertexBuffer::Data vertexData;
@@ -58,27 +64,60 @@ namespace GL {
                 vertexData.size = vertices.size() * sizeof(glm::vec4);
                 vertexData.pointers.push_back(GL::VertexAttrib(0, 4, GL_FLOAT, 0, 0));
 
+
                 _vbo.bind();
-                _vbo.setUsage(VertexBuffer::Usage::DynamicDraw);
-                _vbo.setData(vertexData);
+                    thisConstless->_vbo.setUsage(VertexBuffer::Usage::DynamicDraw);
+                    thisConstless->_vbo.setData(vertexData);
                 _vbo.unbind();
 
 
                 // Initialize VAO
                 if(_glInitialized == false) {
-                    _vao.setDrawCount(vertices.size());                                               /// NEEDS TO CHANGE !!!
-                    _vao.setDrawTarget(VertexArray::DrawTarget::Triangles);
+                    thisConstless->_vao.setDrawCount(vertices.size());                                               /// NEEDS TO CHANGE !!!
+                    thisConstless->_vao.setDrawTarget(VertexArray::DrawTarget::Triangles);
 
                     _vao.bind();
-                        _vao.attachVBO(&_vbo);
-                        _vao.setAttribPointers();
+                        thisConstless->_vao.attachVBO(&_vbo);
+                        thisConstless->_vao.setAttribPointers();
                     _vao.unbind();
 
-                    _glInitialized = true;
+                    thisConstless->_glInitialized = true;
                 }
             }
 
-            setValid();
+            thisConstless->setValid();
+        }
+
+        const Font* Text::getFont() const {
+            return _font;
+        }
+
+        const std::string& Text::getText() const {
+            return _text;
+        }
+
+        const glm::vec4& Text::getColor() const {
+            return _color;
+        }
+
+        const float Text::getAlpha() const {
+            return _color.a;
+        }
+        
+        void Text::setEnabled(bool flag) {
+            _isEnabled = flag;
+        }
+
+        void Text::setFocused(bool flag) {
+            _isFocused = flag;
+        }
+
+        void Text::setVisible(bool flag) {
+            if(_isVisible != flag) {
+                _isVisible = flag;
+
+                setInvalid();
+            }
         }
 
         void Text::setFont(const Font* font) {
@@ -93,22 +132,22 @@ namespace GL {
             setInvalid();
         }
 
-        void Text::setPosition(const glm::vec2& position) {
-            _position = position;
+        void Text::setSize(const glm::vec2& size) {
+            //TODO: Allow setSize() to change size (scale?) of rendered text
 
-            setInvalid();
+            (void) size;
         }
 
-        const Font* Text::getFont() const {
-            return _font;
+        void Text::setColor(const glm::vec3& color) {
+            setColor(glm::vec4(color, getAlpha()));
         }
 
-        const std::string& Text::getText() const {
-            return _text;
+        void Text::setColor(const glm::vec4& color) {
+            _color = color;
         }
 
-        const glm::vec2& Text::getPosition() const {
-            return _position;
+        void Text::setAlpha(const float alpha) {
+            setColor(glm::vec4(getColor().r, getColor().g, getColor().b, alpha));
         }
 
         Program& Text::getProgram() {
@@ -125,7 +164,7 @@ namespace GL {
 
             glm::vec2 posStart, posEnd;
             glm::vec2 texStart, texEnd;
-            glm::vec2 posCursor = _position;
+            glm::vec2 posCursor = getScreenPosition().getPosition();
             char character;
 
             for(int i = 0; i < _text.size(); ++i) {
@@ -152,6 +191,8 @@ namespace GL {
                     result.emplace_back(posEnd.x,   posEnd.y,   texEnd.x,   texEnd.y);
                 }
             }
+
+            const_cast<Text*>(this)->_size = posEnd - getPosition().getPosition();
 
             return result;
         }

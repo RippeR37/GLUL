@@ -6,6 +6,8 @@ out vec4 color;
 
 uniform sampler2D glyphAtlas;
 
+uniform vec4 fontColor;
+
 void main() {
-    color = vec4(vec3(1.0), texture(glyphAtlas, texCoords).r);
+    color = vec4(fontColor.rgb, fontColor.a * texture(glyphAtlas, texCoords).r);
 }

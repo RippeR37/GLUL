@@ -23,25 +23,33 @@ namespace GL {
                 Text(Container* const parent = nullptr);
                 ~Text();
 
-                void render();
+                void render() const;
                 void update(double deltaTime);
 
-                void validate();
-
-                void setFont(const Font* font);
-                void setText(const std::string& text);
-                void setPosition(const glm::vec2& position);
+                void validate() const;
 
                 const Font* getFont() const;
                 const std::string& getText() const;
-                const glm::vec2& getPosition() const;
+                const glm::vec4& getColor() const;
+                const float getAlpha() const;
+                
+                void setEnabled(bool flag);
+                void setFocused(bool flag);
+                void setVisible(bool flag);
+                void setFont(const Font* font);
+                void setText(const std::string& text);
+                void setSize(const glm::vec2& size);
+                void setColor(const glm::vec3& color);
+                void setColor(const glm::vec4& color);
+                void setAlpha(const float alpha);
+                
 
             private:
                 std::vector<glm::vec4> getVertices() const;
 
                 const Font* _font;
                 std::string _text;
-                glm::vec2 _position;
+                glm::vec4 _color;
 
                 bool _glInitialized;
                 VertexArray _vao;

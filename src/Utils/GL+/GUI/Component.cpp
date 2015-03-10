@@ -6,18 +6,35 @@ namespace GL {
     namespace GUI {
 
         Component::Component(Container* const parent) {
+            setVisible(true);
+            setEnabled(true);
+            setFocused(false);
+            setSize(glm::vec2(0.0f));
+            setPosition(glm::vec2(0.0f));
+            
             clearListeners();
-            setParent(parent);
             setInvalid();
+
+            bindTo(parent);
         }
 
         Component::~Component() {
             notifyParentOfDestruction();
         }
 
+        void Component::bindTo(Container* container) {
+            notifyParentOfDestruction();
+
+            if(container)
+                container->add(this);
+            else
+                setParent(nullptr);
+        }
+
         void Component::processEvent(const Event& event) {
-            for(auto& listener : _listeners[static_cast<int>(event.getType())])
-                listener(event);
+            if(isEnabled())
+                for(auto& listener : _listeners[static_cast<int>(event.getType())])
+                    listener(event);
         }
 
         void Component::addListener(Event::Type eventType, std::function<void(const Event&)> function) {
@@ -65,7 +82,7 @@ namespace GL {
         }
 
         const Util::Rectangle Component::getBounds() const {
-            return Util::Rectangle(_position, _size.x, _size.y);
+            return Util::Rectangle(getPosition(), getSize().x, getSize().y);
         }
         
         Container* const Component::getParent() const {
@@ -96,6 +113,12 @@ namespace GL {
 
         void Component::setSize(const glm::vec2& size) {
             _size = size;
+
+            setInvalid();
+        }
+        
+        void Component::setPosition(const glm::vec2& position) {
+            _position.setPoint(position);
 
             setInvalid();
         }

@@ -14,9 +14,9 @@ namespace GL {
                 Container(Container* const parent = nullptr);
                 virtual ~Container();
 
-                virtual void render();
+                virtual void render() const;
                 virtual void update(double deltaTime);
-                virtual void validate();
+                virtual void validate() const;
 
                 virtual void add(Component* const component);
 

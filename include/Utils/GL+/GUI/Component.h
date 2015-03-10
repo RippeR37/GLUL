@@ -20,11 +20,13 @@ namespace GL {
                 Component(Container* const parent = nullptr);
                 virtual ~Component();
                 
-                virtual void render() = 0;
+                void bindTo(Container* container);
+
+                virtual void render() const = 0;
                 virtual void update(double deltaTime) = 0;
 
-                virtual void validate() = 0;
-                void processEvent(const Event& event);
+                virtual void validate() const = 0;
+                virtual void processEvent(const Event& event);
                 
                 void addListener(Event::Type eventType, std::function<void(const Event&)> function);
                 void clearListeners();
@@ -42,13 +44,15 @@ namespace GL {
                 const Util::Point getScreenPosition() const;
                 const Util::Rectangle getBounds() const;
 
-                void setEnabled(bool flag);
-                void setFocused(bool flag);
-                void setVisible(bool flag);
+                virtual void setEnabled(bool flag);
+                virtual void setFocused(bool flag);
+                virtual void setVisible(bool flag);
                 virtual void setInvalid();
                 
                 virtual void setSize(const glm::vec2& size);
-                void setPosition(const Util::Point& position);
+                virtual void setPosition(const glm::vec2& position);
+                virtual void setPosition(const Util::Point& position);
+                
 
             protected:
                 void setValid();

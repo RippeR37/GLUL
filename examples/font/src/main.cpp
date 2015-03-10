@@ -101,16 +101,19 @@ void run() {
     window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f));
 
     initFont(fontAtlas, "arial", 128);
-    initFont(fontText, "verdanai", 32);
+    initFont(fontText, "verdanai", 24);
 
     initText(textHeader, fontText, window);
     initText(textFooter, fontText, window);
 
     textHeader.setText("Texture with font's glyphs:");
+    textHeader.setColor(glm::vec4(1.0f, 0.3f, 0.7f, 1.0f));
     textHeader.setPosition(glm::vec2(200.0f, 420.0f));
 
-    textFooter.setText("void foo() { this->bar(); }");
+    textFooter.setText("Some hello world in `italic`");
+    textFooter.setColor(glm::vec4(0.2f, 0.5f, 0.7f, 1.0f));
     textFooter.setPosition(glm::vec2(200.0f, 120.0f));
+
 
     initVertices(vertices, fontAtlas);
     initProgram(program);
