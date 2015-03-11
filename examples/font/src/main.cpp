@@ -93,26 +93,35 @@ void run() {
     std::vector<glm::vec4> vertices;
 
     GL::GUI::Font fontAtlas;
-    GL::GUI::Font fontText;
+    GL::GUI::Font fontText1;
+    GL::GUI::Font fontText2;
     GL::GUI::Text textHeader;
-    GL::GUI::Text textFooter;
+    GL::GUI::Text textFooter1;
+    GL::GUI::Text textFooter2;
 
     window.create();
     window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f));
 
     initFont(fontAtlas, "arial", 128);
-    initFont(fontText, "verdanai", 24);
+    initFont(fontText1, "verdanai", 16);
+    initFont(fontText2, "verdanai", 32);
 
-    initText(textHeader, fontText, window);
-    initText(textFooter, fontText, window);
+    initText(textHeader, fontText2, window);
+    initText(textFooter1, fontText1, window);
+    initText(textFooter2, fontText2, window);
 
-    textHeader.setText("Texture with font's glyphs:");
+    textHeader.setText("Hello world!\nSecond line. Tab: '\t'\nTexture with font's glyphs:");
     textHeader.setColor(glm::vec4(1.0f, 0.3f, 0.7f, 1.0f));
-    textHeader.setPosition(glm::vec2(200.0f, 420.0f));
+    textHeader.setPosition(glm::vec2(200.0f, 520.0f));
 
-    textFooter.setText("Some hello world in `italic`");
-    textFooter.setColor(glm::vec4(0.2f, 0.5f, 0.7f, 1.0f));
-    textFooter.setPosition(glm::vec2(200.0f, 120.0f));
+    textFooter1.setText("Text using font with size 16");
+    textFooter1.setColor(glm::vec4(0.2f, 0.5f, 0.7f, 1.0f));
+    textFooter1.setPosition(glm::vec2(200.0f, 120.0f));
+
+    textFooter2.setText("Text using font with size 32 scaled to 16");
+    textFooter2.setColor(glm::vec4(0.2f, 0.5f, 0.7f, 1.0f));
+    textFooter2.setPosition(glm::vec2(200.0f, 100.0f));
+    textFooter2.setSize(16);
 
 
     initVertices(vertices, fontAtlas);

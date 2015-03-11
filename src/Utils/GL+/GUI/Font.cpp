@@ -3,6 +3,8 @@
 
 #include <algorithm>
 
+#include <cctype>
+
 namespace GL {
 
     namespace GUI {
@@ -12,11 +14,11 @@ namespace GL {
 
         Font::Font() {
             Font::initializeFT();
+
+            _height = 0;
         }
 
-        Font::Font(const std::string& path) {
-            Font::initializeFT();
-
+        Font::Font(const std::string& path) : Font() {
             load(path);
         }
 
@@ -65,13 +67,15 @@ namespace GL {
                     );
 
                 } else {
-                    totalWidth += _face->glyph->bitmap.width + pixelGlyphInterval;
-                    maxHeight = std::max(maxHeight, _face->glyph->bitmap.rows);
+                    if(std::isgraph(glyph)) {
+                        totalWidth += _face->glyph->bitmap.width + pixelGlyphInterval;
+                        maxHeight = std::max(maxHeight, _face->glyph->bitmap.rows);
 
-                    if(totalWidth > maxWidth) {
-                        maxWidthReached = true;
-                        totalWidth = _face->glyph->bitmap.width;
-                        totalHeight += 1;
+                        if(totalWidth > maxWidth) {
+                            maxWidthReached = true;
+                            totalWidth = _face->glyph->bitmap.width;
+                            totalHeight += 1;
+                        }
                     }
                 }
             }
@@ -122,45 +126,68 @@ namespace GL {
                     );
 
                 } else {
-                    currentWidth  = _face->glyph->bitmap.width;
-                    currentHeight = _face->glyph->bitmap.rows;
+                    if(std::isgraph(glyph)) {
+                        // When glyph is drawable (not whitespace or control character)
+                        currentWidth  = _face->glyph->bitmap.width;
+                        currentHeight = _face->glyph->bitmap.rows;
 
-                    // Check if current chunk will fit current row, if not move it to next row
-                    if(offsetX + currentWidth >= totalWidth) {
-                        offsetX = 0;
-                        offsetY += maxHeight;
+                        // Check if current chunk will fit current row, if not move it to next row
+                        if(offsetX + currentWidth >= totalWidth) {
+                            offsetX = 0;
+                            offsetY += maxHeight;
+                        }
+
+                        // Save position of glyph's bitmap in texture
+                        _glyphs[glyph].size     = glm::vec2(_face->glyph->bitmap.width, _face->glyph->bitmap.rows);
+                        _glyphs[glyph].glyphPos = glm::vec2(_face->glyph->bitmap_left,  _face->glyph->bitmap_top);
+
+                        _glyphs[glyph].advance  = glm::vec2(
+                            static_cast<float>(_face->glyph->advance.x) / 64.0f, 
+                            static_cast<float>(_face->glyph->advance.y) / 64.0f
+                        );
+
+                        _glyphs[glyph].texPosStart = glm::vec2(
+                            static_cast<float>(offsetX) / static_cast<float>(totalWidth),
+                            static_cast<float>(offsetY + currentHeight) / static_cast<float>(totalHeight)
+                        );
+
+                        _glyphs[glyph].texPosEnd = glm::vec2(
+                            static_cast<float>(offsetX + currentWidth)  / static_cast<float>(totalWidth),
+                            static_cast<float>(offsetY) / static_cast<float>(totalHeight)
+                        );
+
+
+                        // Write glyph on texture
+                        // TODO: Fix this to use GL::Texture's functionality
+                        glTexSubImage2D(GL_TEXTURE_2D, 0, offsetX, offsetY, currentWidth, currentHeight, GL_RED, GL_UNSIGNED_BYTE, _face->glyph->bitmap.buffer);
+
+                        // Move to next glyph
+                        offsetX += currentWidth + pixelGlyphInterval;
+
+                    } else {
+                        // When glyph isn't drawable (is whitespace or control character)
+                        _glyphs[glyph].size     = glm::vec2(0.0f);
+                        _glyphs[glyph].glyphPos = glm::vec2(_face->glyph->bitmap_left,  _face->glyph->bitmap_top);
+                        _glyphs[glyph].advance  = glm::vec2(
+                            static_cast<float>(_face->glyph->advance.x) / 64.0f, 
+                            static_cast<float>(_face->glyph->advance.y) / 64.0f
+                        );
+                        _glyphs[glyph].texPosStart = glm::vec2(0.0f);
+                        _glyphs[glyph].texPosEnd   = glm::vec2(0.0f);
                     }
-
-                    // Save position of glyph's bitmap in texture
-                    _glyphs[glyph].size     = glm::vec2(_face->glyph->bitmap.width, _face->glyph->bitmap.rows);
-                    _glyphs[glyph].glyphPos = glm::vec2(_face->glyph->bitmap_left,  _face->glyph->bitmap_top);
-
-                    _glyphs[glyph].advance  = glm::vec2(                                // check if problems !!!!!!!!!!!!!!!!!
-                        static_cast<float>(_face->glyph->advance.x) / 64.0f, 
-                        static_cast<float>(_face->glyph->advance.y) / 64.0f
-                    );
-
-                    _glyphs[glyph].texPosStart = glm::vec2(
-                        static_cast<float>(offsetX) / static_cast<float>(totalWidth),
-                        static_cast<float>(offsetY + currentHeight) / static_cast<float>(totalHeight)
-                    );
-
-                    _glyphs[glyph].texPosEnd = glm::vec2(
-                        static_cast<float>(offsetX + currentWidth)  / static_cast<float>(totalWidth),
-                        static_cast<float>(offsetY) / static_cast<float>(totalHeight)
-                    );
-
-
-                    // Write glyph on texture
-                    // TODO: Fix this to use GL::Texture's functionality
-                    glTexSubImage2D(GL_TEXTURE_2D, 0, offsetX, offsetY, currentWidth, currentHeight, GL_RED, GL_UNSIGNED_BYTE, _face->glyph->bitmap.buffer);
-
-                    // Move to next glyph
-                    offsetX += currentWidth + pixelGlyphInterval;
                 }
             }
-
+            
+            _height = fontHeight;
             _texture.unbind();
+        }
+
+        const unsigned int Font::getHeight() const {
+            return _height;
+        }
+
+        const float Font::getLineHeight() const {
+            return static_cast<float>(_face->size->metrics.height) / 64.0f;
         }
 
         const std::string& Font::getPath() const {

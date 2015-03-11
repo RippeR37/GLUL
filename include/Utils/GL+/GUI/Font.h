@@ -36,6 +36,8 @@ namespace GL {
 
                 void generate(unsigned int fontHeight);
 
+                const unsigned int getHeight() const;
+                const float getLineHeight() const;
                 const std::string& getPath() const;
                 const Texture& getTexture() const;
                 const Metric& getMetric(char character) const;
@@ -43,6 +45,7 @@ namespace GL {
             private:
                 void setPath(const std::string& path);
 
+                unsigned int _height;
                 std::string _path;
                 Texture _texture;
                 FT_Face _face;

@@ -1,6 +1,8 @@
 #include <Utils/GL+/GUI/Text.h>
 #include <Utils/Logger.h>
 
+#include <cctype>
+
 namespace GL {
 
     namespace GUI {
@@ -8,6 +10,7 @@ namespace GL {
         Text::Text(Container* const parent) : Component(parent) {
             setFont(nullptr);
             setColor(glm::vec4(1.0f));
+            setScale(1.0f);
 
             _glInitialized = false;
         }
@@ -103,6 +106,16 @@ namespace GL {
         const float Text::getAlpha() const {
             return _color.a;
         }
+
+        const float Text::getScale() const {
+            return _scale;
+        }
+
+        const unsigned int Text::getFontHeight() const {
+            unsigned int result = static_cast<unsigned int>((getFont() ? getFont()->getHeight() : 0) * getScale());
+
+            return result;
+        }
         
         void Text::setEnabled(bool flag) {
             _isEnabled = flag;
@@ -133,9 +146,25 @@ namespace GL {
         }
 
         void Text::setSize(const glm::vec2& size) {
-            //TODO: Allow setSize() to change size (scale?) of rendered text
+            // [DEPRECATED] - size.x will not be used
+            Util::Log::Stream("_Library").logWarning(
+                "Use of deprecated functionality Text::setSize(const glm::vec2&) for text '" + 
+                getText() + 
+                "' - width will not be used"
+            );
 
-            (void) size;
+            setSize(static_cast<unsigned int>(size.y));
+        }
+
+        void Text::setSize(const unsigned int newHeight) {
+            float oldFontHeight = static_cast<float>(getFont() ? getFont()->getHeight() : 1.0f);
+            float newFontHeight = static_cast<float>(newHeight);
+
+            setScale(newFontHeight / oldFontHeight);
+        }
+
+        void Text::setScale(const float scale) {
+            _scale = scale;
         }
 
         void Text::setColor(const glm::vec3& color) {
@@ -161,34 +190,46 @@ namespace GL {
 
         std::vector<glm::vec4> Text::getVertices() const {
             std::vector<glm::vec4> result;
-
             glm::vec2 posStart, posEnd;
             glm::vec2 texStart, texEnd;
-            glm::vec2 posCursor = getScreenPosition().getPosition();
+            glm::vec2 posScreen = getScreenPosition().getPosition();
+            glm::vec2 posCursor = posScreen;
             char character;
+            bool isDrawn = true;
 
             for(int i = 0; i < _text.size(); ++i) {
-                character = _text[i];
-                texStart  = _font->getMetric(character).texPosStart;
-                texEnd    = _font->getMetric(character).texPosEnd;
+                character = getText()[i];
+                isDrawn = (std::isgraph(character) > 0);
 
-                // Calcuations
-                posStart = posCursor + glm::vec2(
-                    _font->getMetric(character).glyphPos.x, 
-                    _font->getMetric(character).glyphPos.y - _font->getMetric(character).size.y
-                );
-                posEnd   = posStart  + _font->getMetric(character).size;
-                posCursor += _font->getMetric(character).advance;
+                if(isDrawn) {
+                    // Calcuations
+                    texStart  = getFont()->getMetric(character).texPosStart;
+                    texEnd    = getFont()->getMetric(character).texPosEnd;
 
-                // Vertices
-                if(_font->getMetric(character).size.x > 0 && _font->getMetric(character).size.y > 0) {
-                    result.emplace_back(posStart.x, posStart.y, texStart.x, texStart.y);
-                    result.emplace_back(posEnd.x,   posStart.y, texEnd.x,   texStart.y);
-                    result.emplace_back(posStart.x, posEnd.y,   texStart.x, texEnd.y);
+                    posStart = posCursor + getScale() * glm::vec2(
+                        getFont()->getMetric(character).glyphPos.x,
+                        getFont()->getMetric(character).glyphPos.y - getFont()->getMetric(character).size.y
+                        );
+                    posEnd = posStart  + getScale() * getFont()->getMetric(character).size;
 
-                    result.emplace_back(posStart.x, posEnd.y,   texStart.x, texEnd.y);
-                    result.emplace_back(posEnd.x,   posStart.y, texEnd.x,   texStart.y);
-                    result.emplace_back(posEnd.x,   posEnd.y,   texEnd.x,   texEnd.y);
+                    // Vertices
+                    if(getFont()->getMetric(character).size.x > 0 && getFont()->getMetric(character).size.y > 0) {
+                        result.emplace_back(posStart.x, posStart.y, texStart.x, texStart.y);
+                        result.emplace_back(posEnd.x,   posStart.y, texEnd.x,   texStart.y);
+                        result.emplace_back(posStart.x, posEnd.y,   texStart.x, texEnd.y);
+
+                        result.emplace_back(posStart.x, posEnd.y,   texStart.x, texEnd.y);
+                        result.emplace_back(posEnd.x,   posStart.y, texEnd.x,   texStart.y);
+                        result.emplace_back(posEnd.x,   posEnd.y,   texEnd.x,   texEnd.y);
+                    }
+                }
+
+                switch(character) {
+                    case '\n': posCursor = glm::vec2(posScreen.x, posCursor.y - getFont()->getLineHeight()); break;
+                    case '\t': posCursor += getScale() * getFont()->getMetric(' ').advance * 4.0f; break;
+
+                    default:
+                        posCursor += getScale() * getFont()->getMetric(character).advance; break;
                 }
             }
 

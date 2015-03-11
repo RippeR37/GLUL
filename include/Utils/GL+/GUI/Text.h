@@ -32,6 +32,8 @@ namespace GL {
                 const std::string& getText() const;
                 const glm::vec4& getColor() const;
                 const float getAlpha() const;
+                const float getScale() const;
+                const unsigned int getFontHeight() const;
                 
                 void setEnabled(bool flag);
                 void setFocused(bool flag);
@@ -39,6 +41,8 @@ namespace GL {
                 void setFont(const Font* font);
                 void setText(const std::string& text);
                 void setSize(const glm::vec2& size);
+                void setSize(const unsigned int newHeight);
+                void setScale(const float scale);
                 void setColor(const glm::vec3& color);
                 void setColor(const glm::vec4& color);
                 void setAlpha(const float alpha);
@@ -50,6 +54,7 @@ namespace GL {
                 const Font* _font;
                 std::string _text;
                 glm::vec4 _color;
+                float _scale;
 
                 bool _glInitialized;
                 VertexArray _vao;
