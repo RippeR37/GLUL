@@ -35,9 +35,12 @@ namespace GL {
                 void load(const std::string& path, unsigned int fontHeight);
 
                 void generate(unsigned int fontHeight);
+                
+                const float getLineHeight() const;
+                const float getAscender() const;
+                const float getDescender() const;
 
                 const unsigned int getHeight() const;
-                const float getLineHeight() const;
                 const std::string& getPath() const;
                 const Texture& getTexture() const;
                 const Metric& getMetric(char character) const;

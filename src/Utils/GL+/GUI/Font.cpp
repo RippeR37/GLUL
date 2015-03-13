@@ -182,12 +182,23 @@ namespace GL {
             _texture.unbind();
         }
 
-        const unsigned int Font::getHeight() const {
-            return _height;
-        }
-
         const float Font::getLineHeight() const {
             return static_cast<float>(_face->size->metrics.height) / 64.0f;
+        }
+
+        const float Font::getAscender() const {
+            //_face->size->metrics.ascender
+            //_face->ascender
+
+            return static_cast<float>(_face->size->metrics.ascender) / 64.0f;
+        }
+
+        const float Font::getDescender() const {
+            return static_cast<float>(_face->size->metrics.descender) / 64.0f;
+        }
+
+        const unsigned int Font::getHeight() const {
+            return _height;
         }
 
         const std::string& Font::getPath() const {

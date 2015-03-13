@@ -192,8 +192,10 @@ namespace GL {
             std::vector<glm::vec4> result;
             glm::vec2 posStart, posEnd;
             glm::vec2 texStart, texEnd;
-            glm::vec2 posScreen = getScreenPosition().getPosition();
-            glm::vec2 posCursor = posScreen;
+            glm::vec2 baseLine = getScreenPosition().getPosition() - glm::vec2(0.0f, getScale() * getFont()->getAscender());
+            glm::vec2 posCursor = baseLine;
+            glm::vec2 bbTopRight = baseLine;
+            glm::vec2 bbBottomLeft = baseLine;
             char character;
             bool isDrawn = true;
 
@@ -212,6 +214,11 @@ namespace GL {
                         );
                     posEnd = posStart  + getScale() * getFont()->getMetric(character).size;
 
+                    if(posStart.x < bbBottomLeft.x) bbBottomLeft.x = posStart.x;
+                    if(posStart.y < bbBottomLeft.y) bbBottomLeft.y = posStart.y;
+                    if(posEnd.x > bbTopRight.x) bbTopRight.x = posEnd.x;
+                    if(posEnd.y > bbTopRight.y) bbTopRight.y = posEnd.y;
+
                     // Vertices
                     if(getFont()->getMetric(character).size.x > 0 && getFont()->getMetric(character).size.y > 0) {
                         result.emplace_back(posStart.x, posStart.y, texStart.x, texStart.y);
@@ -225,7 +232,7 @@ namespace GL {
                 }
 
                 switch(character) {
-                    case '\n': posCursor = glm::vec2(posScreen.x, posCursor.y - getFont()->getLineHeight()); break;
+                    case '\n': posCursor  = glm::vec2(baseLine.x, posCursor.y - getFont()->getLineHeight()); break;
                     case '\t': posCursor += getScale() * getFont()->getMetric(' ').advance * 4.0f; break;
 
                     default:
@@ -233,7 +240,7 @@ namespace GL {
                 }
             }
 
-            const_cast<Text*>(this)->_size = posEnd - getPosition().getPosition();
+            const_cast<Text*>(this)->_size = bbTopRight - bbBottomLeft;
 
             return result;
         }
