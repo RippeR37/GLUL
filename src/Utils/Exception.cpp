@@ -4,15 +4,15 @@
 
 namespace Util {
 
-    Exception::Exception() {
+    Exception::Exception() throw() {
         _description = std::string("Exception thrown");
     }
 
-    Exception::Exception(const std::string& description) {
+    Exception::Exception(const std::string& description) throw() {
         _description = description;
     }
 
-    Exception::~Exception() {
+    Exception::~Exception() throw() {
 
     }
 
@@ -20,11 +20,11 @@ namespace Util {
         std::cerr << _description << std::endl;
     }
 
-    const char* Exception::what() const {
+    const char* Exception::what() const throw() {
         return _description.c_str();
     }
 
-    const std::string& Exception::getDescription() const {
+    const std::string& Exception::getDescription() const throw() {
         return _description;
     }
 

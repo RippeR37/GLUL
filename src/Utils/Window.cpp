@@ -36,7 +36,7 @@ namespace Util {
         return getHandle();
     }
 
-    bool Window::create() {
+    bool Window::create() throw(Util::Exception::FatalError) {
         if(isCreated())
             destroy();
 
@@ -223,12 +223,12 @@ namespace Util {
         return _context;
     }
 
-    void Window::initializeGLFW() {
+    void Window::initializeGLFW() throw(Util::Exception::FatalError) {
         static bool initialized = false;
 
         if(initialized == false) {
             // Setting error callback
-            static auto& errorCallbackFunc = [](int error, const char* description) {
+            static auto errorCallbackFunc = [](int error, const char* description) {
                 Util::Log::Stream("_Library").logError(std::string("[GLFW] ") + description);
             };
 
@@ -244,7 +244,7 @@ namespace Util {
         }
     }
 
-    void Window::initializeGLEW() {
+    void Window::initializeGLEW() throw(Util::Exception::FatalError) {
         static bool initialized = false;
 
         if(initialized == false) {

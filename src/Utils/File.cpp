@@ -3,7 +3,7 @@
 
 namespace Util {
 
-    std::string File::read(const std::string& path, ReadMode mode, bool throwException) {
+    std::string File::read(const std::string& path, ReadMode mode, bool throwException) throw(Util::Exception::FatalError) {
         std::ifstream fileStream;
         std::string result = "";
         std::string line   = "";

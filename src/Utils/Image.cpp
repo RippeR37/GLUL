@@ -132,7 +132,7 @@ namespace Util {
         fclose(file);
     }
 
-    void Image::loadTGA(const std::string& path) throw(Exception::FatalError) {
+    void Image::loadTGA(const std::string& path) {
         std::ifstream fileStream;
         std::string error;
         char buff[256];

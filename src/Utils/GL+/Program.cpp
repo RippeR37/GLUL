@@ -45,7 +45,7 @@ namespace GL {
     }
 
     Uniform& Program::operator[](const std::string& uniformName) {
-        auto& uniformIterator = _uniforms.find(uniformName);
+        const auto& uniformIterator = _uniforms.find(uniformName);
 
         if(uniformIterator == _uniforms.end()) {
             Util::Log::Stream("_Library") << "Request for non-existent uniform '" + uniformName + "'";
@@ -57,7 +57,7 @@ namespace GL {
     }
 
     const Uniform& Program::operator[](const std::string& uniformName) const {
-        auto& uniformIterator = _uniforms.find(uniformName);
+        const auto& uniformIterator = _uniforms.find(uniformName);
 
         if(uniformIterator == _uniforms.end()) {
             Util::Log::Stream("_Library") << "Request for non-existent uniform '" + uniformName + "'";
@@ -127,7 +127,7 @@ namespace GL {
         return _uniforms.at(uniformName);
     }
 
-    bool Program::link(const Shader& vertexShader, const Shader& fragmentShader) {
+    bool Program::link(const Shader& vertexShader, const Shader& fragmentShader) throw(Util::Exception::FatalError) {
         std::vector<char> programErrorMsg;
         GLint result;
         GLint infoLen;

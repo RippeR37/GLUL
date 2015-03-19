@@ -61,7 +61,9 @@ namespace Util {
             auto now = std::chrono::system_clock::now();
             auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
+            // comment line below if std::put_time is not supported in your compiler (i.e. GCC < 5.0)
             _stream << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X\t");
+
             _stream << message;
             _stream << std::endl;
         }

@@ -7,8 +7,8 @@ namespace Util {
 
     class Exception::FatalError : public Exception {
         public:
-            Exception::FatalError() throw();
-            Exception::FatalError(const std::string& description) throw();
+            FatalError() throw();
+            FatalError(const std::string& description) throw();
 
     };
 

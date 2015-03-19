@@ -40,7 +40,7 @@ namespace GL {
 
         void OBJ::render(const GL::Pipeline& pipeline, const GL::Program& program) const {
             for(auto& mesh : getMeshes()) {
-                auto& material = getMaterials().find(mesh.materialName);
+                const auto& material = getMaterials().find(mesh.materialName);
 
                 pipeline.setModel(getMatrix());
 

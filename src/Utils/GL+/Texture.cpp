@@ -198,7 +198,7 @@ namespace GL {
         return _textureID;
     }
 
-    void Texture::assingData(const Util::Image& image, const Format format, const InternalFormat internalFormat) {
+    void Texture::assingData(const Util::Image& image, const Format format, const InternalFormat internalFormat) throw(Util::Exception::FatalError) {
         if(format == Format::DefaultFormat) {
             switch(image.getBits()) {
                 case 24: 

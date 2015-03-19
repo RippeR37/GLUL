@@ -88,7 +88,7 @@ namespace GL {
         return _type;
     }
 
-    bool Shader::compile() {
+    bool Shader::compile() throw(Util::Exception::FatalError) {
         std::vector<char> shaderErrorMsg;
         GLint result;
         GLint infoLen;
