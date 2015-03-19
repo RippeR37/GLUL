@@ -1,6 +1,7 @@
 #include <Utils/Exception.h>
 #include <Utils/Rectangle.h>
 #include <Utils/Logger.h>
+#include <Utils/Line.h>
 
 namespace Util {
 
@@ -19,16 +20,22 @@ namespace Util {
     }
     
     bool Rectangle::intersect(const Line& line) const {
+        (void) line;
+
         Util::Log::Stream("_Library").logError("Attempt to use not implemented functionality: Rectangle::intersect(const Line&)");
         throw Exception::FatalError("Attempt to use not implemented functionality: Rectangle::intersect(const Line&)");
     }
 
     bool Rectangle::intersect(const Point& point) const {
+        (void) point;
+
         Util::Log::Stream("_Library").logError("Attempt to use not implemented functionality: Rectangle::intersect(const Point&)");
         throw Exception::FatalError("Attempt to use not implemented functionality: Rectangle::intersect(const Point&)");
     }
 
     bool Rectangle::intersect(const Rectangle& rectangle) const {
+        (void) rectangle;
+
         Util::Log::Stream("_Library").logError("Attempt to use not implemented functionality: Rectangle::intersect(const Rectangle&)");
         throw Exception::FatalError("Attempt to use not implemented functionality: Rectangle::intersect(const Rectangle&)");
     }

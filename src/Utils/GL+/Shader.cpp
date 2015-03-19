@@ -103,7 +103,7 @@ namespace GL {
         glGetShaderiv(_shaderID, GL_COMPILE_STATUS, &result);
         glGetShaderiv(_shaderID, GL_INFO_LOG_LENGTH, &infoLen);
         shaderErrorMsg.resize(infoLen);
-        glGetShaderInfoLog(_shaderID, infoLen, NULL, shaderErrorMsg.data());
+        glGetShaderInfoLog(_shaderID, infoLen, nullptr, shaderErrorMsg.data());
 
         if(result != GL_TRUE) {
             std::string errorMsg = std::string("Shader compilation failed:\nFile: " + _path + "\nMessage:\n" + shaderErrorMsg.data());

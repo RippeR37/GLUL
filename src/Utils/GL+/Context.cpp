@@ -62,22 +62,27 @@ namespace GL {
     void Context::logError(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
         std::string logType;
         std::string logPriority;
+        
+        (void) id;
+        (void) source;
+        (void) length;
+        (void) userParam;
 
         switch(severity) {
-        case GL_DEBUG_SEVERITY_HIGH_ARB:    logPriority = "[High]   "; break;
-        case GL_DEBUG_SEVERITY_MEDIUM_ARB:  logPriority = "[Medium] "; break;
-        case GL_DEBUG_SEVERITY_LOW_ARB:     logPriority = "[Low]    "; break;
-        default:                            logPriority = "[Other]  "; break;
+            case GL_DEBUG_SEVERITY_HIGH_ARB:    logPriority = "[High]   "; break;
+            case GL_DEBUG_SEVERITY_MEDIUM_ARB:  logPriority = "[Medium] "; break;
+            case GL_DEBUG_SEVERITY_LOW_ARB:     logPriority = "[Low]    "; break;
+            default:                            logPriority = "[Other]  "; break;
         };
 
         switch(type) {
-        case GL_DEBUG_TYPE_ERROR_ARB:               logType = "[Error]       ";  break;
-        case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB: logType = "[Deprecated]  ";  break;
-        case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB:  logType = "[Undefined]   ";  break;
-        case GL_DEBUG_TYPE_PORTABILITY_ARB:         logType = "[Portability] ";  break;
-        case GL_DEBUG_TYPE_PERFORMANCE_ARB:         logType = "[Performance] ";  break;
-        case GL_DEBUG_TYPE_OTHER_ARB:               logType = "[Other]       ";  break;
-        default:                                    logType = "[Unknown]     ";  break;
+            case GL_DEBUG_TYPE_ERROR_ARB:               logType = "[Error]       ";  break;
+            case GL_DEBUG_TYPE_DEPRECATED_BEHAVIOR_ARB: logType = "[Deprecated]  ";  break;
+            case GL_DEBUG_TYPE_UNDEFINED_BEHAVIOR_ARB:  logType = "[Undefined]   ";  break;
+            case GL_DEBUG_TYPE_PORTABILITY_ARB:         logType = "[Portability] ";  break;
+            case GL_DEBUG_TYPE_PERFORMANCE_ARB:         logType = "[Performance] ";  break;
+            case GL_DEBUG_TYPE_OTHER_ARB:               logType = "[Other]       ";  break;
+            default:                                    logType = "[Unknown]     ";  break;
         }
 
         Util::Log::Stream("_OpenGL") << logPriority + logType + message;

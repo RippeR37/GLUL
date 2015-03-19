@@ -66,11 +66,11 @@ namespace Util {
         return glm::length(dist);
     }
 
-    const float Point::getX() const {
+    float Point::getX() const {
         return getPosition().x;
     }
 
-    const float Point::getY() const {
+    float Point::getY() const {
         return getPosition().y;
     }
 

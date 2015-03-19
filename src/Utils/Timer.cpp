@@ -15,7 +15,7 @@ namespace Util {
         return event.getID();
     }
 
-    void Timer::deleteEvent(int id) {
+    void Timer::deleteEvent(unsigned int id) {
         _events.remove_if([id](const TimeEvent& event) -> bool { return event.getID() == id; });
     }
 

@@ -62,7 +62,7 @@ namespace Util {
             result = false;
 
         else
-            for(int i = 0; i < prefix.size(); ++i)
+            for(unsigned int i = 0; i < prefix.size(); ++i)
                 if(string[i] != prefix[i]) {
                     result = false;
                     break;
@@ -78,7 +78,7 @@ namespace Util {
             result = false;
 
         else
-            for(int i = string.size() - sufix.size(); i < string.size(); ++i)
+            for(unsigned int i = string.size() - sufix.size(); i < string.size(); ++i)
                 if(string[i] != sufix[i]) {
                     result = false;
                     break;

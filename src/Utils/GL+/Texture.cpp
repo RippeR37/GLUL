@@ -130,7 +130,7 @@ namespace GL {
             static_cast<GLenum>(getInternalFromat()), 
             width, 
             height,
-            height,
+            depth,
             0, 
             static_cast<GLenum>(getFormat()), 
             dataType, 

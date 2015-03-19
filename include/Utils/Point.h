@@ -26,8 +26,8 @@ namespace Util {
             double distance(const glm::vec2& point) const;
             double distance(const Line& line) const;
 
-            const float getX() const;
-            const float getY() const;
+            float getX() const;
+            float getY() const;
             const glm::vec2& getPosition() const;
 
         protected:

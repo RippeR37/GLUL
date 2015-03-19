@@ -25,15 +25,17 @@ namespace Util {
         }
 
         void Model::renderAABB(const GL::Pipeline& pipeline, bool detailed) const {
+            (void) detailed;
+
             _aabb.render(pipeline);
         }
 
         void Model::update(double deltaTime) {
-
+            (void) deltaTime;
         }
 
         void Model::printStats(bool detailed) const {
-
+            (void) detailed;
         }
 
         void Model::setMatrix() {
@@ -44,15 +46,15 @@ namespace Util {
             _matrix = matrix;
         }
 
-        const bool Model::hasVertices() const {
+        bool Model::hasVertices() const {
             return _hasVertices;
         }
 
-        const bool Model::hasTexCoords() const {
+        bool Model::hasTexCoords() const {
             return _hasTexCoords;
         }
 
-        const bool Model::hasNormals() const {
+        bool Model::hasNormals() const {
             return _hasNormals;
         }
 

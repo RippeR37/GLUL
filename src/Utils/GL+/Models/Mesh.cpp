@@ -19,13 +19,13 @@ namespace GL {
         Mesh::Mesh(Mesh&& mesh) :
             materialName(std::move(mesh.materialName)),
             vertices(std::move(mesh.vertices)),
-            texCoords(std::move(mesh.texCoords)),
             normals(std::move(mesh.normals)),
+            texCoords(std::move(mesh.texCoords)),
+            _aabb(std::move(mesh._aabb)),
             _vao(std::move(mesh._vao)),
             _vboV(std::move(mesh._vboV)),
             _vboT(std::move(mesh._vboT)),
             _vboN(std::move(mesh._vboN)),
-            _aabb(std::move(mesh._aabb)),
             _textures(std::move(mesh._textures))
         {
 
@@ -38,7 +38,7 @@ namespace GL {
                     _vboV.bind();
                         _vboV.setData(vertices);
                         _vao.enableAttrib(0);
-                        _vao.setAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+                        _vao.setAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
                     _vboV.unbind();
                 }
 
@@ -46,7 +46,7 @@ namespace GL {
                     _vboT.bind();
                         _vboT.setData(texCoords);
                         _vao.enableAttrib(1);
-                        _vao.setAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
+                        _vao.setAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
                     _vboT.unbind();
                 }
 
@@ -54,7 +54,7 @@ namespace GL {
                     _vboN.bind();
                         _vboN.setData(normals);
                         _vao.enableAttrib(2);
-                        _vao.setAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
+                        _vao.setAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
                     _vboN.unbind();
                 }
 
@@ -73,8 +73,8 @@ namespace GL {
                 glm::vec3 edge2;
 
                 if(type == Util::Interface::Model::NormalType::Smooth) {
-                    for(int i = 0; i < vertices.size(); ++i) {
-                        for(int j = 0; j < vertices.size(); ++j) {
+                    for(unsigned int i = 0; i < vertices.size(); ++i) {
+                        for(unsigned int j = 0; j < vertices.size(); ++j) {
                             if(i != j) {
                                 if(vertices[i] == vertices[j]) {
                                     int k = j - (j % 3);
@@ -91,7 +91,7 @@ namespace GL {
                     }
 
                 } else {
-                    for(int i = 0; i < vertices.size(); i += 3) {
+                    for(unsigned int i = 0; i < vertices.size(); i += 3) {
                         edge1 = vertices[i + 1] - vertices[i];
                         edge2 = vertices[i + 2] - vertices[i];
                         normal = glm::normalize(glm::cross(edge1, edge2));

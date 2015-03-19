@@ -141,7 +141,7 @@ namespace GL {
         glGetProgramiv(getID(), GL_LINK_STATUS, &result);
         glGetProgramiv(getID(), GL_INFO_LOG_LENGTH, &infoLen);
         programErrorMsg.resize(infoLen);
-        glGetProgramInfoLog(getID(), infoLen, NULL, programErrorMsg.data());
+        glGetProgramInfoLog(getID(), infoLen, nullptr, programErrorMsg.data());
 
         if(result != GL_TRUE) {
             std::string errorMsg = std::string("Program linking failed:") + std::string(programErrorMsg.data());

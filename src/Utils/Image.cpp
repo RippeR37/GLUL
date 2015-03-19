@@ -4,6 +4,7 @@
 
 #include <algorithm>
 #include <cstdio>
+#include <climits>
 #include <fstream>
 #include <iterator>
 
@@ -13,7 +14,7 @@ namespace Util {
         _data = nullptr;
 
         switch(format) {
-            case Format::BMP: 
+            case Format::BMP:
                 loadBMP(path);
                 break;
 
@@ -98,7 +99,7 @@ namespace Util {
             fclose(file);
             return;
         }
-        
+
 
         if(header[0] != 'B' || header[1] != 'M') {
             Util::Log::Stream("_Library").logError("Input file is not a correct BMP image file: '" + path + "'");
@@ -106,26 +107,36 @@ namespace Util {
             return;
         }
 
-        if(*(unsigned int*)&(header[0x1E]) != 0) {
+        if(header[0x1E] || header[0x1F] || header[0x20] || header[0x21]) {
             Util::Log::Stream("_Library").logError("Input file is not a correct BMP image file: '" + path + "'");
             fclose(file);
             return;
         }
 
-        dataOffset  = *(unsigned int*)&(header[0x0A]);
-        _size       = *(unsigned int*)&(header[0x22]);
-        _width      = *(unsigned int*)&(header[0x12]);
-        _height     = *(unsigned int*)&(header[0x16]);
-        _bits       = *(unsigned int*)&(header[0x1C]);
+        // BMP files have integer data saved with Little Endian convention
+        auto getUIntFromUCharArrayLE = [](unsigned char* ptr) -> int {
+            unsigned int result = 0;
+
+            for(unsigned int i = 0; i < 4; ++i)
+                result |= (*(ptr + i) << i * CHAR_BIT);
+
+            return result;
+        };
+
+        dataOffset  = getUIntFromUCharArrayLE(&header[0x0A]);
+        _size       = getUIntFromUCharArrayLE(&header[0x22]);
+        _width      = getUIntFromUCharArrayLE(&header[0x12]);
+        _height     = getUIntFromUCharArrayLE(&header[0x16]);
+        _bits       = getUIntFromUCharArrayLE(&header[0x1C]);
 
         if(_size == 0)
             _size = _width * _height * (_bits / 8);
 
-        if(dataOffset == 0) 
+        if(dataOffset == 0)
             dataOffset = 54;
 
         _data = new unsigned char[_size];
-        
+
         if(fread(_data, 1, _size, file) != _size)
             Util::Log::Stream("_Library").logError("Failed to read whole BMP image file: '" + path + "'");
 

@@ -225,10 +225,10 @@ namespace GL {
                             std::vector<std::vector<std::string>> faceTokens(tokens.size() - 1);
                             bool validFace = true;
 
-                            for(int i = 1; i < tokens.size(); ++i)
+                            for(unsigned int i = 1; i < tokens.size(); ++i)
                                 faceTokens[i-1] = Util::String::split(tokens[i], '/', false);
 
-                            for(int i = 0; i < faceTokens.size() - 1; ++i)
+                            for(unsigned int i = 0; i < faceTokens.size() - 1; ++i)
                                 if(faceTokens[i].size() != faceTokens[i+1].size())
                                     validFace = false;
 
@@ -237,14 +237,14 @@ namespace GL {
                                     std::vector<int> idV;
 
                                     try {
-                                        for(int i = 0; i < faceTokens.size(); ++i) {
+                                        for(unsigned int i = 0; i < faceTokens.size(); ++i) {
                                             idV.push_back(std::stoi(faceTokens[i][0]));
 
                                             if(idV.back() < 0)
                                                 idV.back() = dataVertices.size() + idV.back() + 1;
                                         }
 
-                                        for(int i = 1; i < faceTokens.size() - 1; ++i) {
+                                        for(unsigned int i = 1; i < faceTokens.size() - 1; ++i) {
                                             meshes.back().addData(dataVertices[idV[0] - 1]);
                                             meshes.back().addData(dataVertices[idV[i] - 1]);
                                             meshes.back().addData(dataVertices[idV[i+1] - 1]);
@@ -260,7 +260,7 @@ namespace GL {
                                     std::vector<int> idT;
 
                                     try {
-                                        for(int i = 0; i < faceTokens.size(); ++i) {
+                                        for(unsigned int i = 0; i < faceTokens.size(); ++i) {
                                             idV.push_back(std::stoi(faceTokens[i][0]));
                                             idT.push_back(std::stoi(faceTokens[i][1]));
 
@@ -271,7 +271,7 @@ namespace GL {
                                                 idT.back() = dataTexCoords.size() + idT.back() + 1;
                                         }
 
-                                        for(int i = 1; i < faceTokens.size() - 1; ++i) {
+                                        for(unsigned int i = 1; i < faceTokens.size() - 1; ++i) {
                                             meshes.back().addData(dataVertices[idV[0] - 1],   dataTexCoords[idT[0] - 1]);
                                             meshes.back().addData(dataVertices[idV[i] - 1],   dataTexCoords[idT[i] - 1]);
                                             meshes.back().addData(dataVertices[idV[i+1] - 1], dataTexCoords[idT[i+1] - 1]);
@@ -285,7 +285,7 @@ namespace GL {
                                 } else if(faceTokens[0].size() == 3) {
                                     bool texIncluded = true;
 
-                                    for(int i = 0; i < faceTokens.size(); ++i)
+                                    for(unsigned int i = 0; i < faceTokens.size(); ++i)
                                         if(faceTokens[i][1] == "")
                                             texIncluded = false;
 
@@ -295,7 +295,7 @@ namespace GL {
                                         std::vector<int> idN;
 
                                         try {
-                                            for(int i = 0; i < faceTokens.size(); ++i) {
+                                            for(unsigned int i = 0; i < faceTokens.size(); ++i) {
                                                 idV.push_back(std::stoi(faceTokens[i][0]));
                                                 idT.push_back(std::stoi(faceTokens[i][1]));
                                                 idN.push_back(std::stoi(faceTokens[i][2]));
@@ -310,7 +310,7 @@ namespace GL {
                                                     idN.back() = dataNormals.size() + idN.back() + 1;
                                             }
 
-                                            for(int i = 1; i < faceTokens.size() - 1; ++i) {
+                                            for(unsigned int i = 1; i < faceTokens.size() - 1; ++i) {
                                                 meshes.back().addData(dataVertices[idV[0] - 1],   dataTexCoords[idT[0] - 1],   dataNormals[idN[0] - 1]);
                                                 meshes.back().addData(dataVertices[idV[i] - 1],   dataTexCoords[idT[i] - 1],   dataNormals[idN[i] - 1]);
                                                 meshes.back().addData(dataVertices[idV[i+1] - 1], dataTexCoords[idT[i+1] - 1], dataNormals[idN[i+1] - 1]);
@@ -327,7 +327,7 @@ namespace GL {
                                         std::vector<int> idN;
 
                                         try {
-                                            for(int i = 0; i < faceTokens.size(); ++i) {
+                                            for(unsigned int i = 0; i < faceTokens.size(); ++i) {
                                                 idV.push_back(std::stoi(faceTokens[i][0]));
                                                 idN.push_back(std::stoi(faceTokens[i][2]));
 
@@ -338,7 +338,7 @@ namespace GL {
                                                     idN.back() = dataNormals.size() + idN.back() + 1;
                                             }
 
-                                            for(int i = 1; i < faceTokens.size() - 1; ++i) {
+                                            for(unsigned int i = 1; i < faceTokens.size() - 1; ++i) {
                                                 meshes.back().addData(dataVertices[idV[0] - 1], dataNormals[idN[0] - 1]);
                                                 meshes.back().addData(dataVertices[idV[i] - 1], dataNormals[idN[i] - 1]);
                                                 meshes.back().addData(dataVertices[idV[i+1] - 1], dataNormals[idN[i+1] - 1]);

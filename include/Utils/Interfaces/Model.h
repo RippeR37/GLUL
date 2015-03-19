@@ -39,9 +39,9 @@ namespace Util {
                 virtual void setMatrix();
                 virtual void setMatrix(const glm::mat4& matrix);
 
-                const bool hasVertices() const;
-                const bool hasTexCoords() const;
-                const bool hasNormals() const;
+                bool hasVertices() const;
+                bool hasTexCoords() const;
+                bool hasNormals() const;
                 const AABB& getAABB() const;
                 const std::string& getPath() const;
                 const glm::mat4& getMatrix() const;

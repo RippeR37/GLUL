@@ -43,19 +43,19 @@ namespace Util {
             void setFPSCountCallback(const std::function<void(int)>& function);
             void setDestroyCallback(const std::function<void()>& function);
             
-            const bool isDisplayingFPS() const;
-            const bool isCountingFPS() const;
-            const double getFPSRefreshRate() const;
-            const int getFPS() const;
-            const unsigned int getWidth() const;
-            const unsigned int getHeight() const;
+            bool isDisplayingFPS() const;
+            bool isCountingFPS() const;
+            double getFPSRefreshRate() const;
+            int getFPS() const;
+            unsigned int getWidth() const;
+            unsigned int getHeight() const;
             const glm::uvec2& getSize() const;
             const glm::ivec2& getPosition() const;
             const std::string& getTitle() const;
 
-            const bool isCreated() const;
-            const bool shouldClose() const;
-            const double getFrameTime() const;
+            bool isCreated() const;
+            bool shouldClose() const;
+            double getFrameTime() const;
             GLFWwindow* getHandle();
             GL::Context& getContext();
 

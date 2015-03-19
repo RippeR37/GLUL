@@ -167,27 +167,27 @@ namespace Util {
         _destroyCallback = function;
     }
 
-    const bool Window::isDisplayingFPS() const {
+    bool Window::isDisplayingFPS() const {
         return _isDisplayingFPS;
     }
 
-    const bool Window::isCountingFPS() const {
+    bool Window::isCountingFPS() const {
         return _isCountingFPS;
     }
 
-    const double Window::getFPSRefreshRate() const {
+    double Window::getFPSRefreshRate() const {
         return _fpsRefreshRate;
     }
     
-    const int Window::getFPS() const {
+    int Window::getFPS() const {
         return _fpsCount;
     }
 
-    const unsigned int Window::getWidth() const {
+    unsigned int Window::getWidth() const {
         return _windowSize.x;
     }
 
-    const unsigned int Window::getHeight() const {
+    unsigned int Window::getHeight() const {
         return _windowSize.y;
     }
 
@@ -203,15 +203,15 @@ namespace Util {
         return _title;
     }
 
-    const bool Window::isCreated() const {
+    bool Window::isCreated() const {
         return (_handle != nullptr);
     }
 
-    const bool Window::shouldClose() const {
+    bool Window::shouldClose() const {
         return glfwWindowShouldClose(_handle) == GL_TRUE;
     }
 
-    const double Window::getFrameTime() const {
+    double Window::getFrameTime() const {
         return _frameTime;
     }
 
@@ -229,7 +229,7 @@ namespace Util {
         if(initialized == false) {
             // Setting error callback
             static auto errorCallbackFunc = [](int error, const char* description) {
-                Util::Log::Stream("_Library").logError(std::string("[GLFW] ") + description);
+                Util::Log::Stream("_Library").logError(std::string("[GLFW] Error ") + std::to_string(error) + std::string(": ") + description);
             };
 
             glfwSetErrorCallback(errorCallbackFunc);

@@ -102,7 +102,7 @@ namespace GL {
     }
 
     Framebuffer::Status Framebuffer::getStatus() const {
-        Status result;
+        Status result = Status::Undefined;
 
         switch(glCheckFramebufferStatus(GL_FRAMEBUFFER)) {
             case GL_FRAMEBUFFER_COMPLETE: 

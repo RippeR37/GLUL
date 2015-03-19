@@ -18,7 +18,7 @@ namespace Util {
 
             unsigned int insertEvent(double delay, const std::function<void()>& event); 
             unsigned int insertEvent(const TimeEvent& event); 
-            void deleteEvent(int id);
+            void deleteEvent(unsigned int id);
 
             void update();
             void update(double timeElapsed);
