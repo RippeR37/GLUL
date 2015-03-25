@@ -135,5 +135,9 @@ namespace GL {
 
         return result;
     }
+    
+    bool Framebuffer::isCreated() const {
+        return _isCreated;
+    }
 
 }

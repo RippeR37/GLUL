@@ -14,7 +14,7 @@ namespace Util {
                 result += "\n" + line;
             fileStream.close();
         } else {
-            Util::Log::Stream("_Library").logError("Could not open file: '" + path + "'");
+            Util::Log::LibraryStream().logError("Could not open file: '" + path + "'");
 
             if(throwException) {
                 std::string errorMsg = "Could not open file: '" + path + "'";

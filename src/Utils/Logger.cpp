@@ -7,7 +7,7 @@
 namespace Util {
 
     Logger::Logger() {
-        Stream("_Library", "logLibrary.log");
+
     }
 
     Logger::~Logger() {
@@ -33,7 +33,17 @@ namespace Util {
         if(getInstance()._streams.count(streamName)) 
             return getInstance()._streams[streamName];
         else
-            return getInstance()._streams["_Library"];
+            return LibraryStream();
+    }
+
+    Logger::LoggerStream& Logger::LibraryStream() {
+        const std::string libraryStreamName = "_Library";
+        const std::string libraryStreamPath = "logLibrary.log";
+
+        if(getInstance()._streams.count(libraryStreamName) == 0)
+            Stream(libraryStreamName, libraryStreamPath);
+
+        return Stream(libraryStreamName);
     }
 
 
@@ -55,7 +65,7 @@ namespace Util {
 
     void Logger::LoggerStream::log(const std::string& message) {
         if(_name == "" || _path == "" || _stream.is_open() == false) {
-            Logger::Stream("_Library").log(message);
+            Logger::LibraryStream().log(message);
 
         } else {
             auto now = std::chrono::system_clock::now();

@@ -48,7 +48,7 @@ namespace GL {
         const auto& uniformIterator = _uniforms.find(uniformName);
 
         if(uniformIterator == _uniforms.end()) {
-            Util::Log::Stream("_Library") << "Request for non-existent uniform '" + uniformName + "'";
+            Util::Log::LibraryStream() << "Request for non-existent uniform '" + uniformName + "'";
 
             return _uniforms[uniformName];
         } else {
@@ -60,7 +60,7 @@ namespace GL {
         const auto& uniformIterator = _uniforms.find(uniformName);
 
         if(uniformIterator == _uniforms.end()) {
-            Util::Log::Stream("_Library") << "Request for non-existent uniform '" + uniformName + "'";
+            Util::Log::LibraryStream() << "Request for non-existent uniform '" + uniformName + "'";
 
             Program* thisConstless = const_cast<Program*>(this);
             return thisConstless->_uniforms[uniformName];
@@ -101,7 +101,7 @@ namespace GL {
         if(isLinked())
             glUseProgram(getID());
         else
-            Util::Log::Stream("_Library") << "Attempt to use not loaded program";
+            Util::Log::LibraryStream() << "Attempt to use not loaded program";
     }
 
     void Program::unbind() const {

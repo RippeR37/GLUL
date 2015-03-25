@@ -72,7 +72,7 @@ namespace GL {
         if(_isDrawTargetSet && _isDrawCountSet)
             glDrawArrays(static_cast<GLenum>(getDrawTarget()), getDrawOffset(), getDrawCount());
         else
-            Util::Log::Stream("_Library") << "Attempt to use draw call (glDrawArrays) without setting target/offset/count";
+            Util::Log::LibraryStream() << "Attempt to use draw call (glDrawArrays) without setting target/offset/count";
     }
 
     void VertexArray::enableAttrib(GLuint index) {

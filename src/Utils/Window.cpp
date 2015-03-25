@@ -55,7 +55,7 @@ namespace Util {
         _fpsClock.reset();
 
         if(isCreated())
-            Util::Log::Stream("_Library").log(
+            Util::Log::LibraryStream().log(
                 "Window '" + getTitle() + "' has been created with size: " +
                 std::to_string(getSize().x) + "x" + std::to_string(getSize().y)
             );
@@ -102,7 +102,7 @@ namespace Util {
             glfwDestroyWindow(_handle);
             _handle = nullptr;
 
-            Util::Log::Stream("_Library").log("Window '" + getTitle() + "' has been destroyed");
+            Util::Log::LibraryStream().log("Window '" + getTitle() + "' has been destroyed");
         }
     }
 
@@ -229,14 +229,14 @@ namespace Util {
         if(initialized == false) {
             // Setting error callback
             static auto errorCallbackFunc = [](int error, const char* description) {
-                Util::Log::Stream("_Library").logError(std::string("[GLFW] Error ") + std::to_string(error) + std::string(": ") + description);
+                Util::Log::LibraryStream().logError(std::string("[GLFW] Error ") + std::to_string(error) + std::string(": ") + description);
             };
 
             glfwSetErrorCallback(errorCallbackFunc);
 
             // Initializing library
             if(glfwInit() == false) {
-                Util::Log::Stream("_Library").logError("Failed to initialize GLFW library");
+                Util::Log::LibraryStream().logError("Failed to initialize GLFW library");
                 throw Util::Exception::FatalError(std::string("Failed to initialize GLFW library."));
             }
 
@@ -251,7 +251,7 @@ namespace Util {
             glewExperimental = GL_TRUE;
 
             if(glewInit() != GLEW_OK) {
-                Util::Log::Stream("_Library").logError("Failed to initialize GLEW library");
+                Util::Log::LibraryStream().logError("Failed to initialize GLEW library");
                 throw Util::Exception::FatalError(std::string("Failed to initialize GLEW library."));
             }
 

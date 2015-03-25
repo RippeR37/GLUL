@@ -40,7 +40,7 @@ namespace GL {
                         colorAmbient = data;
 
                     } catch(...) {
-                        Util::Log::Stream("_Library") << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
+                        Util::Log::LibraryStream() << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
                     }
 
                 } else if(tokens[0] == "Kd" && tokens.size() > 3) {
@@ -54,7 +54,7 @@ namespace GL {
                         colorDiffuse = data;
 
                     } catch(...) {
-                        Util::Log::Stream("_Library") << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
+                        Util::Log::LibraryStream() << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
                     }
 
                 } else if(tokens[0] == "Ks" && tokens.size() > 3) {
@@ -68,7 +68,7 @@ namespace GL {
                         colorSpecular = data;
 
                     } catch(...) {
-                        Util::Log::Stream("_Library") << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
+                        Util::Log::LibraryStream() << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
                     }
 
                 } else if(tokens[0] == "Ns" && tokens.size() > 1) {
@@ -79,7 +79,7 @@ namespace GL {
                         exponentSpecular = value;
 
                     } catch(...) {
-                        Util::Log::Stream("_Library") << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
+                        Util::Log::LibraryStream() << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
                     }
 
                 } else if((tokens[0] == "d" || tokens[0] == "Tr") && tokens.size() > 1) {
@@ -90,7 +90,7 @@ namespace GL {
                         alphaFactor = value;
 
                     } catch(...) {
-                        Util::Log::Stream("_Library") << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
+                        Util::Log::LibraryStream() << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
                     }
 
                 } else if(tokens[0] == "illum" && tokens.size() > 1) {
@@ -101,7 +101,7 @@ namespace GL {
                         illumination = value;
 
                     } catch(...) {
-                        Util::Log::Stream("_Library") << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
+                        Util::Log::LibraryStream() << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
                     }
 
                 } else if(tokens[0] == "map_Ka" && tokens.size() > 1) {
@@ -114,7 +114,7 @@ namespace GL {
                     textureSpecular = tokens[1];
 
                 } else {
-                    Util::Log::Stream("_Library") << "Unsupported parameter '" + tokens[0] + "' found for material '" + name + "'";
+                    Util::Log::LibraryStream() << "Unsupported parameter '" + tokens[0] + "' found for material '" + name + "'";
                 }
             }
 

@@ -30,7 +30,7 @@ namespace Util {
                 else if(extension == "tga" || extension == "TGA")
                     loadTGA(path);
                 else
-                    Util::Log::Stream("_Library").logError("Unknown image extension: '" + extension + "'");
+                    Util::Log::LibraryStream().logError("Unknown image extension: '" + extension + "'");
 
                 break;
         }
@@ -90,25 +90,25 @@ namespace Util {
 
         FILE *file = fopen(path.c_str(), "rb");
         if(!file) {
-            Util::Log::Stream("_Library").logError("Failed to load image file: '" + path + "'");
+            Util::Log::LibraryStream().logError("Failed to load image file: '" + path + "'");
             return;
         }
 
         if(fread(header, 1, 54, file) != 54) {
-            Util::Log::Stream("_Library").logError("Failed to read header of BMP image file: '" + path + "'");
+            Util::Log::LibraryStream().logError("Failed to read header of BMP image file: '" + path + "'");
             fclose(file);
             return;
         }
 
 
         if(header[0] != 'B' || header[1] != 'M') {
-            Util::Log::Stream("_Library").logError("Input file is not a correct BMP image file: '" + path + "'");
+            Util::Log::LibraryStream().logError("Input file is not a correct BMP image file: '" + path + "'");
             fclose(file);
             return;
         }
 
         if(header[0x1E] || header[0x1F] || header[0x20] || header[0x21]) {
-            Util::Log::Stream("_Library").logError("Input file is not a correct BMP image file: '" + path + "'");
+            Util::Log::LibraryStream().logError("Input file is not a correct BMP image file: '" + path + "'");
             fclose(file);
             return;
         }
@@ -138,7 +138,7 @@ namespace Util {
         _data = new unsigned char[_size];
 
         if(fread(_data, 1, _size, file) != _size)
-            Util::Log::Stream("_Library").logError("Failed to read whole BMP image file: '" + path + "'");
+            Util::Log::LibraryStream().logError("Failed to read whole BMP image file: '" + path + "'");
 
         fclose(file);
     }
@@ -156,7 +156,7 @@ namespace Util {
 
         fileStream.open(path, std::fstream::binary);
         if(fileStream.is_open() == false) {
-            Util::Log::Stream("_Library").logError("Failed to load TGA image file: '" + path + "'");
+            Util::Log::LibraryStream().logError("Failed to load TGA image file: '" + path + "'");
             return;
         }
 
@@ -179,12 +179,12 @@ namespace Util {
         _size  = _width * _height * c_mode;
 
         if(type != 2 && type != 3) {
-            Util::Log::Stream("_Library").logError("Unsupported TGA format: '" + std::to_string(type) + "' in file: '" + path + "'");
+            Util::Log::LibraryStream().logError("Unsupported TGA format: '" + std::to_string(type) + "' in file: '" + path + "'");
             return;
         }
 
         if(c_mode != 3 && c_mode != 4) {
-            Util::Log::Stream("_Library").logError("Unsupported TGA color bits: '" + std::to_string(c_mode) + "' in file: '" + path + "'");
+            Util::Log::LibraryStream().logError("Unsupported TGA color bits: '" + std::to_string(c_mode) + "' in file: '" + path + "'");
             return;
         }
 

@@ -126,7 +126,7 @@ namespace GL {
             objFile.open(path);
 
             if(objFile.is_open() == false) {
-                Util::Log::Stream("_Library") << "Unable to open OBJ model file '" + path + "'";
+                Util::Log::LibraryStream() << "Unable to open OBJ model file '" + path + "'";
                 return false;
 
             } else {
@@ -145,7 +145,7 @@ namespace GL {
                             if(tokens.size() > 1) {
                                 loadMaterials(relativePath + tokens[1], materials, textures);
                             } else {
-                                Util::Log::Stream("_Library") << 
+                                Util::Log::LibraryStream() << 
                                     "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
@@ -167,7 +167,7 @@ namespace GL {
                                 meshes.emplace_back(currentMeshName, &textures);
 
                             } else {
-                                Util::Log::Stream("_Library") <<
+                                Util::Log::LibraryStream() <<
                                     "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
@@ -187,7 +187,7 @@ namespace GL {
                                 aabb.updateBy(glm::vec3(v1, v2, v3));
 
                             } catch(...) {
-                                Util::Log::Stream("_Library") <<
+                                Util::Log::LibraryStream() <<
                                     "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
@@ -199,7 +199,7 @@ namespace GL {
                                 dataTexCoords.emplace_back(vt1, vt2);
 
                             } catch(...) {
-                                Util::Log::Stream("_Library") <<
+                                Util::Log::LibraryStream() <<
                                     "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
@@ -212,7 +212,7 @@ namespace GL {
                                 dataNormals.emplace_back(glm::normalize(glm::vec3(vn1, vn2, vn3)));
 
                             } catch(...) {
-                                Util::Log::Stream("_Library") <<
+                                Util::Log::LibraryStream() <<
                                     "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
@@ -251,7 +251,7 @@ namespace GL {
                                         }
 
                                     } catch(...) {
-                                        Util::Log::Stream("_Library") <<
+                                        Util::Log::LibraryStream() <<
                                             "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                     }
 
@@ -278,7 +278,7 @@ namespace GL {
                                         }
 
                                     } catch(...) {
-                                        Util::Log::Stream("_Library") <<
+                                        Util::Log::LibraryStream() <<
                                             "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                     }
 
@@ -317,7 +317,7 @@ namespace GL {
                                             }
 
                                         } catch(...) {
-                                            Util::Log::Stream("_Library") <<
+                                            Util::Log::LibraryStream() <<
                                                 "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                         }
 
@@ -345,23 +345,23 @@ namespace GL {
                                             }
 
                                         } catch(...) {
-                                            Util::Log::Stream("_Library") <<
+                                            Util::Log::LibraryStream() <<
                                                 "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                         }
                                     }
 
                                 } else {
-                                    Util::Log::Stream("_Library") <<
+                                    Util::Log::LibraryStream() <<
                                         "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                 }
 
                             } else {
-                                Util::Log::Stream("_Library") <<
+                                Util::Log::LibraryStream() <<
                                     "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else {
-                            Util::Log::Stream("_Library") <<
+                            Util::Log::LibraryStream() <<
                                 "[" + std::to_string(lineNumber) + "] Unsupported parameter '" + tokens[0] + "' in file '" + path + "'";
                         }
 
@@ -404,7 +404,7 @@ namespace GL {
             mtlFile.open(path);
 
             if(mtlFile.is_open() == false) {
-                Util::Log::Stream("_Library") << "Unable to open OBJ material file '" + path + "'";
+                Util::Log::LibraryStream() << "Unable to open OBJ material file '" + path + "'";
                 return false;
 
             } else {
@@ -429,7 +429,7 @@ namespace GL {
                                         currentDirectory + tokens[1]
                                     );
                                 } else {
-                                    Util::Log::Stream("_Library") << "Unable to open OBJ material's texture '" + currentDirectory + tokens[1] + "'";
+                                    Util::Log::LibraryStream() << "Unable to open OBJ material's texture '" + currentDirectory + tokens[1] + "'";
                                 }
                             }
 

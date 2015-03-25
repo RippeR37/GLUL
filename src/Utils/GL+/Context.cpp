@@ -55,7 +55,7 @@ namespace GL {
                 Util::Log::Stream("_OpenGL") << "Logging OpenGL errors has ended";
             }
         } else if(flag) {
-            Util::Log::Stream("_Library") << "Unable to register logging OpenGL errors due to lack of support for ARB_debug_output extension";
+            Util::Log::LibraryStream() << "Unable to register logging OpenGL errors due to lack of support for ARB_debug_output extension";
         }
     }
 
