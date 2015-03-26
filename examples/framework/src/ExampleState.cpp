@@ -19,6 +19,8 @@ void ExampleState::update(const double frameTime) {
 }
 
 void ExampleState::render() {
+    GL::Context::Current.clearBuffers(GL::Context::BufferMask::Color);
+
     // render here
 }
 

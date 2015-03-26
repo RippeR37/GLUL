@@ -6,6 +6,8 @@ namespace FW {
     Application::Application() : Window(_window) {
         Util::Log::LibraryStream();
         setArguments(0, nullptr);
+
+        _state = nullptr;
     }
 
     Application::~Application() {

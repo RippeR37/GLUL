@@ -1,7 +1,7 @@
 #include "ExampleState.h"
 
 #include <Utils/Logger.h>
-#include <utils/Exception.h>
+#include <Utils/Exception.h>
 #include <Utils/Frameworks/Application.h>
 
 int main(int argc, char* argv[]) {
