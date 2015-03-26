@@ -6,7 +6,7 @@
 #include <Utils/TimeLoop.h>
 
 #define GLM_FORCE_RADIANS
-#include <GLM/GTC/matrix_transform.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 WorkState::WorkState(Util::Interface::State* parentState, FW::Application* application) {
     _parentState = parentState;

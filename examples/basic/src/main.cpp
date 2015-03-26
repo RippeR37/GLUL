@@ -27,7 +27,7 @@ void initVBO(GL::VertexBuffer& vbo, std::vector<glm::vec4>& vertices) {
     // VertexData
     vertexData.data = vertices.data(); //pointer to data
     vertexData.size = sizeof(glm::vec4) * vertices.size(); // size of data
-    vertexData.pointers.push_back(GL::VertexAttrib(0, 4, GL_FLOAT, 0, 0)); // vertex attributes description
+    vertexData.pointers.push_back(GL::VertexAttrib(0, 4, GL_FLOAT, 0, nullptr)); // vertex attributes description
 
     // VBO settings
     vbo.bind();
