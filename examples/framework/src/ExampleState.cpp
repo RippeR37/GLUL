@@ -13,7 +13,9 @@ ExampleState::~ExampleState() {
 }
 
 void ExampleState::update(const double frameTime) {
-    Util::TimeLoop::semiFixed(Application.Window.getFrameTime(), 1.0f / 120.0f, [](double deltaTime) {
+    Util::TimeLoop::semiFixed(frameTime, 1.0f / 120.0f, [](double deltaTime) {
+        (void) deltaTime;
+
         // update here
     });
 }

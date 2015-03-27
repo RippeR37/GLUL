@@ -18,7 +18,9 @@ WorkState::~WorkState() {
 }
 
 void WorkState::update(const double frameTime) {
-    Util::TimeLoop::semiFixed(_application->Window.getFrameTime(), 1.0f / 120.0f, [](double deltaTime) {
+    Util::TimeLoop::semiFixed(frameTime, 1.0f / 120.0f, [](double deltaTime) {
+        (void) deltaTime;
+
         // update objects here
     });
 
