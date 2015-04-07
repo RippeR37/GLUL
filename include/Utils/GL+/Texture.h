@@ -135,7 +135,10 @@ namespace GL {
 
             void bind() const;
             void unbind() const;
-            void load(const Util::Image& image, Target target, Format format, InternalFormat internalFormat);
+
+            void load(const Util::Image& image, Target target = Target::Tex2D, 
+                Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat) throw(Util::Exception::FatalError);
+
             void generateMipmap();
 
             void setData1D(GLsizei width, GLenum dataType, const GLvoid* data, GLint level = 0);
@@ -159,7 +162,7 @@ namespace GL {
             GLuint getID() const;
 
         private:
-            void assingData(const Util::Image& image, const Format format, const InternalFormat internalFormat) throw(Util::Exception::FatalError);
+            void assingData2D(const Util::Image& image, const Format format, const InternalFormat internalFormat) throw(Util::Exception::FatalError);
 
             void setWidth(unsigned int width);
             void setHeight(unsigned int height);

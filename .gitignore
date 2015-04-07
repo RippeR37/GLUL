@@ -30,3 +30,8 @@ project/Models example/build/*
 project/Models example/examples/*
 project/Models example/Debug/*
 project/Models example/Release/*
+
+project/Image example/build/*
+project/Image example/examples/*
+project/Image example/Debug/*
+project/Image example/Release/*

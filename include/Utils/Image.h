@@ -10,7 +10,7 @@ namespace Util {
             enum class Format {
                 BMP,
                 TGA,
-                // JPG,
+                JPG,
                 // PNG,
                 Auto,
             };
@@ -30,6 +30,7 @@ namespace Util {
         private:
             void loadBMP(const std::string& path);
             void loadTGA(const std::string& path);
+            void loadJPG(const std::string& path);
 
             unsigned int _size;
             unsigned int _width;

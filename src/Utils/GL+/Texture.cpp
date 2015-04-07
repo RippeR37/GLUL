@@ -75,10 +75,19 @@ namespace GL {
         glBindTexture(static_cast<GLenum>(getTarget()), 0);
     }
 
-    void Texture::load(const Util::Image& image, Target target, Format format, InternalFormat internalFormat) {
+    void Texture::load(const Util::Image& image, Target target, Format format, InternalFormat internalFormat) throw(Util::Exception::FatalError) {
         setTarget(target);
         bind();
-        assingData(image, format, internalFormat);
+
+        switch(target) {
+            case Texture::Target::Tex2D: 
+                assingData2D(image, format, internalFormat);
+                break;
+
+            default:
+                throw Util::Exception::FatalError("Load funcionality for non-2D textures is not yet implemented!");
+        }
+        
         setParameters();
         generateMipmap();
         unbind();
@@ -91,6 +100,7 @@ namespace GL {
     void Texture::setData1D(GLsizei width, GLenum dataType, const GLvoid* data, GLint level) {
         setWidth(width);
 
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         glTexImage1D(
             static_cast<GLenum>(getTarget()), 
             level, 
@@ -106,7 +116,8 @@ namespace GL {
     void Texture::setData2D(GLsizei width, GLsizei height, GLenum dataType, const GLvoid* data, GLint level) {
         setWidth(width);
         setHeight(height);
-
+        
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         glTexImage2D(
             static_cast<GLenum>(getTarget()), 
             level, 
@@ -123,7 +134,8 @@ namespace GL {
     void Texture::setData3D(GLsizei width, GLsizei height, GLsizei depth, GLenum dataType, const GLvoid* data, GLint level) {
         setWidth(width);
         setHeight(height);
-
+        
+        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         glTexImage3D(
             static_cast<GLenum>(getTarget()), 
             level, 
@@ -198,7 +210,7 @@ namespace GL {
         return _textureID;
     }
 
-    void Texture::assingData(const Util::Image& image, const Format format, const InternalFormat internalFormat) throw(Util::Exception::FatalError) {
+    void Texture::assingData2D(const Util::Image& image, const Format format, const InternalFormat internalFormat) throw(Util::Exception::FatalError) {
         if(format == Format::DefaultFormat) {
             switch(image.getBits()) {
                 case 24: 

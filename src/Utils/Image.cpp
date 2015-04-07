@@ -2,11 +2,15 @@
 #include <Utils/File.h>
 #include <Utils/Logger.h>
 
+#include <jpeglib.h>
+
 #include <algorithm>
 #include <cstdio>
 #include <climits>
 #include <fstream>
 #include <iterator>
+
+#include <iostream>
 
 namespace Util {
 
@@ -22,6 +26,10 @@ namespace Util {
                 loadTGA(path);
                 break;
 
+            case Format::JPG:
+                loadJPG(path);
+                break;
+
             default:
                 std::string extension = Util::File::getExtension(path);
 
@@ -29,6 +37,8 @@ namespace Util {
                     loadBMP(path);
                 else if(extension == "tga" || extension == "TGA")
                     loadTGA(path);
+                else if(extension == "jpg" || extension == "JPG" || extension == "jpeg" || extension == "JPEG")
+                    loadJPG(path);
                 else
                     Util::Log::LibraryStream().logError("Unknown image extension: '" + extension + "'");
 
@@ -196,6 +206,64 @@ namespace Util {
         _data = new unsigned char[_size];
         fileStream.read((char*)_data, _size);
         fileStream.close();
+    }
+
+    void Image::loadJPG(const std::string& path) {
+        jpeg_decompress_struct cinfo;
+        jpeg_error_mgr jerr;
+        int rowStride;
+        unsigned char** dataRow;
+
+        FILE* file;
+        if((file = fopen(path.c_str(), "rb")) == nullptr) {
+            std::cerr << "Could not open file '" << path << "'" << std::endl;
+            return;
+        }
+
+        cinfo.err = jpeg_std_error(&jerr);
+        jpeg_create_decompress(&cinfo);
+        jpeg_stdio_src(&cinfo, file);
+        
+        jpeg_read_header(&cinfo, true);
+
+        // parameteres for decompression here
+
+        jpeg_start_decompress(&cinfo);
+
+        _width = cinfo.output_width;
+        _height = cinfo.output_height;
+        _bits = cinfo.output_components * 8;
+        _data = new unsigned char[_width * _height * _bits / 8];
+
+        rowStride = cinfo.output_width * cinfo.output_components;
+        dataRow = new unsigned char*[1];
+        dataRow[0] = new unsigned char[rowStride];
+
+        // Reading data
+        unsigned int offset = (_height - 1) * _width * _bits / 8;
+        while(cinfo.output_scanline < cinfo.output_height) {
+            // Read row
+            jpeg_read_scanlines(&cinfo, dataRow, 1);
+
+            // Transform RGB -> BGR
+            for(int i = 0; i < rowStride; i += cinfo.output_components)
+                std::swap(dataRow[0][i], dataRow[0][i+2]);
+
+            // Copy result image data to _data array in reverse order
+            std::memcpy(_data + offset, dataRow[0], rowStride);
+            offset -= rowStride;
+        }
+
+        jpeg_finish_decompress(&cinfo);
+
+        /// Cleaning up
+        jpeg_destroy_decompress(&cinfo);
+        fclose(file);
+
+        delete[] dataRow[0];
+        delete[] dataRow;
+
+        return;
     }
 
 }
