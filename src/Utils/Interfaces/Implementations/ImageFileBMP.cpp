@@ -87,7 +87,7 @@ namespace Util {
         return image;
     }
 
-    void ImageFileBMP::save(const std::string& path) const throw(Util::Exception::InitializationFailed) {
+    void ImageFileBMP::save(const Image& image, const std::string& path) const throw(Util::Exception::InitializationFailed) {
         throw Util::Exception("ImageFileBMP::save(...) not yet implemented");
     }
 

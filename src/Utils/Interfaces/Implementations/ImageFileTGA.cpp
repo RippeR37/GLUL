@@ -77,7 +77,7 @@ namespace Util {
         return image;
     }
 
-    void ImageFileTGA::save(const std::string& path) const throw(Util::Exception::InitializationFailed) {
+    void ImageFileTGA::save(const Image& image, const std::string& path) const throw(Util::Exception::InitializationFailed) {
         throw Util::Exception("ImageFileTGA::save(...) not yet implemented");
     }
 

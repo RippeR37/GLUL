@@ -113,7 +113,7 @@ namespace Util {
         return image;
     }
 
-    void ImageFilePNG::save(const std::string& path) const throw(Util::Exception::InitializationFailed) {
+    void ImageFilePNG::save(const Image& image, const std::string& path) const throw(Util::Exception::InitializationFailed) {
         throw Util::Exception("ImageFilePNG::save(...) not yet implemented");
     }
 

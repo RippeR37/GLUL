@@ -74,7 +74,7 @@ namespace Util {
         return image;
     }
 
-    void ImageFileJPG::save(const std::string& path) const throw(Util::Exception::InitializationFailed) {
+    void ImageFileJPG::save(const Image& image, const std::string& path) const throw(Util::Exception::InitializationFailed) {
         throw Util::Exception("ImageFileJPG::save(...) not yet implemented");
     }
 
