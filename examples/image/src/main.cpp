@@ -60,12 +60,18 @@ void initVAO(GL::VertexArray& vao, const GL::VertexBuffer& vbo, const std::vecto
 
 void switchTexture(GL::Texture& texture) {
     static unsigned int texID = 0;
-    static const unsigned int textureCount = 3;
+    static const unsigned int textureCount = 4;
+    
+    try {
+        switch(texID) {
+            case 0: texture.load(Util::Image("assets/images/image0.bmp")); break; // BMP
+            case 1: texture.load(Util::Image("assets/images/image1.tga")); break; // TGA
+            case 2: texture.load(Util::Image("assets/images/image2.jpg")); break; // JPEG
+            case 3: texture.load(Util::Image("assets/images/image3.png")); break; // PNG - not yet implemented, will cause exception to be thrown
+        }
 
-    switch(texID) {
-        case 0: texture.load(Util::Image("assets/images/image0.bmp")); break; // BMP
-        case 1: texture.load(Util::Image("assets/images/image1.tga")); break; // TGA
-        case 2: texture.load(Util::Image("assets/images/image2.jpg")); break; // JPEG
+    } catch(const Util::Exception::InitializationFailed& exception) {
+        std::cerr << "Caught initialization exception: " << exception.what() << std::endl;
     }
 
     texID = (texID + 1) % textureCount;

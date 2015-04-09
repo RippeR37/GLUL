@@ -23,10 +23,14 @@ namespace Util {
 
         public:
             class FatalError;
+            class InitializationFailed;
+            class InvalidArgument;
     };
 
 }
 
-#include "Exceptions/FatalError.h"
+#include <Utils/Exceptions/FatalError.h>
+#include <Utils/Exceptions/InitializationFailed.h>
+#include <Utils/Exceptions/InvalidArgument.h>
 
 #endif

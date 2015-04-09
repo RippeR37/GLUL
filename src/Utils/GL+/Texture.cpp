@@ -12,11 +12,26 @@ namespace GL {
         load(image, target, format, internalFormat);
     }
 
-    Texture::Texture(const std::string& path, Target target, Format format, InternalFormat internalFormat) {
+    Texture::Texture(const std::string& path, Target target, Format format, InternalFormat internalFormat) 
+        throw(Util::Exception::InitializationFailed, Util::Exception::FatalError) 
+    {
         _isCreated = false;
 
-        Util::Image image(path, Util::Image::Format::Auto);
-        load(image, target, format, internalFormat);
+        try {
+            Util::Image image(path, Util::Image::Format::Auto);
+            load(image, target, format, internalFormat);
+
+        } catch(const Util::Exception::InitializationFailed& exception) {
+            (void) exception;
+
+            throw;
+
+        } catch(const Util::Exception::FatalError& exception) {
+            (void) exception;
+            destroy();
+
+            throw;
+        }
     }
     
     Texture::Texture(Texture&& texture) {
@@ -215,12 +230,12 @@ namespace GL {
             switch(image.getBits()) {
                 case 24: 
                     setInternalFromat(InternalFormat::RGB);
-                    setFormat(Format::BGR);
+                    setFormat(Format::RGB);
                     break;
 
                 case 32:
-                    setInternalFromat(InternalFormat::RGBA);
-                    setFormat(Format::BGRA);
+                    setInternalFromat(InternalFormat::RGB);
+                    setFormat(Format::RGBA);
                     break;
 
                 default:

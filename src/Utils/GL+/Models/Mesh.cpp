@@ -118,6 +118,8 @@ namespace GL {
             //hasTextures.w = (material.textureBumpmap  != "") ? true : false; // not supported yet
 
             if(_textures) {
+                glActiveTexture(GL_TEXTURE0);
+
                 if(hasTextures.x)
                     _textures->at(material.textureDiffuse).bind();
                 else if(hasTextures.y)

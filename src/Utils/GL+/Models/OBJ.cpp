@@ -424,10 +424,18 @@ namespace GL {
 
                             if(Util::String::startsWith(tokens[0], "map_")) {
                                 if(Util::File::exists(currentDirectory + tokens[1])) {
-                                    textures.emplace(
-                                        tokens[1],
-                                        currentDirectory + tokens[1]
-                                    );
+                                    try {
+                                        textures.emplace(
+                                            tokens[1],
+                                            currentDirectory + tokens[1]
+                                        );
+                                    } catch(...) {
+                                        Util::Log::LibraryStream().log( 
+                                            "Unable to load material's texture '" + 
+                                            currentDirectory + tokens[1] + 
+                                            "' from material file '" + path + "'"
+                                        );
+                                    }
                                 } else {
                                     Util::Log::LibraryStream() << "Unable to open OBJ material's texture '" + currentDirectory + tokens[1] + "'";
                                 }

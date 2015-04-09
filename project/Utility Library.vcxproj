@@ -87,7 +87,9 @@
     <ClInclude Include="..\include\Utils\AABB.h" />
     <ClInclude Include="..\include\Utils\Clock.h" />
     <ClInclude Include="..\include\Utils\Exception.h" />
+    <ClInclude Include="..\include\Utils\Exceptions\InitializationFailed.h" />
     <ClInclude Include="..\include\Utils\Exceptions\FatalError.h" />
+    <ClInclude Include="..\include\Utils\Exceptions\InvalidArgument.h" />
     <ClInclude Include="..\include\Utils\File.h" />
     <ClInclude Include="..\include\Utils\Frameworks\Application.h" />
     <ClInclude Include="..\include\Utils\GL+\Context.h" />
@@ -128,6 +130,8 @@
     <ClCompile Include="..\src\Utils\Clock.cpp" />
     <ClCompile Include="..\src\Utils\Exception.cpp" />
     <ClCompile Include="..\src\Utils\Exceptions\FatalError.cpp" />
+    <ClCompile Include="..\src\Utils\Exceptions\InitializationFailed.cpp" />
+    <ClCompile Include="..\src\Utils\Exceptions\InvalidArgument.cpp" />
     <ClCompile Include="..\src\Utils\File.cpp" />
     <ClCompile Include="..\src\Utils\Frameworks\Application.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Context.cpp" />

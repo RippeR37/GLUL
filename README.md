@@ -77,7 +77,7 @@ Documentation for each module should be created soon.
 - [GLEW](http://www.glew.sourceforge.net/) (tested on 1.12.0)
 - [GLM](http://www.glm.g-truc.net/) (tested on 0.9.5.4)
 - [FT2](http://www.freetype.org/freetype2/) (tested on 2.5.5)
-- [libJPEG](http://www.ijg.org/) ([tested](https://beeproc.wordpress.com/2012/11/18/building-libjpeg-8d-with-msvc-2012/) on 9a, [libJPEG turbo](http://libjpeg-turbo.virtualgl.org/) migh also work)
+- [libJPEG](http://www.ijg.org/) ([tested](https://beeproc.wordpress.com/2012/11/18/building-libjpeg-8d-with-msvc-2012/) on 9a, [libjpeg-turbo](http://libjpeg-turbo.virtualgl.org/) might also work)
 
 ### License
 [GNU GPLv2](LICENSE).

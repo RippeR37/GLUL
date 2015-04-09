@@ -121,7 +121,8 @@ namespace GL {
                 Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat);
 
             Texture(const std::string& path, Target target = Target::Tex2D, 
-                Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat);
+                Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat) 
+                throw(Util::Exception::InitializationFailed, Util::Exception::FatalError);
 
             Texture(Texture&& texture);
             Texture(const Texture&) = delete;
