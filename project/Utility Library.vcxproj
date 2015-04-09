@@ -111,6 +111,11 @@
     <ClInclude Include="..\include\Utils\GL+\VertexBuffer.h" />
     <ClInclude Include="..\include\Utils\Image.h" />
     <ClInclude Include="..\include\Utils\Interfaces\Camera.h" />
+    <ClInclude Include="..\include\Utils\Interfaces\ImageFile.h" />
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileBMP.h" />
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileJPG.h" />
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFilePNG.h" />
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileTGA.h" />
     <ClInclude Include="..\include\Utils\Interfaces\Model.h" />
     <ClInclude Include="..\include\Utils\Interfaces\MVC\ExtendedView.h" />
     <ClInclude Include="..\include\Utils\Interfaces\MVC\View.h" />
@@ -152,6 +157,11 @@
     <ClCompile Include="..\src\Utils\GL+\VertexBuffer.cpp" />
     <ClCompile Include="..\src\Utils\Image.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\Camera.cpp" />
+    <ClCompile Include="..\src\Utils\Interfaces\ImageFile.cpp" />
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileBMP.cpp" />
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileJPG.cpp" />
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFilePNG.cpp" />
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileTGA.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\Model.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\State.cpp" />
     <ClCompile Include="..\src\Utils\Line.cpp" />

@@ -9,6 +9,10 @@
 
 namespace Util {
 
+    namespace Interface {
+        class ImageFile; // Interface for reading and writing image files
+    }
+
     class Image {
         public:
             enum class Format {
@@ -26,33 +30,34 @@ namespace Util {
             Image(Image&& image) throw();
             ~Image();
 
+            Image& operator=(const Image& image);
+            Image& operator=(Image&& image);
+
             void load(const std::string& path, Format format = Format::Auto) throw(Exception::InitializationFailed);
+            void load(const std::string& path, const Interface::ImageFile& fileInterface);
             void load(unsigned int width, unsigned int height, unsigned int bits, unsigned char* data, bool isRGB = true);
 
             void reset();
-            
-            glm::uvec4 getPixel(unsigned int x, unsigned int y) const;
 
             unsigned int getBits() const;
             unsigned int getSize() const;
             unsigned int getWidth() const;
             unsigned int getHeight() const;
             unsigned char* getData() const;
+            glm::uvec4 getPixel(unsigned int x, unsigned int y) const;
 
         public:
             static void swapComponents(unsigned int width, unsigned int height, unsigned int bits, unsigned char* data) throw(Util::Exception::InvalidArgument);
 
         private:
-            void loadBMP(const std::string& path) throw(Exception::InitializationFailed);
-            void loadTGA(const std::string& path) throw(Exception::InitializationFailed);
-            void loadJPG(const std::string& path) throw(Exception::InitializationFailed);
-            void loadPNG(const std::string& path) throw(Exception::InitializationFailed);
-
             unsigned int _size;
             unsigned int _width;
             unsigned int _height;
             unsigned int _bits;
             unsigned char* _data;
+
+        public:
+            friend class Util::Interface::ImageFile;
     };
 
 }

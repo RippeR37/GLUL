@@ -42,6 +42,12 @@
     <Filter Include="Source Files\GL+\Models">
       <UniqueIdentifier>{64976592-a0d6-4ffb-a712-7c64efae302f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Interfaces\Implementations">
+      <UniqueIdentifier>{685b5d62-999f-4deb-bb40-9e04d51fefdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interfaces\Implementations">
+      <UniqueIdentifier>{071a0369-0cb2-48ad-ba5b-90b5835ba825}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Utils\Clock.h">
@@ -164,6 +170,21 @@
     <ClInclude Include="..\include\Utils\Exceptions\InvalidArgument.h">
       <Filter>Header Files\Exceptions</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\ImageFile.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileBMP.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileTGA.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileJPG.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFilePNG.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">
@@ -276,6 +297,21 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\Exceptions\InvalidArgument.cpp">
       <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileBMP.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\ImageFile.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileTGA.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileJPG.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFilePNG.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
