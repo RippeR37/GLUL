@@ -58,7 +58,7 @@ Library strongly uses C++11 features like move constructors/assignment operators
     - BMP
     - TGA
     - JPEG
-    - ~~PNG~~ (not yet supported)
+    - PNG
 - Data types
     - Lines
     - Points
@@ -78,6 +78,8 @@ Documentation for each module should be created soon.
 - [GLM](http://www.glm.g-truc.net/) (tested on 0.9.5.4)
 - [FT2](http://www.freetype.org/freetype2/) (tested on 2.5.5)
 - [libJPEG](http://www.ijg.org/) ([tested](https://beeproc.wordpress.com/2012/11/18/building-libjpeg-8d-with-msvc-2012/) on 9a, [libjpeg-turbo](http://libjpeg-turbo.virtualgl.org/) might also work)
+- [libPNG](http://www.libpng.org/pub/png/libpng.html) (tested on 1.6.17)
+- [zlib](http://www.zlib.net/) (tested on 1.2.8, libPNG's dependency)
 
 ### License
 [GNU GPLv2](LICENSE).
