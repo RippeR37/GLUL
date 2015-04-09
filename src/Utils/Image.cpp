@@ -3,6 +3,7 @@
 #include <Utils/Logger.h>
 
 #include <jpeglib.h>
+#include <png.h>
 
 #include <algorithm>
 #include <cstdio>
@@ -61,6 +62,7 @@ namespace Util {
             case Format::BMP: loadBMP(path); break;
             case Format::TGA: loadTGA(path); break;
             case Format::JPG: loadJPG(path); break;
+            case Format::PNG: loadPNG(path); break;
 
             default:
                 std::string extension = Util::File::getExtension(path);
@@ -71,6 +73,8 @@ namespace Util {
                     loadTGA(path);
                 } else if(extension == "jpg" || extension == "JPG" || extension == "jpeg" || extension == "JPEG") {
                     loadJPG(path);
+                } else if(extension == "png" || extension == "PNG") {
+                    loadPNG(path);
                 } else {
                     Util::Log::LibraryStream().logError("Unsupported image extension: '" + extension + "'");
                     throw Util::Exception::InitializationFailed("Unsupported image extension: '" + extension + "'");
@@ -113,27 +117,37 @@ namespace Util {
         _data = nullptr;
     }
     
-    /*
     glm::uvec4 Image::getPixel(unsigned int x, unsigned int y) const {
         glm::uvec4 result(0, 0, 0, INT_MAX);
 
-        switch(getBits()) {
-            case 8:
-                break;
+        if(_data != nullptr && x < _width && y < _height) {
+            switch(getBits()) {
+                case 8:
+                    result.r = _data[(y * _width + x) * 1 + 0];
+                    break;
 
-            case 16: 
-                break;
+                case 16: 
+                    result.r = _data[(y * _width + x) * 2 + 0];
+                    result.g = _data[(y * _width + x) * 2 + 1];
+                    break;
 
-            case 24: 
-                break;
+                case 24: 
+                    result.r = _data[(y * _width + x) * 3 + 0];
+                    result.g = _data[(y * _width + x) * 3 + 1];
+                    result.b = _data[(y * _width + x) * 3 + 2];
+                    break;
 
-            case 32: 
-                break;
+                case 32: 
+                    result.r = _data[(y * _width + x) * 4 + 0];
+                    result.g = _data[(y * _width + x) * 4 + 1];
+                    result.b = _data[(y * _width + x) * 4 + 2];
+                    result.a = _data[(y * _width + x) * 4 + 3];
+                    break;
+            }
         }
 
         return result;
     }
-    */
 
 
     unsigned int Image::getBits() const {
@@ -368,6 +382,106 @@ namespace Util {
 
         delete[] dataRow[0];
         delete[] dataRow;
+    }
+
+    void Image::loadPNG(const std::string& path) throw(Exception::InitializationFailed) {
+        /*** Variables ***/
+        png_byte header[8];
+        int bitDepth;
+        int colorType;
+        int rowBytes;
+
+        /*** Implementation ***/
+        FILE *fp = fopen(path.c_str(), "rb");
+        if(fp == 0) {
+            reset();
+            Util::Log::LibraryStream().logError("Failed to load PNG image file: '" + path + "'");
+            throw Exception::InitializationFailed("Failed to load PNG image file: '" + path + "'");
+        }
+
+        fread(header, 1, 8, fp);
+        if(png_sig_cmp(header, 0, 8)) {
+            fclose(fp);
+            reset();
+            Util::Log::LibraryStream().logError("Loaded file is not a proper PNG image file: '" + path + "'");
+            throw Exception::InitializationFailed("Loaded file is not a proper PNG image file: '" + path + "'");
+        }
+
+        png_structp png_ptr = png_create_read_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
+        if (!png_ptr) {
+            fclose(fp);
+            reset();
+            Util::Log::LibraryStream().logError("Failed to read PNG image from file: '" + path + "'");
+            throw Exception::InitializationFailed("Failed to read PNG image from file: '" + path + "'");
+        }
+
+        png_infop info_ptr = png_create_info_struct(png_ptr);
+        if (!info_ptr) {
+            png_destroy_read_struct(&png_ptr, nullptr, nullptr);
+            fclose(fp);
+            reset();
+            Util::Log::LibraryStream().logError("Failed to read PNG image from file: '" + path + "'");
+            throw Exception::InitializationFailed("Failed to read PNG image from file: '" + path + "'");
+        }
+
+        png_infop end_info = png_create_info_struct(png_ptr);
+        if (!end_info) {
+            png_destroy_read_struct(&png_ptr, &info_ptr, nullptr);
+            fclose(fp);
+            reset();
+            Util::Log::LibraryStream().logError("Failed to read PNG image from file: '" + path + "'");
+            throw Exception::InitializationFailed("Failed to read PNG image from file: '" + path + "'");
+        }
+
+        
+        if (setjmp(png_jmpbuf(png_ptr))) {
+            png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
+            fclose(fp);
+            reset();
+            Util::Log::LibraryStream().logError("Failed to read PNG image from file (SJ): '" + path + "'");
+            throw Exception::InitializationFailed("Failed to read PNG image from file (SJ): '" + path + "'");
+        }
+
+        png_init_io(png_ptr, fp);
+        png_set_sig_bytes(png_ptr, 8);
+        png_read_info(png_ptr, info_ptr);
+        png_get_IHDR(png_ptr, info_ptr, &_width, &_height, &bitDepth, &colorType, nullptr, nullptr, nullptr);
+
+        if (bitDepth != 8) {
+            png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
+            fclose(fp);
+            reset();
+            Util::Log::LibraryStream().logError("Unsupported bit depth in PNG image file: '" + path + "'");
+            throw Exception::InitializationFailed("Unsupported bit depth in PNG image file: '" + path + "'");
+        }
+
+        switch(colorType) {
+            case PNG_COLOR_TYPE_RGB:        _bits = 24; break;
+            case PNG_COLOR_TYPE_RGB_ALPHA:  _bits = 32; break;
+
+            default:
+                png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
+                fclose(fp);
+                reset();
+                Util::Log::LibraryStream().logError("Unsupported color type '" + std::to_string(colorType) + "' in PNG image file: '" + path + "'");
+                throw Exception::InitializationFailed("Unsupported bit depth in PNG image file: '" + path + "'");
+        }
+
+        png_read_update_info(png_ptr, info_ptr);
+        rowBytes  = png_get_rowbytes(png_ptr, info_ptr);
+
+        _data = new unsigned char[rowBytes * _height];
+        unsigned char** rowPointers = new unsigned char*[_height];
+
+        for(unsigned int i = 0; i < _height; i++)
+            rowPointers[_height -1 - i] = _data + i * rowBytes;
+
+        png_read_image(png_ptr, rowPointers);
+
+        /// Cleaning up
+        png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
+        fclose(fp);
+        delete[] rowPointers;
     }
 
 }

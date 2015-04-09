@@ -15,7 +15,7 @@ namespace Util {
                 BMP,
                 TGA,
                 JPG,
-                // PNG,
+                PNG,
                 Auto,
             };
 
@@ -31,7 +31,7 @@ namespace Util {
 
             void reset();
             
-            //glm::uvec4 getPixel(unsigned int x, unsigned int y) const;
+            glm::uvec4 getPixel(unsigned int x, unsigned int y) const;
 
             unsigned int getBits() const;
             unsigned int getSize() const;
@@ -46,6 +46,7 @@ namespace Util {
             void loadBMP(const std::string& path) throw(Exception::InitializationFailed);
             void loadTGA(const std::string& path) throw(Exception::InitializationFailed);
             void loadJPG(const std::string& path) throw(Exception::InitializationFailed);
+            void loadPNG(const std::string& path) throw(Exception::InitializationFailed);
 
             unsigned int _size;
             unsigned int _width;

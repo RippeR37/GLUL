@@ -67,7 +67,7 @@ void switchTexture(GL::Texture& texture) {
             case 0: texture.load(Util::Image("assets/images/image0.bmp")); break; // BMP
             case 1: texture.load(Util::Image("assets/images/image1.tga")); break; // TGA
             case 2: texture.load(Util::Image("assets/images/image2.jpg")); break; // JPEG
-            case 3: texture.load(Util::Image("assets/images/image3.png")); break; // PNG - not yet implemented, will cause exception to be thrown
+            case 3: texture.load(Util::Image("assets/images/image3.png")); break; // PNG with alpha channel
         }
 
     } catch(const Util::Exception::InitializationFailed& exception) {
@@ -102,10 +102,13 @@ void run() {
     initProgram(program);
     initVBO(vbo, vertices);
     initVAO(vao, vbo, vertices);
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     switchTexture(texture);
-
+    
     glfwSetKeyCallback(window, keyboardHandler);
-
     while(window.isCreated() && window.shouldClose() == false) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);
 

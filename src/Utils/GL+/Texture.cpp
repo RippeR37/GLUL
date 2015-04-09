@@ -234,7 +234,7 @@ namespace GL {
                     break;
 
                 case 32:
-                    setInternalFromat(InternalFormat::RGB);
+                    setInternalFromat(InternalFormat::RGBA);
                     setFormat(Format::RGBA);
                     break;
 
