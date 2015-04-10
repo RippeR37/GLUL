@@ -43,14 +43,16 @@ namespace Util {
         width = cinfo.output_width;
         height = cinfo.output_height;
         bits = cinfo.output_components * 8;
-        data = new unsigned char[width * height * (bits / 8)];
-
+        
         rowStride = cinfo.output_width * cinfo.output_components;
+        rowStride   = rowStride + (3 - ((rowStride - 1) % 4));
+
+        data = new unsigned char[height * rowStride];
         dataRow = new unsigned char*[1];
         dataRow[0] = new unsigned char[rowStride];
 
         // Reading data
-        unsigned int offset = (height - 1) * width * (bits / 8);
+        unsigned int offset = (height - 1) * rowStride; // width * (bits / 8);
         while(cinfo.output_scanline < cinfo.output_height) {
             // Read row
             jpeg_read_scanlines(&cinfo, dataRow, 1);

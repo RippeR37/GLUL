@@ -1,6 +1,7 @@
 #include <Utils/Logger.h>
 #include <Utils/Interfaces/Implementations/ImageFileBMP.h>
 
+#include <iostream>
 
 namespace Util {
 
@@ -12,6 +13,7 @@ namespace Util {
         unsigned int size;
         unsigned int width, height, bits;
         unsigned char* data;
+        unsigned int rowStride; // width * bits algined to 4bytes
 
         FILE *file = fopen(path.c_str(), "rb");
         if(!file) {
@@ -58,8 +60,11 @@ namespace Util {
         height      = getUIntFromUCharArrayLE(&header[0x16]);
         bits        = getUIntFromUCharArrayLE(&header[0x1C]);
 
+        rowStride   = width * (bits / 8);
+        rowStride   = rowStride + (3 - ((rowStride - 1) % 4));
+
         if(size == 0)
-            size = width * height * (bits / 8);
+            size = height * rowStride;
 
         if(dataOffset == 0)
             dataOffset = 54;
@@ -88,7 +93,64 @@ namespace Util {
     }
 
     void ImageFileBMP::save(const Image& image, const std::string& path) const throw(Util::Exception::InitializationFailed) {
-        throw Util::Exception("ImageFileBMP::save(...) not yet implemented");
+        union {
+            unsigned char headerData[56];
+            BMPheader header;
+        };
+        unsigned char* BGRdata;
+
+        header.bmpID[0] = 0; // not used, dummy byte due to struct alignment
+        header.bmpID[1] = 0; // not used, dummy byte due to struct alignment
+        header.bmpID[2] = 'B';
+        header.bmpID[3] = 'M';
+        header.fileSize = image.getSize() + 54;
+        header.reserved[0] = 0;
+        header.reserved[1] = 0;
+        header.dataOffset = 54;
+        header.headerSize = 40;
+        header.width = image.getWidth();
+        header.height = image.getHeight();
+        header.planes = static_cast<unsigned short>(1);
+        header.bpp = static_cast<unsigned short>(image.getBits());
+        header.compression = 0;
+        header.imageSize = image.getSize();
+        header.xPelsPerMeter = 0;
+        header.yPelsPerMeter = 0;
+        header.clrUsed = 0;
+        header.clrImportantRotateAndReserved = 0;
+        
+        BGRdata = new unsigned char[image.getSize()];
+        std::memcpy(BGRdata, image.getData(), image.getSize());
+        
+        try {
+            Image::swapComponents(image.getWidth(), image.getHeight(), image.getBits(), BGRdata);
+        } catch(const Util::Exception::InvalidArgument& exception) {
+            Util::Log::LibraryStream().logWarning(exception.what() + std::string(" for image '" + path + "'"));
+        }
+
+        FILE *file = fopen(path.c_str(), "wb");
+        if(!file) {
+            delete[] BGRdata;
+            Util::Log::LibraryStream().logError("Failed to open file: '" + path + "'");
+            throw Exception::InitializationFailed("Failed to open file: '" + path + "'");
+        }
+
+        if(fwrite(&headerData[2], 1, 54, file) != 54) {
+            fclose(file);
+            delete[] BGRdata;
+            Util::Log::LibraryStream().logError("Failed to write header of BMP image file: '" + path + "'");
+            throw Exception::InitializationFailed("Failed to write header of BMP image file: '" + path + "'");
+        }
+
+        if(fwrite(BGRdata, 1, image.getSize(), file) != image.getSize()) {
+            fclose(file);
+            delete[] BGRdata;
+            Util::Log::LibraryStream().logError("Failed to write BMP image's data to file: '" + path + "'");
+            throw Exception::InitializationFailed("Failed to write BMP image's data to file: '" + path + "'");
+        }
+
+        fclose(file);
+        delete[] BGRdata;
     }
 
 }

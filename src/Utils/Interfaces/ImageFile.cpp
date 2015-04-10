@@ -13,11 +13,17 @@ namespace Util {
         } 
         
         void ImageFile::setImage(Image& image, unsigned int width, unsigned int height, unsigned int bits, unsigned char* data) const {
+            unsigned int rowStride;
+
             image._width = width;
             image._height = height;
             image._bits = bits;
-            image._size = width * height * (bits / 8);
             image._data = data;
+            
+            rowStride = width * (bits / 8);
+            rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+
+            image._size = height * rowStride;
         }
 
     }

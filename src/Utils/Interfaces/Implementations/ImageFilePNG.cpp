@@ -13,7 +13,7 @@ namespace Util {
         png_byte header[8];
         int bitDepth;
         int colorType;
-        int rowBytes;
+        int rowStride;
 
 
         FILE *fp = fopen(path.c_str(), "rb");
@@ -92,13 +92,15 @@ namespace Util {
         }
 
         png_read_update_info(png_ptr, info_ptr);
-        rowBytes  = png_get_rowbytes(png_ptr, info_ptr);
 
-        data = new unsigned char[rowBytes * height];
+        rowStride = png_get_rowbytes(png_ptr, info_ptr);
+        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+
+        data = new unsigned char[height * rowStride];
         unsigned char** rowPointers = new unsigned char*[height];
 
-        for(unsigned int i = 0; i < height; i++)
-            rowPointers[height -1 - i] = data + i * rowBytes;
+        for(unsigned int row = 0; row < height; ++row)
+            rowPointers[height -1 - row] = data + row * rowStride;
 
         png_read_image(png_ptr, rowPointers);
 

@@ -34,8 +34,11 @@ namespace Util {
             Image& operator=(Image&& image);
 
             void load(const std::string& path, Format format = Format::Auto) throw(Exception::InitializationFailed);
-            void load(const std::string& path, const Interface::ImageFile& fileInterface);
+            void load(const std::string& path, const Interface::ImageFile& fileInterface) throw(Exception::InitializationFailed);
             void load(unsigned int width, unsigned int height, unsigned int bits, unsigned char* data, bool isRGB = true);
+
+            void save(const std::string& path, Format format = Format::Auto) throw(Exception::InitializationFailed);
+            void save(const std::string& path, const Interface::ImageFile& fileInterface) throw(Exception::InitializationFailed);
 
             void reset();
 

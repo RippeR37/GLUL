@@ -63,12 +63,18 @@ void switchTexture(GL::Texture& texture) {
     static const unsigned int textureCount = 4;
     
     try {
+        Util::Image image;
+
         switch(texID) {
-            case 0: texture.load(Util::Image("assets/images/image0.bmp")); break; // BMP
-            case 1: texture.load(Util::Image("assets/images/image1.tga")); break; // TGA
-            case 2: texture.load(Util::Image("assets/images/image2.jpg")); break; // JPEG
-            case 3: texture.load(Util::Image("assets/images/image3.png")); break; // PNG with alpha channel
+            case 0: image.load("assets/images/image0.bmp"); break; // BMP
+            case 1: image.load("assets/images/image1.tga"); break; // TGA
+            case 2: image.load("assets/images/image2.jpg"); break; // JPEG
+            case 3: image.load("assets/images/image3.png"); break; // PNG with alpha channel
         }
+
+        texture.load(image);
+
+        image.save("lastImage.bmp");
 
     } catch(const Util::Exception::InitializationFailed& exception) {
         std::cerr << "Caught initialization exception: " << exception.what() << std::endl;

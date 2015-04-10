@@ -115,7 +115,6 @@ namespace GL {
     void Texture::setData1D(GLsizei width, GLenum dataType, const GLvoid* data, GLint level) {
         setWidth(width);
 
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         glTexImage1D(
             static_cast<GLenum>(getTarget()), 
             level, 
@@ -132,7 +131,6 @@ namespace GL {
         setWidth(width);
         setHeight(height);
         
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         glTexImage2D(
             static_cast<GLenum>(getTarget()), 
             level, 
@@ -150,7 +148,6 @@ namespace GL {
         setWidth(width);
         setHeight(height);
         
-        glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         glTexImage3D(
             static_cast<GLenum>(getTarget()), 
             level, 

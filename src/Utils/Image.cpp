@@ -116,15 +116,19 @@ namespace Util {
         }
     }
 
-    void Image::load(const std::string& path, const Interface::ImageFile& fileInterface) {
+    void Image::load(const std::string& path, const Interface::ImageFile& fileInterface) throw(Exception::InitializationFailed) {
         *this = std::move(fileInterface.read(path));
     }
     
     void Image::load(unsigned int width, unsigned int height, unsigned int bits, unsigned char* data, bool isRGB) {
+        unsigned int rowStride;
+
         _width = width;
-        _height = _height;
+        _height = height;
         _bits = bits;
-        _size = _width * _height * _bits / 8;
+        rowStride = (width + (3 - ((width - 1) % 4))) * (bits / 8);
+
+        _size = _height * rowStride;
 
         if(_size > 0 && data != nullptr) {
             _data = new unsigned char[_size];
@@ -140,6 +144,37 @@ namespace Util {
                 Util::Log::LibraryStream().logWarning(exception.what());
             }
         }
+    }
+    
+    void Image::save(const std::string& path, Format format) throw(Exception::InitializationFailed) {
+        switch(format) {
+            case Format::BMP: save(path, Util::ImageFileBMP()); break;
+            case Format::TGA: save(path, Util::ImageFileTGA()); break;
+            case Format::JPG: save(path, Util::ImageFileJPG()); break;
+            case Format::PNG: save(path, Util::ImageFilePNG()); break;
+
+            default:
+                std::string extension = Util::File::getExtension(path);
+
+                if(extension == "bmp" || extension == "BMP") {
+                    save(path, Util::ImageFileBMP());
+                } else if(extension == "tga" || extension == "TGA") {
+                    save(path, Util::ImageFileTGA());
+                } else if(extension == "jpg" || extension == "JPG" || extension == "jpeg" || extension == "JPEG") {
+                    save(path, Util::ImageFileJPG());
+                } else if(extension == "png" || extension == "PNG") {
+                    save(path, Util::ImageFilePNG());
+                } else {
+                    Util::Log::LibraryStream().logError("Unsupported image extension: '" + extension + "'");
+                    throw Util::Exception::InitializationFailed("Unsupported image extension: '" + extension + "'");
+                }
+
+                break;
+        }
+    }
+
+    void Image::save(const std::string& path, const Interface::ImageFile& fileInterface) throw(Exception::InitializationFailed) {
+        fileInterface.save(*this, path);
     }
 
     void Image::reset() {
@@ -206,8 +241,9 @@ namespace Util {
     }
     
     void Image::swapComponents(unsigned int width, unsigned int height, unsigned int bits, unsigned char* data) throw(Util::Exception::InvalidArgument) {
-        unsigned long long int arraySize = width * height * (bits / 8);
-        unsigned int interval = 3;
+        unsigned int interval;
+        unsigned int rowStride;
+        unsigned long long int arraySize;
 
         switch(bits) {
             case 24: interval = 3; break;
@@ -217,8 +253,16 @@ namespace Util {
                 throw Util::Exception::InvalidArgument("Invalid argument: cannot convert image to RGB(A) format with " + std::to_string(bits/8) + "components");
         }
 
-        for(unsigned long long int i = 0; i < arraySize; i += interval)
-            std::swap(data[i], data[i+2]);
+        rowStride = width * (bits / 8);
+        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+        arraySize = height * rowStride;
+
+        for(unsigned long long int rowPtr = 0; rowPtr < arraySize; rowPtr += rowStride) {
+            for(int collumnPtr = 0; collumnPtr < width * (bits / 8); collumnPtr += interval) {
+                std::swap(data[rowPtr + collumnPtr + 0], data[rowPtr + collumnPtr + 2]);
+            }
+        }
+
     }
 
 }

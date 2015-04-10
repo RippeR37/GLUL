@@ -17,7 +17,7 @@ namespace Util {
         char* si = (char*)&si_a[0];
         int id_len, cm_type, type;
         int cm_len;
-        int c_mode;
+        unsigned int rowStride; // width * bits algined to 4bytes
 
         fileStream.open(path, std::fstream::binary);
         if(fileStream.is_open() == false) {
@@ -41,8 +41,10 @@ namespace Util {
         fileStream.read(&c, 1);         bits = (int)c;
         fileStream.read(&c, 1);         // img descriptor
 
-        c_mode = bits / 8;
-        size  = width * height * c_mode;
+        rowStride   = width * (bits / 8);
+        rowStride   = rowStride + (3 - ((rowStride - 1) % 4));
+
+        size  = height * rowStride;
 
         if(type != 2 && type != 3) {
             image.reset();
@@ -50,19 +52,23 @@ namespace Util {
             throw Exception::InitializationFailed("Unsupported TGA format: '" + std::to_string(type) + "' in file: '" + path + "'");
         }
 
-        if(c_mode != 3 && c_mode != 4) {
+        if(bits != 24 && bits != 32) {
             image.reset();
-            Util::Log::LibraryStream().logError("Unsupported TGA color bits: '" + std::to_string(c_mode) + "' in file: '" + path + "'");
-            throw Exception::InitializationFailed("Unsupported TGA color bits: '" + std::to_string(c_mode) + "' in file: '" + path + "'");
+            Util::Log::LibraryStream().logError("Unsupported TGA color bits: '" + std::to_string(bits) + "' in file: '" + path + "'");
+            throw Exception::InitializationFailed("Unsupported TGA color bits: '" + std::to_string(bits) + "' in file: '" + path + "'");
         }
 
         if(id_len > 0)
             fileStream.read(buff, id_len);
+
         if(cm_type != 0 && cm_len > 0)
             fileStream.read(buff, cm_len);
 
         data = new unsigned char[size];
-        fileStream.read((char*)data, size);
+
+        for(unsigned int rowPtr = 0; rowPtr < size; rowPtr += rowStride)
+            fileStream.read((char*)(data + rowPtr), width * (bits / 8));
+
         fileStream.close();
 
         try {
