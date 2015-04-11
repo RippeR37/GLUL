@@ -84,7 +84,69 @@ namespace Util {
     }
 
     void ImageFileTGA::save(const Image& image, const std::string& path) const throw(Util::Exception::InitializationFailed) {
-        throw Util::Exception("ImageFileTGA::save(...) not yet implemented");
+        std::ofstream fileStream;
+        std::string error;
+        unsigned int rowStride; // width * bits algined to 4bytes
+        unsigned short int w = image.getWidth();
+        unsigned short int h = image.getHeight();
+        unsigned char b = image.getBits();
+        unsigned char d; // image descriptor
+        unsigned char c;
+        unsigned char* BGRdata;
+
+        union unionCharShort {
+            unsigned char c[2];
+            unsigned short s;
+        } u;
+
+        rowStride = image.getWidth() * (image.getBits() / 8);
+        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+        d = (image.getBits() == 32 ? 8 : 0);
+
+        BGRdata = new unsigned char[image.getSize()];
+        std::memcpy(BGRdata, image.getData(), image.getSize());
+        
+        try {
+            Image::swapComponents(image.getWidth(), image.getHeight(), image.getBits(), BGRdata);
+        } catch(const Util::Exception::InvalidArgument& exception) {
+            Util::Log::LibraryStream().logWarning(exception.what() + std::string(" for image '" + path + "'"));
+        }
+
+        fileStream.open(path, std::fstream::binary);
+        if(fileStream.is_open() == false) {
+            Util::Log::LibraryStream().logError("Failed to open file: '" + path + "'");
+            throw Exception::InitializationFailed("Failed to load file: '" + path + "'");
+        }
+
+        c = 0;      fileStream.write(reinterpret_cast<char*>(&c), 1);   // id_len [BYTE]
+        c = 0;      fileStream.write(reinterpret_cast<char*>(&c), 1);   // cm_type [BYTE]
+        c = 2;      fileStream.write(reinterpret_cast<char*>(&c), 1);   // type [BYTE]
+
+        u.s = 0;    fileStream.write(reinterpret_cast<char*>(&u.c), 2); // cm_index [SHORT]
+        u.s = 0;    fileStream.write(reinterpret_cast<char*>(&u.c), 2); // cm_len [SHORT]
+        c = 0;      fileStream.write(reinterpret_cast<char*>(&c), 1);   // cm_bpp [BYTE]
+        
+        u.s = 0;    fileStream.write(reinterpret_cast<char*>(&u.c), 2); // x_or [SHORT]
+        u.s = 0;    fileStream.write(reinterpret_cast<char*>(&u.c), 2); // y_or [SHORT]
+        u.s = w;    fileStream.write(reinterpret_cast<char*>(&u.c), 2); // width [SHORT]
+        u.s = h;    fileStream.write(reinterpret_cast<char*>(&u.c), 2); // height [SHORT]
+        c = b;      fileStream.write(reinterpret_cast<char*>(&c), 1);   // bpp [BYTE]
+        c = d;      fileStream.write(reinterpret_cast<char*>(&c), 1);   // img_descriptor [BYTE]
+
+        // Writing data without 4byte alignment
+        for(unsigned int rowPtr = 0; rowPtr < image.getSize(); rowPtr += rowStride)
+            fileStream.write(reinterpret_cast<char*>(BGRdata + rowPtr), image.getWidth() * (image.getBits() / 8));
+
+        // Writing footera data
+        int zeroInt = 0;
+        char signature[18];
+        std::strcpy(signature, "TRUEVISION-XFILE.");
+
+        fileStream.write(reinterpret_cast<char*>(&zeroInt), 4);     // extensions offset [INT]
+        fileStream.write(reinterpret_cast<char*>(&zeroInt), 4);     // dev area offset [INT]
+        fileStream.write(reinterpret_cast<char*>(signature), 18);   // signature
+
+        fileStream.close();
     }
 
 }

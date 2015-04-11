@@ -74,7 +74,7 @@ void switchTexture(GL::Texture& texture) {
 
         texture.load(image);
 
-        image.save("lastImage.bmp");
+        image.save("lastImage.tga");
 
     } catch(const Util::Exception::InitializationFailed& exception) {
         std::cerr << "Caught initialization exception: " << exception.what() << std::endl;

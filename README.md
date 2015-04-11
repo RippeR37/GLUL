@@ -55,10 +55,10 @@ Library strongly uses C++11 features like move constructors/assignment operators
 - Exceptions
 - Files
 - Images
-    - BMP
-    - TGA
-    - JPEG
-    - PNG
+    - BMP (read & write)
+    - TGA (read & write)
+    - JPEG (read)
+    - PNG (read)
 - Data types
     - Lines
     - Points
