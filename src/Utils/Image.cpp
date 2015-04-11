@@ -91,22 +91,22 @@ namespace Util {
         reset();
 
         switch(format) {
-            case Format::BMP: load(path, Util::ImageFileBMP()); break;
-            case Format::TGA: load(path, Util::ImageFileTGA()); break;
-            case Format::JPG: load(path, Util::ImageFileJPG()); break;
-            case Format::PNG: load(path, Util::ImageFilePNG()); break;
+            case Format::BMP: load(path, Util::Interface::ImageFileBMP()); break;
+            case Format::TGA: load(path, Util::Interface::ImageFileTGA()); break;
+            case Format::JPG: load(path, Util::Interface::ImageFileJPG()); break;
+            case Format::PNG: load(path, Util::Interface::ImageFilePNG()); break;
 
             default:
                 std::string extension = Util::File::getExtension(path);
 
                 if(extension == "bmp" || extension == "BMP") {
-                    load(path, Util::ImageFileBMP());
+                    load(path, Util::Interface::ImageFileBMP());
                 } else if(extension == "tga" || extension == "TGA") {
-                    load(path, Util::ImageFileTGA());
+                    load(path, Util::Interface::ImageFileTGA());
                 } else if(extension == "jpg" || extension == "JPG" || extension == "jpeg" || extension == "JPEG") {
-                    load(path, Util::ImageFileJPG());
+                    load(path, Util::Interface::ImageFileJPG());
                 } else if(extension == "png" || extension == "PNG") {
-                    load(path, Util::ImageFilePNG());
+                    load(path, Util::Interface::ImageFilePNG());
                 } else {
                     Util::Log::LibraryStream().logError("Unsupported image extension: '" + extension + "'");
                     throw Util::Exception::InitializationFailed("Unsupported image extension: '" + extension + "'");
@@ -148,22 +148,22 @@ namespace Util {
     
     void Image::save(const std::string& path, Format format) throw(Exception::InitializationFailed) {
         switch(format) {
-            case Format::BMP: save(path, Util::ImageFileBMP()); break;
-            case Format::TGA: save(path, Util::ImageFileTGA()); break;
-            case Format::JPG: save(path, Util::ImageFileJPG()); break;
-            case Format::PNG: save(path, Util::ImageFilePNG()); break;
+            case Format::BMP: save(path, Util::Interface::ImageFileBMP()); break;
+            case Format::TGA: save(path, Util::Interface::ImageFileTGA()); break;
+            case Format::JPG: save(path, Util::Interface::ImageFileJPG()); break;
+            case Format::PNG: save(path, Util::Interface::ImageFilePNG()); break;
 
             default:
                 std::string extension = Util::File::getExtension(path);
 
                 if(extension == "bmp" || extension == "BMP") {
-                    save(path, Util::ImageFileBMP());
+                    save(path, Util::Interface::ImageFileBMP());
                 } else if(extension == "tga" || extension == "TGA") {
-                    save(path, Util::ImageFileTGA());
+                    save(path, Util::Interface::ImageFileTGA());
                 } else if(extension == "jpg" || extension == "JPG" || extension == "jpeg" || extension == "JPEG") {
-                    save(path, Util::ImageFileJPG());
+                    save(path, Util::Interface::ImageFileJPG());
                 } else if(extension == "png" || extension == "PNG") {
-                    save(path, Util::ImageFilePNG());
+                    save(path, Util::Interface::ImageFilePNG());
                 } else {
                     Util::Log::LibraryStream().logError("Unsupported image extension: '" + extension + "'");
                     throw Util::Exception::InitializationFailed("Unsupported image extension: '" + extension + "'");

@@ -35,3 +35,4 @@ project/Image example/build/*
 project/Image example/examples/*
 project/Image example/Debug/*
 project/Image example/Release/*
+examples/image/bin/lastImage.*
