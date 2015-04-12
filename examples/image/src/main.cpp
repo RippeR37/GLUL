@@ -61,6 +61,7 @@ void initVAO(GL::VertexArray& vao, const GL::VertexBuffer& vbo, const std::vecto
 void switchTexture(GL::Texture& texture) {
     static unsigned int texID = 0;
     static const unsigned int textureCount = 4;
+    static glm::uvec4 firstPixel;
     
     try {
         Util::Image image;
@@ -73,6 +74,14 @@ void switchTexture(GL::Texture& texture) {
         }
 
         texture.load(image);
+
+        firstPixel = image.getPixel(0, 0);
+        std::cout << "Image's first pixel: " 
+            << firstPixel.r << ", " 
+            << firstPixel.g << ", " 
+            << firstPixel.b << ", " 
+            << firstPixel.a << 
+        std::endl;
 
         image.save("lastImage.tga");
 

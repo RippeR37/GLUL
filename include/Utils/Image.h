@@ -47,7 +47,10 @@ namespace Util {
             unsigned int getWidth() const;
             unsigned int getHeight() const;
             unsigned char* getData() const;
+
             glm::uvec4 getPixel(unsigned int x, unsigned int y) const;
+
+            void setPixel(unsigned int x, unsigned int y, const glm::uvec4& color);
 
         public:
             static void swapComponents(unsigned int width, unsigned int height, unsigned int bits, unsigned char* data) throw(Util::Exception::InvalidArgument);

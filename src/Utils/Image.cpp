@@ -209,35 +209,42 @@ namespace Util {
     }
     
     glm::uvec4 Image::getPixel(unsigned int x, unsigned int y) const {
-        glm::uvec4 result(0, 0, 0, INT_MAX);
+        glm::uvec4 result(0, 0, 0, UCHAR_MAX);
+        unsigned int mult;
+        unsigned int rowStride;
+        unsigned int pixelOffset;
+        
+        mult = getBits() / 8;
+        rowStride = getWidth() * mult;
+        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+        pixelOffset = y * rowStride + x * mult;
 
         if(_data != nullptr && x < _width && y < _height) {
-            switch(getBits()) {
-                case 8:
-                    result.r = _data[(y * _width + x) * 1 + 0];
-                    break;
-
-                case 16: 
-                    result.r = _data[(y * _width + x) * 2 + 0];
-                    result.g = _data[(y * _width + x) * 2 + 1];
-                    break;
-
-                case 24: 
-                    result.r = _data[(y * _width + x) * 3 + 0];
-                    result.g = _data[(y * _width + x) * 3 + 1];
-                    result.b = _data[(y * _width + x) * 3 + 2];
-                    break;
-
-                case 32: 
-                    result.r = _data[(y * _width + x) * 4 + 0];
-                    result.g = _data[(y * _width + x) * 4 + 1];
-                    result.b = _data[(y * _width + x) * 4 + 2];
-                    result.a = _data[(y * _width + x) * 4 + 3];
-                    break;
-            }
+            if(mult > 0)    result.r = _data[pixelOffset + 0];
+            if(mult > 1)    result.g = _data[pixelOffset + 1];
+            if(mult > 2)    result.b = _data[pixelOffset + 2];
+            if(mult > 3)    result.a = _data[pixelOffset + 3];
         }
 
         return result;
+    }
+
+    void Image::setPixel(unsigned int x, unsigned int y, const glm::uvec4& color) {
+        unsigned int mult;
+        unsigned int rowStride;
+        unsigned int pixelOffset;
+        
+        mult = getBits() / 8;
+        rowStride = getWidth() * mult;
+        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+        pixelOffset = y * rowStride + x * mult;
+
+        if(_data != nullptr && x < _width && y < _height) {
+            if(mult > 0)    _data[pixelOffset + 0] = static_cast<unsigned char>(color.r);
+            if(mult > 1)    _data[pixelOffset + 1] = static_cast<unsigned char>(color.g);
+            if(mult > 2)    _data[pixelOffset + 2] = static_cast<unsigned char>(color.b);
+            if(mult > 3)    _data[pixelOffset + 3] = static_cast<unsigned char>(color.a);
+        }
     }
     
     void Image::swapComponents(unsigned int width, unsigned int height, unsigned int bits, unsigned char* data) throw(Util::Exception::InvalidArgument) {
