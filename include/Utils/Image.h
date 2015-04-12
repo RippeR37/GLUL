@@ -42,14 +42,19 @@ namespace Util {
 
             void reset();
 
+            // algorithms
+            void toGrayscale(float percentage = 1.0f);
+
+
+            // getters
             unsigned int getBits() const;
             unsigned int getSize() const;
             unsigned int getWidth() const;
             unsigned int getHeight() const;
             unsigned char* getData() const;
-
             glm::uvec4 getPixel(unsigned int x, unsigned int y) const;
 
+            // setter
             void setPixel(unsigned int x, unsigned int y, const glm::uvec4& color);
 
         public:

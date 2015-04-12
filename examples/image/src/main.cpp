@@ -75,14 +75,6 @@ void switchTexture(GL::Texture& texture) {
 
         texture.load(image);
 
-        firstPixel = image.getPixel(0, 0);
-        std::cout << "Image's first pixel: " 
-            << firstPixel.r << ", " 
-            << firstPixel.g << ", " 
-            << firstPixel.b << ", " 
-            << firstPixel.a << 
-        std::endl;
-
         image.save("lastImage.tga");
 
     } catch(const Util::Exception::InitializationFailed& exception) {

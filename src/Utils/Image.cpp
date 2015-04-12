@@ -7,13 +7,13 @@
 #include <Utils/Interfaces/Implementations/ImageFileJPG.h>
 #include <Utils/Interfaces/Implementations/ImageFilePNG.h>
 
+#include <glm/vec3.hpp>
+
 #include <algorithm>
 #include <cstdio>
 #include <climits>
 #include <fstream>
 #include <iterator>
-
-#include <iostream>
 
 namespace Util {
 
@@ -186,6 +186,41 @@ namespace Util {
         _bits = 0;
         _size = 0;
         _data = nullptr;
+    }
+
+    void Image::toGrayscale(float percentage) {
+        static const glm::vec3 factors = glm::vec3(0.2126f, 0.7152f, 0.0722f);
+        unsigned int rowStride;
+        unsigned int interval;
+
+        interval = getBits() / 8;
+        rowStride = getWidth() * interval;
+        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+
+        if(percentage < 0.0f)       percentage = 0.0f;
+        else if(percentage > 1.0f)  percentage = 1.0f;
+
+        auto transformPixel = [percentage](unsigned char* dataArray, unsigned int offset) {
+            unsigned int newColor = 0;
+
+            newColor += static_cast<unsigned int>(dataArray[offset + 0] * factors.r);
+            newColor += static_cast<unsigned int>(dataArray[offset + 1] * factors.g);
+            newColor += static_cast<unsigned int>(dataArray[offset + 2] * factors.b);
+
+            dataArray[offset + 0] = static_cast<unsigned char>(percentage * newColor + (1.0f - percentage) * dataArray[offset + 0]);
+            dataArray[offset + 1] = static_cast<unsigned char>(percentage * newColor + (1.0f - percentage) * dataArray[offset + 1]);
+            dataArray[offset + 2] = static_cast<unsigned char>(percentage * newColor + (1.0f - percentage) * dataArray[offset + 2]);
+        };
+
+        if(interval == 3 || interval == 4) {
+            for(unsigned int rowOffset = 0; rowOffset < getSize(); rowOffset += rowStride) {
+                for(unsigned int pixelOffset = 0; pixelOffset < getWidth() * interval; pixelOffset += interval) {
+                    transformPixel(getData(), rowOffset + pixelOffset);
+                }
+            }
+        } else {
+            Util::Log::LibraryStream().logWarning("Could not convert image to weighted grayscale - not enough channels (" + std::to_string(interval) + ")");
+        }
     }
 
     unsigned int Image::getBits() const {
