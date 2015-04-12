@@ -43,6 +43,8 @@ namespace Util {
             void reset();
 
             // algorithms
+            void crop(const glm::uvec2& origin, const glm::uvec2& size);
+
             void invertColors();
             void toGrayscale(float percentage = 1.0f);
 

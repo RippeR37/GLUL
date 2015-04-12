@@ -7,6 +7,7 @@
 #include <Utils/Interfaces/Implementations/ImageFileJPG.h>
 #include <Utils/Interfaces/Implementations/ImageFilePNG.h>
 
+#include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 
 #include <algorithm>
@@ -186,6 +187,50 @@ namespace Util {
         _bits = 0;
         _size = 0;
         _data = nullptr;
+    }
+
+    void Image::crop(const glm::uvec2& origin, const glm::uvec2& size) {
+        unsigned int oldRowStride;
+        unsigned int newRowStride;
+        unsigned int newOffset;
+        unsigned int newSize;
+        unsigned char* newData;
+        
+        glm::uvec2 boundaryOrigin = origin;
+        glm::uvec2 boundarySize = size;
+
+        // Move origin point inside image's boundaries and change input size to match image's size
+        if(boundaryOrigin.x < 0)                            boundaryOrigin.x = 0;
+        if(boundaryOrigin.y < 0)                            boundaryOrigin.y = 0;
+        if(boundaryOrigin.x >= getWidth())                  boundaryOrigin.x = getWidth() -1;
+        if(boundaryOrigin.y >= getHeight())                 boundaryOrigin.y = getHeight() -1;
+
+        if(boundarySize.x + boundaryOrigin.x > getWidth())  boundarySize.x = getWidth()  - boundaryOrigin.x;
+        if(boundarySize.y + boundaryOrigin.y > getHeight()) boundarySize.y = getHeight() - boundaryOrigin.y;
+
+        // Compute offsets in memory to peform copying of data
+        oldRowStride = getWidth() * (getBits() / 8);
+        newRowStride = boundarySize.x * (getBits() / 8);
+        oldRowStride = oldRowStride + (3 - ((oldRowStride - 1) % 4));
+        newRowStride = newRowStride + (3 - ((newRowStride - 1) % 4));
+        newOffset = 0;
+        newSize = boundarySize.y * newRowStride;
+
+        // Copy cropped data into new array
+        newData = new unsigned char[newSize];
+        for(unsigned int row = boundaryOrigin.y; row < boundaryOrigin.y + boundarySize.y; ++row) {
+            std::memcpy(newData + newOffset, _data + row * oldRowStride + boundaryOrigin.x * (getBits() / 8), newRowStride);
+            newOffset += newRowStride;
+        }
+
+        // Delete old data
+        delete[] _data;
+
+        // Assing new values
+        _width = boundarySize.x;
+        _height = boundarySize.y;
+        _size = newSize;
+        _data = newData;
     }
 
     void Image::invertColors() {
