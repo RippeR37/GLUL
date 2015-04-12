@@ -43,6 +43,7 @@ namespace Util {
             void reset();
 
             // algorithms
+            void invertColors();
             void toGrayscale(float percentage = 1.0f);
 
 

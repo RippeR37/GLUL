@@ -188,6 +188,29 @@ namespace Util {
         _data = nullptr;
     }
 
+    void Image::invertColors() {
+        unsigned int rowStride;
+        unsigned int interval;
+
+        interval = getBits() / 8;
+        rowStride = getWidth() * interval;
+        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+        
+        // Invertion of value is done using bitwise negation, becouse when you are using
+        // unsigned variables, bitwise negation is equal: ~x = (MAX_VALUE - x)
+        auto invertValue = [](unsigned char* dataArray, unsigned int offset) {
+            dataArray[offset] = ~(dataArray[offset]);
+        };
+
+        for(unsigned int rowOffset = 0; rowOffset < getSize(); rowOffset += rowStride) {
+            for(unsigned int pixelOffset = 0; pixelOffset < getWidth() * interval; pixelOffset += interval) {
+                if(interval > 0)    invertValue(_data, rowOffset + pixelOffset + 0);
+                if(interval > 1)    invertValue(_data, rowOffset + pixelOffset + 1);
+                if(interval > 2)    invertValue(_data, rowOffset + pixelOffset + 2);
+            }
+        }
+    }
+
     void Image::toGrayscale(float percentage) {
         static const glm::vec3 factors = glm::vec3(0.2126f, 0.7152f, 0.0722f);
         unsigned int rowStride;
