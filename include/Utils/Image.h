@@ -40,7 +40,7 @@ namespace Util {
             void save(const std::string& path, Format format = Format::Auto) throw(Exception::InitializationFailed);
             void save(const std::string& path, const Interface::ImageFile& fileInterface) throw(Exception::InitializationFailed);
 
-            void reset();
+            void reset() throw();
 
             // algorithms
             void crop(const glm::uvec2& origin, const glm::uvec2& size);
@@ -62,6 +62,8 @@ namespace Util {
 
         public:
             static void swapComponents(unsigned int width, unsigned int height, unsigned int bits, unsigned char* data) throw(Util::Exception::InvalidArgument);
+
+            static unsigned int getAlignedRowSize(unsigned int width, unsigned int bits);
 
         private:
             unsigned int _size;

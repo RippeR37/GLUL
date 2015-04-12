@@ -89,8 +89,6 @@ namespace Util {
     }
 
     void Image::load(const std::string& path, Format format) throw(Exception::InitializationFailed) {
-        reset();
-
         switch(format) {
             case Format::BMP: load(path, Util::Interface::ImageFileBMP()); break;
             case Format::TGA: load(path, Util::Interface::ImageFileTGA()); break;
@@ -118,16 +116,20 @@ namespace Util {
     }
 
     void Image::load(const std::string& path, const Interface::ImageFile& fileInterface) throw(Exception::InitializationFailed) {
+        reset();
+
         *this = std::move(fileInterface.read(path));
     }
     
     void Image::load(unsigned int width, unsigned int height, unsigned int bits, unsigned char* data, bool isRGB) {
         unsigned int rowStride;
 
+        reset();
+
         _width = width;
         _height = height;
         _bits = bits;
-        rowStride = (width + (3 - ((width - 1) % 4))) * (bits / 8);
+        rowStride = getAlignedRowSize(getWidth(), getBits());
 
         _size = _height * rowStride;
 
@@ -178,7 +180,7 @@ namespace Util {
         fileInterface.save(*this, path);
     }
 
-    void Image::reset() {
+    void Image::reset() throw() {
         if(_data != nullptr)
             delete[] _data;
 
@@ -209,10 +211,9 @@ namespace Util {
         if(boundarySize.y + boundaryOrigin.y > getHeight()) boundarySize.y = getHeight() - boundaryOrigin.y;
 
         // Compute offsets in memory to peform copying of data
-        oldRowStride = getWidth() * (getBits() / 8);
-        newRowStride = boundarySize.x * (getBits() / 8);
-        oldRowStride = oldRowStride + (3 - ((oldRowStride - 1) % 4));
-        newRowStride = newRowStride + (3 - ((newRowStride - 1) % 4));
+        oldRowStride = getAlignedRowSize(getWidth(), getBits());
+        newRowStride = getAlignedRowSize(boundarySize.x, getBits());
+
         newOffset = 0;
         newSize = boundarySize.y * newRowStride;
 
@@ -238,8 +239,7 @@ namespace Util {
         unsigned int interval;
 
         interval = getBits() / 8;
-        rowStride = getWidth() * interval;
-        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+        rowStride = getAlignedRowSize(getWidth(), getBits());
         
         // Invertion of value is done using bitwise negation, becouse when you are using
         // unsigned variables, bitwise negation is equal: ~x = (MAX_VALUE - x)
@@ -262,8 +262,7 @@ namespace Util {
         unsigned int interval;
 
         interval = getBits() / 8;
-        rowStride = getWidth() * interval;
-        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+        rowStride = getAlignedRowSize(getWidth(), getBits());
 
         if(percentage < 0.0f)       percentage = 0.0f;
         else if(percentage > 1.0f)  percentage = 1.0f;
@@ -318,8 +317,7 @@ namespace Util {
         unsigned int pixelOffset;
         
         mult = getBits() / 8;
-        rowStride = getWidth() * mult;
-        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+        rowStride = getAlignedRowSize(getWidth(), getBits());
         pixelOffset = y * rowStride + x * mult;
 
         if(_data != nullptr && x < _width && y < _height) {
@@ -338,8 +336,7 @@ namespace Util {
         unsigned int pixelOffset;
         
         mult = getBits() / 8;
-        rowStride = getWidth() * mult;
-        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+        rowStride = getAlignedRowSize(getWidth(), getBits());
         pixelOffset = y * rowStride + x * mult;
 
         if(_data != nullptr && x < _width && y < _height) {
@@ -362,9 +359,8 @@ namespace Util {
             default:
                 throw Util::Exception::InvalidArgument("Invalid argument: cannot convert image to RGB(A) format with " + std::to_string(bits/8) + "components");
         }
-
-        rowStride = width * (bits / 8);
-        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+        
+        rowStride = getAlignedRowSize(width, bits);
         arraySize = height * rowStride;
 
         for(unsigned long long int rowPtr = 0; rowPtr < arraySize; rowPtr += rowStride) {
@@ -373,6 +369,15 @@ namespace Util {
             }
         }
 
+    }
+
+    unsigned int Image::getAlignedRowSize(unsigned int width, unsigned int bits) {
+        unsigned int result;
+        
+        result = width * (bits / 8);
+        result = result + (3 - ((result - 1) % 4));
+
+        return result;
     }
 
 }

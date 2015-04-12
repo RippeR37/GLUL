@@ -95,8 +95,7 @@ namespace Util {
 
             png_read_update_info(png_ptr, info_ptr);
 
-            rowStride = png_get_rowbytes(png_ptr, info_ptr);
-            rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+            rowStride = Image::getAlignedRowSize(width, bits);
 
             data = new unsigned char[height * rowStride];
             unsigned char** rowPointers = new unsigned char*[height];

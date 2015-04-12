@@ -43,9 +43,7 @@ namespace Util {
             fileStream.read(&c, 1);         bits = (int)c;
             fileStream.read(&c, 1);         // img descriptor
 
-            rowStride   = width * (bits / 8);
-            rowStride   = rowStride + (3 - ((rowStride - 1) % 4));
-
+            rowStride = Image::getAlignedRowSize(width, bits);
             size  = height * rowStride;
 
             if(type != 2 && type != 3) {
@@ -101,8 +99,7 @@ namespace Util {
                 unsigned short s;
             } u;
 
-            rowStride = image.getWidth() * (image.getBits() / 8);
-            rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+            rowStride = Image::getAlignedRowSize(image.getWidth(), image.getBits());
             d = (image.getBits() == 32 ? 8 : 0);
 
             BGRdata = new unsigned char[image.getSize()];

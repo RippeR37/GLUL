@@ -45,9 +45,8 @@ namespace Util {
             width = cinfo.output_width;
             height = cinfo.output_height;
             bits = cinfo.output_components * 8;
-        
-            rowStride = cinfo.output_width * cinfo.output_components;
-            rowStride   = rowStride + (3 - ((rowStride - 1) % 4));
+
+            rowStride = Image::getAlignedRowSize(width, bits);
 
             data = new unsigned char[height * rowStride];
             dataRow = new unsigned char*[1];

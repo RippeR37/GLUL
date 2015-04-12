@@ -61,9 +61,7 @@ namespace Util {
             width       = getUIntFromUCharArrayLE(&header[0x12]);
             height      = getUIntFromUCharArrayLE(&header[0x16]);
             bits        = getUIntFromUCharArrayLE(&header[0x1C]);
-
-            rowStride   = width * (bits / 8);
-            rowStride   = rowStride + (3 - ((rowStride - 1) % 4));
+            rowStride   = Image::getAlignedRowSize(width, bits);
 
             if(size == 0)
                 size = height * rowStride;
