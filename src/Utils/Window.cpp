@@ -12,6 +12,7 @@ namespace Util {
     Window::Window(unsigned int width, unsigned int height, const std::string& title) {
         _handle = nullptr;
         _hintsSet = false;
+        _isScreenshotFlagSet = false;
         _framesCount = 0;
 
         setSize(glm::uvec2(width, height));
@@ -71,6 +72,11 @@ namespace Util {
             return;
         }
 
+        if(_isScreenshotFlagSet) {
+            getScreenshotNow(_screenshotOrigin, _screenshotSize).save(_screenshotPath);
+            _isScreenshotFlagSet = false;
+        }
+
         _thisFrame  = glfwGetTime();
         _frameTime = _thisFrame - _lastFrame;
         _lastFrame  = _thisFrame;
@@ -104,6 +110,27 @@ namespace Util {
 
             Util::Log::LibraryStream().log("Window '" + getTitle() + "' has been destroyed");
         }
+    }
+
+    void Window::takeScreenshot() {
+        std::string fileLocation;
+        std::string fileName;
+
+        fileLocation = "";
+        fileName = "screenshot.bmp";
+
+        takeScreenshot(fileLocation + fileName);
+    }
+
+    void Window::takeScreenshot(const std::string& path) {
+        takeScreenshot(path, glm::ivec2(0, 0), getSize());
+    }
+
+    void Window::takeScreenshot(const std::string& path, const glm::ivec2& origin, const glm::ivec2& size) {
+        _isScreenshotFlagSet = true;
+        _screenshotPath = path;
+        _screenshotOrigin = origin;
+        _screenshotSize = size;
     }
 
     void Window::setSize(unsigned int width, unsigned int height) {
@@ -221,6 +248,30 @@ namespace Util {
 
     GL::Context& Window::getContext() {
         return _context;
+    }
+            
+    Image Window::getScreenshotNow() {
+        return getScreenshotNow(glm::ivec2(0, 0), getSize());
+    }
+
+    Image Window::getScreenshotNow(const glm::ivec2& origin, const glm::ivec2& size) {
+        Image screenshot;
+
+        unsigned int bits;
+        unsigned int rowStride;
+        unsigned char* dataPtr;
+
+        bits = 24;
+        rowStride = size.x * (bits / 8);
+        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+        dataPtr = new unsigned char[rowStride * size.y];
+
+        glReadPixels(origin.x, origin.y, size.x, size.y, GL_RGB, GL_UNSIGNED_BYTE, dataPtr);
+        screenshot.load(size.x, size.y, 24, dataPtr);
+
+        delete[] dataPtr;
+
+        return screenshot;
     }
 
     void Window::initializeGLFW() throw(Util::Exception::FatalError) {

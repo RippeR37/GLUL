@@ -95,7 +95,7 @@ void keyboardHandler(GLFWwindow* window, int key, int scancode, int action, int 
  * Main loop
  */
 void run() {
-    Util::Window window(800, 600, "Press [space] to change image");
+    Util::Window window(800, 600, "Press [space] to change image or [enter] to take screenshot");
     GL::Program program;
     GL::VertexArray vao;
     GL::VertexBuffer vbo;
@@ -118,6 +118,10 @@ void run() {
     while(window.isCreated() && window.shouldClose() == false) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);
 
+        if(glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS)
+            window.takeScreenshot();    // takeScreenshot() saves flag to take screenshot just before swapping buffers (frame is complete
+                                        // there is however way to get screenshot of partialy rendered frame with getScreenshotNow(...) method
+
         glActiveTexture(GL_TEXTURE0);
 
         texture.bind();
@@ -128,7 +132,7 @@ void run() {
                 vao.unbind();
             program.unbind();
         texture.unbind();
-        
+
         window.update();
     }
 }
