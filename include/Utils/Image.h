@@ -45,9 +45,9 @@ namespace Util {
             // algorithms
             void crop(const glm::uvec2& origin, const glm::uvec2& size);
 
-            //void rotate90();
-            //void rotate180();
-            //void rotate270();
+            void rotate90CW();
+            void rotate90CCW();
+            void rotate180();
 
             void invertHorizontal();
             void invertVertical();

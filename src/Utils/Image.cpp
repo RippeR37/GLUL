@@ -16,6 +16,8 @@
 #include <fstream>
 #include <iterator>
 
+#include <iostream> // TODO: Remove iostream
+
 namespace Util {
 
     Image::Image() throw() {
@@ -234,16 +236,106 @@ namespace Util {
         _data = newData;
     }
 
-    void Image::rotate90() {
+    void Image::rotate90CW() {
+        Image old = std::move(*this);
+        unsigned int oldRowStride = getAlignedRowSize(old.getWidth(),  old.getBits());
+        unsigned int newRowStride = getAlignedRowSize(old.getHeight(), old.getBits());
+        unsigned int newRow = 0;
+        unsigned int newPixel = 0;
+        unsigned int bytes = old.getBits() / 8;
+        unsigned char* oldPtr;
+        unsigned char* newPtr;
+        unsigned char buffer[4];
 
+        // Set rotate'd parameters
+        _width = old.getHeight();
+        _height = old.getWidth();
+        _bits = old.getBits();
+        _size = _height * newRowStride;
+        _data = new unsigned char[_size];
+
+        //Copy data with rotation
+        for(unsigned int oldRow = 0; oldRow < old.getHeight(); ++oldRow) {
+            newPixel = oldRow;
+
+            for(unsigned int oldPixel = 0; oldPixel < old.getWidth(); ++oldPixel) {
+                newRow = old.getWidth() - oldPixel - 1;
+
+                oldPtr = old._data + oldRow * oldRowStride + oldPixel * bytes;
+                newPtr = _data + newRow * newRowStride + newPixel * bytes;
+
+                std::memcpy(buffer, oldPtr, bytes);
+                std::memcpy(oldPtr, newPtr, bytes);
+                std::memcpy(newPtr, buffer, bytes);
+            }
+        }
+    }
+
+    void Image::rotate90CCW() {
+        Image old = std::move(*this);
+        unsigned int oldRowStride = getAlignedRowSize(old.getWidth(),  old.getBits());
+        unsigned int newRowStride = getAlignedRowSize(old.getHeight(), old.getBits());
+        unsigned int newRow = 0;
+        unsigned int newPixel = 0;
+        unsigned int bytes = old.getBits() / 8;
+        unsigned char* oldPtr;
+        unsigned char* newPtr;
+        unsigned char buffer[4];
+
+        // Set rotate'd parameters
+        _width = old.getHeight();
+        _height = old.getWidth();
+        _bits = old.getBits();
+        _size = _height * newRowStride;
+        _data = new unsigned char[_size];
+
+        //Copy data with rotation
+        for(unsigned int oldRow = 0; oldRow < old.getHeight(); ++oldRow) {
+            newPixel = old.getHeight() - oldRow - 1;
+
+            for(unsigned int oldPixel = 0; oldPixel < old.getWidth(); ++oldPixel) {
+                newRow = oldPixel;
+
+                oldPtr = old._data + oldRow * oldRowStride + oldPixel * bytes;
+                newPtr = _data + newRow * newRowStride + newPixel * bytes;
+
+                std::memcpy(buffer, oldPtr, bytes);
+                std::memcpy(oldPtr, newPtr, bytes);
+                std::memcpy(newPtr, buffer, bytes);
+            }
+        }
     }
 
     void Image::rotate180() {
+        unsigned int rowStride = getAlignedRowSize(getWidth(), getBits());
+        unsigned char buffer[4];
+        unsigned int bytes = getBits() / 8;
+        unsigned char* pixelPtr[2];
 
-    }
+        for(unsigned int row = 0; row < getHeight() / 2; row++) {
+            for(unsigned int pixel = 0; pixel < getWidth(); pixel++) {
+                pixelPtr[0] = _data + (row * rowStride) + pixel * bytes;
+                pixelPtr[1] = _data + (getHeight() - 1 - row) * rowStride + (getWidth() - 1 - pixel) * bytes;
 
-    void Image::rotate270() {
+                std::memcpy(buffer, pixelPtr[0], bytes);
+                std::memcpy(pixelPtr[0], pixelPtr[1], bytes);
+                std::memcpy(pixelPtr[1], buffer, bytes);
+            }
+        }
 
+        // Flip center row if height is not even
+        if(getHeight() % 2 == 1) {
+            unsigned int row = getHeight() / 2;
+
+            for(unsigned int pixel = 0; pixel < getWidth() / 2; pixel++) {
+                pixelPtr[0] = _data + (row * rowStride) + pixel * bytes;
+                pixelPtr[1] = _data + (getHeight() - 1 - row) * rowStride + (getWidth() - 1 - pixel) * bytes;
+
+                std::memcpy(buffer, pixelPtr[0], bytes);
+                std::memcpy(pixelPtr[0], pixelPtr[1], bytes);
+                std::memcpy(pixelPtr[1], buffer, bytes);
+            }
+        }
     }
 
     void Image::invertHorizontal() {
@@ -254,7 +346,7 @@ namespace Util {
         unsigned char* rightPixelOffset;
 
         for(unsigned int rowOffset = 0; rowOffset < getSize(); rowOffset += rowStride) {
-            for(unsigned int pixel = 0; pixel < (getWidth() - 1) / 2; pixel++) {
+            for(unsigned int pixel = 0; pixel < (getWidth()) / 2; pixel++) {
                 leftPixelOffset  = _data + rowOffset + pixel * bytes;
                 rightPixelOffset = _data + rowOffset + (getWidth() - 1 - pixel) * bytes;
 
@@ -272,7 +364,7 @@ namespace Util {
         unsigned char* topPixelOffset;
         unsigned char* bottomPixelOffset;
 
-        for(unsigned int row = 0; row < (getHeight() - 1) / 2; row++) {
+        for(unsigned int row = 0; row < (getHeight()) / 2; row++) {
             for(unsigned int pixelOffset = 0; pixelOffset < rowStride - bytes; pixelOffset += bytes) {
                 bottomPixelOffset  = _data + pixelOffset + (row * rowStride);
                 topPixelOffset     = _data + pixelOffset + (getHeight() - 1 - row) * rowStride; 
