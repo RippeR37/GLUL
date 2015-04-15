@@ -234,6 +234,56 @@ namespace Util {
         _data = newData;
     }
 
+    void Image::rotate90() {
+
+    }
+
+    void Image::rotate180() {
+
+    }
+
+    void Image::rotate270() {
+
+    }
+
+    void Image::invertHorizontal() {
+        unsigned int rowStride = getAlignedRowSize(getWidth(), getBits());
+        unsigned char buffer[4];
+        unsigned int bytes = getBits() / 8;
+        unsigned char* leftPixelOffset;
+        unsigned char* rightPixelOffset;
+
+        for(unsigned int rowOffset = 0; rowOffset < getSize(); rowOffset += rowStride) {
+            for(unsigned int pixel = 0; pixel < (getWidth() - 1) / 2; pixel++) {
+                leftPixelOffset  = _data + rowOffset + pixel * bytes;
+                rightPixelOffset = _data + rowOffset + (getWidth() - 1 - pixel) * bytes;
+
+                std::memcpy(buffer, leftPixelOffset, bytes);
+                std::memcpy(leftPixelOffset, rightPixelOffset, bytes);
+                std::memcpy(rightPixelOffset, buffer, bytes);
+            }
+        }
+    }
+
+    void Image::invertVertical() {
+        unsigned int rowStride = getAlignedRowSize(getWidth(), getBits());
+        unsigned char buffer[4];
+        unsigned int bytes = getBits() / 8;
+        unsigned char* topPixelOffset;
+        unsigned char* bottomPixelOffset;
+
+        for(unsigned int row = 0; row < (getHeight() - 1) / 2; row++) {
+            for(unsigned int pixelOffset = 0; pixelOffset < rowStride - bytes; pixelOffset += bytes) {
+                bottomPixelOffset  = _data + pixelOffset + (row * rowStride);
+                topPixelOffset     = _data + pixelOffset + (getHeight() - 1 - row) * rowStride; 
+
+                std::memcpy(buffer, bottomPixelOffset, bytes);
+                std::memcpy(bottomPixelOffset, topPixelOffset, bytes);
+                std::memcpy(topPixelOffset, buffer, bytes);
+            }
+        }
+    }
+
     void Image::invertColors() {
         unsigned int rowStride;
         unsigned int interval;
