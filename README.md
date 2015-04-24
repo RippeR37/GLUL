@@ -55,10 +55,10 @@ Library strongly uses C++11 features like move constructors/assignment operators
 - Exceptions
 - Files
 - Images
-    - BMP
-    - TGA
-    - ~~JPEG~~ (not yet supported)
-    - ~~PNG~~ (not yet supported)
+    - BMP (read & write)
+    - TGA (read & write)
+    - JPEG (read)
+    - PNG (read)
 - Data types
     - Lines
     - Points
@@ -77,12 +77,15 @@ Documentation for each module should be created soon.
 - [GLEW](http://www.glew.sourceforge.net/) (tested on 1.12.0)
 - [GLM](http://www.glm.g-truc.net/) (tested on 0.9.5.4)
 - [FT2](http://www.freetype.org/freetype2/) (tested on 2.5.5)
+- [libJPEG](http://www.ijg.org/) ([tested](https://beeproc.wordpress.com/2012/11/18/building-libjpeg-8d-with-msvc-2012/) on 9a, [libjpeg-turbo](http://libjpeg-turbo.virtualgl.org/) might also work)
+- [libPNG](http://www.libpng.org/pub/png/libpng.html) (tested on 1.6.17)
+- [zlib](http://www.zlib.net/) (tested on 1.2.8, libPNG's dependency)
 
 ### License
 [GNU GPLv2](LICENSE).
 
 ### Examples of usage
-You can find examples of this library's usage [here](https://github.com/RippeR37/Utility-Library/wiki/ExampleProjects).
+You can find examples of this library's usage in `example` directory or [here](https://github.com/RippeR37/Utility-Library/wiki/ExampleProjects).
 
 ### Author
 Most of the code is written completly by me. Some parts may be inspired by publicly shared code on websites like Stack Overflow. Unfortunatly that code traveled with me between projects for so long that i cannot remember every detail. I would happily mention you here though, so please inform me of any usage of your work.

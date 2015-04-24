@@ -2,6 +2,7 @@
 #define UTILS_WINDOW_H_INCLUDED
 
 #include <Utils/Clock.h>
+#include <Utils/Image.h>
 #include <Utils/Exception.h>
 #include <Utils/GL+/Context.h>
 
@@ -28,6 +29,10 @@ namespace Util {
             bool create() throw(Util::Exception::FatalError);
             virtual void update();
             void destroy();
+
+            void takeScreenshot();
+            void takeScreenshot(const std::string& path);
+            void takeScreenshot(const std::string& path, const glm::ivec2& origin, const glm::ivec2& size);
             
             void setSize(unsigned int width, unsigned int height);
             void setSize(const glm::uvec2& size);
@@ -58,6 +63,9 @@ namespace Util {
             double getFrameTime() const;
             GLFWwindow* getHandle();
             GL::Context& getContext();
+            
+            Image getScreenshotNow();
+            Image getScreenshotNow(const glm::ivec2& origin, const glm::ivec2& size);
 
             static void setHint(int option, int value);
             static void setHints(const std::list<std::pair<int, int>>& hints);
@@ -73,6 +81,7 @@ namespace Util {
             
             int _fpsCount;
             unsigned int _framesCount;
+            bool _isScreenshotFlagSet;
             bool _isDisplayingFPS;
             bool _isCountingFPS;
             double _lastFrame;
@@ -82,8 +91,11 @@ namespace Util {
             double _frameTime;
             GLFWwindow* _handle;
             std::string _title;
+            std::string _screenshotPath;
             glm::uvec2 _windowSize;
             glm::ivec2 _windowPosition;
+            glm::ivec2 _screenshotOrigin;
+            glm::ivec2 _screenshotSize;
             GL::Context _context;
             std::function<void(int)> _fpsCountCallback;
             std::function<void()> _destroyCallback;

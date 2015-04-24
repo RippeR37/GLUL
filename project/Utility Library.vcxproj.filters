@@ -42,6 +42,18 @@
     <Filter Include="Source Files\GL+\Models">
       <UniqueIdentifier>{64976592-a0d6-4ffb-a712-7c64efae302f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Interfaces\Implementations">
+      <UniqueIdentifier>{685b5d62-999f-4deb-bb40-9e04d51fefdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interfaces\Implementations">
+      <UniqueIdentifier>{071a0369-0cb2-48ad-ba5b-90b5835ba825}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GL+\GUI">
+      <UniqueIdentifier>{c999d687-d1f2-4adb-9d9f-28728cf6b0bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GL+\GUI">
+      <UniqueIdentifier>{2e24fbb4-d29b-4d30-835a-3a91c1e178c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Utils\Clock.h">
@@ -158,6 +170,45 @@
     <ClInclude Include="..\include\Utils\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\Exceptions\InitializationFailed.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Exceptions\InvalidArgument.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\ImageFile.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileBMP.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileTGA.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileJPG.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFilePNG.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Component.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Container.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Event.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Font.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Text.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Window.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">
@@ -264,6 +315,45 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\Logger.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Exceptions\InitializationFailed.cpp">
+      <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Exceptions\InvalidArgument.cpp">
+      <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileBMP.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\ImageFile.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileTGA.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileJPG.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFilePNG.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Font.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
