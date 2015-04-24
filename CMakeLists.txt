@@ -33,9 +33,18 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 # Library sources
 set(Utility_Library_SRCS
 	"src/Utils/Exceptions/FatalError.cpp"
+	"src/Utils/Exceptions/InitializationFailed.cpp"
+	"src/Utils/Exceptions/IvalidArgument.cpp"
 	
 	"src/Utils/Frameworks/Application.cpp"
 	
+	"src/Utils/GL+/GUI/Component.cpp"
+	"src/Utils/GL+/GUI/Container.cpp"
+	"src/Utils/GL+/GUI/Event.cpp"
+	"src/Utils/GL+/GUI/Font.cpp"
+	"src/Utils/GL+/GUI/Text.cpp"
+	"src/Utils/GL+/GUI/Window.cpp"
+
 	"src/Utils/GL+/Models/Material.cpp"
 	"src/Utils/GL+/Models/Mesh.cpp"
 	"src/Utils/GL+/Models/OBJ.cpp"
@@ -54,7 +63,13 @@ set(Utility_Library_SRCS
 	"src/Utils/GL+/VertexAttrib.cpp"
 	"src/Utils/GL+/VertexBuffer.cpp"
 	
+	"src/Utils/Interfaces/Implementations/ImageFileBMP.cpp"
+	"src/Utils/Interfaces/Implementations/ImageFileJPG.cpp"
+	"src/Utils/Interfaces/Implementations/ImageFilePNG.cpp"
+	"src/Utils/Interfaces/Implementations/ImageFileTGA.cpp"
+
 	"src/Utils/Interfaces/Camera.cpp"
+	"src/Utils/Interfaces/ImageFile.cpp"
 	"src/Utils/Interfaces/Model.cpp"
 	"src/Utils/Interfaces/State.cpp"
 	
@@ -77,8 +92,17 @@ set(Utility_Library_SRCS
 # Library headers
 set(Utility_Library_H
 	"include/Utils/Exceptions/FatalError.h"
+	"include/Utils/Exceptions/InitializationFailed.h"
+	"include/Utils/Exceptions/IvalidArgument.h"
 	
 	"include/Utils/Frameworks/Application.h"
+	
+	"include/Utils/GL+/GUI/Component.h"
+	"include/Utils/GL+/GUI/Container.h"
+	"include/Utils/GL+/GUI/Event.h"
+	"include/Utils/GL+/GUI/Font.h"
+	"include/Utils/GL+/GUI/Text.h"
+	"include/Utils/GL+/GUI/Window.h"
 	
 	"include/Utils/GL+/Models/Material.h"
 	"include/Utils/GL+/Models/Mesh.h"
@@ -99,10 +123,16 @@ set(Utility_Library_H
 	"include/Utils/GL+/VertexAttrib.h"
 	"include/Utils/GL+/VertexBuffer.h"
 	
+	"include/Utils/Interfaces/Implementations/ImageFileBMP.h"
+	"include/Utils/Interfaces/Implementations/ImageFileJPG.h"
+	"include/Utils/Interfaces/Implementations/ImageFilePNG.h"
+	"include/Utils/Interfaces/Implementations/ImageFileTGA.h"
+	
 	"include/Utils/Interfaces/MVC/View.h"
 	"include/Utils/Interfaces/MVC/ExtendedView.h"
 	
 	"include/Utils/Interfaces/Camera.h"
+	"include/Utils/Interfaces/ImageFile.h"
 	"include/Utils/Interfaces/Model.h"
 	"include/Utils/Interfaces/State.h"
 	
@@ -180,6 +210,53 @@ set_target_properties(Utility_Library_Example_Basic PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/basic/bin/"
 )
 
+
+###############################################
+# Font example project
+###############################################
+
+project (Utility_Library_Example_Font CXX)
+
+# Compiler flags
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
+	"${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+	set(WARNINGS "-Wall -Wextra -Werror")
+	set(EXTRA_FLAGS "-std=c++11")
+elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	set(WARNINGS "/W4 /WX /EHsc")
+endif()
+
+if (NOT CONFIGURED_ONCE)
+	set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
+	CACHE STRING "Flags used by the compiler during all build types." FORCE)
+endif()
+
+
+# Include directoriesp paths
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# These files are to build basic example
+set(Utility_Library_Example_Font_SRCS
+	"examples/font/src/main.cpp"
+)
+
+set(Utility_Library_Example_Font_H
+	
+)
+
+add_executable(Utility_Library_Example_Font 
+	${Utility_Library_Example_Font_SRCS}
+	${Utility_Library_Example_Font_H}
+)
+
+target_link_libraries(Utility_Library_Example_Font
+	Utility_Library_SHARED
+)
+
+set_target_properties(Utility_Library_Example_Font PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "examples/font/bin/"
+)
+
 ###############################################
 # Framework example project
 ###############################################
@@ -225,6 +302,53 @@ target_link_libraries(Utility_Library_Example_Framework
 
 set_target_properties(Utility_Library_Example_Framework PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/framework/bin/"
+)
+
+###############################################
+# Image example project
+###############################################
+
+project (Utility_Library_Example_Image CXX)
+
+# Compiler flags
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
+	"${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+	set(WARNINGS "-Wall -Wextra -Werror")
+	set(EXTRA_FLAGS "-std=c++11")
+elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	set(WARNINGS "/W4 /WX /EHsc")
+endif()
+
+if (NOT CONFIGURED_ONCE)
+	set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
+	CACHE STRING "Flags used by the compiler during all build types." FORCE)
+endif()
+
+
+# Include directoriesp paths
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# These files are to build basic example
+set(Utility_Library_Example_Image_SRCS
+	"examples/image/src/main.cpp"
+)
+
+set(Utility_Library_Example_Image_H
+	"examples/models/src/InitializationState.h"
+	"examples/models/src/WorkState.h"
+)
+
+add_executable(Utility_Library_Example_Image 
+	${Utility_Library_Example_Image_SRCS}
+	${Utility_Library_Example_Image_H}
+)
+
+target_link_libraries(Utility_Library_Example_Image
+	Utility_Library_SHARED
+)
+
+set_target_properties(Utility_Library_Example_Image PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "examples/image/bin/"
 )
 
 ###############################################
