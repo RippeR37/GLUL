@@ -10,6 +10,8 @@
 
 examples/framework/bin/assets/shaders/*
 examples/models/bin/assets/shaders/*
+examples/image/bin/lastImage.*
+examples/image/bin/screenshot.*
 
 libs/*
 personal/*
@@ -35,5 +37,8 @@ project/Image example/build/*
 project/Image example/examples/*
 project/Image example/Debug/*
 project/Image example/Release/*
-examples/image/bin/lastImage.*
-examples/image/bin/screenshot.*
+
+project/Font example/build/*
+project/Font example/examples/*
+project/Font example/Debug/*
+project/Font example/Release/*

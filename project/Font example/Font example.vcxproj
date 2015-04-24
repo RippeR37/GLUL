@@ -11,8 +11,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{49098971-4083-4670-9EB7-25D6360D3796}</ProjectGuid>
-    <RootNamespace>Imageexample</RootNamespace>
+    <ProjectGuid>{0949A77F-9CE2-4084-ADC7-B2A75E2FC1CA}</ProjectGuid>
+    <RootNamespace>Fontexample</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -39,12 +39,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\..\examples\image\bin\</OutDir>
+    <OutDir>..\..\examples\font\bin\</OutDir>
     <IntDir>build\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>..\..\examples\image\bin\</OutDir>
+    <OutDir>..\..\examples\font\bin\</OutDir>
     <IntDir>build\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(Configuration)</TargetName>
   </PropertyGroup>
@@ -53,18 +53,17 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\libs\glew-1.12.0\include;..\..\libs\glfw-3.1\include;..\..\libs\glm-0.9.5.4\include\;..\..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\libs\glew-1.12.0\include;..\..\libs\glfw-3.1\include;..\..\libs\glm-0.9.5.4\include;..\..\libs\freetype-2.5.5\include;..\..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLFW_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)\%(RelativeDir)\</ObjectFileName>
       <DisableSpecificWarnings>4290;4996;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>..\..\libs\glfw-3.1\lib-vc2013;..\..\libs\glew-1.12.0\lib\Release\Win32;..\..\libs\jpeg-9a\lib\Debug;..\..\libs\zlib-1.2.8\lib\Debug;..\..\libs\libpng-1.6.17\lib\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\..\libs\glfw-3.1\lib-vc2013;..\..\libs\glew-1.12.0\lib\Release\Win32;..\..\libs\freetype-2.5.5\objs\vc2010\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32.lib;glfw3dll.lib;opengl32.lib;jpeg.lib;zlib.lib;libpng16.lib;freetype255d.lib</AdditionalDependencies>
-      <SubSystem>Console</SubSystem>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -74,7 +73,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>..\..\libs\glew-1.12.0\include;..\..\libs\glfw-3.1\include;..\..\libs\glm-0.9.5.4\include\;..\..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\libs\glew-1.12.0\include;..\..\libs\glfw-3.1\include;..\..\libs\glm-0.9.5.4\include;..\..\libs\freetype-2.5.5\include;..\..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>GLFW_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ObjectFileName>$(IntDir)\%(RelativeDir)\</ObjectFileName>
       <DisableSpecificWarnings>4290;4996;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -85,22 +84,23 @@
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>..\..\libs\glfw-3.1\lib-vc2013;..\..\libs\glew-1.12.0\lib\Release\Win32;..\..\libs\jpeg-9a\lib\Release;..\..\libs\zlib-1.2.8\lib\Release;..\..\libs\libpng-1.6.17\lib\Release;..\..\libs\freetype-2.5.5\objs\vc2010\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glew32.lib;glfw3dll.lib;opengl32.lib;jpeg.lib;zlib.lib;libpng16.lib;freetype255.lib</AdditionalDependencies>
-      <SubSystem>Console</SubSystem>
-      <EntryPointSymbol>
-      </EntryPointSymbol>
+      <SubSystem>Windows</SubSystem>
+      <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\examples\image\src\main.cpp" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utility Library.vcxproj">
       <Project>{a18ba2dc-a847-4094-9a2b-40935a118e4f}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="..\..\examples\image\bin\assets\shaders\image.fp" />
-    <None Include="..\..\examples\image\bin\assets\shaders\image.vp" />
+    <None Include="..\..\examples\font\bin\assets\shaders\font.fp" />
+    <None Include="..\..\examples\font\bin\assets\shaders\font.vp" />
+    <None Include="..\..\examples\font\bin\assets\shaders\utilGUIText.fp" />
+    <None Include="..\..\examples\font\bin\assets\shaders\utilGUIText.vp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\examples\font\src\main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
