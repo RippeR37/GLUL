@@ -36,6 +36,11 @@ Library strongly uses C++11 features like move constructors/assignment operators
     - Uniforms
     - Vertex arrays
         - Vertex attributes
+- GUI Module
+    - Components
+        - Text/label
+    - Containers
+    - Font loader (TrueType)
 - Frameworks
     - State flow application framework
     - _Interfaces for MVC framework elements_
@@ -43,6 +48,7 @@ Library strongly uses C++11 features like move constructors/assignment operators
     - Cameras
     - Models (2D/3D models)
     - States
+    - ImageFile (r/w interface on files for Image class)
 - AABB
 - Time
     - Clocks
