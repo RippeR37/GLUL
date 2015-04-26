@@ -2,6 +2,8 @@
 #include <Utils/Point.h>
 #include <Utils/Logger.h>
 
+#include <glm/geometric.hpp>
+
 namespace Util {
 
     Line::Line() {

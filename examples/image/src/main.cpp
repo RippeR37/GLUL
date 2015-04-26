@@ -5,6 +5,9 @@
 #include <Utils/GL+/Program.h>
 #include <Utils/GL+/Texture.h>
 
+#include <gl/glew.h>
+#include <glfw/glfw3.h>
+
 #include <vector>
 #include <iostream>
 

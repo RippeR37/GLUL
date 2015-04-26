@@ -4,8 +4,6 @@
 #include <Utils/GL+/GUI/Container.h>
 #include <Utils/Window.h>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
 
 namespace GL {

@@ -1,9 +1,6 @@
 #ifndef UTILS_INTERFACES_MVC_VIEW_H_INCLUDED
 #define UTILS_INTERFACES_MVC_VIEW_H_INCLUDED
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 namespace Util {
 
     namespace Interface {

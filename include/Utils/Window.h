@@ -6,14 +6,14 @@
 #include <Utils/Exception.h>
 #include <Utils/GL+/Context.h>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
 
 #include <list>
 #include <string>
 #include <vector>
 #include <functional>
+
+struct GLFWwindow;
 
 namespace Util {
     

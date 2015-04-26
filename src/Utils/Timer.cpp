@@ -1,5 +1,8 @@
 #include <Utils/Timer.h>
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 namespace Util {
 
     Timer::Timer() {

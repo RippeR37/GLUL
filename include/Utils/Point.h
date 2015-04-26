@@ -2,7 +2,6 @@
 #define UTILS_POINT_H_INCLUDED
 
 #include <glm/vec2.hpp>
-#include <glm/geometric.hpp>
 
 namespace Util {
     

@@ -5,6 +5,8 @@
 #include <Utils/Frameworks/Application.h>
 #include <Utils/TimeLoop.h>
 
+#include <gl/glew.h>
+#include <glfw/glfw3.h>
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 

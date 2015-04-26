@@ -4,7 +4,6 @@
 #include <Utils/GL+/VertexBuffer.h>
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 #include <list>
 

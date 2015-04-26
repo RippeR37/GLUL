@@ -2,7 +2,6 @@
 #define UTILS_GL_MATRIXSTACK_H_INCLUDED
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <glm/matrix.hpp>
 
 #include <stack>

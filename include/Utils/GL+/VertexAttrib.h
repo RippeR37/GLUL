@@ -2,7 +2,6 @@
 #define UTILS_GL_VERTEX_ATTRIB_H_INCLUDED
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 namespace GL {
 

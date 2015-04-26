@@ -5,10 +5,7 @@
 #include <Utils/GL+/Texture.h>
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
-#include <ft2build.h>
-#include FT_FREETYPE_H
 
 
 namespace GL {
@@ -51,14 +48,12 @@ namespace GL {
                 unsigned int _height;
                 std::string _path;
                 Texture _texture;
-                FT_Face _face;
                 Metric _glyphs[128];
+                void* _face;
 
 
             private:
                 static void initializeFT() throw(Util::Exception::FatalError);
-
-                static FT_Library _library;
         };
 
     }

@@ -4,9 +4,6 @@
 #include <Utils/Clock.h>
 #include <Utils/TimeEvent.h>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include <list>
 #include <functional>
 

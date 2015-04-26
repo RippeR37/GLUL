@@ -6,9 +6,6 @@
 #include <Utils/GL+/VertexArray.h>
 #include <Utils/GL+/VertexBuffer.h>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 namespace Util {
 
     namespace Interface {

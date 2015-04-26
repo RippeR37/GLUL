@@ -1,6 +1,9 @@
 #include <Utils/Window.h>
 #include <Utils/Logger.h>
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 namespace Util {
 
     bool Window::_hintsSet = false;

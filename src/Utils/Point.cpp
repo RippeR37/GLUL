@@ -1,6 +1,8 @@
 #include <Utils/Point.h>
 #include <Utils/Line.h>
 
+#include <glm/geometric.hpp>
+
 namespace Util {
 
     Point::Point() {

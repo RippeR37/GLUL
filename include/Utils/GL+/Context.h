@@ -2,7 +2,6 @@
 #define UTILS_GL_CONTEXT_H_INCLUDED
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
 
@@ -52,7 +51,7 @@ namespace GL {
 
             Util::Window* getWindow();
 
-            static void APIENTRY logError(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
+            static void GLAPIENTRY logError(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
 
             static Context& Current;
             static Context DefaultContext;

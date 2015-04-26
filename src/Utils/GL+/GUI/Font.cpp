@@ -1,21 +1,24 @@
 #include <Utils/GL+/GUI/Font.h>
 #include <Utils/Logger.h>
 
-#include <algorithm>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
+#include <algorithm>
 #include <cctype>
 
 namespace GL {
 
     namespace GUI {
 
-        FT_Library Font::_library;
+        static FT_Library _FT_library;
 
 
         Font::Font() {
             Font::initializeFT();
 
             _height = 0;
+            _face = new FT_Face();
         }
 
         Font::Font(const std::string& path) : Font() {
@@ -23,20 +26,22 @@ namespace GL {
         }
 
         Font::~Font() {
-            FT_Done_Face(_face);
+            FT_Done_Face((*static_cast<FT_Face*>(_face)));
+
+            delete _face;
         }
 
         void Font::load(const std::string& path) {
             setPath(path);
 
-            if(FT_New_Face(Font::_library, getPath().c_str(), 0, &_face))
+            if(FT_New_Face(_FT_library, getPath().c_str(), 0, static_cast<FT_Face*>(_face)))
                 Util::Log::Stream("_Library").logError("[FreeType] Unable to load face from file '" + path + "'");
         }
 
         void Font::load(const std::string& path, unsigned int fontHeight) {
             setPath(path);
 
-            if(FT_New_Face(Font::_library, getPath().c_str(), 0, &_face)) {
+            if(FT_New_Face(_FT_library, getPath().c_str(), 0, static_cast<FT_Face*>(_face))) {
                 Util::Log::Stream("_Library").logError("[FreeType] Unable to load face from file '" + path + "'");
 
             } else {
@@ -45,7 +50,7 @@ namespace GL {
         }
 
         void Font::generate(unsigned int fontHeight) {
-            FT_Set_Pixel_Sizes(_face, 0, fontHeight);
+            FT_Set_Pixel_Sizes((*static_cast<FT_Face*>(_face)), 0, fontHeight);
 
             // TODO: implement this swith in GL::Context class
             glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -60,7 +65,7 @@ namespace GL {
 
             // Calculate texture size
             for(int glyph = 0; glyph < 128; ++glyph) {
-                if(FT_Load_Char(_face, glyph, FT_LOAD_RENDER)) {
+                if(FT_Load_Char((*static_cast<FT_Face*>(_face)), glyph, FT_LOAD_RENDER)) {
                     Util::Log::Stream("_Library").logWarning(
                         "[FreeType] Unable to load glyph of '" + std::to_string(static_cast<char>(glyph)) +
                         "' (" + std::to_string(static_cast<int>(glyph)) + ")"
@@ -68,12 +73,12 @@ namespace GL {
 
                 } else {
                     if(std::isgraph(glyph)) {
-                        totalWidth += _face->glyph->bitmap.width + pixelGlyphInterval;
-                        maxHeight = std::max(maxHeight, _face->glyph->bitmap.rows);
+                        totalWidth += (*static_cast<FT_Face*>(_face))->glyph->bitmap.width + pixelGlyphInterval;
+                        maxHeight = std::max(maxHeight, (*static_cast<FT_Face*>(_face))->glyph->bitmap.rows);
 
                         if(totalWidth > maxWidth) {
                             maxWidthReached = true;
-                            totalWidth = _face->glyph->bitmap.width;
+                            totalWidth = (*static_cast<FT_Face*>(_face))->glyph->bitmap.width;
                             totalHeight += 1;
                         }
                     }
@@ -119,7 +124,7 @@ namespace GL {
             int currentHeight = 0;
 
             for(int glyph = 0; glyph < 128; ++glyph) {
-                if(FT_Load_Char(_face, glyph, FT_LOAD_RENDER)) {
+                if(FT_Load_Char((*static_cast<FT_Face*>(_face)), glyph, FT_LOAD_RENDER)) {
                     Util::Log::Stream("_Library").logWarning(
                         "[FreeType] Unable to load glyph of '" + std::to_string(static_cast<char>(glyph)) +
                         "' (" + std::to_string(static_cast<int>(glyph)) + ")"
@@ -128,8 +133,8 @@ namespace GL {
                 } else {
                     if(std::isgraph(glyph)) {
                         // When glyph is drawable (not whitespace or control character)
-                        currentWidth  = _face->glyph->bitmap.width;
-                        currentHeight = _face->glyph->bitmap.rows;
+                        currentWidth  = (*static_cast<FT_Face*>(_face))->glyph->bitmap.width;
+                        currentHeight = (*static_cast<FT_Face*>(_face))->glyph->bitmap.rows;
 
                         // Check if current chunk will fit current row, if not move it to next row
                         if(offsetX + currentWidth >= totalWidth) {
@@ -138,12 +143,12 @@ namespace GL {
                         }
 
                         // Save position of glyph's bitmap in texture
-                        _glyphs[glyph].size     = glm::vec2(_face->glyph->bitmap.width, _face->glyph->bitmap.rows);
-                        _glyphs[glyph].glyphPos = glm::vec2(_face->glyph->bitmap_left,  _face->glyph->bitmap_top);
+                        _glyphs[glyph].size     = glm::vec2((*static_cast<FT_Face*>(_face))->glyph->bitmap.width, (*static_cast<FT_Face*>(_face))->glyph->bitmap.rows);
+                        _glyphs[glyph].glyphPos = glm::vec2((*static_cast<FT_Face*>(_face))->glyph->bitmap_left,  (*static_cast<FT_Face*>(_face))->glyph->bitmap_top);
 
                         _glyphs[glyph].advance  = glm::vec2(
-                            static_cast<float>(_face->glyph->advance.x) / 64.0f, 
-                            static_cast<float>(_face->glyph->advance.y) / 64.0f
+                            static_cast<float>((*static_cast<FT_Face*>(_face))->glyph->advance.x) / 64.0f, 
+                            static_cast<float>((*static_cast<FT_Face*>(_face))->glyph->advance.y) / 64.0f
                         );
 
                         _glyphs[glyph].texPosStart = glm::vec2(
@@ -159,7 +164,7 @@ namespace GL {
 
                         // Write glyph on texture
                         // TODO: Fix this to use GL::Texture's functionality
-                        glTexSubImage2D(GL_TEXTURE_2D, 0, offsetX, offsetY, currentWidth, currentHeight, GL_RED, GL_UNSIGNED_BYTE, _face->glyph->bitmap.buffer);
+                        glTexSubImage2D(GL_TEXTURE_2D, 0, offsetX, offsetY, currentWidth, currentHeight, GL_RED, GL_UNSIGNED_BYTE, (*static_cast<FT_Face*>(_face))->glyph->bitmap.buffer);
 
                         // Move to next glyph
                         offsetX += currentWidth + pixelGlyphInterval;
@@ -167,10 +172,10 @@ namespace GL {
                     } else {
                         // When glyph isn't drawable (is whitespace or control character)
                         _glyphs[glyph].size     = glm::vec2(0.0f);
-                        _glyphs[glyph].glyphPos = glm::vec2(_face->glyph->bitmap_left,  _face->glyph->bitmap_top);
+                        _glyphs[glyph].glyphPos = glm::vec2((*static_cast<FT_Face*>(_face))->glyph->bitmap_left,  (*static_cast<FT_Face*>(_face))->glyph->bitmap_top);
                         _glyphs[glyph].advance  = glm::vec2(
-                            static_cast<float>(_face->glyph->advance.x) / 64.0f, 
-                            static_cast<float>(_face->glyph->advance.y) / 64.0f
+                            static_cast<float>((*static_cast<FT_Face*>(_face))->glyph->advance.x) / 64.0f, 
+                            static_cast<float>((*static_cast<FT_Face*>(_face))->glyph->advance.y) / 64.0f
                         );
                         _glyphs[glyph].texPosStart = glm::vec2(0.0f);
                         _glyphs[glyph].texPosEnd   = glm::vec2(0.0f);
@@ -183,18 +188,18 @@ namespace GL {
         }
 
         const float Font::getLineHeight() const {
-            return static_cast<float>(_face->size->metrics.height) / 64.0f;
+            return static_cast<float>((*static_cast<FT_Face*>(_face))->size->metrics.height) / 64.0f;
         }
 
         const float Font::getAscender() const {
             //_face->size->metrics.ascender
             //_face->ascender
 
-            return static_cast<float>(_face->size->metrics.ascender) / 64.0f;
+            return static_cast<float>((*static_cast<FT_Face*>(_face))->size->metrics.ascender) / 64.0f;
         }
 
         const float Font::getDescender() const {
-            return static_cast<float>(_face->size->metrics.descender) / 64.0f;
+            return static_cast<float>((*static_cast<FT_Face*>(_face))->size->metrics.descender) / 64.0f;
         }
 
         const unsigned int Font::getHeight() const {
@@ -222,7 +227,7 @@ namespace GL {
             static bool initialized = false;
 
             if(!initialized) {
-                if(FT_Init_FreeType(&Font::_library)) {
+                if(FT_Init_FreeType(&_FT_library)) {
                     Util::Log::Stream("_Library").logError("[FreeType] Unable to initialize FreeType2 library");
                     throw Util::Exception::FatalError("Unable to initialize FreeType2 library");
                 }
