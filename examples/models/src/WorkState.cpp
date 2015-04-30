@@ -31,14 +31,14 @@ void WorkState::update(const double frameTime) {
 }
 
 void WorkState::render() {
-    GL::Context::Current.clearBuffers(GL::Context::BufferMask::Color_Depth);
+    GL::Context::Current->clearBuffers(GL::Context::BufferMask::Color_Depth);
 
     _modelOBJ[0].render(_pipeline);
     _modelOBJ[1].render(_pipeline);
 }
 
 void WorkState::onLoad() {
-    GL::Context::Current.setClearColor(glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
+    GL::Context::Current->setClearColor(glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
 
     // Set OpenGL settings
     glEnable(GL_DEPTH_TEST);

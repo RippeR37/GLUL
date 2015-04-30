@@ -1,4 +1,5 @@
 #include <Utils/GL+/GUI/Text.h>
+#include <Utils/GL+/Context.h>
 #include <Utils/Logger.h>
 
 #include <cctype>
@@ -76,7 +77,7 @@ namespace GL {
 
                 // Initialize VAO
                 if(_glInitialized == false) {
-                    thisConstless->_vao.setDrawCount(vertices.size());                                               /// NEEDS TO CHANGE !!!
+                    thisConstless->_vao.setDrawCount(vertices.size());
                     thisConstless->_vao.setDrawTarget(VertexArray::DrawTarget::Triangles);
 
                     _vao.bind();
@@ -165,6 +166,8 @@ namespace GL {
 
         void Text::setScale(const float scale) {
             _scale = scale;
+
+            setInvalid();
         }
 
         void Text::setColor(const glm::vec3& color) {
@@ -192,28 +195,37 @@ namespace GL {
             std::vector<glm::vec4> result;
             glm::vec2 posStart, posEnd;
             glm::vec2 texStart, texEnd;
-            glm::vec2 baseLine = getScreenPosition().getPosition() - glm::vec2(0.0f, getScale() * getFont()->getAscender());
-            glm::vec2 posCursor = baseLine;
-            glm::vec2 bbTopRight = baseLine;
-            glm::vec2 bbBottomLeft = baseLine;
+            glm::vec2 baseLine;
+            glm::vec2 posCursor;
+            glm::vec2 bbTopRight;
+            glm::vec2 bbBottomLeft;
             char character;
-            bool isDrawn = true;
+            bool isDrawn;
+
+            baseLine = glm::vec2(
+                getScreenPosition().getPosition().x,
+                GL::Context::Current->getViewportSize().y - getScreenPosition().getPosition().y - getScale() * getFont()->getAscender()
+            );
+
+            posCursor = bbTopRight = bbBottomLeft = baseLine;
 
             for(int i = 0; i < _text.size(); ++i) {
                 character = getText()[i];
                 isDrawn = (std::isgraph(character) > 0);
 
                 if(isDrawn) {
-                    // Calcuations
+                    // Calcuations - texture
                     texStart  = getFont()->getMetric(character).texPosStart;
                     texEnd    = getFont()->getMetric(character).texPosEnd;
 
+                    // Calculations - position
                     posStart = posCursor + getScale() * glm::vec2(
                         getFont()->getMetric(character).glyphPos.x,
                         getFont()->getMetric(character).glyphPos.y - getFont()->getMetric(character).size.y
-                        );
+                    );
                     posEnd = posStart  + getScale() * getFont()->getMetric(character).size;
 
+                    // Bounding-rectangle update
                     if(posStart.x < bbBottomLeft.x) bbBottomLeft.x = posStart.x;
                     if(posStart.y < bbBottomLeft.y) bbBottomLeft.y = posStart.y;
                     if(posEnd.x > bbTopRight.x) bbTopRight.x = posEnd.x;

@@ -25,6 +25,7 @@ namespace GL {
 
         public:
             Context();
+            ~Context();
 
             void makeActive(Util::Window* window);
             void bindWindow(Util::Window* window);
@@ -53,7 +54,7 @@ namespace GL {
 
             static void GLAPIENTRY logError(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
 
-            static Context& Current;
+            static Context* Current;
             static Context DefaultContext;
 
         private:

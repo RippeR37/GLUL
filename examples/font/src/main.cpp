@@ -110,17 +110,17 @@ void run() {
     initText(textFooter1, fontText1, window);
     initText(textFooter2, fontText2, window);
 
-    textHeader.setText("Hello world!\nSecond line. Tab: '\t'\nTexture with font's glyphs:");
-    textHeader.setColor(glm::vec4(1.0f, 0.3f, 0.7f, 1.0f));
-    textHeader.setPosition(glm::vec2(200.0f, 520.0f));
+    textHeader.setText("Hello world!\nSecond line. Tab: '\t'\n\nTexture with font's glyphs:");
+    textHeader.setColor(glm::vec4(1.0f, 0.7f, 0.3f, 1.0f));
+    textHeader.setPosition(glm::vec2(200.0f, 40.0f));
 
     textFooter1.setText("Text using font with size 16");
     textFooter1.setColor(glm::vec4(0.2f, 0.5f, 0.7f, 1.0f));
-    textFooter1.setPosition(glm::vec2(200.0f, 120.0f));
+    textFooter1.setPosition(glm::vec2(200.0f, 480.0f));
 
     textFooter2.setText("Text using font with size 32 scaled to 16");
     textFooter2.setColor(glm::vec4(0.2f, 0.5f, 0.7f, 1.0f));
-    textFooter2.setPosition(glm::vec2(200.0f, 100.0f));
+    textFooter2.setPosition(glm::vec2(200.0f, 500.0f));
     textFooter2.setSize(16);
 
 

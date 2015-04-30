@@ -32,9 +32,8 @@ void InitializationState::onLoad() {
                 _application->signalExit();
             });
 
-            // OpenGL context reference binding (for ease of use)
-            GL::Context::Current = _application->Window.getContext();
-            GL::Context::Current.setClearColor(glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
+            // OpenGL context settings
+            GL::Context::Current->setClearColor(glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
 
             // Change to application's main state
             _workState.reset(new WorkState(this, _application));
@@ -49,7 +48,6 @@ void InitializationState::onLoad() {
 
 void InitializationState::onUnload() {
     if(!_workState) {
-        GL::Context::Current = GL::Context::DefaultContext;
         _application->Window.destroy();
     }
 }

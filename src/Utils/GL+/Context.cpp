@@ -6,7 +6,7 @@ namespace GL {
 
 
     Context Context::DefaultContext;
-    Context& Context::Current = Context::DefaultContext;
+    Context* Context::Current = &Context::DefaultContext;
 
 
 
@@ -18,11 +18,18 @@ namespace GL {
         _viewportPosition = glm::ivec2(0, 0);
     }
 
+    Context::~Context() {
+        if(this == Context::Current)
+            Context::Current = &Context::DefaultContext;
+    }
+
 
 
     void Context::makeActive(Util::Window* window) {
         setActive(true);
         bindWindow(window);
+
+        Context::Current = this;
     }
 
     void Context::bindWindow(Util::Window* window) {
