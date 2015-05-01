@@ -15,6 +15,9 @@
 
 class MyInputHandler : public Util::Input::EventHandler {
     public:
+        /**
+         * Handler decides which type of input event it was and redirects it to proper method.
+         */
         void handleInputEvent(const Util::Input::Event& inputEvent) const {
             switch(inputEvent.getType()) {
                 case Util::Input::Event::Type::Key: 
@@ -24,9 +27,16 @@ class MyInputHandler : public Util::Input::EventHandler {
                 case Util::Input::Event::Type::MouseButton:
                     handleMouseButtonInputEvent(*inputEvent.asMouseButtonEvent());
                     break;
+
+                case Util::Input::Event::Type::MouseMovement:
+                    handleMouseMovementInputEvent(*inputEvent.asMouseMovementEvent());
+                    break;
             }
         }
 
+        /**
+         * Handler for keyboard-related events
+         */
         void handleKeyInputEvent(const Util::Input::KeyEvent& keyEvent) const {
             std::string action;
 
@@ -40,7 +50,10 @@ class MyInputHandler : public Util::Input::EventHandler {
                       << "'" << static_cast<unsigned char>(keyEvent.getKey()) << "' - " 
                       << static_cast<unsigned int>(keyEvent.getKey()) << std::endl;
         }
-
+        
+        /**
+         * Handler for mouse-button-related events
+         */
         void handleMouseButtonInputEvent(const Util::Input::MouseButtonEvent& mouseButtonEvent) const {
             std::string button;
             std::string action;
@@ -59,6 +72,13 @@ class MyInputHandler : public Util::Input::EventHandler {
 
             std::cout << button << " mouse button " << action << std::endl;
         }
+        
+        /**
+         * Handler for mouse-movement-related events
+         */
+        void handleMouseMovementInputEvent(const Util::Input::MouseMovementEvent& mouseMovementEvent) const {
+            std::cout << "Mouse cursor now points: " << mouseMovementEvent.getX() << "x" << mouseMovementEvent.getY() << std::endl;
+        }
 };
 
 /**
@@ -74,9 +94,11 @@ void run() {
     
     window.registerEvents(Util::Input::Event::Type::Key); // binding event callbacks to register keyboard-related events
     window.registerEvents(Util::Input::Event::Type::MouseButton); // binding event callbacks to register mouse-button-related events
+    window.registerEvents(Util::Input::Event::Type::MouseMovement); // binding event callbacks to register mouse-movement-related events
 
     window.eventAggregator.registerHandler(Util::Input::Event::Type::Key, &myHandler); // register handler for key input events 
     window.eventAggregator.registerHandler(Util::Input::Event::Type::MouseButton, &myHandler); // register handler for mouse button input events 
+    window.eventAggregator.registerHandler(Util::Input::Event::Type::MouseMovement, &myHandler); // register handler for mouse button input events 
     
     // Trigger for closing window
     closeTriggerID = window.eventAggregator.registerTrigger( // note that if you plan to remove trigger in future, you have to obtain it's ID

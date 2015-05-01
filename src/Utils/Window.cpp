@@ -195,6 +195,19 @@ namespace Util {
                 break;
 
             case Input::Event::Type::MouseMovement:
+                glfwSetCursorPosCallback(
+                    getHandle(), 
+                    [](GLFWwindow* window, double x, double y) {
+                        if(GL::Context::Current->getWindow() != nullptr) {
+                            GL::Context::Current->getWindow()->eventAggregator.registerEvent(
+                                new Util::Input::MouseMovementEvent(
+                                    static_cast<float>(x), 
+                                    static_cast<float>(y)
+                                )
+                            );
+                        }
+                    }
+                );
                 break;
 
             case Input::Event::Type::MouseScroll:
