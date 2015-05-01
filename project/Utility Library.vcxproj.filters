@@ -54,6 +54,18 @@
     <Filter Include="Source Files\GL+\GUI">
       <UniqueIdentifier>{2e24fbb4-d29b-4d30-835a-3a91c1e178c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{cf6607eb-f931-4851-967e-741563b55e96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{077c47cc-6c99-4ac1-84d6-1b9598f1e062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input\EventTypes">
+      <UniqueIdentifier>{92869b03-f9f5-4216-a36b-b086fd427931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input\EventTypes">
+      <UniqueIdentifier>{cb5d3e34-db88-448f-9d3d-4cec93523804}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Utils\Clock.h">
@@ -209,6 +221,30 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Window.h">
       <Filter>Header Files\GL+\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventAggregator.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\Event.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventTypes\KeyEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventTypes\MouseButtonEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventTypes\MouseMovementEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventTypes\MouseScrollEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\Types.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventHandler.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">
@@ -354,6 +390,27 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp">
       <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventAggregator.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\Event.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventTypes\KeyEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventTypes\MouseButtonEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventTypes\MouseMovementEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventTypes\MouseScrollEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventHandler.cpp">
+      <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
