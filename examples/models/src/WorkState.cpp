@@ -16,7 +16,7 @@ WorkState::WorkState(Util::Interface::State* parentState, FW::Application* appli
 }
 
 WorkState::~WorkState() {
-    _unregisterNotifications();
+
 }
 
 void WorkState::update(const double frameTime) {

@@ -166,6 +166,32 @@ namespace Util {
                 break;
 
             case Input::Event::Type::MouseButton:
+                glfwSetMouseButtonCallback(
+                    getHandle(), 
+                    [](GLFWwindow* window, int button, int action, int mods) {
+                        Util::Input::MouseButton inputButton;
+                        Util::Input::Action inputAction;
+
+                        switch(button) {
+                            case GLFW_MOUSE_BUTTON_LEFT:   inputButton = Util::Input::MouseButton::Left; break;
+                            case GLFW_MOUSE_BUTTON_RIGHT:  inputButton = Util::Input::MouseButton::Right; break;
+                            case GLFW_MOUSE_BUTTON_MIDDLE: inputButton = Util::Input::MouseButton::Middle; break;
+                        }
+
+                        if(action == GLFW_PRESS) 
+                            inputAction = Util::Input::Action::Press;
+                        else if(action == GLFW_REPEAT) 
+                            inputAction = Util::Input::Action::Repeat;
+                        else if(action == GLFW_RELEASE) 
+                            inputAction = Util::Input::Action::Release;
+
+                        if(GL::Context::Current->getWindow() != nullptr) {
+                            GL::Context::Current->getWindow()->eventAggregator.registerEvent(
+                                new Util::Input::MouseButtonEvent(inputButton, inputAction)
+                            );
+                        }
+                    }
+                );
                 break;
 
             case Input::Event::Type::MouseMovement:

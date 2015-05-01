@@ -11,24 +11,18 @@
  *
  * It has to implement methods:
  *   - void handleInputEvent(const Util::InputEvent&) const
- *
- * Be advised, you should probably use _unregisterNotifications() method it your destructor to avoid crashes when
- * aggregators will try to notify destroyed handlers (unless you plan to clean by yourself). 
  */
 
 class MyInputHandler : public Util::Input::EventHandler {
     public:
-        MyInputHandler() { }
-
-        ~MyInputHandler() {
-            _unregisterNotifications(); // be carefull to unregister this handler from all aggregators, 
-                                        // failure to do so might result in crashes (access violation/undefined behaviour)
-        }
-
         void handleInputEvent(const Util::Input::Event& inputEvent) const {
             switch(inputEvent.getType()) {
                 case Util::Input::Event::Type::Key: 
                     handleKeyInputEvent(*inputEvent.asKeyEvent()); 
+                    break;
+
+                case Util::Input::Event::Type::MouseButton:
+                    handleMouseButtonInputEvent(*inputEvent.asMouseButtonEvent());
                     break;
             }
         }
@@ -46,6 +40,25 @@ class MyInputHandler : public Util::Input::EventHandler {
                       << "'" << static_cast<unsigned char>(keyEvent.getKey()) << "' - " 
                       << static_cast<unsigned int>(keyEvent.getKey()) << std::endl;
         }
+
+        void handleMouseButtonInputEvent(const Util::Input::MouseButtonEvent& mouseButtonEvent) const {
+            std::string button;
+            std::string action;
+
+            switch(mouseButtonEvent.getMouseButton()) {
+                case Util::Input::MouseButton::Left: button = "Left"; break;
+                case Util::Input::MouseButton::Right: button = "Right"; break;
+                case Util::Input::MouseButton::Middle: button = "Middle"; break;
+            }
+
+            switch(mouseButtonEvent.getAction()) {
+                case Util::Input::Action::Press: action = "pressed"; break;
+                case Util::Input::Action::Repeat: action = "repetead"; break;
+                case Util::Input::Action::Release: action = "released"; break;
+            }
+
+            std::cout << button << " mouse button " << action << std::endl;
+        }
 };
 
 /**
@@ -59,8 +72,11 @@ void run() {
     window.create(); // Window creation
     window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f)); // Setting window's background to dark grey
     
-    window.registerEvents(Util::Input::Event::Type::Key); // binding events callbacks to register specific events
+    window.registerEvents(Util::Input::Event::Type::Key); // binding event callbacks to register keyboard-related events
+    window.registerEvents(Util::Input::Event::Type::MouseButton); // binding event callbacks to register mouse-button-related events
+
     window.eventAggregator.registerHandler(Util::Input::Event::Type::Key, &myHandler); // register handler for key input events 
+    window.eventAggregator.registerHandler(Util::Input::Event::Type::MouseButton, &myHandler); // register handler for mouse button input events 
     
     // Trigger for closing window
     closeTriggerID = window.eventAggregator.registerTrigger( // note that if you plan to remove trigger in future, you have to obtain it's ID

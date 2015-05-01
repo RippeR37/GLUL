@@ -8,6 +8,9 @@ namespace Util {
         
         std::unordered_map<Event::Type, std::set<EventAggregator*>> _inputEventAggregators;
 
+        EventHandler::~EventHandler() {
+            _unregisterNotifications();
+        }
 
         void EventHandler::_unregisterNotifications() {
             for(auto& typeSet : _inputEventAggregators) {

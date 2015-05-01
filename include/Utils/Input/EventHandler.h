@@ -17,9 +17,11 @@ namespace Util {
             friend class EventAggregator;
 
             public:
+                virtual ~EventHandler();
+
                 virtual void handleInputEvent(const Event& inputEvent) const = 0;
 
-            protected:
+            private:
                 void _unregisterNotifications();
 
                 std::unordered_map<Event::Type, std::set<EventAggregator*>> _inputEventAggregators;
