@@ -42,3 +42,8 @@ project/Font example/build/*
 project/Font example/examples/*
 project/Font example/Debug/*
 project/Font example/Release/*
+
+project/Input example/build/*
+project/Input example/examples/*
+project/Input example/Debug/*
+project/Input example/Release/*

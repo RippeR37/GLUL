@@ -12,6 +12,8 @@
 
 namespace Util {
 
+    class Window;
+
     namespace Input {
 
         class EventHandler;
@@ -21,11 +23,14 @@ namespace Util {
                 EventAggregator();
                 ~EventAggregator();
 
+                EventAggregator& operator=(const EventAggregator&) = delete;
+                EventAggregator& operator=(EventAggregator&&) = delete;
+
                 void registerEvent(Event* inputEvent);
-                void registerSubscriber(Event::Type type, EventHandler* inputHandler);
+                void registerHandler(Event::Type type, EventHandler* inputHandler);
                 unsigned int registerTrigger(Event::Type type, const std::function<void(Event&)>& inputTrigger);
 
-                void unregisterSubscriber(Event::Type type, EventHandler* inputHandler);
+                void unregisterHandler(Event::Type type, EventHandler* inputHandler);
                 void unregisterTrigger(Event::Type type, unsigned int triggerID);
 
                 void notifyAll();
@@ -37,13 +42,12 @@ namespace Util {
 
                 const std::vector<std::unique_ptr<Event>>& getEvents();
 
-
             private:
                 unsigned int _getNextTriggerID();
 
                 unsigned int _nextTriggerID;
                 std::vector<std::unique_ptr<Event>> _events;
-                std::unordered_map<Event::Type, std::set<EventHandler*>> _subscribers;
+                std::unordered_map<Event::Type, std::set<EventHandler*>> _handlers;
                 std::unordered_map<Event::Type, std::unordered_map<unsigned int, std::function<void(Event&)>>> _triggers;
         };
 

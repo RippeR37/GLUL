@@ -104,6 +104,8 @@ namespace Util {
                 _fpsClock.reset();
             }
         }
+
+        eventAggregator.notifyAll();
     }
 
     void Window::destroy() {
@@ -134,6 +136,50 @@ namespace Util {
         _screenshotPath = path;
         _screenshotOrigin = origin;
         _screenshotSize = size;
+    }
+
+    void Window::registerEvents(Input::Event::Type type) {
+        getContext().makeActive(this);
+
+        switch(type) {
+            case Input::Event::Type::Key:
+                glfwSetKeyCallback(
+                    getHandle(), 
+                    [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+                        Util::Input::Key inputKey = static_cast<Util::Input::Key>(key);
+                        Util::Input::Action inputAction;
+
+                        if(action == GLFW_PRESS) 
+                            inputAction = Util::Input::Action::Press;
+                        else if(action == GLFW_REPEAT) 
+                            inputAction = Util::Input::Action::Repeat;
+                        else if(action == GLFW_RELEASE) 
+                            inputAction = Util::Input::Action::Release;
+
+                        if(GL::Context::Current->getWindow() != nullptr) {
+                            GL::Context::Current->getWindow()->eventAggregator.registerEvent(
+                                new Util::Input::KeyEvent(inputKey, inputAction)
+                            );
+                        }
+                    }
+                );
+                break;
+
+            case Input::Event::Type::MouseButton:
+                break;
+
+            case Input::Event::Type::MouseMovement:
+                break;
+
+            case Input::Event::Type::MouseScroll:
+                break;
+        }
+    }
+
+    void Window::registerEvents(std::initializer_list<Input::Event::Type> types) {
+        for(auto type : types) {
+            registerEvents(type);
+        }
     }
 
     void Window::setSize(unsigned int width, unsigned int height) {

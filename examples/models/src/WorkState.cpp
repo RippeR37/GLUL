@@ -5,18 +5,18 @@
 #include <Utils/Frameworks/Application.h>
 #include <Utils/TimeLoop.h>
 
-#include <gl/glew.h>
-#include <glfw/glfw3.h>
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 
 WorkState::WorkState(Util::Interface::State* parentState, FW::Application* application) {
     _parentState = parentState;
     _application = application;
+
+    _application->Window.eventAggregator.registerHandler(Util::Input::Event::Type::Key, this);
 }
 
 WorkState::~WorkState() {
-
+    _unregisterNotifications();
 }
 
 void WorkState::update(const double frameTime) {
@@ -25,9 +25,6 @@ void WorkState::update(const double frameTime) {
 
         // update objects here
     });
-
-    if(glfwGetKey(_application->Window, GLFW_KEY_ESCAPE))
-        changeTo(_parentState);
 }
 
 void WorkState::render() {
@@ -70,4 +67,18 @@ void WorkState::onUnload() {
 
 void WorkState::signalExit() {
     changeTo(nullptr);
+}
+
+void WorkState::handleInputEvent(const Util::Input::Event& inputEvent) const {
+    if(inputEvent.getType() == Util::Input::Event::Type::Key) {
+        const Util::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent();
+
+        if(keyEvent.getAction() == Util::Input::Action::Press) {
+            switch(keyEvent.getKey()) {
+                case Util::Input::Key::Escacpe: 
+                    const_cast<WorkState*>(this)->changeTo(_parentState);
+                    break;
+            }
+        }
+    }
 }

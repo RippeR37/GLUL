@@ -6,17 +6,17 @@ namespace Util {
 
     namespace Input {
         
-        std::unordered_map<Event::Type, std::set<EventAggregator*>> _aggregators;
+        std::unordered_map<Event::Type, std::set<EventAggregator*>> _inputEventAggregators;
 
 
         void EventHandler::_unregisterNotifications() {
-            for(auto& typeSet : _aggregators) {
+            for(auto& typeSet : _inputEventAggregators) {
                 for(auto& aggregator : typeSet.second) {
-                    aggregator->unregisterSubscriber(typeSet.first, this);
+                    aggregator->unregisterHandler(typeSet.first, this);
                 }
             }
 
-            _aggregators.clear();
+            _inputEventAggregators.clear();
         }
 
     }

@@ -19,10 +19,10 @@ namespace Util {
             public:
                 virtual void handleInputEvent(const Event& inputEvent) const = 0;
 
-            private:
+            protected:
                 void _unregisterNotifications();
 
-                std::unordered_map<Event::Type, std::set<EventAggregator*>> _aggregators;
+                std::unordered_map<Event::Type, std::set<EventAggregator*>> _inputEventAggregators;
         };
 
     }

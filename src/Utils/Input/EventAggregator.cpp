@@ -19,10 +19,10 @@ namespace Util {
             }
         }
 
-        void EventAggregator::registerSubscriber(Event::Type type, EventHandler* inputHandler) {
+        void EventAggregator::registerHandler(Event::Type type, EventHandler* inputHandler) {
             if(inputHandler) {
-                _subscribers[type].insert(inputHandler);
-                inputHandler->_aggregators[type].insert(this);
+                _handlers[type].insert(inputHandler);
+                inputHandler->_inputEventAggregators[type].insert(this);
             }
         }
 
@@ -34,12 +34,12 @@ namespace Util {
             return triggerID;
         }
 
-        void EventAggregator::unregisterSubscriber(Event::Type type, EventHandler* inputHandler) {
-            auto iter = _subscribers[type].find(inputHandler);
+        void EventAggregator::unregisterHandler(Event::Type type, EventHandler* inputHandler) {
+            auto iter = _handlers[type].find(inputHandler);
 
-            if(iter != _subscribers[type].end()) {
-                (*iter)->_aggregators[type].erase(this);
-                _subscribers[type].erase(iter);
+            if(iter != _handlers[type].end()) {
+                (*iter)->_inputEventAggregators[type].erase(this);
+                _handlers[type].erase(iter);
             }
         }
 
@@ -49,7 +49,7 @@ namespace Util {
         
         void EventAggregator::notifyAll() {
             for(auto& inputEventPtr : _events) {
-                for(auto& typeHandler : _subscribers[inputEventPtr.get()->getType()]) {
+                for(auto& typeHandler : _handlers[inputEventPtr.get()->getType()]) {
                     typeHandler->handleInputEvent(inputEventPtr.operator*());
                 }
 
@@ -76,9 +76,9 @@ namespace Util {
         }
 
         void EventAggregator::clearSubscribers() {
-            for(auto& pairTypeSet : _subscribers) {
+            for(auto& pairTypeSet : _handlers) {
                 for(EventHandler* handler : pairTypeSet.second) {
-                    unregisterSubscriber(pairTypeSet.first, handler);
+                    unregisterHandler(pairTypeSet.first, handler);
                 }
             }
         }

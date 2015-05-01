@@ -28,11 +28,12 @@ void InitializationState::onLoad() {
             _application->Window.setSize(800u, 600u);
             _application->Window.setTitle("Title");
             _application->Window.create();
+            _application->Window.registerEvents(Util::Input::Event::Type::Key);
             _application->Window.setDestroyCallback([&]() {
                 _application->signalExit();
             });
 
-            // OpenGL context settings
+            // Set window's background color
             GL::Context::Current->setClearColor(glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
 
             // Change to application's main state

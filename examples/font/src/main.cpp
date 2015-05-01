@@ -84,8 +84,7 @@ void initVAO(GL::VertexArray& vao, const GL::VertexBuffer& vbo, const std::vecto
  * Main loop
  */
 void run() {
-    //Util::Window window(800, 600, "Title");
-    GL::GUI::Window window(800, 600, "Title");
+    GL::GUI::Window window(800, 600, "Title"); // Be advised - GUI-supporting Window is GL::GUI::Window, not Util::Window !
 
     GL::Program program;
     GL::VertexArray vao;
@@ -102,18 +101,22 @@ void run() {
     window.create();
     window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f));
 
+    // loading fonts
     initFont(fontAtlas, "arial", 128);
     initFont(fontText1, "verdanai", 16);
     initFont(fontText2, "verdanai", 32);
 
+    // set font to given text and add text to window's container
     initText(textHeader, fontText2, window);
     initText(textFooter1, fontText1, window);
     initText(textFooter2, fontText2, window);
 
+    // set textHeader object
     textHeader.setText("Hello world!\nSecond line. Tab: '\t'\n\nTexture with font's glyphs:");
     textHeader.setColor(glm::vec4(1.0f, 0.7f, 0.3f, 1.0f));
     textHeader.setPosition(glm::vec2(200.0f, 40.0f));
 
+    // set textFooter* objects
     textFooter1.setText("Text using font with size 16");
     textFooter1.setColor(glm::vec4(0.2f, 0.5f, 0.7f, 1.0f));
     textFooter1.setPosition(glm::vec2(200.0f, 480.0f));
@@ -145,7 +148,6 @@ void run() {
         fontAtlas.getTexture().unbind();
 
         window.render();
-        
         window.update();
     }
 }

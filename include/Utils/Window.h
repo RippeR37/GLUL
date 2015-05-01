@@ -5,6 +5,7 @@
 #include <Utils/Image.h>
 #include <Utils/Exception.h>
 #include <Utils/GL+/Context.h>
+#include <Utils/Input/EventAggregator.h>
 
 #include <glm/vec2.hpp>
 
@@ -33,6 +34,9 @@ namespace Util {
             void takeScreenshot();
             void takeScreenshot(const std::string& path);
             void takeScreenshot(const std::string& path, const glm::ivec2& origin, const glm::ivec2& size);
+
+            void registerEvents(Input::Event::Type type);
+            void registerEvents(std::initializer_list<Input::Event::Type> types);
             
             void setSize(unsigned int width, unsigned int height);
             void setSize(const glm::uvec2& size);
@@ -74,6 +78,8 @@ namespace Util {
 
             static void initializeGLFW() throw(Util::Exception::FatalError);
             static void initializeGLEW() throw(Util::Exception::FatalError);
+            
+            Input::EventAggregator eventAggregator;
 
         protected:
             void setFPSCount(int fpsCount);

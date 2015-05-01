@@ -87,14 +87,6 @@ void switchTexture(GL::Texture& texture) {
     texID = (texID + 1) % textureCount;
 }
 
-void keyboardHandler(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    if(action == GLFW_PRESS) {
-        if(key == GLFW_KEY_SPACE) {
-            switchTexture(texture);
-        }
-    }
-}
-
 /**
  * Main loop
  */
@@ -107,24 +99,44 @@ void run() {
 
     window.create();
     window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f));
+    
+    // Input handling
+    window.registerEvents(Util::Input::Event::Type::Key);
+    window.eventAggregator.registerTrigger(
+        Util::Input::Event::Type::Key,
+        [&](Util::Input::Event& inputEvent) {
+            Util::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent();
+
+            if(keyEvent.getAction() == Util::Input::Action::Press) { // if key is pressed, not released or repeated signal
+                switch(keyEvent.getKey()) {
+                    case Util::Input::Key::Space:
+                        switchTexture(texture);
+                        break;
+                
+                    case Util::Input::Key::Enter:
+                        window.takeScreenshot();    // takeScreenshot() sets flag to take screenshot just before swapping buffers (frame 
+                                                    // is complete), but if you want partialy rendered frame, use getScreenshotNow(...) method
+                        break;
+
+                    case Util::Input::Key::Escacpe:
+                        window.destroy();
+                        break;
+                }
+            }
+        }
+    );
 
     initVertices(vertices);
     initProgram(program);
     initVBO(vbo, vertices);
     initVAO(vao, vbo, vertices);
+    switchTexture(texture);
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
-    switchTexture(texture);
-    
-    glfwSetKeyCallback(window, keyboardHandler);
     while(window.isCreated() && window.shouldClose() == false) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);
-
-        if(glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS)
-            window.takeScreenshot();    // takeScreenshot() saves flag to take screenshot just before swapping buffers (frame is complete
-                                        // there is however way to get screenshot of partialy rendered frame with getScreenshotNow(...) method
 
         glActiveTexture(GL_TEXTURE0);
 

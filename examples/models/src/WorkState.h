@@ -1,12 +1,13 @@
 #ifndef WORKSTATE_H_INCLUDED
 #define WORKSTATE_H_INCLUDED
 
-#include <Utils/Interfaces/State.h>
 #include <Utils/GL+/Models/OBJ.h>
+#include <Utils/Interfaces/State.h>
+#include <Utils/Input/EventHandler.h>
 
 #include <memory>
 
-class WorkState : public Util::Interface::State {
+class WorkState : public Util::Interface::State, public Util::Input::EventHandler {
     public:
         WorkState(Util::Interface::State* parentState, FW::Application* application);
         ~WorkState();
@@ -16,6 +17,8 @@ class WorkState : public Util::Interface::State {
         void onLoad();
         void onUnload();
         void signalExit();
+
+        void handleInputEvent(const Util::Input::Event& inputEvent) const;
 
     private:
         FW::Application* _application;
