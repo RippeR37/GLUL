@@ -10,12 +10,20 @@ namespace Util {
         class MouseScrollEvent : public Event {
             public:
                 MouseScrollEvent();
+                MouseScrollEvent(ScrollDirection scrollDirection);
 
+                ScrollDirection getDirection() const;
+
+                void setDirection(ScrollDirection scrollDirection);
+
+            public:
                 MouseScrollEvent* asMouseScrollEvent();
                 const MouseScrollEvent* asMouseScrollEvent() const;
                 
             private:
-                void _abstract() { } 
+                void _abstract() { }
+
+                ScrollDirection _direction;
         };
 
     }

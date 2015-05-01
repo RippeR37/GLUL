@@ -25,11 +25,23 @@ namespace Util {
                 inputHandler->_inputEventAggregators[type].insert(this);
             }
         }
+        
+        void EventAggregator::registerHandler(std::initializer_list<Event::Type> types, EventHandler* inputHandler) {
+            for(auto type : types) {
+                registerHandler(type, inputHandler);
+            }
+        }
 
         unsigned int EventAggregator::registerTrigger(Event::Type type, const std::function<void(Event&)>& inputTrigger) {
-            unsigned int triggerID = _getNextTriggerID();
+            return registerTrigger(std::initializer_list<Event::Type>{type}, inputTrigger);
+        }
 
-            _triggers[type][triggerID] = inputTrigger;
+        unsigned int EventAggregator::registerTrigger(std::initializer_list<Event::Type> types, const std::function<void(Event&)>& inputTrigger) {
+            unsigned int triggerID = _getNextTriggerID();
+            
+            for(auto type : types) {
+                _triggers[type][triggerID] = inputTrigger;
+            }
 
             return triggerID;
         }
@@ -42,9 +54,21 @@ namespace Util {
                 _handlers[type].erase(iter);
             }
         }
+        
+        void EventAggregator::unregisterHandler(std::initializer_list<Event::Type> types, EventHandler* inputHandler) {
+            for(auto type : types) {
+                unregisterHandler(type, inputHandler);
+            }
+        }
 
         void EventAggregator::unregisterTrigger(Event::Type type, unsigned int triggerID) {
             _triggers[type].erase(triggerID);
+        }
+        
+        void EventAggregator::unregisterTrigger(std::initializer_list<Event::Type> types, unsigned int triggerID) {
+            for(auto type : types) {
+                unregisterTrigger(type, triggerID);
+            }
         }
         
         void EventAggregator::notifyAll() {

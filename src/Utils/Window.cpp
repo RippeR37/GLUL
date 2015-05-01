@@ -4,6 +4,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include <iostream>
+
 namespace Util {
 
     bool Window::_hintsSet = false;
@@ -110,6 +112,8 @@ namespace Util {
 
     void Window::destroy() {
         if(isCreated()) {
+            skipEvents();
+
             glfwDestroyWindow(_handle);
             _handle = nullptr;
 
@@ -211,6 +215,19 @@ namespace Util {
                 break;
 
             case Input::Event::Type::MouseScroll:
+                glfwSetScrollCallback(
+                    getHandle(), 
+                    [](GLFWwindow* window, double x, double y) {
+                        Util::Input::ScrollDirection inputScrollDirection;
+                        inputScrollDirection = (y > 0 ? Util::Input::ScrollDirection::Up : Util::Input::ScrollDirection::Down);
+
+                        if(GL::Context::Current->getWindow() != nullptr) {
+                            GL::Context::Current->getWindow()->eventAggregator.registerEvent(
+                                new Util::Input::MouseScrollEvent(inputScrollDirection)
+                            );
+                        }
+                    }
+                );
                 break;
         }
     }
@@ -218,6 +235,30 @@ namespace Util {
     void Window::registerEvents(std::initializer_list<Input::Event::Type> types) {
         for(auto type : types) {
             registerEvents(type);
+        }
+    }
+    
+    void Window::skipEvents() {
+        skipEvents({
+            Util::Input::Event::Type::Key,
+            Util::Input::Event::Type::MouseButton,
+            Util::Input::Event::Type::MouseMovement,
+            Util::Input::Event::Type::MouseScroll
+        });
+    }
+
+    void Window::skipEvents(Input::Event::Type type) {
+        switch(type) {
+            case Util::Input::Event::Type::Key: glfwSetKeyCallback(getHandle(), nullptr); break;
+            case Util::Input::Event::Type::MouseButton: glfwSetMouseButtonCallback(getHandle(), nullptr); break;
+            case Util::Input::Event::Type::MouseMovement: glfwSetCursorPosCallback(getHandle(), nullptr); break;
+            case Util::Input::Event::Type::MouseScroll: glfwSetScrollCallback(getHandle(), nullptr); break;
+        }
+    }
+
+    void Window::skipEvents(std::initializer_list<Input::Event::Type> types) {
+        for(auto type : types) {
+            skipEvents(type);
         }
     }
 

@@ -27,11 +27,18 @@ namespace Util {
                 EventAggregator& operator=(EventAggregator&&) = delete;
 
                 void registerEvent(Event* inputEvent);
+
                 void registerHandler(Event::Type type, EventHandler* inputHandler);
+                void registerHandler(std::initializer_list<Event::Type> types, EventHandler* inputHandler);
+
                 unsigned int registerTrigger(Event::Type type, const std::function<void(Event&)>& inputTrigger);
+                unsigned int registerTrigger(std::initializer_list<Event::Type> types, const std::function<void(Event&)>& inputTrigger);
 
                 void unregisterHandler(Event::Type type, EventHandler* inputHandler);
+                void unregisterHandler(std::initializer_list<Event::Type> types, EventHandler* inputHandler);
+
                 void unregisterTrigger(Event::Type type, unsigned int triggerID);
+                void unregisterTrigger(std::initializer_list<Event::Type> types, unsigned int triggerID);
 
                 void notifyAll();
 

@@ -21,16 +21,16 @@ class MyInputHandler : public Util::Input::EventHandler {
         void handleInputEvent(const Util::Input::Event& inputEvent) const {
             switch(inputEvent.getType()) {
                 case Util::Input::Event::Type::Key: 
-                    handleKeyInputEvent(*inputEvent.asKeyEvent()); 
-                    break;
+                    handleKeyInputEvent(*inputEvent.asKeyEvent()); break;
 
                 case Util::Input::Event::Type::MouseButton:
-                    handleMouseButtonInputEvent(*inputEvent.asMouseButtonEvent());
-                    break;
+                    handleMouseButtonInputEvent(*inputEvent.asMouseButtonEvent()); break;
 
                 case Util::Input::Event::Type::MouseMovement:
-                    handleMouseMovementInputEvent(*inputEvent.asMouseMovementEvent());
-                    break;
+                    handleMouseMovementInputEvent(*inputEvent.asMouseMovementEvent()); break;
+
+                case Util::Input::Event::Type::MouseScroll:
+                    handleMouseScrollInputEvent(*inputEvent.asMouseScrollEvent()); break;
             }
         }
 
@@ -79,7 +79,64 @@ class MyInputHandler : public Util::Input::EventHandler {
         void handleMouseMovementInputEvent(const Util::Input::MouseMovementEvent& mouseMovementEvent) const {
             std::cout << "Mouse cursor now points: " << mouseMovementEvent.getX() << "x" << mouseMovementEvent.getY() << std::endl;
         }
+        
+        /**
+         * Handler for mouse-scroll-related events
+         */
+        void handleMouseScrollInputEvent(const Util::Input::MouseScrollEvent& mouseScrollEvent) const {
+            std::string direction = (mouseScrollEvent.getDirection() == Util::Input::ScrollDirection::Up ? "up" : "down");
+
+            std::cout << "Mouse scroll direction: " << direction << std::endl;
+        }
 };
+
+/**
+ * Set window to register events with types: Key, MouseButton, MouseMovement, MouseScroll
+ */
+void setupInputEvents(Util::Window& window) {
+    window.registerEvents({
+        Util::Input::Event::Type::Key,
+        Util::Input::Event::Type::MouseButton,
+        Util::Input::Event::Type::MouseMovement,
+        Util::Input::Event::Type::MouseScroll
+    });
+}
+
+/**
+ * Subscribe handler to recieve events with types: Key, MouseButton, MouseMovement, MouseScroll
+ */
+void registerHandler(Util::Window& window, Util::Input::EventHandler* handler) {
+    window.eventAggregator.registerHandler(
+        {
+            Util::Input::Event::Type::Key,
+            Util::Input::Event::Type::MouseButton,
+            Util::Input::Event::Type::MouseMovement,
+            Util::Input::Event::Type::MouseScroll
+        },
+        handler
+    );
+}
+
+/**
+ * Register trigger for closing window using 'Escape' key
+ */
+unsigned int registerQuitTrigger(Util::Window& window) {
+    unsigned int triggerID; // note that if you plan to remove trigger in future, you have to obtain it's ID
+    
+    triggerID = window.eventAggregator.registerTrigger(
+        Util::Input::Event::Type::Key,
+        [&](Util::Input::Event& inputEvent) {
+            // Obtaining reference with KeyEvent type if you register handler/trigger for more then one Event::Type then you should check
+            // which type it is using Event::getType() method here we only register it for Event::Type::Key events so we can skip it
+            Util::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent(); 
+
+            if(keyEvent.getKey() == Util::Input::Key::Escacpe)
+                window.destroy();
+        }
+    );
+
+    return triggerID;
+}
 
 /**
  * Main loop
@@ -87,33 +144,14 @@ class MyInputHandler : public Util::Input::EventHandler {
 void run() {
     Util::Window window(800, 600, "Title");
     MyInputHandler myHandler;
-    unsigned int closeTriggerID; // Trigger's id is neccessery to unregister it without removing all triggers
     
-    window.create(); // Window creation
-    window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f)); // Setting window's background to dark grey
+    window.create();
+    window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f));
     
-    window.registerEvents(Util::Input::Event::Type::Key); // binding event callbacks to register keyboard-related events
-    window.registerEvents(Util::Input::Event::Type::MouseButton); // binding event callbacks to register mouse-button-related events
-    window.registerEvents(Util::Input::Event::Type::MouseMovement); // binding event callbacks to register mouse-movement-related events
-
-    window.eventAggregator.registerHandler(Util::Input::Event::Type::Key, &myHandler); // register handler for key input events 
-    window.eventAggregator.registerHandler(Util::Input::Event::Type::MouseButton, &myHandler); // register handler for mouse button input events 
-    window.eventAggregator.registerHandler(Util::Input::Event::Type::MouseMovement, &myHandler); // register handler for mouse button input events 
+    setupInputEvents(window);               // set window to listen for events
+    registerHandler(window, &myHandler);    // set myHandler as one of the recievers of events notifications
+    registerQuitTrigger(window);            // set input trigger (for esc key) to close window
     
-    // Trigger for closing window
-    closeTriggerID = window.eventAggregator.registerTrigger( // note that if you plan to remove trigger in future, you have to obtain it's ID
-        Util::Input::Event::Type::Key,
-        [&](Util::Input::Event& inputEvent) {
-            Util::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent(); // obtaining reference with KeyEvent type if you register handler/trigger 
-                                                                        // for more then one Event::Type then you should check which type it is 
-                                                                        // using Event::getType() method here we only register it for Event::Type::Key
-                                                                        // events so we can skip it
-
-            if(keyEvent.getKey() == Util::Input::Key::Escacpe)
-                window.destroy();
-        }
-    );
-
     while(window.isCreated() && window.shouldClose() == false) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);
 

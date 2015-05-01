@@ -38,6 +38,10 @@ namespace Util {
             void registerEvents(Input::Event::Type type);
             void registerEvents(std::initializer_list<Input::Event::Type> types);
             
+            void skipEvents();
+            void skipEvents(Input::Event::Type type);
+            void skipEvents(std::initializer_list<Input::Event::Type> types);
+
             void setSize(unsigned int width, unsigned int height);
             void setSize(const glm::uvec2& size);
             void setPosition(int posX, int posY);

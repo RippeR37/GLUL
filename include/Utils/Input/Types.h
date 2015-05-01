@@ -153,6 +153,11 @@ namespace Util {
             Middle,
         };
 
+        enum class ScrollDirection {
+            Up,
+            Down
+        };
+
     }
 
 }
