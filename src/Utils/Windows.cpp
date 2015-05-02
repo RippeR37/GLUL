@@ -26,36 +26,58 @@ namespace Util {
     Util::Window* Windows::Get(Util::Window* window) {
         Util::Window* result = nullptr;
 
-        auto iterator = _instance._windows.find(window);
-
-        if(iterator != _instance._windows.end())
-            result = *iterator;
+        if(window)
+            result = Get(window->getHandle());
 
         return result;
     }
 
-    Util::Window* Windows::Get(GLFWwindow* windowHandle) {
+    Util::Window* Windows::Get(GLFWwindow* handle) {
         Util::Window* result = nullptr;
 
-        auto iterator = std::find_if(
-            _instance._windows.begin(), _instance._windows.end(), 
-            [windowHandle](Util::Window* window) { return window->getHandle() == windowHandle; }
-        );
-
-        if(iterator != _instance._windows.end())
-            result = *iterator;
+        auto iterator = _instance._handles.find(handle);
+        if(iterator != _instance._handles.end())
+            result = iterator->second;
 
         return result;
+    }
+
+    Window* Windows::Get(const std::string& windowID) {
+        Util::Window* result = nullptr;
+
+        auto iterator = _instance._namedWindows.find(windowID);
+        if(iterator != _instance._namedWindows.end())
+            result = iterator->second;
+
+        return result;
+    }
+
+    void Windows::registerWindow(Util::Window* window, const std::string& windowID) {
+        if(window) {
+            _instance._namedWindows[windowID] = window;
+        }
+    }
+    
+    void Windows::registerWindow(Util::Window& window, const std::string& windowID) {
+        registerWindow(&window, windowID);
     }
             
 
     void Windows::registerWindow(Util::Window* window) {
-        if(window)
-            _instance._windows.insert(window);
+        if(window) {
+            _instance._handles[window->getHandle()] = window;
+        }
     }
 
     void Windows::unregisterWindow(Util::Window* window) {
-        _instance._windows.erase(window);
+        _instance._handles.erase(window->getHandle());
+
+        for(auto iter = _instance._namedWindows.begin(); iter != _instance._namedWindows.end(); ) {
+            if(iter->second == window)
+                iter = _instance._namedWindows.erase(iter);
+            else 
+                ++iter;
+        }
     }
 
     void Windows::setActiveWindow(Util::Window* window) {

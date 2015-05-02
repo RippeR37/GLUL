@@ -9,7 +9,7 @@
 
 class WorkState : public Util::Interface::State, public Util::Input::EventHandler {
     public:
-        WorkState(Util::Interface::State* parentState, FW::Application* application);
+        WorkState(Util::Interface::State* parentState);
         ~WorkState();
 
         void update(const double frameTime);
@@ -21,7 +21,6 @@ class WorkState : public Util::Interface::State, public Util::Input::EventHandle
         void handleInputEvent(const Util::Input::Event& inputEvent) const;
 
     private:
-        FW::Application* _application;
         Util::Interface::State* _parentState;
 
         GL::Pipeline _pipeline;

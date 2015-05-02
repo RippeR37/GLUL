@@ -1,7 +1,9 @@
 #ifndef UTILS_WINDOWS_H_INCLUDED
 #define UTILS_WINDOWS_H_INCLUDED
 
-#include <set>
+#include <string>
+#include <unordered_set>
+#include <unordered_map>
 
 struct GLFWwindow;
 
@@ -16,7 +18,11 @@ namespace Util {
             static Window* Active();
 
             static Window* Get(Util::Window* window);
-            static Window* Get(GLFWwindow* windowHandle);
+            static Window* Get(GLFWwindow* handle);
+            static Window* Get(const std::string& windowID);
+
+            static void registerWindow(Util::Window* window, const std::string& windowID);
+            static void registerWindow(Util::Window& window, const std::string& windowID);
 
         private:
             Windows();
@@ -29,8 +35,10 @@ namespace Util {
             static void setActiveWindow(GLFWwindow* window);
 
             static Windows _instance;
-            std::set<Util::Window*> _windows;
+
             Util::Window* _active;
+            std::unordered_map<GLFWwindow*, Util::Window*> _handles;
+            std::unordered_map<std::string, Util::Window*> _namedWindows;
     };
     
 }

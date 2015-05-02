@@ -33,11 +33,14 @@ void InitializationState::onLoad() {
                 _application->signalExit();
             });
 
+            // Register window for future use
+            Util::Windows::registerWindow(_application->Window, "mainWindow");
+
             // Set window's background color
             GL::Context::Current->setClearColor(glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
 
             // Change to application's main state
-            _workState.reset(new WorkState(this, _application));
+            _workState.reset(new WorkState(this));
             changeTo(_workState.get());
         }
 

@@ -8,11 +8,15 @@
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 
-WorkState::WorkState(Util::Interface::State* parentState, FW::Application* application) {
+WorkState::WorkState(Util::Interface::State* parentState) {
+    Util::Window* windowPointer;
     _parentState = parentState;
-    _application = application;
 
-    _application->Window.eventAggregator.registerHandler(Util::Input::Event::Type::Key, this);
+    // Register event handler
+    windowPointer = Util::Windows::Get("mainWindow");
+    
+    if(windowPointer)
+        windowPointer->eventAggregator.registerHandler(Util::Input::Event::Type::Key, this);
 }
 
 WorkState::~WorkState() {

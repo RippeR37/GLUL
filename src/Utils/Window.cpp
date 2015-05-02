@@ -12,11 +12,11 @@ namespace Util {
     bool Window::_hintsSet = false;
 
     Window::Window() : Window(640, 480, "Title") {
-        Windows::registerWindow(this);
+        Windows::Get(static_cast<Util::Window*>(nullptr));
     }
     
     Window::Window(unsigned int width, unsigned int height, const std::string& title) {
-        Windows::registerWindow(this);
+        Windows::Get(static_cast<Util::Window*>(nullptr));
 
         _handle = nullptr;
         _hintsSet = false;
@@ -56,6 +56,8 @@ namespace Util {
             setDefaultHints();
 
         _handle = glfwCreateWindow(getWidth(), getHeight(), _title.c_str(), nullptr, nullptr);
+
+        Windows::registerWindow(this);
 
         setFocusCallback();
 
