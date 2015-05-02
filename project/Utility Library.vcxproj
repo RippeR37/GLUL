@@ -143,6 +143,7 @@
     <ClInclude Include="..\include\Utils\TimeLoop.h" />
     <ClInclude Include="..\include\Utils\Timer.h" />
     <ClInclude Include="..\include\Utils\Window.h" />
+    <ClInclude Include="..\include\Utils\Windows.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\AABB.cpp" />
@@ -200,6 +201,7 @@
     <ClCompile Include="..\src\Utils\TimeLoop.cpp" />
     <ClCompile Include="..\src\Utils\Timer.cpp" />
     <ClCompile Include="..\src\Utils\Window.cpp" />
+    <ClCompile Include="..\src\Utils\Windows.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -151,7 +151,7 @@ void run() {
     setupInputEvents(window);               // set window to listen for events
     registerHandler(window, &myHandler);    // set myHandler as one of the recievers of events notifications
     registerQuitTrigger(window);            // set input trigger (for esc key) to close window
-    
+
     while(window.isCreated() && window.shouldClose() == false) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);
 

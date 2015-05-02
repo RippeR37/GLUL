@@ -4,6 +4,7 @@
 #include <Utils/Clock.h>
 #include <Utils/Image.h>
 #include <Utils/Exception.h>
+#include <Utils/Windows.h>
 #include <Utils/GL+/Context.h>
 #include <Utils/Input/EventAggregator.h>
 
@@ -88,7 +89,8 @@ namespace Util {
         protected:
             void setFPSCount(int fpsCount);
             void setContext();
-            
+            void setFocusCallback();
+
             int _fpsCount;
             unsigned int _framesCount;
             bool _isScreenshotFlagSet;
@@ -112,6 +114,9 @@ namespace Util {
             Clock _fpsClock;
 
             static bool _hintsSet;
+
+        private:
+            static void setFocus(GLFWwindow* window, int focused);
     };
 
 }

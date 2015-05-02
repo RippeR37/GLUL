@@ -245,6 +245,9 @@
     <ClInclude Include="..\include\Utils\Input\EventHandler.h">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\Windows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">
@@ -411,6 +414,9 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\Input\EventHandler.cpp">
       <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Windows.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

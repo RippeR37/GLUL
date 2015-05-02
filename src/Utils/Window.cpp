@@ -1,5 +1,6 @@
-#include <Utils/Window.h>
 #include <Utils/Logger.h>
+#include <Utils/Window.h>
+#include <Utils/Windows.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -11,10 +12,12 @@ namespace Util {
     bool Window::_hintsSet = false;
 
     Window::Window() : Window(640, 480, "Title") {
-
+        Windows::registerWindow(this);
     }
     
     Window::Window(unsigned int width, unsigned int height, const std::string& title) {
+        Windows::registerWindow(this);
+
         _handle = nullptr;
         _hintsSet = false;
         _isScreenshotFlagSet = false;
@@ -36,6 +39,7 @@ namespace Util {
 
     Window::~Window() {
         destroy();
+        Windows::unregisterWindow(this);
     }
 
     Window::operator GLFWwindow*() {
@@ -52,6 +56,8 @@ namespace Util {
             setDefaultHints();
 
         _handle = glfwCreateWindow(getWidth(), getHeight(), _title.c_str(), nullptr, nullptr);
+
+        setFocusCallback();
 
         setContext();
 
@@ -152,16 +158,14 @@ namespace Util {
                     [](GLFWwindow* window, int key, int scancode, int action, int mods) {
                         Util::Input::Key inputKey = static_cast<Util::Input::Key>(key);
                         Util::Input::Action inputAction;
+                        Util::Window* inputWindow = Util::Windows::Get(window);
 
-                        if(action == GLFW_PRESS) 
-                            inputAction = Util::Input::Action::Press;
-                        else if(action == GLFW_REPEAT) 
-                            inputAction = Util::Input::Action::Repeat;
-                        else if(action == GLFW_RELEASE) 
-                            inputAction = Util::Input::Action::Release;
+                        if(action == GLFW_PRESS)        inputAction = Util::Input::Action::Press;
+                        else if(action == GLFW_REPEAT)  inputAction = Util::Input::Action::Repeat;
+                        else if(action == GLFW_RELEASE) inputAction = Util::Input::Action::Release;
 
-                        if(GL::Context::Current->getWindow() != nullptr) {
-                            GL::Context::Current->getWindow()->eventAggregator.registerEvent(
+                        if(inputWindow) {
+                            inputWindow->eventAggregator.registerEvent(
                                 new Util::Input::KeyEvent(inputKey, inputAction)
                             );
                         }
@@ -175,6 +179,7 @@ namespace Util {
                     [](GLFWwindow* window, int button, int action, int mods) {
                         Util::Input::MouseButton inputButton;
                         Util::Input::Action inputAction;
+                        Util::Window* inputWindow = Util::Windows::Get(window);
 
                         switch(button) {
                             case GLFW_MOUSE_BUTTON_LEFT:   inputButton = Util::Input::MouseButton::Left; break;
@@ -182,15 +187,12 @@ namespace Util {
                             case GLFW_MOUSE_BUTTON_MIDDLE: inputButton = Util::Input::MouseButton::Middle; break;
                         }
 
-                        if(action == GLFW_PRESS) 
-                            inputAction = Util::Input::Action::Press;
-                        else if(action == GLFW_REPEAT) 
-                            inputAction = Util::Input::Action::Repeat;
-                        else if(action == GLFW_RELEASE) 
-                            inputAction = Util::Input::Action::Release;
+                        if(action == GLFW_PRESS)        inputAction = Util::Input::Action::Press;
+                        else if(action == GLFW_REPEAT)  inputAction = Util::Input::Action::Repeat;
+                        else if(action == GLFW_RELEASE) inputAction = Util::Input::Action::Release;
 
-                        if(GL::Context::Current->getWindow() != nullptr) {
-                            GL::Context::Current->getWindow()->eventAggregator.registerEvent(
+                        if(inputWindow) {
+                            inputWindow->eventAggregator.registerEvent(
                                 new Util::Input::MouseButtonEvent(inputButton, inputAction)
                             );
                         }
@@ -202,8 +204,10 @@ namespace Util {
                 glfwSetCursorPosCallback(
                     getHandle(), 
                     [](GLFWwindow* window, double x, double y) {
-                        if(GL::Context::Current->getWindow() != nullptr) {
-                            GL::Context::Current->getWindow()->eventAggregator.registerEvent(
+                        Util::Window* inputWindow = Util::Windows::Get(window);
+
+                        if(inputWindow) {
+                            inputWindow->eventAggregator.registerEvent(
                                 new Util::Input::MouseMovementEvent(
                                     static_cast<float>(x), 
                                     static_cast<float>(y)
@@ -218,11 +222,14 @@ namespace Util {
                 glfwSetScrollCallback(
                     getHandle(), 
                     [](GLFWwindow* window, double x, double y) {
+                        Util::Window* inputWindow;
                         Util::Input::ScrollDirection inputScrollDirection;
+                        
+                        inputWindow = Util::Windows::Get(window);
                         inputScrollDirection = (y > 0 ? Util::Input::ScrollDirection::Up : Util::Input::ScrollDirection::Down);
 
-                        if(GL::Context::Current->getWindow() != nullptr) {
-                            GL::Context::Current->getWindow()->eventAggregator.registerEvent(
+                        if(inputWindow) {
+                            inputWindow->eventAggregator.registerEvent(
                                 new Util::Input::MouseScrollEvent(inputScrollDirection)
                             );
                         }
@@ -474,8 +481,20 @@ namespace Util {
     }
 
     void Window::setContext() {
-        glfwMakeContextCurrent(_handle);
+        glfwMakeContextCurrent(getHandle());
         getContext().makeActive(this);
+    }
+
+    void Window::setFocusCallback() {
+        glfwSetWindowFocusCallback(getHandle(), setFocus);
+        setFocus(getHandle(), GL_TRUE);
+    }
+
+    void Window::setFocus(GLFWwindow* window, int focused) {
+        if(focused == GL_TRUE)
+            Windows::setActiveWindow(window);
+        else if(focused == GL_FALSE)
+            Windows::setActiveWindow(static_cast<GLFWwindow*>(nullptr));
     }
 
 }
