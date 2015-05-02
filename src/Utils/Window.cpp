@@ -39,7 +39,6 @@ namespace Util {
 
     Window::~Window() {
         destroy();
-        Windows::unregisterWindow(this);
     }
 
     Window::operator GLFWwindow*() {
@@ -126,6 +125,7 @@ namespace Util {
             _handle = nullptr;
 
             Util::Log::LibraryStream().log("Window '" + getTitle() + "' has been destroyed");
+            Windows::unregisterWindow(this);
         }
     }
 
