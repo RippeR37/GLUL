@@ -116,6 +116,7 @@
     <ClInclude Include="..\include\Utils\GL+\Buffer.hpp" />
     <ClInclude Include="..\include\Utils\GL+\VertexBuffer.h" />
     <ClInclude Include="..\include\Utils\Image.h" />
+    <ClInclude Include="..\include\Utils\Input\Keyboard.h" />
     <ClInclude Include="..\include\Utils\Input\Event.h" />
     <ClInclude Include="..\include\Utils\Input\EventAggregator.h" />
     <ClInclude Include="..\include\Utils\Input\EventHandler.h" />
@@ -123,6 +124,7 @@
     <ClInclude Include="..\include\Utils\Input\EventTypes\MouseButtonEvent.h" />
     <ClInclude Include="..\include\Utils\Input\EventTypes\MouseMovementEvent.h" />
     <ClInclude Include="..\include\Utils\Input\EventTypes\MouseScrollEvent.h" />
+    <ClInclude Include="..\include\Utils\Input\Mouse.h" />
     <ClInclude Include="..\include\Utils\Input\Types.h" />
     <ClInclude Include="..\include\Utils\Interfaces\Camera.h" />
     <ClInclude Include="..\include\Utils\Interfaces\ImageFile.h" />
@@ -177,6 +179,7 @@
     <ClCompile Include="..\src\Utils\GL+\Buffer.cpp" />
     <ClCompile Include="..\src\Utils\GL+\VertexBuffer.cpp" />
     <ClCompile Include="..\src\Utils\Image.cpp" />
+    <ClCompile Include="..\src\Utils\Input\Keyboard.cpp" />
     <ClCompile Include="..\src\Utils\Input\Event.cpp" />
     <ClCompile Include="..\src\Utils\Input\EventAggregator.cpp" />
     <ClCompile Include="..\src\Utils\Input\EventHandler.cpp" />
@@ -184,6 +187,7 @@
     <ClCompile Include="..\src\Utils\Input\EventTypes\MouseButtonEvent.cpp" />
     <ClCompile Include="..\src\Utils\Input\EventTypes\MouseMovementEvent.cpp" />
     <ClCompile Include="..\src\Utils\Input\EventTypes\MouseScrollEvent.cpp" />
+    <ClCompile Include="..\src\Utils\Input\Mouse.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\Camera.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\ImageFile.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileBMP.cpp" />

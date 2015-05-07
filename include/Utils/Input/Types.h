@@ -158,6 +158,12 @@ namespace Util {
             Down
         };
 
+        enum class CursorMode {
+            Normal,
+            Hidden,
+            Disabled,
+        };
+
     }
 
 }
