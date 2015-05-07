@@ -1,6 +1,7 @@
 #include <Utils/Logger.h>
 #include <Utils/Window.h>
 #include <Utils/Input/EventHandler.h>
+#include <Utils/Input/Trigger.h>
 
 #include <iostream>
 #include <string>
@@ -118,7 +119,12 @@ void registerHandler(Util::Window& window, Util::Input::EventHandler* handler) {
 }
 
 /**
- * Register trigger for closing window using 'Escape' key
+ * Register trigger manually for closing window using 'Escape' key
+ * 
+ * WARNING: This trigger will stay active until:
+ * - you invoke clear() or clearTriggers() on EventAggregator object (in this case window.EventAggregator)
+ * - eventAggregator gets destroyed
+ * To remove it manually, save trigger's ID and when time comes, use removeTrigger(_type(s)_, triggerID) method on EventAggregator
  */
 unsigned int registerQuitTrigger(Util::Window& window) {
     unsigned int triggerID; // note that if you plan to remove trigger in future, you have to obtain it's ID
@@ -126,8 +132,8 @@ unsigned int registerQuitTrigger(Util::Window& window) {
     triggerID = window.eventAggregator.registerTrigger(
         Util::Input::Event::Type::Key,
         [&](Util::Input::Event& inputEvent) {
-            // Obtaining reference with KeyEvent type if you register handler/trigger for more then one Event::Type then you should check
-            // which type it is using Event::getType() method here we only register it for Event::Type::Key events so we can skip it
+            // Obtaining reference with KeyEvent type. If you register handler/trigger for more then one Event::Type then you should check
+            // which type it is using Event::getType() method. Here we only register it for Event::Type::Key events so we can skip it
             Util::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent(); 
 
             if(keyEvent.getKey() == Util::Input::Key::Escacpe)
@@ -139,18 +145,44 @@ unsigned int registerQuitTrigger(Util::Window& window) {
 }
 
 /**
+ * Register trigger automatically (using Util::Input::Trigger class) for pressing 'Enter' key
+ * This trigger will unregister itself upon destruction from binded EventAggregator
+ *
+ * WARNING: Trigger object has to be destryoed before destruction of Window! Otherwise, it's destructor will crash application
+ */
+void registerEnterTrigger(Util::Input::Trigger& trigger) {
+    trigger.setFunction(
+        Util::Input::Event::Type::Key,
+        [](Util::Input::Event& event) {
+            Util::Input::KeyEvent& keyEvent = *event.asKeyEvent();
+
+            if(keyEvent.getAction() == Util::Input::Action::Press) {
+                if(keyEvent.getKey() == Util::Input::Key::Enter) {
+                    std::cout << "MyTrigger: Enter key was pressed!" << std::endl;
+                }
+            }
+        }
+    );
+}
+
+/**
  * Main loop
  */
 void run() {
     Util::Window window(800, 600, "Title");
     MyInputHandler myHandler;
-    
+
+    Util::Input::Trigger myTrigger(window.eventAggregator); // Trigger binded to window's EventAggregator.
+                                                            // Have in mind, that binded EventAggregator object has to
+                                                            // outlive this trigger, otherwise this will result in crash!
+
     window.create();
     window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f));
     
     setupInputEvents(window);               // set window to listen for events
     registerHandler(window, &myHandler);    // set myHandler as one of the recievers of events notifications
-    registerQuitTrigger(window);            // set input trigger (for esc key) to close window
+    registerQuitTrigger(window);            // set manualy input trigger (for esc key) to close window
+    registerEnterTrigger(myTrigger);        // set automaitcally myTrigger's function to write text upon pressing Enter key
 
     while(window.isCreated() && window.shouldClose() == false) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);

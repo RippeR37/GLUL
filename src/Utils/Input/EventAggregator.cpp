@@ -50,7 +50,7 @@ namespace Util {
             auto iter = _handlers[type].find(inputHandler);
 
             if(iter != _handlers[type].end()) {
-                (*iter)->_inputEventAggregators[type].erase(this);
+                (*iter)->_removeAggregator(type, this);
                 _handlers[type].erase(iter);
             }
         }

@@ -21,6 +21,10 @@ namespace Util {
 
             _inputEventAggregators.clear();
         }
+        
+        void EventHandler::_removeAggregator(Event::Type type, EventAggregator* eventAggregator) {
+            _inputEventAggregators[type].erase(eventAggregator);
+        }
 
     }
 

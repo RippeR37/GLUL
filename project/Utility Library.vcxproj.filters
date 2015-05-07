@@ -221,9 +221,6 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Window.h">
       <Filter>Header Files\GL+\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\Input\EventAggregator.h">
-      <Filter>Header Files\Input</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Utils\Input\Event.h">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
@@ -252,6 +249,12 @@
       <Filter>Header Files\Input</Filter>
     </ClInclude>
     <ClInclude Include="..\include\Utils\Input\Mouse.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\Trigger.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventAggregator.h">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
   </ItemGroup>
@@ -428,6 +431,9 @@
       <Filter>Source Files\Input</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Utils\Input\Mouse.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\Trigger.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>

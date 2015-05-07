@@ -23,6 +23,7 @@ namespace Util {
 
             private:
                 void _unregisterNotifications();
+                void _removeAggregator(Event::Type type, EventAggregator* eventAggregator);
 
                 std::unordered_map<Event::Type, std::set<EventAggregator*>> _inputEventAggregators;
         };
