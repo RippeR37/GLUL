@@ -1,7 +1,7 @@
 #include <Utils/Logger.h>
 #include <Utils/Window.h>
 #include <Utils/Input/EventHandler.h>
-#include <Utils/Input/Trigger.h>
+#include <Utils/Input/EventTrigger.h>
 
 #include <iostream>
 #include <string>
@@ -119,7 +119,7 @@ void registerHandler(Util::Window& window, Util::Input::EventHandler* handler) {
 }
 
 /**
- * Register trigger manually for closing window using 'Escape' key
+ * Register manual trigger for closing window using 'Escape' key
  * 
  * WARNING: This trigger will stay active until:
  * - you invoke clear() or clearTriggers() on EventAggregator object (in this case window.EventAggregator)
@@ -145,12 +145,12 @@ unsigned int registerQuitTrigger(Util::Window& window) {
 }
 
 /**
- * Register trigger automatically (using Util::Input::Trigger class) for pressing 'Enter' key
+ * Register automatic trigger (using Util::Input::EventTrigger class) for pressing 'Enter' key
  * This trigger will unregister itself upon destruction from binded EventAggregator
  *
- * WARNING: Trigger object has to be destryoed before destruction of Window! Otherwise, it's destructor will crash application
+ * WARNING: Trigger object has to be destryoed (or reseted) before destruction of Window! Otherwise, it's destructor will cause crash!
  */
-void registerEnterTrigger(Util::Input::Trigger& trigger) {
+void registerEnterTrigger(Util::Input::EventTrigger& trigger) {
     trigger.setFunction(
         Util::Input::Event::Type::Key,
         [](Util::Input::Event& event) {
@@ -172,9 +172,9 @@ void run() {
     Util::Window window(800, 600, "Title");
     MyInputHandler myHandler;
 
-    Util::Input::Trigger myTrigger(window.eventAggregator); // Trigger binded to window's EventAggregator.
-                                                            // Have in mind, that binded EventAggregator object has to
-                                                            // outlive this trigger, otherwise this will result in crash!
+    // Trigger binded to window's EventAggregator. It will automatically unregister when destroyed.
+    // WARNING: This object has to be destroyed or reseted before it's bounded EventAggregator! Otherwise it will crash!
+    Util::Input::EventTrigger myTrigger(window.eventAggregator);
 
     window.create();
     window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f));

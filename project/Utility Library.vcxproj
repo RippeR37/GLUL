@@ -125,7 +125,7 @@
     <ClInclude Include="..\include\Utils\Input\EventTypes\MouseMovementEvent.h" />
     <ClInclude Include="..\include\Utils\Input\EventTypes\MouseScrollEvent.h" />
     <ClInclude Include="..\include\Utils\Input\Mouse.h" />
-    <ClInclude Include="..\include\Utils\Input\Trigger.h" />
+    <ClInclude Include="..\include\Utils\Input\EventTrigger.h" />
     <ClInclude Include="..\include\Utils\Input\Types.h" />
     <ClInclude Include="..\include\Utils\Interfaces\Camera.h" />
     <ClInclude Include="..\include\Utils\Interfaces\ImageFile.h" />
@@ -189,7 +189,7 @@
     <ClCompile Include="..\src\Utils\Input\EventTypes\MouseMovementEvent.cpp" />
     <ClCompile Include="..\src\Utils\Input\EventTypes\MouseScrollEvent.cpp" />
     <ClCompile Include="..\src\Utils\Input\Mouse.cpp" />
-    <ClCompile Include="..\src\Utils\Input\Trigger.cpp" />
+    <ClCompile Include="..\src\Utils\Input\EventTrigger.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\Camera.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\ImageFile.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileBMP.cpp" />

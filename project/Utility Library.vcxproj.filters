@@ -251,10 +251,10 @@
     <ClInclude Include="..\include\Utils\Input\Mouse.h">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\Input\Trigger.h">
+    <ClInclude Include="..\include\Utils\Input\EventAggregator.h">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\Input\EventAggregator.h">
+    <ClInclude Include="..\include\Utils\Input\EventTrigger.h">
       <Filter>Header Files\Input</Filter>
     </ClInclude>
   </ItemGroup>
@@ -433,7 +433,7 @@
     <ClCompile Include="..\src\Utils\Input\Mouse.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Utils\Input\Trigger.cpp">
+    <ClCompile Include="..\src\Utils\Input\EventTrigger.cpp">
       <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>

@@ -11,17 +11,17 @@ namespace Util {
 
     namespace Input {
 
-        class Trigger {
+        class EventTrigger {
             public:
-                Trigger(EventAggregator& eventAggregator);
-                ~Trigger();
+                EventTrigger(EventAggregator& eventAggregator);
+                ~EventTrigger();
+                
+                void reset();
 
                 void setFunction(Event::Type type, const std::function<void(Event&)>& trigger);
                 void setFunction(std::initializer_list<Event::Type> types, const std::function<void(Event&)>& trigger);
 
             private:
-                void unregister();
-
                 bool _registered;
                 unsigned int _triggerID;
                 EventAggregator& _eventAggregator;
