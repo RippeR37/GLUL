@@ -14,21 +14,21 @@ namespace GL {
         static FT_Library _FT_library;
 
 
-        Font::Font() {
+        Font::Font() throw(Util::Exception::FatalError) {
             Font::initializeFT();
 
             _height = 0;
             _face = new FT_Face();
         }
 
-        Font::Font(const std::string& path) : Font() {
+        Font::Font(const std::string& path) throw(Util::Exception::FatalError) : Font() {
             load(path);
         }
 
         Font::~Font() {
             FT_Done_Face((*static_cast<FT_Face*>(_face)));
 
-            delete _face;
+            delete static_cast<FT_Face*>(_face);
         }
 
         void Font::load(const std::string& path) {
@@ -187,22 +187,22 @@ namespace GL {
             _texture.unbind();
         }
 
-        const float Font::getLineHeight() const {
+        float Font::getLineHeight() const {
             return static_cast<float>((*static_cast<FT_Face*>(_face))->size->metrics.height) / 64.0f;
         }
 
-        const float Font::getAscender() const {
+        float Font::getAscender() const {
             //_face->size->metrics.ascender
             //_face->ascender
 
             return static_cast<float>((*static_cast<FT_Face*>(_face))->size->metrics.ascender) / 64.0f;
         }
 
-        const float Font::getDescender() const {
+        float Font::getDescender() const {
             return static_cast<float>((*static_cast<FT_Face*>(_face))->size->metrics.descender) / 64.0f;
         }
 
-        const unsigned int Font::getHeight() const {
+        unsigned int Font::getHeight() const {
             return _height;
         }
 
@@ -214,7 +214,7 @@ namespace GL {
             return _texture;
         }
 
-        const Font::Metric& Font::getMetric(char character) const {
+        const Font::Metric& Font::getMetric(unsigned char character) const {
             return _glyphs[character];
         }
 
@@ -223,7 +223,7 @@ namespace GL {
         }
 
 
-        void Font::initializeFT() {
+        void Font::initializeFT() throw(Util::Exception::FatalError) {
             static bool initialized = false;
 
             if(!initialized) {

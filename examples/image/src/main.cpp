@@ -118,6 +118,9 @@ void run() {
                     case Util::Input::Key::Escacpe:
                         window.destroy();
                         break;
+
+                    default:
+                        break;
                 }
             }
         }

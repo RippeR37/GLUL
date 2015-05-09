@@ -9,7 +9,8 @@ namespace Util {
 
         Image ImageFilePNG::read(const std::string& path) const throw(Util::Exception::InitializationFailed) {
             Image image;
-            unsigned int width, height, bits;
+            png_uint_32 width, height;
+            unsigned int bits;
             unsigned char* data;
 
             png_byte header[8];
@@ -19,13 +20,18 @@ namespace Util {
 
 
             FILE *fp = fopen(path.c_str(), "rb");
-            if(fp == 0) {
+            if(fp == nullptr) {
                 image.reset();
                 Util::Log::LibraryStream().logError("Failed to load PNG image file: '" + path + "'");
                 throw Exception::InitializationFailed("Failed to load PNG image file: '" + path + "'");
             }
 
-            fread(header, 1, 8, fp);
+            if(fread(header, 1, 8, fp) != 8) {
+                image.reset();
+                Util::Log::LibraryStream().logError("Loaded file is not a proper PNG image file: '" + path + "'");
+                throw Exception::InitializationFailed("Loaded file is not a proper PNG image file: '" + path + "'");
+            }
+
             if(png_sig_cmp(header, 0, 8)) {
                 fclose(fp);
                 image.reset();
@@ -111,12 +117,15 @@ namespace Util {
             delete[] rowPointers;
 
             // set image's member variables
-            setImage(image, width, height, bits, data);
+            setImage(image, static_cast<unsigned int>(width), static_cast<unsigned int>(height), bits, data);
 
             return image;
         }
 
         void ImageFilePNG::save(const Image& image, const std::string& path) const throw(Util::Exception::InitializationFailed) {
+            (void) image;
+            (void) path;
+
             throw Util::Exception("ImageFilePNG::save(...) not yet implemented");
         }
 

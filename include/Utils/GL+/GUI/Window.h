@@ -10,7 +10,7 @@ namespace GL {
 
     namespace GUI {
 
-        class Window : public Container, public Util::Window {
+        class Window : public Util::Window, public Container {
             public:
                 Window();
                 Window(unsigned int width, unsigned int height, const std::string& title);

@@ -158,8 +158,11 @@ namespace Util {
                 glfwSetKeyCallback(
                     getHandle(), 
                     [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+                        (void) scancode;
+                        (void) mods;
+
                         Util::Input::Key inputKey = static_cast<Util::Input::Key>(key);
-                        Util::Input::Action inputAction;
+                        Util::Input::Action inputAction = Util::Input::Action::Release;
                         Util::Window* inputWindow = Util::Windows::Get(window);
 
                         if(action == GLFW_PRESS)        inputAction = Util::Input::Action::Press;
@@ -179,8 +182,10 @@ namespace Util {
                 glfwSetMouseButtonCallback(
                     getHandle(), 
                     [](GLFWwindow* window, int button, int action, int mods) {
-                        Util::Input::MouseButton inputButton;
-                        Util::Input::Action inputAction;
+                        (void) mods;
+
+                        Util::Input::MouseButton inputButton = Util::Input::MouseButton::Left;
+                        Util::Input::Action inputAction = Util::Input::Action::Release;
                         Util::Window* inputWindow = Util::Windows::Get(window);
 
                         switch(button) {
@@ -211,7 +216,7 @@ namespace Util {
                         if(inputWindow) {
                             inputWindow->eventAggregator.registerEvent(
                                 new Util::Input::MouseMovementEvent(
-                                    static_cast<float>(x), 
+                                    static_cast<float>(x),
                                     static_cast<float>(y)
                                 )
                             );
@@ -224,6 +229,8 @@ namespace Util {
                 glfwSetScrollCallback(
                     getHandle(), 
                     [](GLFWwindow* window, double x, double y) {
+                        (void) x;
+
                         Util::Window* inputWindow;
                         Util::Input::ScrollDirection inputScrollDirection;
                         

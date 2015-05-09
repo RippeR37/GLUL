@@ -1,6 +1,7 @@
 #ifndef UTILS_INPUT_EVENTHANDLER_H_INCLUDED
 #define UTILS_INPUT_EVENTHANDLER_H_INCLUDED
 
+#include <Utils/Helpers/HashEnum.h>
 #include <Utils/Input/Event.h>
 #include <Utils/Input/Types.h>
 
@@ -25,7 +26,7 @@ namespace Util {
                 void _unregisterNotifications();
                 void _removeAggregator(Event::Type type, EventAggregator* eventAggregator);
 
-                std::unordered_map<Event::Type, std::set<EventAggregator*>> _inputEventAggregators;
+                std::unordered_map<Event::Type, std::set<EventAggregator*>, Helper::HashEnum> _inputEventAggregators;
         };
 
     }

@@ -85,7 +85,11 @@ namespace GL {
             return Util::Rectangle(getPosition(), getSize().x, getSize().y);
         }
         
-        Container* const Component::getParent() const {
+        const Container* Component::getParent() const {
+            return _parent;
+        }
+        
+        Container* Component::getParent() {
             return _parent;
         }
 

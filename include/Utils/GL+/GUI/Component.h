@@ -39,7 +39,8 @@ namespace GL {
 
                 const glm::vec2& getSize() const;
                 const Util::Point& getPosition() const;
-                Container* const getParent() const;
+                const Container* getParent() const;
+                Container* getParent();
                 
                 const Util::Point getScreenPosition() const;
                 const Util::Rectangle getBounds() const;

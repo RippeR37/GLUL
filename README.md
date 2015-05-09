@@ -4,6 +4,11 @@ Utility library to simplify using OpenGL written in C++11.
 Library provides:
 - Object-oriented wrapper for OpenGL functionality
     - provides type-safety using strongly typed enumerations
+- Window creation and management
+- Input management
+    - Event based (with aggregators, handlers and triggers)
+    - Keyboard support
+    - Mouse support
 - Interfaces to recurring elements to encourage using polymorphism, like:
     - cameras
     - states
@@ -16,6 +21,7 @@ Library provides:
     - collision detection
     - and others...
 - _GUI module (**yet to be finished**)_
+- Multiplatform support (tested on Windows, Linux and Mac OS)
 
 Library strongly uses C++11 features like move constructors/assignment operators, lambdas, range-based loops, strongly typed pointers (with nullptr), strongly typed enumerations (_enum class_), hash maps etc. when it's clear much would be gained by it.
 
@@ -41,9 +47,27 @@ Library strongly uses C++11 features like move constructors/assignment operators
         - Text/label
     - Containers
     - Font loader (TrueType)
+- Exceptions
+    - FatalError
+    - InitializationFailed
+    - InvalidArgument
 - Frameworks
     - State flow application framework
     - _Interfaces for MVC framework elements_
+- Helpers
+    - HashEnum
+- Input
+    - Event
+        - KeyEvent
+        - MouseButtonEvent
+        - MouseMovementEvent
+        - MouseScrollEvent
+    - EventAggregator
+    - EventHandler
+    - EventTrigger
+    - Keyboard (direct queries)
+    - Mouse (direct queries)
+    - Types (types definitions)
 - Interfaces
     - Cameras
     - Models (2D/3D models)
@@ -71,12 +95,25 @@ Library strongly uses C++11 features like move constructors/assignment operators
     - Rectangles
     - Boxes (through AABB)
 - String manipulation
-- Windows
+- Window management
+    - Window
+    - GUI Window
+    - Windows (window registering, retrieving and management)
+
 
 Documentation for each module should be created soon.
 
 ### Requirements
 - C++11 supporting compiler (project for Visual Studio 2013 provided)
+
+### Platforms tested
+- Windows (tested on Windows 7 x64)
+- Linux (tested on Ubuntu 14.04)
+- Mac OS (tested by user(s))
+
+### Compilers tested
+- MSVC (tested on Visual Studio 2013)
+- GCC (tested on 4.9.2)
 
 ### Dependencies
 - [GLFW](http://www.glfw.org/) (tested on 3.1)

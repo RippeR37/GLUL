@@ -3,6 +3,8 @@
 
 #include <jpeglib.h>
 
+#include <cstring>
+
 namespace Util {
 
     namespace Interface {
@@ -32,7 +34,7 @@ namespace Util {
             jpeg_stdio_src(&cinfo, file);
         
             // Reading header
-            jpeg_read_header(&cinfo, true);
+            jpeg_read_header(&cinfo, TRUE);
 
             // 
             // parameteres for decompression here
@@ -78,6 +80,9 @@ namespace Util {
         }
 
         void ImageFileJPG::save(const Image& image, const std::string& path) const throw(Util::Exception::InitializationFailed) {
+            (void) image;
+            (void) path;
+
             throw Util::Exception("ImageFileJPG::save(...) not yet implemented");
         }
 

@@ -31,9 +31,9 @@ namespace GL {
                 const Font* getFont() const;
                 const std::string& getText() const;
                 const glm::vec4& getColor() const;
-                const float getAlpha() const;
-                const float getScale() const;
-                const unsigned int getFontHeight() const;
+                float getAlpha() const;
+                float getScale() const;
+                unsigned int getFontHeight() const;
                 
                 void setEnabled(bool flag);
                 void setFocused(bool flag);

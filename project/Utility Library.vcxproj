@@ -115,6 +115,7 @@
     <ClInclude Include="..\include\Utils\GL+\Buffer.h" />
     <ClInclude Include="..\include\Utils\GL+\Buffer.hpp" />
     <ClInclude Include="..\include\Utils\GL+\VertexBuffer.h" />
+    <ClInclude Include="..\include\Utils\Helpers\HashEnum.h" />
     <ClInclude Include="..\include\Utils\Image.h" />
     <ClInclude Include="..\include\Utils\Input\Keyboard.h" />
     <ClInclude Include="..\include\Utils\Input\Event.h" />

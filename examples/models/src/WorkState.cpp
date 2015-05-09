@@ -82,6 +82,9 @@ void WorkState::handleInputEvent(const Util::Input::Event& inputEvent) const {
                 case Util::Input::Key::Escacpe: 
                     const_cast<WorkState*>(this)->changeTo(_parentState);
                     break;
+
+                default:
+                    break;
             }
         }
     }

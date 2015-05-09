@@ -1,8 +1,8 @@
 #include <Utils/Window.h>
 #include <Utils/Input/Mouse.h>
 
-#include <gl/glew.h>
-#include <glfw/glfw3.h>
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 namespace Util {
 
@@ -13,7 +13,7 @@ namespace Util {
         }
 
         void Mouse::setMode(CursorMode cursorMode, Util::Window* window) {
-            int libMode;
+            int libMode = GLFW_CURSOR_NORMAL;
 
             if(window) {
                 switch(cursorMode) {
@@ -36,7 +36,7 @@ namespace Util {
 
         Input::Action Mouse::getState(MouseButton mouseButton, Util::Window* window) {
             Input::Action result = Input::Action::Release;
-            int libButton;
+            int libButton = GLFW_MOUSE_BUTTON_LEFT;
             int libResult;
 
             if(window) {

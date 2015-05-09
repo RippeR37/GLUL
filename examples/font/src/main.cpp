@@ -31,6 +31,8 @@ void initVertices(std::vector<glm::vec4>& vertices, const GL::GUI::Font& font) {
     float yS = 1.0f;
     float yE = 0.0f;
 
+    (void) font;
+
     /*
     // Display only one character
     char character = '@';

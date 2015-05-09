@@ -26,15 +26,26 @@ endif()
 # Include directoriesp paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-#find_package(GLFW3)
-#find_package(GLEW)
-#find_packaged(GLM)
+# Include directories for libraries
+set(LIBRARY_INCLUDE_DIR_GLFW "/usr/local/include/GLFW")
+set(LIBRARY_INCLUDE_DIR_GLEW "/usr/include/GL/")
+set(LIBRARY_INCLUDE_DIR_GLM "/usr/local/include/glm/")
+set(LIBRARY_INCLUDE_DIR_FREETYPE2 "/usr/include/freetype2/")
+set(LIBRARY_INCLUDE_DIR_LIBJPEG "/usr/local/include/")
+set(LIBRARY_INCLUDE_DIR_LIBPNG "/usr/include/libpng/")
+
+include_directories(${LIBRARY_INCLUDE_DIR_GLFW})
+include_directories(${LIBRARY_INCLUDE_DIR_GLEW})
+include_directories(${LIBRARY_INCLUDE_DIR_GLM})
+include_directories(${LIBRARY_INCLUDE_DIR_FREETYPE2})
+include_directories(${LIBRARY_INCLUDE_DIR_LIBJPEG})
+include_directories(${LIBRARY_INCLUDE_DIR_LIBPNG})
 
 # Library sources
 set(Utility_Library_SRCS
 	"src/Utils/Exceptions/FatalError.cpp"
 	"src/Utils/Exceptions/InitializationFailed.cpp"
-	"src/Utils/Exceptions/IvalidArgument.cpp"
+	"src/Utils/Exceptions/InvalidArgument.cpp"
 	
 	"src/Utils/Frameworks/Application.cpp"
 	
@@ -63,6 +74,18 @@ set(Utility_Library_SRCS
 	"src/Utils/GL+/VertexAttrib.cpp"
 	"src/Utils/GL+/VertexBuffer.cpp"
 	
+	"src/Utils/Input/EventTypes/KeyEvent.cpp"
+	"src/Utils/Input/EventTypes/MouseButtonEvent.cpp"
+	"src/Utils/Input/EventTypes/MouseMovementEvent.cpp"
+	"src/Utils/Input/EventTypes/MouseScrollEvent.cpp"
+	
+	"src/Utils/Input/Event.cpp"
+	"src/Utils/Input/EventAggregator.cpp"
+	"src/Utils/Input/EventHandler.cpp"
+	"src/Utils/Input/EventTrigger.cpp"
+	"src/Utils/Input/Keyboard.cpp"
+	"src/Utils/Input/Mouse.cpp"
+	
 	"src/Utils/Interfaces/Implementations/ImageFileBMP.cpp"
 	"src/Utils/Interfaces/Implementations/ImageFileJPG.cpp"
 	"src/Utils/Interfaces/Implementations/ImageFilePNG.cpp"
@@ -87,13 +110,14 @@ set(Utility_Library_SRCS
 	"src/Utils/TimeLoop.cpp"
 	"src/Utils/Timer.cpp"
 	"src/Utils/Window.cpp"
+	"src/Utils/Windows.cpp"
 )
 
 # Library headers
 set(Utility_Library_H
 	"include/Utils/Exceptions/FatalError.h"
 	"include/Utils/Exceptions/InitializationFailed.h"
-	"include/Utils/Exceptions/IvalidArgument.h"
+	"include/Utils/Exceptions/InvalidArgument.h"
 	
 	"include/Utils/Frameworks/Application.h"
 	
@@ -123,6 +147,19 @@ set(Utility_Library_H
 	"include/Utils/GL+/VertexAttrib.h"
 	"include/Utils/GL+/VertexBuffer.h"
 	
+	"include/Utils/Input/EventTypes/KeyEvent.h"
+	"include/Utils/Input/EventTypes/MouseButtonEvent.h"
+	"include/Utils/Input/EventTypes/MouseMovementEvent.h"
+	"include/Utils/Input/EventTypes/MouseScrollEvent.h"
+	
+	"include/Utils/Input/Event.h"
+	"include/Utils/Input/EventAggregator.h"
+	"include/Utils/Input/EventHandler.h"
+	"include/Utils/Input/EventTrigger.h"
+	"include/Utils/Input/Keyboard.h"
+	"include/Utils/Input/Mouse.h"
+	"include/Utils/Input/Types.h"
+	
 	"include/Utils/Interfaces/Implementations/ImageFileBMP.h"
 	"include/Utils/Interfaces/Implementations/ImageFileJPG.h"
 	"include/Utils/Interfaces/Implementations/ImageFilePNG.h"
@@ -150,6 +187,7 @@ set(Utility_Library_H
 	"include/Utils/TimeLoop.h"
 	"include/Utils/Timer.h"
 	"include/Utils/Window.h"
+	"include/Utils/Windows.h"
 )
 
 add_library(Utility_Library_SHARED SHARED 
@@ -158,9 +196,13 @@ add_library(Utility_Library_SHARED SHARED
 )
 
 target_link_libraries(Utility_Library_SHARED
-	glfw3
-	GLEW
-	GL
+	glfw3			# GLFW3
+	GLEW			# GLEW
+	GL				# OpenGL
+	freetype		# freetype2
+	png				# libpng
+	jpeg			# libjpeg
+	z				# zlib
 )
 
 
@@ -349,6 +391,52 @@ target_link_libraries(Utility_Library_Example_Image
 
 set_target_properties(Utility_Library_Example_Image PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/image/bin/"
+)
+
+###############################################
+# Input example project
+###############################################
+
+project (Utility_Library_Example_Input CXX)
+
+# Compiler flags
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
+	"${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+	set(WARNINGS "-Wall -Wextra -Werror")
+	set(EXTRA_FLAGS "-std=c++11")
+elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
+	set(WARNINGS "/W4 /WX /EHsc")
+endif()
+
+if (NOT CONFIGURED_ONCE)
+	set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
+	CACHE STRING "Flags used by the compiler during all build types." FORCE)
+endif()
+
+
+# Include directoriesp paths
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# These files are to build input example
+set(Utility_Library_Example_Input_SRCS
+	"examples/input/src/main.cpp"
+)
+
+set(Utility_Library_Example_Input_H
+	
+)
+
+add_executable(Utility_Library_Example_Input 
+	${Utility_Library_Example_Input_SRCS}
+	${Utility_Library_Example_Input_H}
+)
+
+target_link_libraries(Utility_Library_Example_Input
+	Utility_Library_SHARED
+)
+
+set_target_properties(Utility_Library_Example_Input PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "examples/input/bin/"
 )
 
 ###############################################

@@ -1,6 +1,7 @@
 #include <Utils/Logger.h>
 #include <Utils/Interfaces/Implementations/ImageFileTGA.h>
 
+#include <cstring>
 
 namespace Util {
 

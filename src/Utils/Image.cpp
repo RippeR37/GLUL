@@ -15,8 +15,7 @@
 #include <climits>
 #include <fstream>
 #include <iterator>
-
-#include <iostream> // TODO: Remove iostream
+#include <cstring>
 
 namespace Util {
 
@@ -204,8 +203,6 @@ namespace Util {
         glm::uvec2 boundarySize = size;
 
         // Move origin point inside image's boundaries and change input size to match image's size
-        if(boundaryOrigin.x < 0)                            boundaryOrigin.x = 0;
-        if(boundaryOrigin.y < 0)                            boundaryOrigin.y = 0;
         if(boundaryOrigin.x >= getWidth())                  boundaryOrigin.x = getWidth() -1;
         if(boundaryOrigin.y >= getHeight())                 boundaryOrigin.y = getHeight() -1;
 
@@ -506,7 +503,7 @@ namespace Util {
         arraySize = height * rowStride;
 
         for(unsigned long long int rowPtr = 0; rowPtr < arraySize; rowPtr += rowStride) {
-            for(int collumnPtr = 0; collumnPtr < width * (bits / 8); collumnPtr += interval) {
+            for(unsigned int collumnPtr = 0; collumnPtr < width * (bits / 8); collumnPtr += interval) {
                 std::swap(data[rowPtr + collumnPtr + 0], data[rowPtr + collumnPtr + 2]);
             }
         }

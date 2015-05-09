@@ -1,6 +1,7 @@
 #ifndef UTILS_INPUT_EVENTAGGREGATOR_H_INCLUDED
 #define UTILS_INPUT_EVENTAGGREGATOR_H_INCLUDED
 
+#include <Utils/Helpers/HashEnum.h>
 #include <Utils/Input/Event.h>
 #include <Utils/Input/Types.h>
 
@@ -54,8 +55,8 @@ namespace Util {
 
                 unsigned int _nextTriggerID;
                 std::vector<std::unique_ptr<Event>> _events;
-                std::unordered_map<Event::Type, std::set<EventHandler*>> _handlers;
-                std::unordered_map<Event::Type, std::unordered_map<unsigned int, std::function<void(Event&)>>> _triggers;
+                std::unordered_map<Event::Type, std::set<EventHandler*>, Helper::HashEnum> _handlers;
+                std::unordered_map<Event::Type, std::unordered_map<unsigned int, std::function<void(Event&)>>, Helper::HashEnum> _triggers;
         };
 
     }

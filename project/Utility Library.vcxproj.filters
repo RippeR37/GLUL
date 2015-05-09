@@ -66,6 +66,12 @@
     <Filter Include="Source Files\Input\EventTypes">
       <UniqueIdentifier>{cb5d3e34-db88-448f-9d3d-4cec93523804}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{939bbee9-1dbd-4939-8c8b-9a5d4846d694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{e6ef2678-76f6-4b9f-8f49-12f41c168a92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Utils\Clock.h">
@@ -256,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="..\include\Utils\Input\EventTrigger.h">
       <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Helpers\HashEnum.h">
+      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

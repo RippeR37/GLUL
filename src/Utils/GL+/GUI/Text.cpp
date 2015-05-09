@@ -53,6 +53,8 @@ namespace GL {
             if(!isValid())
                 validate();
 
+            (void) deltaTime;
+
             // Nothing to update here
         }
 
@@ -66,7 +68,7 @@ namespace GL {
 
                 vertexData.data = vertices.data();
                 vertexData.size = vertices.size() * sizeof(glm::vec4);
-                vertexData.pointers.push_back(GL::VertexAttrib(0, 4, GL_FLOAT, 0, 0));
+                vertexData.pointers.push_back(GL::VertexAttrib(0, 4, GL_FLOAT, 0, nullptr));
 
 
                 _vbo.bind();
@@ -104,15 +106,15 @@ namespace GL {
             return _color;
         }
 
-        const float Text::getAlpha() const {
+        float Text::getAlpha() const {
             return _color.a;
         }
 
-        const float Text::getScale() const {
+        float Text::getScale() const {
             return _scale;
         }
 
-        const unsigned int Text::getFontHeight() const {
+        unsigned int Text::getFontHeight() const {
             unsigned int result = static_cast<unsigned int>((getFont() ? getFont()->getHeight() : 0) * getScale());
 
             return result;
@@ -209,7 +211,7 @@ namespace GL {
 
             posCursor = bbTopRight = bbBottomLeft = baseLine;
 
-            for(int i = 0; i < _text.size(); ++i) {
+            for(unsigned int i = 0; i < _text.size(); ++i) {
                 character = getText()[i];
                 isDrawn = (std::isgraph(character) > 0);
 

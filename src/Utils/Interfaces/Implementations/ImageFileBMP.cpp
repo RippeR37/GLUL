@@ -1,7 +1,8 @@
 #include <Utils/Logger.h>
 #include <Utils/Interfaces/Implementations/ImageFileBMP.h>
 
-#include <iostream>
+#include <climits>
+#include <cstring>
 
 namespace Util {
 
