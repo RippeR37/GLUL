@@ -6,7 +6,7 @@ namespace Util {
 
     namespace Input {
         
-        std::unordered_map<Event::Type, std::set<EventAggregator*>> _inputEventAggregators;
+        std::unordered_map<Event::Type, std::set<EventAggregator*>, Util::Helper::HashEnum> _inputEventAggregators;
 
         EventHandler::~EventHandler() {
             _unregisterNotifications();

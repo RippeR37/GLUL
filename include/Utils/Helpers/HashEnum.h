@@ -2,6 +2,7 @@
 #define UTILS_HELPERS_HASHENUM_H_INCLUDED
 
 #include <cstddef>
+#include <functional>
 
 namespace Util {
 
