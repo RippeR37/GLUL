@@ -3,11 +3,10 @@
 
 #include <Utils/GL+/Models/OBJ.h>
 #include <Utils/Interfaces/State.h>
-#include <Utils/Input/EventHandler.h>
 
 #include <memory>
 
-class WorkState : public Util::Interface::State, public Util::Input::EventHandler {
+class WorkState : public Util::Interface::State {
     public:
         WorkState(Util::Interface::State* parentState);
         ~WorkState();
@@ -18,7 +17,7 @@ class WorkState : public Util::Interface::State, public Util::Input::EventHandle
         void onUnload();
         void signalExit();
 
-        void handleInputEvent(const Util::Input::Event& inputEvent) const;
+        void handleInputEvent(const Util::Input::Event& inputEvent);
 
     private:
         Util::Interface::State* _parentState;

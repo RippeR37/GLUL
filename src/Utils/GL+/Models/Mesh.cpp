@@ -1,8 +1,6 @@
 #include <Utils/GL+/Models/Mesh.h>
 #include <Utils/GL+/Models/Material.h>
 
-#include <iostream>
-
 namespace GL {
 
     namespace Model {

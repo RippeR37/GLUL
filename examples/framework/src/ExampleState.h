@@ -14,6 +14,8 @@ class ExampleState : public Util::Interface::State {
         void onUnload();
         void signalExit();
 
+        void handleInputEvent(const Util::Input::Event& inputEvent);
+
     private:
         FW::Application& Application;
 };

@@ -19,7 +19,7 @@ class MyInputHandler : public Util::Input::EventHandler {
         /**
          * Handler decides which type of input event it was and redirects it to proper method.
          */
-        void handleInputEvent(const Util::Input::Event& inputEvent) const {
+        void handleInputEvent(const Util::Input::Event& inputEvent) {
             switch(inputEvent.getType()) {
                 case Util::Input::Event::Type::Key: 
                     handleKeyInputEvent(*inputEvent.asKeyEvent()); break;
@@ -38,7 +38,7 @@ class MyInputHandler : public Util::Input::EventHandler {
         /**
          * Handler for keyboard-related events
          */
-        void handleKeyInputEvent(const Util::Input::KeyEvent& keyEvent) const {
+        void handleKeyInputEvent(const Util::Input::KeyEvent& keyEvent) {
             std::string action;
 
             switch(keyEvent.getAction()) {
@@ -55,7 +55,7 @@ class MyInputHandler : public Util::Input::EventHandler {
         /**
          * Handler for mouse-button-related events
          */
-        void handleMouseButtonInputEvent(const Util::Input::MouseButtonEvent& mouseButtonEvent) const {
+        void handleMouseButtonInputEvent(const Util::Input::MouseButtonEvent& mouseButtonEvent) {
             std::string button;
             std::string action;
 
@@ -77,14 +77,14 @@ class MyInputHandler : public Util::Input::EventHandler {
         /**
          * Handler for mouse-movement-related events
          */
-        void handleMouseMovementInputEvent(const Util::Input::MouseMovementEvent& mouseMovementEvent) const {
+        void handleMouseMovementInputEvent(const Util::Input::MouseMovementEvent& mouseMovementEvent) {
             std::cout << "Mouse cursor now points: " << mouseMovementEvent.getX() << "x" << mouseMovementEvent.getY() << std::endl;
         }
         
         /**
          * Handler for mouse-scroll-related events
          */
-        void handleMouseScrollInputEvent(const Util::Input::MouseScrollEvent& mouseScrollEvent) const {
+        void handleMouseScrollInputEvent(const Util::Input::MouseScrollEvent& mouseScrollEvent) {
             std::string direction = (mouseScrollEvent.getDirection() == Util::Input::ScrollDirection::Up ? "up" : "down");
 
             std::cout << "Mouse scroll direction: " << direction << std::endl;
@@ -95,12 +95,16 @@ class MyInputHandler : public Util::Input::EventHandler {
  * Set window to register events with types: Key, MouseButton, MouseMovement, MouseScroll
  */
 void setupInputEvents(Util::Window& window) {
+    window.registerEvents(); // enables registering all events, without need to specify them yourself
+    
+    /*
     window.registerEvents({
         Util::Input::Event::Type::Key,
         Util::Input::Event::Type::MouseButton,
         Util::Input::Event::Type::MouseMovement,
         Util::Input::Event::Type::MouseScroll
     });
+    */
 }
 
 /**
@@ -186,10 +190,9 @@ void run() {
 
     while(window.isCreated() && window.shouldClose() == false) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);
+        window.update();
 
         // do some stuff
-
-        window.update();
     }
 }
 

@@ -5,8 +5,6 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include <iostream>
-
 namespace Util {
 
     bool Window::_hintsSet = false;
@@ -148,6 +146,15 @@ namespace Util {
         _screenshotPath = path;
         _screenshotOrigin = origin;
         _screenshotSize = size;
+    }
+
+    void Window::registerEvents() {
+        registerEvents({
+            Util::Input::Event::Type::Key,
+            Util::Input::Event::Type::MouseButton,
+            Util::Input::Event::Type::MouseMovement,
+            Util::Input::Event::Type::MouseScroll
+        });
     }
 
     void Window::registerEvents(Input::Event::Type type) {

@@ -9,14 +9,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 WorkState::WorkState(Util::Interface::State* parentState) {
-    Util::Window* windowPointer;
     _parentState = parentState;
-
-    // Register event handler
-    windowPointer = Util::Windows::Get("mainWindow");
-    
-    if(windowPointer)
-        windowPointer->eventAggregator.registerHandler(Util::Input::Event::Type::Key, this);
 }
 
 WorkState::~WorkState() {
@@ -40,6 +33,7 @@ void WorkState::render() {
 
 void WorkState::onLoad() {
     GL::Context::Current->setClearColor(glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
+    Util::Windows::Get("FW::Application::Window::1")->eventAggregator.registerHandler(Util::Input::Event::Type::Key, this);
 
     // Set OpenGL settings
     glEnable(GL_DEPTH_TEST);
@@ -66,14 +60,14 @@ void WorkState::onLoad() {
 }
 
 void WorkState::onUnload() {
-
+    Util::Windows::Get("FW::Application::Window::1")->eventAggregator.unregisterHandler(Util::Input::Event::Type::Key, this);
 }
 
 void WorkState::signalExit() {
     changeTo(nullptr);
 }
 
-void WorkState::handleInputEvent(const Util::Input::Event& inputEvent) const {
+void WorkState::handleInputEvent(const Util::Input::Event& inputEvent) {
     if(inputEvent.getType() == Util::Input::Event::Type::Key) {
         const Util::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent();
 

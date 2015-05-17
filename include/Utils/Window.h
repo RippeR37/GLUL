@@ -36,6 +36,7 @@ namespace Util {
             void takeScreenshot(const std::string& path);
             void takeScreenshot(const std::string& path, const glm::ivec2& origin, const glm::ivec2& size);
 
+            void registerEvents();
             void registerEvents(Input::Event::Type type);
             void registerEvents(std::initializer_list<Input::Event::Type> types);
             

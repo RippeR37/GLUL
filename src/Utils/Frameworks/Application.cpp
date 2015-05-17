@@ -5,8 +5,9 @@ namespace FW {
 
     Application::Application() : Window(_window) {
         Util::Log::LibraryStream();
-        setArguments(0, nullptr);
+        Util::Windows::registerWindow(Window, "FW::Application::Window::1");
 
+        setArguments(0, nullptr);
         _state = nullptr;
     }
 
@@ -20,7 +21,6 @@ namespace FW {
         while(getState() != Util::Interface::State::Quit) {
             getWindow().update();
 
-            getState()->handleInput();
             getState()->_update(getWindow().getFrameTime());
             getState()->_render();
 

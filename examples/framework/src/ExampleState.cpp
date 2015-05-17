@@ -2,7 +2,6 @@
 
 #include <Utils/Frameworks/Application.h>
 #include <Utils/TimeLoop.h>
-#include <Utils/AABB.h>
 
 ExampleState::ExampleState(FW::Application& application) : Application(application) {
 
@@ -31,20 +30,42 @@ void ExampleState::onLoad() {
     Application.Window.setSize(800u, 600u);
     Application.Window.setTitle("Title");
     Application.Window.create();
+    Application.Window.registerEvents();
     Application.Window.setDestroyCallback([&]() {
         Application.signalExit();
     });
 
     // OpenGL context settings
     GL::Context::Current->setClearColor(glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
+
+    // Registering state as event handler
+    Util::Windows::Get("FW::Application::Window::1")->eventAggregator.registerHandler(Util::Input::Event::Type::Key, this);
 }
 
 void ExampleState::onUnload() {
     // cleanup
 
-    Application.Window.destroy();
+    // Unregistering state as event handler
+    Util::Windows::Get("FW::Application::Window::1")->eventAggregator.unregisterHandler(Util::Input::Event::Type::Key, this);
 }
 
 void ExampleState::signalExit() {
     changeTo(nullptr);
+}
+
+void ExampleState::handleInputEvent(const Util::Input::Event& inputEvent) {
+    if(inputEvent.getType() == Util::Input::Event::Type::Key) {
+        const Util::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent();
+
+        if(keyEvent.getAction() == Util::Input::Action::Press) {
+            switch(keyEvent.getKey()) {
+                case Util::Input::Key::Escacpe:
+                    signalExit();
+                    break;
+
+                default:
+                    break;
+            }
+        }
+    }
 }

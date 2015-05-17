@@ -20,7 +20,7 @@ namespace Util {
             public:
                 virtual ~EventHandler();
 
-                virtual void handleInputEvent(const Event& inputEvent) const = 0;
+                virtual void handleInputEvent(const Event& inputEvent) = 0;
 
             private:
                 void _unregisterNotifications();
