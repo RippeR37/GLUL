@@ -7,13 +7,11 @@
 namespace Util {
 
     Logger::Logger() {
-        Stream("_Library", "logLibrary.log");
-        Stream("_OpenGL",  "logOpenGL.log");
+
     }
 
     Logger::~Logger() {
-        for(auto& stream : _streams)
-            stream.second.close();
+
     }
 
     Logger& Logger::getInstance() {
@@ -32,10 +30,20 @@ namespace Util {
     }
 
     Logger::LoggerStream& Logger::Stream(const std::string& streamName) {
-        if(getInstance()._streams.count(streamName))
+        if(getInstance()._streams.count(streamName)) 
             return getInstance()._streams[streamName];
         else
-            return getInstance()._streams["Default"];
+            return LibraryStream();
+    }
+
+    Logger::LoggerStream& Logger::LibraryStream() {
+        const std::string libraryStreamName = "_Library";
+        const std::string libraryStreamPath = "logLibrary.log";
+
+        if(getInstance()._streams.count(libraryStreamName) == 0)
+            Stream(libraryStreamName, libraryStreamPath);
+
+        return Stream(libraryStreamName);
     }
 
 
@@ -57,13 +65,15 @@ namespace Util {
 
     void Logger::LoggerStream::log(const std::string& message) {
         if(_name == "" || _path == "" || _stream.is_open() == false) {
-            Logger::Stream("Default").log(message);
+            Logger::LibraryStream().log(message);
 
         } else {
             auto now = std::chrono::system_clock::now();
             auto in_time_t = std::chrono::system_clock::to_time_t(now);
 
+            // comment line below if std::put_time is not supported in your compiler (i.e. GCC < 5.0)
             _stream << std::put_time(std::localtime(&in_time_t), "%Y-%m-%d %X\t");
+
             _stream << message;
             _stream << std::endl;
         }

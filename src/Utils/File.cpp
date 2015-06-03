@@ -3,18 +3,18 @@
 
 namespace Util {
 
-    std::string File::read(const std::string& path, ReadMode mode, bool throwException) {
+    std::string File::read(const std::string& path, ReadMode mode, bool throwException) throw(Util::Exception::FatalError) {
         std::ifstream fileStream;
         std::string result = "";
         std::string line   = "";
 
-        fileStream.open(path, std::fstream::in | mode);
+        fileStream.open(path, std::fstream::in | static_cast<std::ios_base::openmode>(mode));
         if(fileStream.is_open()) {
             while(std::getline(fileStream, line))
                 result += "\n" + line;
             fileStream.close();
         } else {
-            Util::Log::Stream("_Library").logError("Could not open file: '" + path + "'");
+            Util::Log::LibraryStream().logError("Could not open file: '" + path + "'");
 
             if(throwException) {
                 std::string errorMsg = "Could not open file: '" + path + "'";

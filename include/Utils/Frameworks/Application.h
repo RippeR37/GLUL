@@ -10,24 +10,21 @@ namespace FW {
 
     class Application {
         public:
-            static void run(Util::Interface::State* initialState);
-            static void signalExit();
-
-            static const std::string& getArgument(int id) throw(std::out_of_range);
-            static const std::vector<std::string>& getArguments();
-
-            static void setArguments(int argumentsCount, char* arguments[]);
-
-            static Util::Window& Window;
-
-        private:
-            static Application& getInstance();
-            Util::Window& getWindow();
-
-        private:
             Application();
             ~Application();
 
+            void run(Util::Interface::State* initialState);
+            void signalExit();
+
+            const std::string& getArgument(int id) throw(std::out_of_range);
+            const std::vector<std::string>& getArguments();
+
+            void setArguments(int argumentsCount, char* arguments[]);
+
+            Util::Window& Window;
+
+        private:
+            Util::Window& getWindow();
             Util::Interface::State* getState();
             void setState(Util::Interface::State* const newState);
 

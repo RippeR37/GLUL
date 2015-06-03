@@ -37,9 +37,12 @@ namespace Util {
                     friend struct std::pair<const std::string, LoggerStream>;
             };
 
+
         public:
             static LoggerStream& Stream(const std::string& streamName, const std::string& streamPath);
             static LoggerStream& Stream(const std::string& streamName);
+
+            static LoggerStream& LibraryStream();
 
         private:
             Logger();

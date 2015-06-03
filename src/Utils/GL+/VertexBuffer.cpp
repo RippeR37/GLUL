@@ -19,9 +19,10 @@ namespace GL {
     }
 
     VertexBuffer& VertexBuffer::operator=(VertexBuffer&& vbo) {
-        std::swap(_usage,    vbo._usage);
-        std::swap(_target,   vbo._target);
-        std::swap(_bufferID, vbo._bufferID);
+        std::swap(_usage,     vbo._usage);
+        std::swap(_target,    vbo._target);
+        std::swap(_bufferID,  vbo._bufferID);
+        std::swap(_isCreated, vbo._isCreated);
         std::swap(_attributePointers, vbo._attributePointers);
 
         return *this;

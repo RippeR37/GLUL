@@ -1,5 +1,11 @@
 #include <Utils/Clock.h>
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
+#include <string>
+#include <fstream>
+
 namespace Util {
 
     Clock::Clock() {

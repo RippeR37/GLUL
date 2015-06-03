@@ -1,35 +1,49 @@
 #include <Utils/GL+/Texture.h>
 
-#include <iostream>
-
 namespace GL {
     
     Texture::Texture() {
-        create();
+        _isCreated = false;
     }
 
     Texture::Texture(const Util::Image& image, Target target, Format format, InternalFormat internalFormat) {
-        create();
+        _isCreated = false;
 
         load(image, target, format, internalFormat);
     }
 
-    Texture::Texture(const std::string& path, Target target, Format format, InternalFormat internalFormat) {
-        create();
+    Texture::Texture(const std::string& path, Target target, Format format, InternalFormat internalFormat) 
+        throw(Util::Exception::InitializationFailed, Util::Exception::FatalError) 
+    {
+        _isCreated = false;
 
-        Util::Image image(path, Util::Image::Format::Auto);
-        load(image, target, format, internalFormat);
+        try {
+            Util::Image image(path, Util::Image::Format::Auto);
+            load(image, target, format, internalFormat);
+
+        } catch(const Util::Exception::InitializationFailed& exception) {
+            (void) exception;
+
+            throw;
+
+        } catch(const Util::Exception::FatalError& exception) {
+            (void) exception;
+            destroy();
+
+            throw;
+        }
     }
     
     Texture::Texture(Texture&& texture) {
-        create();
+        _isCreated = false;
 
-        std::swap(_isAlpha, texture._isAlpha);
-        std::swap(_width, texture._width);
+        std::swap(_isAlpha,   texture._isAlpha);
+        std::swap(_isCreated, texture._isCreated);
+        std::swap(_width,  texture._width);
         std::swap(_height, texture._height);
         std::swap(_target, texture._target);
-        std::swap(_textureID, texture._textureID);
         std::swap(_format, texture._format);
+        std::swap(_textureID, texture._textureID);
         std::swap(_internalFormat, texture._internalFormat);
     }
 
@@ -39,14 +53,33 @@ namespace GL {
 
     Texture& Texture::operator=(Texture&& texture) {
         std::swap(_isAlpha, texture._isAlpha);
+        std::swap(_isCreated, texture._isCreated);
         std::swap(_width, texture._width);
         std::swap(_height, texture._height);
         std::swap(_target, texture._target);
-        std::swap(_textureID, texture._textureID);
         std::swap(_format, texture._format);
+        std::swap(_textureID, texture._textureID);
         std::swap(_internalFormat, texture._internalFormat);
 
         return *this;
+    }
+
+    void Texture::create() {
+        destroy();
+
+        glGenTextures(1, &_textureID);
+        _isCreated = true;
+
+        setWidth(0);
+        setHeight(0);
+    }
+
+    void Texture::destroy() {
+        if(isCreated()) {
+            glDeleteTextures(1, &_textureID);
+
+            _isCreated = false;
+        }
     }
 
     void Texture::bind() const {
@@ -57,10 +90,19 @@ namespace GL {
         glBindTexture(static_cast<GLenum>(getTarget()), 0);
     }
 
-    void Texture::load(const Util::Image& image, Target target, Format format, InternalFormat internalFormat) {
+    void Texture::load(const Util::Image& image, Target target, Format format, InternalFormat internalFormat) throw(Util::Exception::FatalError) {
         setTarget(target);
         bind();
-        assingData(image, format, internalFormat);
+
+        switch(target) {
+            case Texture::Target::Tex2D: 
+                assingData2D(image, format, internalFormat);
+                break;
+
+            default:
+                throw Util::Exception::FatalError("Load funcionality for non-2D textures is not yet implemented!");
+        }
+        
         setParameters();
         generateMipmap();
         unbind();
@@ -88,7 +130,7 @@ namespace GL {
     void Texture::setData2D(GLsizei width, GLsizei height, GLenum dataType, const GLvoid* data, GLint level) {
         setWidth(width);
         setHeight(height);
-
+        
         glTexImage2D(
             static_cast<GLenum>(getTarget()), 
             level, 
@@ -105,14 +147,14 @@ namespace GL {
     void Texture::setData3D(GLsizei width, GLsizei height, GLsizei depth, GLenum dataType, const GLvoid* data, GLint level) {
         setWidth(width);
         setHeight(height);
-
+        
         glTexImage3D(
             static_cast<GLenum>(getTarget()), 
             level, 
             static_cast<GLenum>(getInternalFromat()), 
             width, 
             height,
-            height,
+            depth,
             0, 
             static_cast<GLenum>(getFormat()), 
             dataType, 
@@ -131,12 +173,12 @@ namespace GL {
         glTexParameteri(static_cast<GLenum>(getTarget()), GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
     }
 
-    void Texture::setParametersI(std::list<std::pair<GLenum, GLint>> parameters) {
+    void Texture::setParameters(std::list<std::pair<GLenum, GLint>> parameters) {
         for(auto& parameter : parameters)
             glTexParameteri(static_cast<GLenum>(getTarget()), parameter.first, parameter.second);
     }
 
-    void Texture::setParametersF(std::list<std::pair<GLenum, GLfloat>> parameters) {
+    void Texture::setParameters(std::list<std::pair<GLenum, GLfloat>> parameters) {
         for(auto& parameter : parameters)
             glTexParameterf(static_cast<GLenum>(getTarget()), parameter.first, parameter.second);
     }
@@ -174,31 +216,23 @@ namespace GL {
     }
 
     GLuint Texture::getID() const {
+        if(!isCreated())
+            const_cast<Texture*>(this)->create();
+
         return _textureID;
     }
 
-    void Texture::create() {
-        glGenTextures(1, &_textureID);
-
-        setWidth(0);
-        setHeight(0);
-    }
-
-    void Texture::destroy() {
-        glDeleteTextures(1, &_textureID);
-    }
-
-    void Texture::assingData(const Util::Image& image, const Format format, const InternalFormat internalFormat) {
+    void Texture::assingData2D(const Util::Image& image, const Format format, const InternalFormat internalFormat) throw(Util::Exception::FatalError) {
         if(format == Format::DefaultFormat) {
             switch(image.getBits()) {
                 case 24: 
                     setInternalFromat(InternalFormat::RGB);
-                    setFormat(Format::BGR);
+                    setFormat(Format::RGB);
                     break;
 
                 case 32:
                     setInternalFromat(InternalFormat::RGBA);
-                    setFormat(Format::BGRA);
+                    setFormat(Format::RGBA);
                     break;
 
                 default:
@@ -220,6 +254,10 @@ namespace GL {
 
     void Texture::setHeight(unsigned int height) {
         _height = height;
+    }
+
+    bool Texture::isCreated() const {
+        return _isCreated;
     }
 
 }

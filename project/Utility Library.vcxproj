@@ -53,7 +53,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>..\libs\glew-1.12.0\include;..\libs\glfw-3.1\include;..\libs\glm-0.9.5.4\include;..\libs\freetype-2.5.5\include;..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libs\glew-1.12.0\include;..\libs\glfw-3.1\include;..\libs\glm-0.9.5.4\include;..\libs\jpeg-9a\include;..\libs\libpng-1.6.17\include;..\libs\freetype-2.5.5\include;..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4290;4996;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ObjectFileName>$(IntDir)\%(RelativeDir)\</ObjectFileName>
       <PreprocessorDefinitions>GLFW_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -70,7 +70,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>..\libs\glew-1.12.0\include;..\libs\glfw-3.1\include;..\libs\glm-0.9.5.4\include;..\libs\freetype-2.5.5\include;..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\libs\glew-1.12.0\include;..\libs\glfw-3.1\include;..\libs\glm-0.9.5.4\include;..\libs\jpeg-9a\include;..\libs\libpng-1.6.17\include;..\libs\freetype-2.5.5\include;..\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4290;4996;4018;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ObjectFileName>$(IntDir)\%(RelativeDir)\</ObjectFileName>
       <PreprocessorDefinitions>GLFW_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -87,7 +87,9 @@
     <ClInclude Include="..\include\Utils\AABB.h" />
     <ClInclude Include="..\include\Utils\Clock.h" />
     <ClInclude Include="..\include\Utils\Exception.h" />
+    <ClInclude Include="..\include\Utils\Exceptions\InitializationFailed.h" />
     <ClInclude Include="..\include\Utils\Exceptions\FatalError.h" />
+    <ClInclude Include="..\include\Utils\Exceptions\InvalidArgument.h" />
     <ClInclude Include="..\include\Utils\File.h" />
     <ClInclude Include="..\include\Utils\Frameworks\Application.h" />
     <ClInclude Include="..\include\Utils\GL+\Context.h" />
@@ -95,8 +97,9 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Component.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Container.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Event.h" />
-    <ClInclude Include="..\include\Utils\GL+\GUI\Window.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Font.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Text.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Window.h" />
     <ClInclude Include="..\include\Utils\GL+\MatrixStack.h" />
     <ClInclude Include="..\include\Utils\GL+\Models\Material.h" />
     <ClInclude Include="..\include\Utils\GL+\Models\Mesh.h" />
@@ -112,8 +115,25 @@
     <ClInclude Include="..\include\Utils\GL+\Buffer.h" />
     <ClInclude Include="..\include\Utils\GL+\Buffer.hpp" />
     <ClInclude Include="..\include\Utils\GL+\VertexBuffer.h" />
+    <ClInclude Include="..\include\Utils\Helpers\HashEnum.h" />
     <ClInclude Include="..\include\Utils\Image.h" />
+    <ClInclude Include="..\include\Utils\Input\Keyboard.h" />
+    <ClInclude Include="..\include\Utils\Input\Event.h" />
+    <ClInclude Include="..\include\Utils\Input\EventAggregator.h" />
+    <ClInclude Include="..\include\Utils\Input\EventHandler.h" />
+    <ClInclude Include="..\include\Utils\Input\EventTypes\KeyEvent.h" />
+    <ClInclude Include="..\include\Utils\Input\EventTypes\MouseButtonEvent.h" />
+    <ClInclude Include="..\include\Utils\Input\EventTypes\MouseMovementEvent.h" />
+    <ClInclude Include="..\include\Utils\Input\EventTypes\MouseScrollEvent.h" />
+    <ClInclude Include="..\include\Utils\Input\Mouse.h" />
+    <ClInclude Include="..\include\Utils\Input\EventTrigger.h" />
+    <ClInclude Include="..\include\Utils\Input\Types.h" />
     <ClInclude Include="..\include\Utils\Interfaces\Camera.h" />
+    <ClInclude Include="..\include\Utils\Interfaces\ImageFile.h" />
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileBMP.h" />
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileJPG.h" />
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFilePNG.h" />
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileTGA.h" />
     <ClInclude Include="..\include\Utils\Interfaces\Model.h" />
     <ClInclude Include="..\include\Utils\Interfaces\MVC\ExtendedView.h" />
     <ClInclude Include="..\include\Utils\Interfaces\MVC\View.h" />
@@ -127,12 +147,15 @@
     <ClInclude Include="..\include\Utils\TimeLoop.h" />
     <ClInclude Include="..\include\Utils\Timer.h" />
     <ClInclude Include="..\include\Utils\Window.h" />
+    <ClInclude Include="..\include\Utils\Windows.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\AABB.cpp" />
     <ClCompile Include="..\src\Utils\Clock.cpp" />
     <ClCompile Include="..\src\Utils\Exception.cpp" />
     <ClCompile Include="..\src\Utils\Exceptions\FatalError.cpp" />
+    <ClCompile Include="..\src\Utils\Exceptions\InitializationFailed.cpp" />
+    <ClCompile Include="..\src\Utils\Exceptions\InvalidArgument.cpp" />
     <ClCompile Include="..\src\Utils\File.cpp" />
     <ClCompile Include="..\src\Utils\Frameworks\Application.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Context.cpp" />
@@ -140,6 +163,7 @@
     <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Font.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp" />
     <ClCompile Include="..\src\Utils\GL+\MatrixStack.cpp" />
@@ -157,7 +181,22 @@
     <ClCompile Include="..\src\Utils\GL+\Buffer.cpp" />
     <ClCompile Include="..\src\Utils\GL+\VertexBuffer.cpp" />
     <ClCompile Include="..\src\Utils\Image.cpp" />
+    <ClCompile Include="..\src\Utils\Input\Keyboard.cpp" />
+    <ClCompile Include="..\src\Utils\Input\Event.cpp" />
+    <ClCompile Include="..\src\Utils\Input\EventAggregator.cpp" />
+    <ClCompile Include="..\src\Utils\Input\EventHandler.cpp" />
+    <ClCompile Include="..\src\Utils\Input\EventTypes\KeyEvent.cpp" />
+    <ClCompile Include="..\src\Utils\Input\EventTypes\MouseButtonEvent.cpp" />
+    <ClCompile Include="..\src\Utils\Input\EventTypes\MouseMovementEvent.cpp" />
+    <ClCompile Include="..\src\Utils\Input\EventTypes\MouseScrollEvent.cpp" />
+    <ClCompile Include="..\src\Utils\Input\Mouse.cpp" />
+    <ClCompile Include="..\src\Utils\Input\EventTrigger.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\Camera.cpp" />
+    <ClCompile Include="..\src\Utils\Interfaces\ImageFile.cpp" />
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileBMP.cpp" />
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileJPG.cpp" />
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFilePNG.cpp" />
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileTGA.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\Model.cpp" />
     <ClCompile Include="..\src\Utils\Interfaces\State.cpp" />
     <ClCompile Include="..\src\Utils\Line.cpp" />
@@ -169,6 +208,7 @@
     <ClCompile Include="..\src\Utils\TimeLoop.cpp" />
     <ClCompile Include="..\src\Utils\Timer.cpp" />
     <ClCompile Include="..\src\Utils\Window.cpp" />
+    <ClCompile Include="..\src\Utils\Windows.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

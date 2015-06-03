@@ -15,17 +15,11 @@
     <Filter Include="Header Files\GL+">
       <UniqueIdentifier>{f64fdde1-64a9-4c0e-8689-4c7359dfc8ee}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GL+\GUI">
-      <UniqueIdentifier>{785a6666-51a4-4ed3-baa3-37504f8182c1}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Exceptions">
       <UniqueIdentifier>{4dfe5b47-cb01-484f-861e-b3f277831a9e}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\GL+">
       <UniqueIdentifier>{d8678c51-c519-45c9-bcc6-dfd52235f5b9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GL+\GUI">
-      <UniqueIdentifier>{ff9835f0-232d-4d12-b80b-822bb8b6aeb3}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Interfaces">
       <UniqueIdentifier>{ac034dfa-b8ce-48fe-a70d-8e48daf1f94e}</UniqueIdentifier>
@@ -47,6 +41,36 @@
     </Filter>
     <Filter Include="Source Files\GL+\Models">
       <UniqueIdentifier>{64976592-a0d6-4ffb-a712-7c64efae302f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interfaces\Implementations">
+      <UniqueIdentifier>{685b5d62-999f-4deb-bb40-9e04d51fefdc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interfaces\Implementations">
+      <UniqueIdentifier>{071a0369-0cb2-48ad-ba5b-90b5835ba825}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GL+\GUI">
+      <UniqueIdentifier>{c999d687-d1f2-4adb-9d9f-28728cf6b0bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GL+\GUI">
+      <UniqueIdentifier>{2e24fbb4-d29b-4d30-835a-3a91c1e178c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{cf6607eb-f931-4851-967e-741563b55e96}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{077c47cc-6c99-4ac1-84d6-1b9598f1e062}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input\EventTypes">
+      <UniqueIdentifier>{92869b03-f9f5-4216-a36b-b086fd427931}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input\EventTypes">
+      <UniqueIdentifier>{cb5d3e34-db88-448f-9d3d-4cec93523804}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{939bbee9-1dbd-4939-8c8b-9a5d4846d694}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Helpers">
+      <UniqueIdentifier>{e6ef2678-76f6-4b9f-8f49-12f41c168a92}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -113,21 +137,6 @@
     <ClInclude Include="..\include\Utils\GL+\VertexAttrib.h">
       <Filter>Header Files\GL+</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Component.h">
-      <Filter>Header Files\GL+\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Container.h">
-      <Filter>Header Files\GL+\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Event.h">
-      <Filter>Header Files\GL+\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Text.h">
-      <Filter>Header Files\GL+\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Window.h">
-      <Filter>Header Files\GL+\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Utils\Interfaces\State.h">
       <Filter>Header Files\Interfaces</Filter>
     </ClInclude>
@@ -178,6 +187,84 @@
     </ClInclude>
     <ClInclude Include="..\include\Utils\Logger.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Exceptions\InitializationFailed.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Exceptions\InvalidArgument.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\ImageFile.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileBMP.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileTGA.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFileJPG.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Interfaces\Implementations\ImageFilePNG.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Component.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Container.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Event.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Font.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Text.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Window.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\Event.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventTypes\KeyEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventTypes\MouseButtonEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventTypes\MouseMovementEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventTypes\MouseScrollEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\Types.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventHandler.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Windows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\Keyboard.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\Mouse.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventAggregator.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Input\EventTrigger.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\Helpers\HashEnum.h">
+      <Filter>Header Files\Helpers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -244,21 +331,6 @@
     <ClCompile Include="..\src\Utils\GL+\VertexAttrib.cpp">
       <Filter>Source Files\GL+</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp">
-      <Filter>Source Files\GL+\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp">
-      <Filter>Source Files\GL+\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp">
-      <Filter>Source Files\GL+\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp">
-      <Filter>Source Files\GL+\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp">
-      <Filter>Source Files\GL+\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\src\Utils\Interfaces\State.cpp">
       <Filter>Source Files\Interfaces</Filter>
     </ClCompile>
@@ -300,6 +372,78 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\Logger.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Exceptions\InitializationFailed.cpp">
+      <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Exceptions\InvalidArgument.cpp">
+      <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileBMP.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\ImageFile.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileTGA.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFileJPG.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Interfaces\Implementations\ImageFilePNG.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Font.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventAggregator.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\Event.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventTypes\KeyEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventTypes\MouseButtonEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventTypes\MouseMovementEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventTypes\MouseScrollEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventHandler.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Windows.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\Keyboard.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\Mouse.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\Input\EventTrigger.cpp">
+      <Filter>Source Files\Input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

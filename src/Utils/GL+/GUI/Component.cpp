@@ -5,23 +5,36 @@ namespace GL {
 
     namespace GUI {
 
-        Component::Component() {
-            clearListeners();
-            setParent(nullptr);
-        }
-        
         Component::Component(Container* const parent) {
+            setVisible(true);
+            setEnabled(true);
+            setFocused(false);
+            setSize(glm::vec2(0.0f));
+            setPosition(glm::vec2(0.0f));
+            
             clearListeners();
-            setParent(parent);
+            setInvalid();
+
+            bindTo(parent);
         }
 
         Component::~Component() {
-            notifyDestructionParent();
+            notifyParentOfDestruction();
+        }
+
+        void Component::bindTo(Container* container) {
+            notifyParentOfDestruction();
+
+            if(container)
+                container->add(this);
+            else
+                setParent(nullptr);
         }
 
         void Component::processEvent(const Event& event) {
-            for(auto& listener : _listeners[static_cast<int>(event.getType())])
-                listener(event);
+            if(isEnabled())
+                for(auto& listener : _listeners[static_cast<int>(event.getType())])
+                    listener(event);
         }
 
         void Component::addListener(Event::Type eventType, std::function<void(const Event&)> function) {
@@ -49,6 +62,10 @@ namespace GL {
             return _isVisible;
         }
 
+        bool Component::isValid() const {
+            return _isValid;
+        }
+
         const glm::vec2& Component::getSize() const {
             return _size;
         }
@@ -65,55 +82,68 @@ namespace GL {
         }
 
         const Util::Rectangle Component::getBounds() const {
-            return Util::Rectangle(_position, _size.x, _size.y);
+            return Util::Rectangle(getPosition(), getSize().x, getSize().y);
         }
         
-        Container* const Component::getParent() const {
+        const Container* Component::getParent() const {
+            return _parent;
+        }
+        
+        Container* Component::getParent() {
             return _parent;
         }
 
         void Component::setEnabled(bool flag) {
             _isEnabled = flag;
 
-            notifyDestructionParent();
+            setInvalid();
         }
         
         void Component::setFocused(bool flag) {
             _isFocused = flag;
 
-            notifyDestructionParent();
+            setInvalid();
         }
 
         void Component::setVisible(bool flag) {
             _isVisible = flag;
 
-            notifyDestructionParent();
+            setInvalid();
+        }
+
+        void Component::setInvalid() {
+            _isValid = false;
         }
 
         void Component::setSize(const glm::vec2& size) {
             _size = size;
 
-            notifyDestructionParent();
+            setInvalid();
+        }
+        
+        void Component::setPosition(const glm::vec2& position) {
+            _position.setPoint(position);
+
+            setInvalid();
         }
 
         void Component::setPosition(const Util::Point& position) {
             _position = position;
 
-            notifyDestructionParent();
+            setInvalid();
+        }
+
+        void Component::setValid() {
+            _isValid = true;
         }
         
         void Component::setParent(Container* const parent) {
             _parent = parent;
         }
 
-        void Component::notifyDestructionParent() {
+        void Component::notifyParentOfDestruction() {
             if(getParent())
                 getParent()->handleChildDestruction(this);
-        }
-        
-        void Component::notifyInvalidParent() {
-            if(getParent())
-                getParent()->setInvalid();
         }
 
     }

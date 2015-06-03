@@ -1,17 +1,17 @@
 #ifndef UTILS_INTERFACES_STATE_H_INCLUDED
 #define UTILS_INTERFACES_STATE_H_INCLUDED
 
+#include <Utils/Input/EventHandler.h>
+
 namespace FW {
-
     class Application;
-
 }
 
 namespace Util {
     
     namespace Interface {
 
-        class State {
+        class State : public Input::EventHandler {
             public:
                 State();
                 virtual ~State();
@@ -22,22 +22,23 @@ namespace Util {
                 virtual void onUnload() = 0;
 
                 virtual void signalExit() = 0;
-                virtual void handleInput();
+                virtual void handleInputEvent(const Input::Event& inputEvent);
 
                 State* getNext();
 
                 static const State* const Quit;
 
             protected:
-                void _update(const double frameTime);
-                void _render();
-                void _onLoad();
-                void _onUnload();
-
                 void changeTo(State* nextState);
                 bool shouldSkip();
 
                 State* _next;
+
+            private:
+                void _update(const double frameTime);
+                void _render();
+                void _onLoad();
+                void _onUnload();
 
             public:
                 friend class FW::Application;

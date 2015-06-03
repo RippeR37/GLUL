@@ -17,14 +17,16 @@ namespace GL {
 
         class Component {
             public:
-                Component();
-                Component(Container* const parent);
+                Component(Container* const parent = nullptr);
                 virtual ~Component();
                 
-                virtual void render() = 0;
+                void bindTo(Container* container);
+
+                virtual void render() const = 0;
                 virtual void update(double deltaTime) = 0;
-                
-                void processEvent(const Event& event);
+
+                virtual void validate() const = 0;
+                virtual void processEvent(const Event& event);
                 
                 void addListener(Event::Type eventType, std::function<void(const Event&)> function);
                 void clearListeners();
@@ -33,29 +35,35 @@ namespace GL {
                 bool isEnabled() const;
                 bool isFocused() const;
                 bool isVisible() const;
+                bool isValid() const;
 
                 const glm::vec2& getSize() const;
                 const Util::Point& getPosition() const;
-                Container* const getParent() const;
+                const Container* getParent() const;
+                Container* getParent();
                 
                 const Util::Point getScreenPosition() const;
                 const Util::Rectangle getBounds() const;
 
-                void setEnabled(bool flag);
-                void setFocused(bool flag);
-                void setVisible(bool flag);
+                virtual void setEnabled(bool flag);
+                virtual void setFocused(bool flag);
+                virtual void setVisible(bool flag);
+                virtual void setInvalid();
                 
                 virtual void setSize(const glm::vec2& size);
-                void setPosition(const Util::Point& position);
+                virtual void setPosition(const glm::vec2& position);
+                virtual void setPosition(const Util::Point& position);
+                
 
             protected:
+                void setValid();
                 void setParent(Container* const parent);
-                void notifyDestructionParent();
-                void notifyInvalidParent();
+                void notifyParentOfDestruction();
 
                 bool _isEnabled;
                 bool _isFocused;
                 bool _isVisible;
+                bool _isValid;
 
                 glm::vec2 _size;
                 Util::Point _position;

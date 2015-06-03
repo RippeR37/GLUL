@@ -136,7 +136,7 @@ namespace Util {
             vao.bind();
                 vbo.bind();
                     vao.enableAttrib(0);
-                    vao.setAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+                    vao.setAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
                 vbo.unbind();
             vao.unbind();
 

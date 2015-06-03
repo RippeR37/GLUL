@@ -2,6 +2,8 @@
 #include <Utils/Point.h>
 #include <Utils/Logger.h>
 
+#include <glm/geometric.hpp>
+
 namespace Util {
 
     Line::Line() {
@@ -35,7 +37,7 @@ namespace Util {
 
     void Line::setLine(const glm::vec2& start, const glm::vec2& end) {
         if(start == end)
-            Util::Log::Stream("_Library").logWarning("Line should not start and end in same point");
+            Util::Log::LibraryStream().logWarning("Line should not start and end in same point");
 
         if(start.x < end.x || (start.x == end.x && start.y < end.y)) {
             _point1 = start;

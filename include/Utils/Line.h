@@ -4,7 +4,6 @@
 #include <Utils/Point.h>
 
 #include <glm/vec2.hpp>
-#include <glm/geometric.hpp>
 
 namespace Util {
 

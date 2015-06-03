@@ -6,7 +6,6 @@
 #include <Utils/GL+/MatrixStack.h>
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <glm/matrix.hpp>
 
 namespace GL {

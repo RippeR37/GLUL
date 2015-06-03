@@ -23,6 +23,7 @@ namespace GL {
                 bool clear();
 
                 void render(const GL::Pipeline& pipeline, const GL::Program& program) const;
+                void renderAABB(const GL::Pipeline& pipeline, bool detailed) const;
                 void printStats(bool withDetails = false) const;
 
                 void computeNormals(NormalType type = NormalType::Default, bool overwrite = false);

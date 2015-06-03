@@ -1,5 +1,8 @@
 #include <Utils/Timer.h>
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 namespace Util {
 
     Timer::Timer() {
@@ -15,7 +18,7 @@ namespace Util {
         return event.getID();
     }
 
-    void Timer::deleteEvent(int id) {
+    void Timer::deleteEvent(unsigned int id) {
         _events.remove_if([id](const TimeEvent& event) -> bool { return event.getID() == id; });
     }
 

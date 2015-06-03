@@ -8,7 +8,7 @@ namespace Util {
         _accumulator = 0.0;
     }
 
-    void TimeLoop::fixed(double time, double timeStep, std::function<void(double deltaTime)> function) {
+    void TimeLoop::fixed(double time, double timeStep, const std::function<void(double deltaTime)>& function) {
         _accumulator += time;
 
         while(_accumulator > timeStep) {
@@ -17,11 +17,11 @@ namespace Util {
         }
     }
 
-    void TimeLoop::variable(double time, std::function<void(double deltaTime)> function) {
+    void TimeLoop::variable(double time, const std::function<void(double deltaTime)>& function) {
         function(time);
     }
 
-    void TimeLoop::semiFixed(double time, double timeStep, std::function<void(double deltaTime)> function) {
+    void TimeLoop::semiFixed(double time, double timeStep, const std::function<void(double deltaTime)>& function) {
         double currentTimeStep;
 
         while(time > 0) {

@@ -4,7 +4,6 @@
 #include <Utils/GL+/VertexBuffer.h>
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 
 #include <list>
 
@@ -30,9 +29,14 @@ namespace GL {
         public:
             VertexArray();
             VertexArray(VertexArray&& vao);
+            VertexArray(const VertexArray&) = delete;
             ~VertexArray();
 
+            VertexArray& operator=(const VertexArray&) = delete;
             VertexArray& operator=(VertexArray&& vao);
+
+            void create();
+            void destroy();
 
             void bind() const;
             void unbind() const;
@@ -61,12 +65,10 @@ namespace GL {
             const std::list<const VertexBuffer*>& getAttachedVBOs() const;
 
         private:
-            VertexArray& operator=(const VertexArray&);
-            VertexArray(const VertexArray&);
+            bool isCreated() const;
 
-            void create();
-            void destroy();
 
+            bool _isCreated;
             bool _isDrawTargetSet;
             bool _isDrawCountSet;
 

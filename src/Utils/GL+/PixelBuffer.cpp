@@ -23,6 +23,7 @@ namespace GL {
         std::swap(_target, pbo._target);
         std::swap(_bufferID, pbo._bufferID);
         std::swap(_operation, pbo._operation);
+        std::swap(_isCreated, pbo._isCreated);
 
         return *this;
     }

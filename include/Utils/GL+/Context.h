@@ -2,7 +2,7 @@
 #define UTILS_GL_CONTEXT_H_INCLUDED
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
 
 namespace Util {
@@ -25,6 +25,7 @@ namespace GL {
 
         public:
             Context();
+            ~Context();
 
             void makeActive(Util::Window* window);
             void bindWindow(Util::Window* window);
@@ -37,15 +38,23 @@ namespace GL {
             void setClearColor(const glm::vec4& data);
             void setClearDepth(const GLclampf value);
             void setClearStencil(const GLint value);
+
+            void setViewport(GLint x, GLint y, GLint width, GLint height);
+            void setViewport(const glm::ivec2& position, const glm::ivec2& size);
             
 
             const glm::vec4& getClearColor() const;
             GLclampf getClearDepth() const;
             GLint getClearStencil() const;
 
-            static void APIENTRY logError(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
+            const glm::ivec2& getViewportSize() const;
+            const glm::ivec2& getViewportPosition() const;
 
-            static Context& Current;
+            Util::Window* getWindow();
+
+            static void GLAPIENTRY logError(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
+
+            static Context* Current;
             static Context DefaultContext;
 
         private:
@@ -57,6 +66,9 @@ namespace GL {
             glm::vec4 _clearColor;
             GLclampf _clearDepth;
             GLint _clearStencil;
+
+            glm::ivec2 _viewportSize;
+            glm::ivec2 _viewportPosition;
 
             Util::Window* _window;
     };

@@ -1,16 +1,28 @@
-#include <Utils/Window.h>
-#include <Utils/Clock.h>
 #include <Utils/Logger.h>
+#include <Utils/Window.h>
+#include <Utils/Windows.h>
+
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
 
 namespace Util {
 
-    Window::Window() {
-        _handle = nullptr;
+    bool Window::_hintsSet = false;
 
-        // Default options
-        _windowSize = glm::uvec2(640, 480);
-        _windowPosition = glm::ivec2(50, 50);
-        _title = std::string("Title");
+    Window::Window() : Window(640, 480, "Title") {
+        Windows::Get(static_cast<Util::Window*>(nullptr));
+    }
+    
+    Window::Window(unsigned int width, unsigned int height, const std::string& title) {
+        Windows::Get(static_cast<Util::Window*>(nullptr));
+
+        _handle = nullptr;
+        _hintsSet = false;
+        _isScreenshotFlagSet = false;
+        _framesCount = 0;
+
+        setSize(glm::uvec2(width, height));
+        setTitle(title);
 
         setCountingFPS(false);
         setDisplayingFPS(false);
@@ -18,29 +30,9 @@ namespace Util {
             destroy();
         });
     }
-    
-    Window::Window(unsigned int width, unsigned int height, const std::string& title) {
-        _handle = nullptr;
 
-        setSize(glm::uvec2(width, height));
-        setTitle(title);
+    Window::Window(const glm::uvec2& size, const std::string& title) : Window(size.x, size.y, title) {
 
-        setCountingFPS(false);
-        setDisplayingFPS(false);
-
-        create();
-    }
-
-    Window::Window(const glm::uvec2& size, const std::string& title) {
-        _handle = nullptr;
-
-        setSize(size);
-        setTitle(title);
-
-        setCountingFPS(false);
-        setDisplayingFPS(false);
-
-        create();
     }
 
     Window::~Window() {
@@ -51,22 +43,30 @@ namespace Util {
         return getHandle();
     }
 
-    bool Window::create() {
+    bool Window::create() throw(Util::Exception::FatalError) {
         if(isCreated())
             destroy();
 
-        Window::initializeGLFW();
+        initializeGLFW();
 
-        setHints();
+        if(_hintsSet == false)
+            setDefaultHints();
 
         _handle = glfwCreateWindow(getWidth(), getHeight(), _title.c_str(), nullptr, nullptr);
 
+        Windows::registerWindow(this);
+
+        setFocusCallback();
+
         setContext();
 
-        Window::initializeGLEW();
+        initializeGLEW();
+
+        _lastFrame = glfwGetTime();
+        _fpsClock.reset();
 
         if(isCreated())
-            Util::Log::Stream("_Library").log(
+            Util::Log::LibraryStream().log(
                 "Window '" + getTitle() + "' has been created with size: " +
                 std::to_string(getSize().x) + "x" + std::to_string(getSize().y)
             );
@@ -75,12 +75,6 @@ namespace Util {
     }
 
     void Window::update() {
-        static double lastFrame = glfwGetTime();
-        static double thisFrame;
-        static Clock fpsClock;
-        static double fpsTime;
-        static unsigned int framesCount = 0;
-
         if(glfwWindowShouldClose(getHandle())) {
             if(_destroyCallback)
                 _destroyCallback();
@@ -88,19 +82,24 @@ namespace Util {
             return;
         }
 
-        thisFrame  = glfwGetTime();
-        _frameTime = thisFrame - lastFrame;
-        lastFrame  = thisFrame;
+        if(_isScreenshotFlagSet) {
+            getScreenshotNow(_screenshotOrigin, _screenshotSize).save(_screenshotPath);
+            _isScreenshotFlagSet = false;
+        }
+
+        _thisFrame  = glfwGetTime();
+        _frameTime = _thisFrame - _lastFrame;
+        _lastFrame  = _thisFrame;
         
         glfwSwapBuffers(_handle);
         glfwPollEvents();
 
         if(isCountingFPS()) {
-            framesCount += 1;
-            fpsTime = fpsClock.getElapsedTime();
+            _framesCount += 1;
+            _fpsTime = _fpsClock.getElapsedTime();
 
-            if(fpsTime > getFPSRefreshRate()) {
-                setFPSCount(static_cast<unsigned int>(framesCount * (1.0 / fpsTime)));
+            if(_fpsTime > getFPSRefreshRate()) {
+                setFPSCount(static_cast<unsigned int>(_framesCount * (1.0 / _fpsTime)));
 
                 if(isDisplayingFPS())
                     appendTitle(std::string(" | FPS: ") + std::to_string(getFPS()));
@@ -108,18 +107,181 @@ namespace Util {
                 if(_fpsCountCallback)
                     _fpsCountCallback(getFPS());
 
-                framesCount = 0;
-                fpsClock.reset();
+                _framesCount = 0;
+                _fpsClock.reset();
             }
         }
+
+        eventAggregator.notifyAll();
     }
 
     void Window::destroy() {
         if(isCreated()) {
+            skipEvents();
+
             glfwDestroyWindow(_handle);
             _handle = nullptr;
 
-            Util::Log::Stream("_Library").log("Window '" + getTitle() + "' has been destroyed");
+            Util::Log::LibraryStream().log("Window '" + getTitle() + "' has been destroyed");
+            Windows::unregisterWindow(this);
+        }
+    }
+
+    void Window::takeScreenshot() {
+        std::string fileLocation;
+        std::string fileName;
+
+        fileLocation = "";
+        fileName = "screenshot.bmp";
+
+        takeScreenshot(fileLocation + fileName);
+    }
+
+    void Window::takeScreenshot(const std::string& path) {
+        takeScreenshot(path, glm::ivec2(0, 0), getSize());
+    }
+
+    void Window::takeScreenshot(const std::string& path, const glm::ivec2& origin, const glm::ivec2& size) {
+        _isScreenshotFlagSet = true;
+        _screenshotPath = path;
+        _screenshotOrigin = origin;
+        _screenshotSize = size;
+    }
+
+    void Window::registerEvents() {
+        registerEvents({
+            Util::Input::Event::Type::Key,
+            Util::Input::Event::Type::MouseButton,
+            Util::Input::Event::Type::MouseMovement,
+            Util::Input::Event::Type::MouseScroll
+        });
+    }
+
+    void Window::registerEvents(Input::Event::Type type) {
+        getContext().makeActive(this);
+
+        switch(type) {
+            case Input::Event::Type::Key:
+                glfwSetKeyCallback(
+                    getHandle(), 
+                    [](GLFWwindow* window, int key, int scancode, int action, int mods) {
+                        (void) scancode;
+                        (void) mods;
+
+                        Util::Input::Key inputKey = static_cast<Util::Input::Key>(key);
+                        Util::Input::Action inputAction = Util::Input::Action::Release;
+                        Util::Window* inputWindow = Util::Windows::Get(window);
+
+                        if(action == GLFW_PRESS)        inputAction = Util::Input::Action::Press;
+                        else if(action == GLFW_REPEAT)  inputAction = Util::Input::Action::Repeat;
+                        else if(action == GLFW_RELEASE) inputAction = Util::Input::Action::Release;
+
+                        if(inputWindow) {
+                            inputWindow->eventAggregator.registerEvent(
+                                new Util::Input::KeyEvent(inputKey, inputAction)
+                            );
+                        }
+                    }
+                );
+                break;
+
+            case Input::Event::Type::MouseButton:
+                glfwSetMouseButtonCallback(
+                    getHandle(), 
+                    [](GLFWwindow* window, int button, int action, int mods) {
+                        (void) mods;
+
+                        Util::Input::MouseButton inputButton = Util::Input::MouseButton::Left;
+                        Util::Input::Action inputAction = Util::Input::Action::Release;
+                        Util::Window* inputWindow = Util::Windows::Get(window);
+
+                        switch(button) {
+                            case GLFW_MOUSE_BUTTON_LEFT:   inputButton = Util::Input::MouseButton::Left; break;
+                            case GLFW_MOUSE_BUTTON_RIGHT:  inputButton = Util::Input::MouseButton::Right; break;
+                            case GLFW_MOUSE_BUTTON_MIDDLE: inputButton = Util::Input::MouseButton::Middle; break;
+                        }
+
+                        if(action == GLFW_PRESS)        inputAction = Util::Input::Action::Press;
+                        else if(action == GLFW_REPEAT)  inputAction = Util::Input::Action::Repeat;
+                        else if(action == GLFW_RELEASE) inputAction = Util::Input::Action::Release;
+
+                        if(inputWindow) {
+                            inputWindow->eventAggregator.registerEvent(
+                                new Util::Input::MouseButtonEvent(inputButton, inputAction)
+                            );
+                        }
+                    }
+                );
+                break;
+
+            case Input::Event::Type::MouseMovement:
+                glfwSetCursorPosCallback(
+                    getHandle(), 
+                    [](GLFWwindow* window, double x, double y) {
+                        Util::Window* inputWindow = Util::Windows::Get(window);
+
+                        if(inputWindow) {
+                            inputWindow->eventAggregator.registerEvent(
+                                new Util::Input::MouseMovementEvent(
+                                    static_cast<float>(x),
+                                    static_cast<float>(y)
+                                )
+                            );
+                        }
+                    }
+                );
+                break;
+
+            case Input::Event::Type::MouseScroll:
+                glfwSetScrollCallback(
+                    getHandle(), 
+                    [](GLFWwindow* window, double x, double y) {
+                        (void) x;
+
+                        Util::Window* inputWindow;
+                        Util::Input::ScrollDirection inputScrollDirection;
+                        
+                        inputWindow = Util::Windows::Get(window);
+                        inputScrollDirection = (y > 0 ? Util::Input::ScrollDirection::Up : Util::Input::ScrollDirection::Down);
+
+                        if(inputWindow) {
+                            inputWindow->eventAggregator.registerEvent(
+                                new Util::Input::MouseScrollEvent(inputScrollDirection)
+                            );
+                        }
+                    }
+                );
+                break;
+        }
+    }
+
+    void Window::registerEvents(std::initializer_list<Input::Event::Type> types) {
+        for(auto type : types) {
+            registerEvents(type);
+        }
+    }
+    
+    void Window::skipEvents() {
+        skipEvents({
+            Util::Input::Event::Type::Key,
+            Util::Input::Event::Type::MouseButton,
+            Util::Input::Event::Type::MouseMovement,
+            Util::Input::Event::Type::MouseScroll
+        });
+    }
+
+    void Window::skipEvents(Input::Event::Type type) {
+        switch(type) {
+            case Util::Input::Event::Type::Key: glfwSetKeyCallback(getHandle(), nullptr); break;
+            case Util::Input::Event::Type::MouseButton: glfwSetMouseButtonCallback(getHandle(), nullptr); break;
+            case Util::Input::Event::Type::MouseMovement: glfwSetCursorPosCallback(getHandle(), nullptr); break;
+            case Util::Input::Event::Type::MouseScroll: glfwSetScrollCallback(getHandle(), nullptr); break;
+        }
+    }
+
+    void Window::skipEvents(std::initializer_list<Input::Event::Type> types) {
+        for(auto type : types) {
+            skipEvents(type);
         }
     }
 
@@ -176,35 +338,35 @@ namespace Util {
         _fpsRefreshRate = refreshRate;
     }
     
-    void Window::setFPSCountCallback(std::function<void(int)> function) {
+    void Window::setFPSCountCallback(const std::function<void(int)>& function) {
         _fpsCountCallback = function;
     }
 
-    void Window::setDestroyCallback(std::function<void()> function) {
+    void Window::setDestroyCallback(const std::function<void()>& function) {
         _destroyCallback = function;
     }
 
-    const bool Window::isDisplayingFPS() const {
+    bool Window::isDisplayingFPS() const {
         return _isDisplayingFPS;
     }
 
-    const bool Window::isCountingFPS() const {
+    bool Window::isCountingFPS() const {
         return _isCountingFPS;
     }
 
-    const double Window::getFPSRefreshRate() const {
+    double Window::getFPSRefreshRate() const {
         return _fpsRefreshRate;
     }
     
-    const int Window::getFPS() const {
+    int Window::getFPS() const {
         return _fpsCount;
     }
 
-    const unsigned int Window::getWidth() const {
+    unsigned int Window::getWidth() const {
         return _windowSize.x;
     }
 
-    const unsigned int Window::getHeight() const {
+    unsigned int Window::getHeight() const {
         return _windowSize.y;
     }
 
@@ -220,15 +382,15 @@ namespace Util {
         return _title;
     }
 
-    const bool Window::isCreated() const {
+    bool Window::isCreated() const {
         return (_handle != nullptr);
     }
 
-    const bool Window::shouldClose() const {
+    bool Window::shouldClose() const {
         return glfwWindowShouldClose(_handle) == GL_TRUE;
     }
 
-    const double Window::getFrameTime() const {
+    double Window::getFrameTime() const {
         return _frameTime;
     }
 
@@ -239,29 +401,45 @@ namespace Util {
     GL::Context& Window::getContext() {
         return _context;
     }
-
-    void Window::setFPSCount(int fpsCount) {
-        _fpsCount = fpsCount;
+            
+    Image Window::getScreenshotNow() {
+        return getScreenshotNow(glm::ivec2(0, 0), getSize());
     }
 
-    void Window::setHints() {
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    Image Window::getScreenshotNow(const glm::ivec2& origin, const glm::ivec2& size) {
+        Image screenshot;
+
+        unsigned int bits;
+        unsigned int rowStride;
+        unsigned char* dataPtr;
+
+        bits = 24;
+        rowStride = size.x * (bits / 8);
+        rowStride = rowStride + (3 - ((rowStride - 1) % 4));
+        dataPtr = new unsigned char[rowStride * size.y];
+
+        glReadPixels(origin.x, origin.y, size.x, size.y, GL_RGB, GL_UNSIGNED_BYTE, dataPtr);
+        screenshot.load(size.x, size.y, 24, dataPtr);
+
+        delete[] dataPtr;
+
+        return screenshot;
     }
 
-    void Window::setContext() {
-        glfwMakeContextCurrent(_handle);
-        getContext().makeActive(this);
-    }
-
-    void Window::initializeGLFW() {
+    void Window::initializeGLFW() throw(Util::Exception::FatalError) {
         static bool initialized = false;
 
         if(initialized == false) {
+            // Setting error callback
+            static auto errorCallbackFunc = [](int error, const char* description) {
+                Util::Log::LibraryStream().logError(std::string("[GLFW] Error ") + std::to_string(error) + std::string(": ") + description);
+            };
+
+            glfwSetErrorCallback(errorCallbackFunc);
+
+            // Initializing library
             if(glfwInit() == false) {
-                Util::Log::Stream("_Library").logError("Failed to initialize GLFW library");
+                Util::Log::LibraryStream().logError("Failed to initialize GLFW library");
                 throw Util::Exception::FatalError(std::string("Failed to initialize GLFW library."));
             }
 
@@ -269,19 +447,70 @@ namespace Util {
         }
     }
 
-    void Window::initializeGLEW() {
+    void Window::initializeGLEW() throw(Util::Exception::FatalError) {
         static bool initialized = false;
 
         if(initialized == false) {
             glewExperimental = GL_TRUE;
 
             if(glewInit() != GLEW_OK) {
-                Util::Log::Stream("_Library").logError("Failed to initialize GLEW library");
+                Util::Log::LibraryStream().logError("Failed to initialize GLEW library");
                 throw Util::Exception::FatalError(std::string("Failed to initialize GLEW library."));
             }
 
             initialized = true;
         }
+    }
+
+
+    void Window::setHint(int option, int value) {
+        glfwWindowHint(option, value);
+
+        _hintsSet = true;
+    }
+
+    void Window::setHints(const std::list<std::pair<int, int>>& hints) {
+        for(auto& hint : hints)
+            glfwWindowHint(hint.first, hint.second);
+
+        _hintsSet = true;
+    }
+
+    void Window::setHints(const std::vector<std::pair<int, int>>& hints) {
+        for(auto& hint : hints)
+            glfwWindowHint(hint.first, hint.second);
+
+        _hintsSet = true;
+    }
+
+    void Window::setDefaultHints() {
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+
+        _hintsSet = true;
+    }
+
+    void Window::setFPSCount(int fpsCount) {
+        _fpsCount = fpsCount;
+    }
+
+    void Window::setContext() {
+        glfwMakeContextCurrent(getHandle());
+        getContext().makeActive(this);
+    }
+
+    void Window::setFocusCallback() {
+        glfwSetWindowFocusCallback(getHandle(), setFocus);
+        setFocus(getHandle(), GL_TRUE);
+    }
+
+    void Window::setFocus(GLFWwindow* window, int focused) {
+        if(focused == GL_TRUE)
+            Windows::setActiveWindow(window);
+        else if(focused == GL_FALSE)
+            Windows::setActiveWindow(static_cast<GLFWwindow*>(nullptr));
     }
 
 }

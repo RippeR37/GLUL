@@ -1,5 +1,5 @@
 #include <Utils/GL+/Models/Material.h>
-
+#include <Utils/Logger.h>
 
 namespace GL {
 
@@ -40,7 +40,7 @@ namespace GL {
                         colorAmbient = data;
 
                     } catch(...) {
-                        // TODO: log it
+                        Util::Log::LibraryStream() << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
                     }
 
                 } else if(tokens[0] == "Kd" && tokens.size() > 3) {
@@ -54,7 +54,7 @@ namespace GL {
                         colorDiffuse = data;
 
                     } catch(...) {
-                        // TODO: log it
+                        Util::Log::LibraryStream() << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
                     }
 
                 } else if(tokens[0] == "Ks" && tokens.size() > 3) {
@@ -68,7 +68,7 @@ namespace GL {
                         colorSpecular = data;
 
                     } catch(...) {
-                        // TODO: log it
+                        Util::Log::LibraryStream() << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
                     }
 
                 } else if(tokens[0] == "Ns" && tokens.size() > 1) {
@@ -79,7 +79,7 @@ namespace GL {
                         exponentSpecular = value;
 
                     } catch(...) {
-                        // TODO: log it
+                        Util::Log::LibraryStream() << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
                     }
 
                 } else if((tokens[0] == "d" || tokens[0] == "Tr") && tokens.size() > 1) {
@@ -90,7 +90,7 @@ namespace GL {
                         alphaFactor = value;
 
                     } catch(...) {
-                        // TODO: log it
+                        Util::Log::LibraryStream() << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
                     }
 
                 } else if(tokens[0] == "illum" && tokens.size() > 1) {
@@ -101,7 +101,7 @@ namespace GL {
                         illumination = value;
 
                     } catch(...) {
-                        // TODO: log it
+                        Util::Log::LibraryStream() << "Unable to read parameter '" + tokens[0] + "' for material '" + name + "'";
                     }
 
                 } else if(tokens[0] == "map_Ka" && tokens.size() > 1) {
@@ -114,7 +114,7 @@ namespace GL {
                     textureSpecular = tokens[1];
 
                 } else {
-                    // TODO: log it
+                    Util::Log::LibraryStream() << "Unsupported parameter '" + tokens[0] + "' found for material '" + name + "'";
                 }
             }
 

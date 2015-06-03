@@ -5,7 +5,6 @@
 #include <Utils/Exception.h>
 
 #include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 
 #include <utility>
@@ -121,17 +120,25 @@ namespace GL {
                 Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat);
 
             Texture(const std::string& path, Target target = Target::Tex2D, 
-                Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat);
+                Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat) 
+                throw(Util::Exception::InitializationFailed, Util::Exception::FatalError);
 
             Texture(Texture&& texture);
-
+            Texture(const Texture&) = delete;
             ~Texture();
 
+            Texture& operator=(const Texture&) = delete;
             Texture& operator=(Texture&& texture);
+
+            void create();
+            void destroy();
 
             void bind() const;
             void unbind() const;
-            void load(const Util::Image& image, Target target, Format format, InternalFormat internalFormat);
+
+            void load(const Util::Image& image, Target target = Target::Tex2D, 
+                Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat) throw(Util::Exception::FatalError);
+
             void generateMipmap();
 
             void setData1D(GLsizei width, GLenum dataType, const GLvoid* data, GLint level = 0);
@@ -143,8 +150,8 @@ namespace GL {
             void setInternalFromat(InternalFormat format);
 
             void setParameters();
-            void setParametersI(std::list<std::pair<GLenum, GLint>> parameters);
-            void setParametersF(std::list<std::pair<GLenum, GLfloat>> parameters);
+            void setParameters(std::list<std::pair<GLenum, GLint>> parameters);
+            void setParameters(std::list<std::pair<GLenum, GLfloat>> parameters);
 
             bool isAlpha() const;
             unsigned int getWidth() const;
@@ -155,26 +162,23 @@ namespace GL {
             GLuint getID() const;
 
         private:
-            Texture& operator=(const Texture&);
-            Texture(const Texture&);
-
-            void create();
-            void destroy();
-
-            void assingData(const Util::Image& image, const Format format, const InternalFormat internalFormat) throw(Util::Exception::FatalError);
+            void assingData2D(const Util::Image& image, const Format format, const InternalFormat internalFormat) throw(Util::Exception::FatalError);
 
             void setWidth(unsigned int width);
             void setHeight(unsigned int height);
 
+            bool isCreated() const;
+
+
             bool _isAlpha;
+            bool _isCreated;
             unsigned int _width;
             unsigned int _height;
+            GLuint _textureID;
 
             Target _target;
             Format _format;
             InternalFormat _internalFormat;
-
-            GLuint _textureID;
     };
 
 }

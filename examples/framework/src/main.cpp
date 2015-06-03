@@ -1,31 +1,28 @@
 #include "ExampleState.h"
 
-#include <utils/Exception.h>
+#include <Utils/Logger.h>
+#include <Utils/Exception.h>
 #include <Utils/Frameworks/Application.h>
-
-#include <iostream>
-#include <cstdlib>
 
 int main(int argc, char* argv[]) {
     try {
-        ExampleState initialState; // could also be taken from some state manager
+        FW::Application application;
+        ExampleState initialState(application);
 
-        FW::Application::setArguments(argc, argv);
-        FW::Application::run(&initialState);
+        application.setArguments(argc, argv);
+        application.run(&initialState);
 
     } catch(const Util::Exception::FatalError& exception) {
-        std::cerr << "Fatal error occured:" << std::endl;
-        std::cerr << exception.what() << std::endl;
-        system("pause");
+        Util::Log::Stream("Example", "logExample.log") << "Cought fatal error exception: " + std::string(exception.what());
+        return 1;
 
     } catch(const std::exception& exception) {
-        std::cerr << "Exception thrown:" << std::endl;
-        std::cerr << exception.what() << std::endl;
-        system("pause");
+        Util::Log::Stream("Example", "logExample.log") << "Cought std::exception: " + std::string(exception.what());
+        return 1;
 
     } catch(...) {
-        std::cerr << "Unidentified exception unhandled" << std::endl;
-        system("pause");
+        Util::Log::Stream("Example", "logExample.log") << "Cought unknown exception!";
+        return 1;
     }
 
     return 0;

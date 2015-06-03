@@ -8,7 +8,7 @@ namespace GL {
         type = GL_FLOAT;
         normalized = GL_FALSE;
         stride = 0;
-        offset = 0;
+        offset = nullptr;
     }
 
     VertexAttrib::VertexAttrib(GLuint index_, GLint size_, GLenum type_, GLsizei stride_, GLvoid* offset_) {

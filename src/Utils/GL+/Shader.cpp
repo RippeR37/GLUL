@@ -6,20 +6,24 @@
 namespace GL {
 
     Shader::Shader(Type type) {
-        create(type);
+        _isCreated = false;
+        _type = type;
     }
 
     Shader::Shader(const std::string& path, Type type) {
-        create(type);
-        load(path, type);
+        _isCreated = false;
+        _type = type;
+
+        load(path);
     }
     
     Shader::Shader(Shader&& shader) {
-        create(shader.getType());
+        _isCreated = false;
 
-        std::swap(_compiled, shader._compiled);
-        std::swap(_type, shader._type);
-        std::swap(_shaderID, shader._shaderID);
+        std::swap(_type,       shader._type);
+        std::swap(_shaderID,   shader._shaderID);
+        std::swap(_isCreated,  shader._isCreated);
+        std::swap(_isCompiled, shader._isCompiled);
 
         _path.swap(shader._path);
         _code.swap(shader._code);
@@ -30,46 +34,61 @@ namespace GL {
     }
 
     Shader& Shader::operator=(Shader&& shader) {
-        std::swap(_compiled, shader._compiled);
+        _isCreated = false;
+
         std::swap(_type, shader._type);
         std::swap(_shaderID, shader._shaderID);
+        std::swap(_isCreated, shader._isCreated);
+        std::swap(_isCompiled, shader._isCompiled);
 
         _path.swap(shader._path);
         _code.swap(shader._code);
 
         return *this;
     }
+
+    void Shader::create() {
+        _shaderID = glCreateShader(static_cast<GLenum>(getType()));
+        _isCreated = true;
+        _isCompiled = false;
+    }
+
+    void Shader::destroy() {
+        if(isCreated()) {
+            glDeleteShader(_shaderID);
+
+            _isCreated = false;
+            _isCompiled = false;
+        }
+    }
+
+    void Shader::load(const std::string& path) {
+        if(!isCreated())
+            create();
+
+        if(!isCompiled()) {
+            _path = path;
+            _code = Util::File::read(_path, Util::File::ReadMode::Text, true);
+            _isCompiled = compile();
+        }
+    }
+
+    bool Shader::isCompiled() const {
+        return _isCompiled;
+    }
     
     GLuint Shader::getID() const {
-        if(_compiled) {
-            return _shaderID;
-        } else {
-            return 0;
-        }
+        if(!isCreated())
+            const_cast<Shader*>(this)->create();
+
+        return _shaderID;
     }
 
     Shader::Type Shader::getType() const {
         return _type;
     }
 
-    void Shader::create(Type type) {
-        _shaderID = glCreateShader(static_cast<GLenum>(type));
-        _compiled = false;
-    }
-
-    void Shader::destroy() {
-        glDeleteShader(_shaderID);
-    }
-
-    void Shader::load(const std::string& path, Type type) {
-        if(_compiled == false) {
-            _path = path;
-            _code = Util::File::read(_path, Util::File::ReadMode::Text, true);
-            _compiled = compile();
-        }
-    }
-
-    bool Shader::compile() {
+    bool Shader::compile() throw(Util::Exception::FatalError) {
         std::vector<char> shaderErrorMsg;
         GLint result;
         GLint infoLen;
@@ -84,14 +103,18 @@ namespace GL {
         glGetShaderiv(_shaderID, GL_COMPILE_STATUS, &result);
         glGetShaderiv(_shaderID, GL_INFO_LOG_LENGTH, &infoLen);
         shaderErrorMsg.resize(infoLen);
-        glGetShaderInfoLog(_shaderID, infoLen, NULL, &shaderErrorMsg[0]);
+        glGetShaderInfoLog(_shaderID, infoLen, nullptr, shaderErrorMsg.data());
 
         if(result != GL_TRUE) {
-            std::string errorMsg = std::string("Shader compilation failed:\nFile: " + _path + "\nMessage:\n" + &shaderErrorMsg[0]);
+            std::string errorMsg = std::string("Shader compilation failed:\nFile: " + _path + "\nMessage:\n" + shaderErrorMsg.data());
             throw Util::Exception::FatalError(errorMsg.c_str());
         }
 
         return true;
+    }
+
+    bool Shader::isCreated() const {
+        return _isCreated;
     }
 
 }

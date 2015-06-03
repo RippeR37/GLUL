@@ -3,13 +3,24 @@
 namespace Util {
     
     TimeEvent::TimeEvent(double time, const std::function<void()>& delayedEvent) :
-        _time(time), _delayedEvent(delayedEvent), _id(TimeEvent::getNewID()), 
-        _type(Type::DelayedEvent), _isDone(false) { }
+        _isDone(false),
+        _id(TimeEvent::getNewID()),
+        _time(time),
+        _type(Type::DelayedEvent),
+        _delayedEvent(delayedEvent)
+    { 
+        
+    }
 
     
     TimeEvent::TimeEvent(const std::function<void(TimeEvent& event, double deltaTime)>& updateEvent) :
-        _updateEvent(updateEvent), _id(TimeEvent::getNewID()), 
-        _type(Type::UpdateEvent), _isDone(false) { }
+        _isDone(false),
+        _id(TimeEvent::getNewID()),
+        _type(Type::UpdateEvent),
+        _updateEvent(updateEvent)
+    { 
+        
+    }
 
     bool TimeEvent::operator==(const TimeEvent& e) {
         return getID() == e.getID();

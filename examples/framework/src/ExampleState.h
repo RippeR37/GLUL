@@ -5,7 +5,7 @@
 
 class ExampleState : public Util::Interface::State {
     public:
-        ExampleState();
+        ExampleState(FW::Application& application);
         ~ExampleState();
 
         void update(const double frameTime);
@@ -14,8 +14,10 @@ class ExampleState : public Util::Interface::State {
         void onUnload();
         void signalExit();
 
-    private:
+        void handleInputEvent(const Util::Input::Event& inputEvent);
 
+    private:
+        FW::Application& Application;
 };
 
 #endif

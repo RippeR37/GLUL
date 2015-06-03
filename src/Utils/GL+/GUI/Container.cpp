@@ -4,7 +4,7 @@ namespace GL {
 
     namespace GUI {
 
-        Container::Container() {
+        Container::Container(Container* const parent) : Component(parent) {
 
         }
 
@@ -14,53 +14,64 @@ namespace GL {
                 delete component;
                 component = nullptr;
             }
+
             _components.clear();
-
-            setInvalid();
-        }
-        
-        void Container::add(Component* const component) {
-            _components.push_back(component);
-
-            setInvalid();
         }
 
-        void Container::render() {
+        void Container::render() const {
+            if(!isValid())
+                validate();
+
             for(auto component : _components)
                 if(component)
                     component->render();
         }
 
         void Container::update(double deltaTime) {
+            if(!isValid())
+                validate();
+
             for(auto component : _components)
                 if(component)
                     component->update(deltaTime);
         }
 
-        void Container::validate() {
+        void Container::validate() const {
             if(isValid())
                 return;
 
-            // validate
+            for(auto component : _components)
+                if(component)
+                    component->validate();
 
-            setValid();
+            const_cast<Container*>(this)->setValid();
+        }
+
+        void Container::add(Component* const component) {
+            if(component) {
+                if(component->getParent() != this) {
+                    component->notifyParentOfDestruction();
+
+                    component->setParent(this);
+                    _components.push_back(component);
+                }
+            }
         }
 
         void Container::setInvalid() {
-            _isValid = false;
-        }
-        
-        bool Container::isValid() const {
-            return _isValid;
+            Component::setInvalid();
+
+            notifyChildsOfInvalidState();
         }
 
-        void Container::setValid() {
-            _isValid = true;
+        void Container::notifyChildsOfInvalidState() {
+            for(auto component : _components)
+                if(component)
+                    component->setInvalid();
         }
 
         void Container::handleChildDestruction(Component* component) {
-            
-            setInvalid();
+            _components.remove(component);
         }
 
     }

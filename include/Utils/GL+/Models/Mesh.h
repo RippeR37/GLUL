@@ -3,6 +3,7 @@
 
 #include <Utils/Interfaces/Model.h>
 #include <Utils/GL+/Pipeline.h>
+#include <Utils/GL+/Texture.h>
 #include <Utils/GL+/VertexArray.h>
 #include <Utils/GL+/VertexBuffer.h>
 
@@ -16,8 +17,8 @@ namespace GL {
 
         class Mesh {
             public:
-                Mesh();
-                Mesh(const std::string& materialName);
+                Mesh(std::unordered_map<std::string, GL::Texture>* textures = nullptr);
+                Mesh(const std::string& materialName, std::unordered_map<std::string, GL::Texture>* textures = nullptr);
                 Mesh(const Mesh& mesh) = delete;
                 Mesh(Mesh&& mesh);
 
@@ -49,6 +50,8 @@ namespace GL {
                 GL::VertexBuffer _vboV;
                 GL::VertexBuffer _vboT;
                 GL::VertexBuffer _vboN;
+
+                std::unordered_map<std::string, GL::Texture>* _textures;
         };
 
     }

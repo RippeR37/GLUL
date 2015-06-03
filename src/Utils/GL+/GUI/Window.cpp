@@ -4,7 +4,15 @@ namespace GL {
 
     namespace GUI {
 
-        Window::Window() : Util::Window() {
+        Window::Window() : Util::Window(), Container(nullptr) {
+
+        }
+
+        Window::Window(unsigned int width, unsigned int height, const std::string& title) : Util::Window(width, height, title), Container(nullptr) {
+
+        }
+
+        Window::Window(const glm::uvec2& size, const std::string& title) : Util::Window(size, title), Container(nullptr) {
 
         }
 

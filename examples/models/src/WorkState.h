@@ -1,8 +1,8 @@
 #ifndef WORKSTATE_H_INCLUDED
 #define WORKSTATE_H_INCLUDED
 
-#include <Utils/Interfaces/State.h>
 #include <Utils/GL+/Models/OBJ.h>
+#include <Utils/Interfaces/State.h>
 
 #include <memory>
 
@@ -16,6 +16,8 @@ class WorkState : public Util::Interface::State {
         void onLoad();
         void onUnload();
         void signalExit();
+
+        void handleInputEvent(const Util::Input::Event& inputEvent);
 
     private:
         Util::Interface::State* _parentState;

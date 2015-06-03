@@ -4,9 +4,6 @@
 #include <Utils/Clock.h>
 #include <Utils/TimeEvent.h>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include <list>
 #include <functional>
 
@@ -18,7 +15,7 @@ namespace Util {
 
             unsigned int insertEvent(double delay, const std::function<void()>& event); 
             unsigned int insertEvent(const TimeEvent& event); 
-            void deleteEvent(int id);
+            void deleteEvent(unsigned int id);
 
             void update();
             void update(double timeElapsed);

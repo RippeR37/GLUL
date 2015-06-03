@@ -5,24 +5,26 @@ namespace GL {
 
     namespace Model {
 
-        Mesh::Mesh() : Mesh("defaultMaterial") {
+        Mesh::Mesh(std::unordered_map<std::string, GL::Texture>* textures) : Mesh("defaultMaterial", textures) {
 
         }
 
-        Mesh::Mesh(const std::string& materialName) {
+        Mesh::Mesh(const std::string& materialName, std::unordered_map<std::string, GL::Texture>* textures) {
             this->materialName = materialName;
+            this->_textures = textures;
         }
 
         Mesh::Mesh(Mesh&& mesh) :
             materialName(std::move(mesh.materialName)),
             vertices(std::move(mesh.vertices)),
-            texCoords(std::move(mesh.texCoords)),
             normals(std::move(mesh.normals)),
+            texCoords(std::move(mesh.texCoords)),
+            _aabb(std::move(mesh._aabb)),
             _vao(std::move(mesh._vao)),
             _vboV(std::move(mesh._vboV)),
             _vboT(std::move(mesh._vboT)),
             _vboN(std::move(mesh._vboN)),
-            _aabb(std::move(mesh._aabb)) 
+            _textures(std::move(mesh._textures))
         {
 
         }
@@ -30,23 +32,29 @@ namespace GL {
         void Mesh::build() {
             _vao.bind();
 
-                _vboV.bind();
-                    _vboV.setData(vertices);
-                    _vao.enableAttrib(0);
-                    _vao.setAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-                _vboV.unbind();
+                if(vertices.size() > 0) {
+                    _vboV.bind();
+                        _vboV.setData(vertices);
+                        _vao.enableAttrib(0);
+                        _vao.setAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+                    _vboV.unbind();
+                }
 
-                _vboT.bind();
-                    _vboT.setData(texCoords);
-                    _vao.enableAttrib(1);
-                    _vao.setAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, 0);
-                _vboT.unbind();
+                if(texCoords.size() > 0) {
+                    _vboT.bind();
+                        _vboT.setData(texCoords);
+                        _vao.enableAttrib(1);
+                        _vao.setAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
+                    _vboT.unbind();
+                }
 
-                _vboN.bind();
-                    _vboN.setData(normals);
-                    _vao.enableAttrib(2);
-                    _vao.setAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, 0);
-                _vboN.unbind();
+                if(normals.size() > 0) {
+                    _vboN.bind();
+                        _vboN.setData(normals);
+                        _vao.enableAttrib(2);
+                        _vao.setAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+                    _vboN.unbind();
+                }
 
             _vao.unbind();
 
@@ -63,8 +71,8 @@ namespace GL {
                 glm::vec3 edge2;
 
                 if(type == Util::Interface::Model::NormalType::Smooth) {
-                    for(int i = 0; i < vertices.size(); ++i) {
-                        for(int j = 0; j < vertices.size(); ++j) {
+                    for(unsigned int i = 0; i < vertices.size(); ++i) {
+                        for(unsigned int j = 0; j < vertices.size(); ++j) {
                             if(i != j) {
                                 if(vertices[i] == vertices[j]) {
                                     int k = j - (j % 3);
@@ -81,7 +89,7 @@ namespace GL {
                     }
 
                 } else {
-                    for(int i = 0; i < vertices.size(); i += 3) {
+                    for(unsigned int i = 0; i < vertices.size(); i += 3) {
                         edge1 = vertices[i + 1] - vertices[i];
                         edge2 = vertices[i + 2] - vertices[i];
                         normal = glm::normalize(glm::cross(edge1, edge2));
@@ -107,12 +115,14 @@ namespace GL {
             //hasTextures.z = (material.textureSpecular != "") ? true : false; // not supported yet
             //hasTextures.w = (material.textureBumpmap  != "") ? true : false; // not supported yet
 
-            /*
-            if(hasTextures.x)
-                model.getTextures().at(material->textureDiffuse).bind();
-            else if(hasTextures.y)
-                model.getTextures().at(material->textureAmbient).bind();
-            */
+            if(_textures) {
+                glActiveTexture(GL_TEXTURE0);
+
+                if(hasTextures.x)
+                    _textures->at(material.textureDiffuse).bind();
+                else if(hasTextures.y)
+                    _textures->at(material.textureAmbient).bind();
+            }
 
             program.use();
 
@@ -129,12 +139,12 @@ namespace GL {
 
             program.unbind();
 
-            /*
-            if(hasTextures.x)
-                model.getTextures().at(material->textureDiffuse).unbind();
-            else if(hasTextures.y)
-                model.getTextures().at(material->textureAmbient).unbind();
-            */
+            if(_textures) {
+                if(hasTextures.x)
+                    _textures->at(material.textureDiffuse).unbind();
+                else if(hasTextures.y)
+                    _textures->at(material.textureAmbient).unbind();
+            }
         }
 
         void Mesh::renderAABB(const GL::Pipeline& pipeline) const {

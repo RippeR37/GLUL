@@ -11,24 +11,21 @@ namespace GL {
 
         class Container : public Component {
             public:
-                Container();
+                Container(Container* const parent = nullptr);
                 virtual ~Container();
 
-                virtual void render();
+                virtual void render() const;
                 virtual void update(double deltaTime);
+                virtual void validate() const;
 
-                void add(Component* const component);
-                void validate();
+                virtual void add(Component* const component);
 
-                void setInvalid();
-
-                bool isValid() const;
+                virtual void setInvalid();
 
             private:
-                void setValid();
+                void notifyChildsOfInvalidState();
                 void handleChildDestruction(Component* component);
 
-                bool _isValid;
                 std::list<Component*> _components;
 
             public:

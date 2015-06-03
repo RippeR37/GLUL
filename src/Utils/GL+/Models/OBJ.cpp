@@ -1,6 +1,7 @@
 #include <Utils/GL+/Models/OBJ.h>
 #include <Utils/File.h>
 #include <Utils/String.h>
+#include <Utils/Logger.h>
 
 #include <iostream>
 #include <fstream>
@@ -25,7 +26,7 @@ namespace GL {
         }
 
         bool OBJ::load(const std::string& path, NormalType forcedNormalType) {
-            return parseFile(path, getAABB(), getMeshes(), getMaterials(), getTextures(), forcedNormalType);
+            return parseFile(path, _aabb, getMeshes(), getMaterials(), getTextures(), forcedNormalType);
         }
 
         bool OBJ::clear() {
@@ -39,7 +40,7 @@ namespace GL {
 
         void OBJ::render(const GL::Pipeline& pipeline, const GL::Program& program) const {
             for(auto& mesh : getMeshes()) {
-                auto& material = getMaterials().find(mesh.materialName);
+                const auto& material = getMaterials().find(mesh.materialName);
 
                 pipeline.setModel(getMatrix());
 
@@ -48,6 +49,14 @@ namespace GL {
                 else
                     mesh.render(pipeline, program, Material::Default);
             }
+        }
+
+        void OBJ::renderAABB(const GL::Pipeline& pipeline, bool detailed) const {
+            if(detailed)
+                for(auto& mesh : getMeshes())
+                    mesh.getAABB().render(pipeline);
+            else
+                _aabb.render(pipeline);
         }
 
         void OBJ::printStats(bool withDetails) const {
@@ -117,7 +126,7 @@ namespace GL {
             objFile.open(path);
 
             if(objFile.is_open() == false) {
-                // TODO : log it
+                Util::Log::LibraryStream() << "Unable to open OBJ model file '" + path + "'";
                 return false;
 
             } else {
@@ -136,7 +145,8 @@ namespace GL {
                             if(tokens.size() > 1) {
                                 loadMaterials(relativePath + tokens[1], materials, textures);
                             } else {
-                                // TODO: log it
+                                Util::Log::LibraryStream() << 
+                                    "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else if(tokens[0] == "usemtl") {
@@ -154,10 +164,11 @@ namespace GL {
 
                                 meshInitialized = true;
                                 currentMeshName = tokens[1];
-                                meshes.emplace_back(currentMeshName);
+                                meshes.emplace_back(currentMeshName, &textures);
 
                             } else {
-                                // TODO: log it
+                                Util::Log::LibraryStream() <<
+                                    "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else if(tokens[0] == "s" && tokens.size() > 1) {
@@ -176,7 +187,8 @@ namespace GL {
                                 aabb.updateBy(glm::vec3(v1, v2, v3));
 
                             } catch(...) {
-                                // TODO: log it
+                                Util::Log::LibraryStream() <<
+                                    "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else if(tokens[0] == "vt" && (tokens.size() == 3 || tokens.size() == 4)) {
@@ -187,7 +199,8 @@ namespace GL {
                                 dataTexCoords.emplace_back(vt1, vt2);
 
                             } catch(...) {
-                                // TODO: log it
+                                Util::Log::LibraryStream() <<
+                                    "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else if(tokens[0] == "vn" && tokens.size() == 4) {
@@ -199,22 +212,23 @@ namespace GL {
                                 dataNormals.emplace_back(glm::normalize(glm::vec3(vn1, vn2, vn3)));
 
                             } catch(...) {
-                                // TODO: log it
+                                Util::Log::LibraryStream() <<
+                                    "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else if(tokens[0] == "f" && tokens.size() > 3) {
                             if(meshInitialized == false) {
-                                meshes.emplace_back();
+                                meshes.emplace_back(&textures);
                                 meshInitialized = true;
                             }
 
                             std::vector<std::vector<std::string>> faceTokens(tokens.size() - 1);
                             bool validFace = true;
 
-                            for(int i = 1; i < tokens.size(); ++i)
+                            for(unsigned int i = 1; i < tokens.size(); ++i)
                                 faceTokens[i-1] = Util::String::split(tokens[i], '/', false);
 
-                            for(int i = 0; i < faceTokens.size() - 1; ++i)
+                            for(unsigned int i = 0; i < faceTokens.size() - 1; ++i)
                                 if(faceTokens[i].size() != faceTokens[i+1].size())
                                     validFace = false;
 
@@ -223,21 +237,22 @@ namespace GL {
                                     std::vector<int> idV;
 
                                     try {
-                                        for(int i = 0; i < faceTokens.size(); ++i) {
+                                        for(unsigned int i = 0; i < faceTokens.size(); ++i) {
                                             idV.push_back(std::stoi(faceTokens[i][0]));
 
                                             if(idV.back() < 0)
                                                 idV.back() = dataVertices.size() + idV.back() + 1;
                                         }
 
-                                        for(int i = 1; i < faceTokens.size() - 1; ++i) {
+                                        for(unsigned int i = 1; i < faceTokens.size() - 1; ++i) {
                                             meshes.back().addData(dataVertices[idV[0] - 1]);
                                             meshes.back().addData(dataVertices[idV[i] - 1]);
                                             meshes.back().addData(dataVertices[idV[i+1] - 1]);
                                         }
 
                                     } catch(...) {
-                                        // TODO: log it
+                                        Util::Log::LibraryStream() <<
+                                            "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                     }
 
                                 } else if(faceTokens[0].size() == 2) {
@@ -245,7 +260,7 @@ namespace GL {
                                     std::vector<int> idT;
 
                                     try {
-                                        for(int i = 0; i < faceTokens.size(); ++i) {
+                                        for(unsigned int i = 0; i < faceTokens.size(); ++i) {
                                             idV.push_back(std::stoi(faceTokens[i][0]));
                                             idT.push_back(std::stoi(faceTokens[i][1]));
 
@@ -256,20 +271,21 @@ namespace GL {
                                                 idT.back() = dataTexCoords.size() + idT.back() + 1;
                                         }
 
-                                        for(int i = 1; i < faceTokens.size() - 1; ++i) {
+                                        for(unsigned int i = 1; i < faceTokens.size() - 1; ++i) {
                                             meshes.back().addData(dataVertices[idV[0] - 1],   dataTexCoords[idT[0] - 1]);
                                             meshes.back().addData(dataVertices[idV[i] - 1],   dataTexCoords[idT[i] - 1]);
                                             meshes.back().addData(dataVertices[idV[i+1] - 1], dataTexCoords[idT[i+1] - 1]);
                                         }
 
                                     } catch(...) {
-                                        // TODO: log it
+                                        Util::Log::LibraryStream() <<
+                                            "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                     }
 
                                 } else if(faceTokens[0].size() == 3) {
                                     bool texIncluded = true;
 
-                                    for(int i = 0; i < faceTokens.size(); ++i)
+                                    for(unsigned int i = 0; i < faceTokens.size(); ++i)
                                         if(faceTokens[i][1] == "")
                                             texIncluded = false;
 
@@ -279,7 +295,7 @@ namespace GL {
                                         std::vector<int> idN;
 
                                         try {
-                                            for(int i = 0; i < faceTokens.size(); ++i) {
+                                            for(unsigned int i = 0; i < faceTokens.size(); ++i) {
                                                 idV.push_back(std::stoi(faceTokens[i][0]));
                                                 idT.push_back(std::stoi(faceTokens[i][1]));
                                                 idN.push_back(std::stoi(faceTokens[i][2]));
@@ -294,14 +310,15 @@ namespace GL {
                                                     idN.back() = dataNormals.size() + idN.back() + 1;
                                             }
 
-                                            for(int i = 1; i < faceTokens.size() - 1; ++i) {
+                                            for(unsigned int i = 1; i < faceTokens.size() - 1; ++i) {
                                                 meshes.back().addData(dataVertices[idV[0] - 1],   dataTexCoords[idT[0] - 1],   dataNormals[idN[0] - 1]);
                                                 meshes.back().addData(dataVertices[idV[i] - 1],   dataTexCoords[idT[i] - 1],   dataNormals[idN[i] - 1]);
                                                 meshes.back().addData(dataVertices[idV[i+1] - 1], dataTexCoords[idT[i+1] - 1], dataNormals[idN[i+1] - 1]);
                                             }
 
                                         } catch(...) {
-                                            // TODO: log it
+                                            Util::Log::LibraryStream() <<
+                                                "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                         }
 
 
@@ -310,7 +327,7 @@ namespace GL {
                                         std::vector<int> idN;
 
                                         try {
-                                            for(int i = 0; i < faceTokens.size(); ++i) {
+                                            for(unsigned int i = 0; i < faceTokens.size(); ++i) {
                                                 idV.push_back(std::stoi(faceTokens[i][0]));
                                                 idN.push_back(std::stoi(faceTokens[i][2]));
 
@@ -321,27 +338,31 @@ namespace GL {
                                                     idN.back() = dataNormals.size() + idN.back() + 1;
                                             }
 
-                                            for(int i = 1; i < faceTokens.size() - 1; ++i) {
+                                            for(unsigned int i = 1; i < faceTokens.size() - 1; ++i) {
                                                 meshes.back().addData(dataVertices[idV[0] - 1], dataNormals[idN[0] - 1]);
                                                 meshes.back().addData(dataVertices[idV[i] - 1], dataNormals[idN[i] - 1]);
                                                 meshes.back().addData(dataVertices[idV[i+1] - 1], dataNormals[idN[i+1] - 1]);
                                             }
 
                                         } catch(...) {
-                                            // TODO: log it
+                                            Util::Log::LibraryStream() <<
+                                                "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                         }
                                     }
 
                                 } else {
-                                    // TODO: log it
+                                    Util::Log::LibraryStream() <<
+                                        "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                                 }
 
                             } else {
-                                // TODO: log it
+                                Util::Log::LibraryStream() <<
+                                    "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
                         } else {
-                            // TODO: log it
+                            Util::Log::LibraryStream() <<
+                                "[" + std::to_string(lineNumber) + "] Unsupported parameter '" + tokens[0] + "' in file '" + path + "'";
                         }
 
                     }
@@ -383,7 +404,7 @@ namespace GL {
             mtlFile.open(path);
 
             if(mtlFile.is_open() == false) {
-                // TODO: log it
+                Util::Log::LibraryStream() << "Unable to open OBJ material file '" + path + "'";
                 return false;
 
             } else {
@@ -403,12 +424,20 @@ namespace GL {
 
                             if(Util::String::startsWith(tokens[0], "map_")) {
                                 if(Util::File::exists(currentDirectory + tokens[1])) {
-                                    textures.emplace(
-                                        tokens[1],
-                                        currentDirectory + tokens[1]
-                                    );
+                                    try {
+                                        textures.emplace(
+                                            tokens[1],
+                                            currentDirectory + tokens[1]
+                                        );
+                                    } catch(...) {
+                                        Util::Log::LibraryStream().log( 
+                                            "Unable to load material's texture '" + 
+                                            currentDirectory + tokens[1] + 
+                                            "' from material file '" + path + "'"
+                                        );
+                                    }
                                 } else {
-                                    // TODO: log it
+                                    Util::Log::LibraryStream() << "Unable to open OBJ material's texture '" + currentDirectory + tokens[1] + "'";
                                 }
                             }
 

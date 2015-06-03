@@ -12,7 +12,7 @@ namespace Util {
             _next = nullptr;
         }
 
-        void State::handleInput() {
+        void State::handleInputEvent(const Input::Event& inputEvent) {
             if(shouldSkip())
                 return;
         }

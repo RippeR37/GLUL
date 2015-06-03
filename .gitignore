@@ -5,9 +5,13 @@
 *.lib
 *.exe
 *.log
+*.ilk
+*.suo
 
 examples/framework/bin/assets/shaders/*
 examples/models/bin/assets/shaders/*
+examples/image/bin/lastImage.*
+examples/image/bin/screenshot.*
 
 libs/*
 personal/*
@@ -28,3 +32,18 @@ project/Models example/build/*
 project/Models example/examples/*
 project/Models example/Debug/*
 project/Models example/Release/*
+
+project/Image example/build/*
+project/Image example/examples/*
+project/Image example/Debug/*
+project/Image example/Release/*
+
+project/Font example/build/*
+project/Font example/examples/*
+project/Font example/Debug/*
+project/Font example/Release/*
+
+project/Input example/build/*
+project/Input example/examples/*
+project/Input example/Debug/*
+project/Input example/Release/*

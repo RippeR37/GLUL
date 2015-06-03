@@ -4,17 +4,17 @@
 #include <Utils/GL+/GUI/Container.h>
 #include <Utils/Window.h>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
 #include <glm/vec2.hpp>
 
 namespace GL {
 
     namespace GUI {
 
-        class Window : public Container, public Util::Window {
+        class Window : public Util::Window, public Container {
             public:
                 Window();
+                Window(unsigned int width, unsigned int height, const std::string& title);
+                Window(const glm::uvec2& size, const std::string& title);
                 virtual ~Window();
             
                 virtual void update();

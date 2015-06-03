@@ -1,33 +1,31 @@
 #include <Utils/GL+/Program.h>
+#include <Utils/Logger.h>
 #include <Utils/File.h>
-
-#include <iostream>
 
 namespace GL {
 
     Program::Program() {
-        create();
+        _isCreated = false;
     }
 
     Program::Program(Program&& program) {
-        create();
+        _isCreated = false;
 
-        std::swap(_linked,      program._linked);
+        std::swap(_isLinked,    program._isLinked);
+        std::swap(_isCreated,   program._isCreated);
         std::swap(_programID,   program._programID);
+
         _uniforms.swap(program._uniforms);
     }
 
     Program::Program(const std::string& vsPath, const std::string& fsPath) {
-        create();
-
-        Shader vertexShader(vsPath, Shader::Type::VertexShader);
+        Shader vertexShader(vsPath,   Shader::Type::VertexShader);
         Shader fragmentShader(fsPath, Shader::Type::FragmentShader);
+
         load(vertexShader, fragmentShader);
     }
 
     Program::Program(const Shader& vertexShader, const Shader& fragmentShader) {
-        create();
-
         load(vertexShader, fragmentShader);
     }
 
@@ -36,18 +34,21 @@ namespace GL {
     }
     
     Program& Program::operator=(Program&& program) {
-        std::swap(_linked,      program._linked);
-        std::swap(_programID,   program._programID);
+        _isCreated = false;
+
+        std::swap(_isLinked, program._isLinked);
+        std::swap(_isCreated, program._isCreated);
+        std::swap(_programID, program._programID);
         _uniforms.swap(program._uniforms);
 
         return *this;
     }
 
     Uniform& Program::operator[](const std::string& uniformName) {
-        auto& uniformIterator = _uniforms.find(uniformName);
+        const auto& uniformIterator = _uniforms.find(uniformName);
 
         if(uniformIterator == _uniforms.end()) {
-            // TODO: log it
+            Util::Log::LibraryStream() << "Request for non-existent uniform '" + uniformName + "'";
 
             return _uniforms[uniformName];
         } else {
@@ -56,10 +57,10 @@ namespace GL {
     }
 
     const Uniform& Program::operator[](const std::string& uniformName) const {
-        auto& uniformIterator = _uniforms.find(uniformName);
+        const auto& uniformIterator = _uniforms.find(uniformName);
 
         if(uniformIterator == _uniforms.end()) {
-            // TODO: log it
+            Util::Log::LibraryStream() << "Request for non-existent uniform '" + uniformName + "'";
 
             Program* thisConstless = const_cast<Program*>(this);
             return thisConstless->_uniforms[uniformName];
@@ -67,18 +68,40 @@ namespace GL {
             return uniformIterator->second;
         }
     }
+
+    void Program::create() {
+        destroy();
+
+        _programID = glCreateProgram();
+        _isCreated = true;
+        _isLinked = false;
+    }
+
+    void Program::destroy() {
+        if(isCreated()) {
+            glDeleteProgram(_programID);
+
+            _isCreated = false;
+            _isLinked = false;
+        }
+    }
     
     void Program::load(const Shader& vertexShader, const Shader& fragmentShader) {
-        if(_linked == false) {
-            _linked = link(vertexShader, fragmentShader);
+        if(!isCreated())
+            create();
+
+        if(!isLinked()) {
+            _isLinked = link(vertexShader, fragmentShader);
             mapUniforms(vertexShader);
             mapUniforms(fragmentShader);
         }
     }
 
     void Program::use() const {
-        if(_linked)
-            glUseProgram(_programID);
+        if(isLinked())
+            glUseProgram(getID());
+        else
+            Util::Log::LibraryStream() << "Attempt to use not loaded program";
     }
 
     void Program::unbind() const {
@@ -86,10 +109,13 @@ namespace GL {
     }
     
     bool Program::isLinked() const {
-        return _linked;
+        return _isLinked;
     }
 
     GLuint Program::getID() const {
+        if(!isCreated())
+            const_cast<Program*>(this)->create();
+
         return _programID;
     }
 
@@ -101,33 +127,24 @@ namespace GL {
         return _uniforms.at(uniformName);
     }
 
-    void Program::create() {
-        _programID = glCreateProgram();
-        _linked = false;
-    }
-
-    void Program::destroy() {
-        glDeleteProgram(_programID);
-    }
-
-    bool Program::link(const Shader& vertexShader, const Shader& fragmentShader) {
+    bool Program::link(const Shader& vertexShader, const Shader& fragmentShader) throw(Util::Exception::FatalError) {
         std::vector<char> programErrorMsg;
         GLint result;
         GLint infoLen;
 
         // Create and link program
-        glAttachShader(_programID, vertexShader.getID());
-        glAttachShader(_programID, fragmentShader.getID());
-        glLinkProgram(_programID);
+        glAttachShader(getID(), vertexShader.getID());
+        glAttachShader(getID(), fragmentShader.getID());
+        glLinkProgram(getID());
 
         // Check for errors
-        glGetProgramiv(_programID, GL_LINK_STATUS, &result);
-        glGetProgramiv(_programID, GL_INFO_LOG_LENGTH, &infoLen);
+        glGetProgramiv(getID(), GL_LINK_STATUS, &result);
+        glGetProgramiv(getID(), GL_INFO_LOG_LENGTH, &infoLen);
         programErrorMsg.resize(infoLen);
-        glGetProgramInfoLog(_programID, infoLen, NULL, &programErrorMsg[0]);
+        glGetProgramInfoLog(getID(), infoLen, nullptr, programErrorMsg.data());
 
         if(result != GL_TRUE) {
-            std::string errorMsg = std::string("Program linking failed:") + std::string(&programErrorMsg[0]);
+            std::string errorMsg = std::string("Program linking failed:") + std::string(programErrorMsg.data());
             throw Util::Exception::FatalError(errorMsg.c_str());
         }
         
@@ -153,9 +170,13 @@ namespace GL {
                 // Arrays
                 uniformName = uniformName.substr(0, uniformName.find_last_of("["));
 
-                _uniforms[uniformName] = Uniform(glGetUniformLocation(_programID, uniformName.c_str()));
+                _uniforms[uniformName] = Uniform(glGetUniformLocation(getID(), uniformName.c_str()));
             }
         }
+    }
+
+    bool Program::isCreated() const {
+        return _isCreated;
     }
 
 }
