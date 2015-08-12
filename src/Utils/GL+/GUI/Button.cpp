@@ -15,7 +15,7 @@ namespace GL {
 
         }
 
-        Button::Button(Container* const parent) : Component(parent), text(*this) {
+        Button::Button(Container* const parent) : Component(parent), text(*this), border(*this) {
             setColor(glm::vec4(1.0f));
 
             _glInitialized = false;
@@ -152,9 +152,9 @@ namespace GL {
             glm::vec2 posStart = glm::vec2(scrPos.x, GL::Context::Current->getViewportSize().y - scrPos.y);
             glm::vec2 posEnd = posStart + glm::vec2(getSize().x, -getSize().y);
 
-            glm::vec2 borStart = posStart - glm::vec2( border.offset, -border.offset);
-            glm::vec2 borEnd   = posEnd   - glm::vec2(-border.offset,  border.offset);
-            glm::vec2 borWidth = glm::vec2(border.width);
+            glm::vec2 borStart = posStart - glm::vec2( border.getOffset(), -border.getOffset());
+            glm::vec2 borEnd   = posEnd   - glm::vec2(-border.getOffset(),  border.getOffset());
+            glm::vec2 borWidth = glm::vec2(border.getWidth());
 
             static auto addRectangleVerticesWithColor = [](std::vector<glm::vec4>& result, const glm::vec2& posStart, const glm::vec2& posEnd, const glm::vec4& color) 
             {
@@ -172,10 +172,10 @@ namespace GL {
             addRectangleVerticesWithColor(result, posStart, posEnd, getColor());
 
             // Border
-            addRectangleVerticesWithColor(result, glm::vec2(borStart.x, borStart.y), glm::vec2(borEnd.x, borStart.y - borWidth.y), border.color); // top
-            addRectangleVerticesWithColor(result, glm::vec2(borStart.x, borStart.y), glm::vec2(borStart.x + borWidth.x, borEnd.y), border.color); // left
-            addRectangleVerticesWithColor(result, glm::vec2(borEnd.x   - borWidth.x, borStart.y), glm::vec2(borEnd.x, borEnd.y), border.color); // right
-            addRectangleVerticesWithColor(result, glm::vec2(borStart.x, borEnd.y + borWidth.y), glm::vec2(borEnd.x, borEnd.y), border.color); // bottom
+            addRectangleVerticesWithColor(result, glm::vec2(borStart.x, borStart.y), glm::vec2(borEnd.x, borStart.y - borWidth.y), border.getColor()); // top
+            addRectangleVerticesWithColor(result, glm::vec2(borStart.x, borStart.y), glm::vec2(borStart.x + borWidth.x, borEnd.y), border.getColor()); // left
+            addRectangleVerticesWithColor(result, glm::vec2(borEnd.x   - borWidth.x, borStart.y), glm::vec2(borEnd.x, borEnd.y), border.getColor()); // right
+            addRectangleVerticesWithColor(result, glm::vec2(borStart.x, borEnd.y + borWidth.y), glm::vec2(borEnd.x, borEnd.y), border.getColor()); // bottom
 
             return result;
         }

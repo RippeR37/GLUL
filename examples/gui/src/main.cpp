@@ -49,7 +49,7 @@ void run() {
     button.setSize(glm::vec2(150.0f, 30.0f));
     button.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
     button.setPosition(glm::vec2(50.0f, 140.0f));
-    button.border = GL::GUI::Style::Border(1, -2, glm::vec3(1.0f, 0.0f, 0.0f)); // make sure you invalidate component after changing border!
+    button.border.set(1, -2, glm::vec3(1.0f, 0.0f, 0.0f));
         button.text.setFont(fontArial);
         button.text.setText("Press me #1");
         button.text.setColor(glm::vec3(1.0f));
@@ -59,7 +59,7 @@ void run() {
     button2.setSize(glm::vec2(150.0f, 30.0f));
     button2.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
     button2.setPosition(glm::vec2(50.0f, 180.0f));
-    button2.border = GL::GUI::Style::Border(2, 0, glm::vec3(0.3f, 0.7f, 1.0f)); // make sure you invalidate component after changing border!
+    button2.border.set(2, 0, glm::vec3(0.3f, 0.7f, 1.0f));
         button2.text.setFont(fontArial);
         button2.text.setText("Press me #2");
         button2.text.setColor(glm::vec3(1.0f));
@@ -69,7 +69,7 @@ void run() {
     button3.setSize(glm::vec2(150.0f, 30.0f));
     button3.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
     button3.setPosition(glm::vec2(50.0f, 220.0f));
-    button3.border = GL::GUI::Style::Border(1, 2, glm::vec3(0.0f, 0.0f, 1.0f)); // make sure you invalidate component after changing border!
+    button3.border.set(1, 2, glm::vec3(0.0f, 0.0f, 1.0f));
         button3.text.setFont(fontArial);
         button3.text.setText("Press me #3");
         button3.text.setColor(glm::vec3(1.0f));
