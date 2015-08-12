@@ -2,6 +2,7 @@
 #define UTILS_GL_GUI_COMPONENT_H_INCLUDED
 
 #include <Utils/GL+/GUI/Event.h>
+#include <Utils/Input/EventHandler.h>
 #include <Utils/Rectangle.h>
 
 #include <glm/vec2.hpp>
@@ -15,17 +16,19 @@ namespace GL {
 
         class Container;
 
-        class Component {
+        class Component : protected Util::Input::EventHandler {
             public:
+                Component(Container& parent);
                 Component(Container* const parent = nullptr);
                 virtual ~Component();
                 
+                void bindTo(Container& container);
                 void bindTo(Container* container);
 
                 virtual void render() const = 0;
                 virtual void update(double deltaTime) = 0;
 
-                virtual void validate() const = 0;
+                virtual void validate() const;
                 virtual void processEvent(const Event& event);
                 
                 void addListener(Event::Type eventType, std::function<void(const Event&)> function);
@@ -56,6 +59,8 @@ namespace GL {
                 
 
             protected:
+                virtual void handleInputEvent(const Util::Input::Event& inputEvent);
+
                 void setValid();
                 void setParent(Container* const parent);
                 void notifyParentOfDestruction();

@@ -8,6 +8,8 @@ class ExampleState : public Util::Interface::State {
         ExampleState(FW::Application& application);
         ~ExampleState();
 
+        ExampleState& operator=(const ExampleState&) = delete;
+
         void update(const double frameTime);
         void render();
         void onLoad();

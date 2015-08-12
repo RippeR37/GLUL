@@ -8,6 +8,10 @@ namespace GL {
 
     namespace GUI {
 
+        Text::Text(Container& parent) : Text(&parent) {
+
+        }
+
         Text::Text(Container* const parent) : Component(parent) {
             setFont(nullptr);
             setColor(glm::vec4(1.0f));
@@ -136,16 +140,20 @@ namespace GL {
             }
         }
 
+        void Text::setFont(const Font& font) {
+            setFont(&font);
+        }
+
         void Text::setFont(const Font* font) {
             _font = font;
 
-            setInvalid();
+            validate();
         }
 
         void Text::setText(const std::string& text) {
             _text = text;
-
-            setInvalid();
+            
+            validate();
         }
 
         void Text::setSize(const glm::vec2& size) {
@@ -168,8 +176,8 @@ namespace GL {
 
         void Text::setScale(const float scale) {
             _scale = scale;
-
-            setInvalid();
+            
+            validate();
         }
 
         void Text::setColor(const glm::vec3& color) {

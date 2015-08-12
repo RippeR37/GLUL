@@ -29,7 +29,7 @@ namespace GL {
             template<typename T> void setMatrix(const T& value, GLsizei count = 1, GLboolean transpose = GL_FALSE) const;
 
         private:
-            GLuint _location;
+            GLint _location;
     };
 
 }

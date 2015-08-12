@@ -88,9 +88,9 @@ namespace Util {
             std::ofstream fileStream;
             std::string error;
             unsigned int rowStride; // width * bits algined to 4bytes
-            unsigned short int w = image.getWidth();
-            unsigned short int h = image.getHeight();
-            unsigned char b = image.getBits();
+            unsigned short int w = static_cast<unsigned short>(image.getWidth());
+            unsigned short int h = static_cast<unsigned short>(image.getHeight());
+            unsigned char b = static_cast<unsigned char>(image.getBits());
             unsigned char d; // image descriptor
             unsigned char c;
             unsigned char* BGRdata;

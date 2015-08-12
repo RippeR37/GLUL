@@ -1,0 +1,185 @@
+#include <Utils/GL+/GUI/Container.h>
+#include <Utils/GL+/GUI/Button.h>
+#include <Utils/GL+/Context.h>
+#include <Utils/Logger.h>
+
+#include <cctype>
+
+#include <iostream> // TODO: remove this
+
+namespace GL {
+
+    namespace GUI {
+
+        Button::Button(Container& parent) : Button(&parent) {
+
+        }
+
+        Button::Button(Container* const parent) : Component(parent), text(*this) {
+            setColor(glm::vec4(1.0f));
+
+            _glInitialized = false;
+        }
+
+        Button::~Button() {
+
+        }
+
+        void Button::render() const {
+            if(isVisible() && getAlpha() > 0.0f) {
+                if(!isValid())
+                    validate();
+
+                // Render using font
+                getProgram().use();
+
+                _vao.bind();
+                _vao.drawArrays();
+                _vao.unbind();
+
+                getProgram().unbind();
+
+                text.render();
+            }
+        }
+
+        void Button::update(double deltaTime) {
+            if(!isValid())
+                validate();
+
+            text.update(deltaTime);
+        }
+
+        void Button::validate() const {
+            Button* thisConstless = const_cast<Button*>(this);
+
+            // (Re)build VBO
+            GL::VertexBuffer::Data vertexData;
+            std::vector<glm::vec4> vertices = getVertices();
+
+            vertexData.data = vertices.data();
+            vertexData.size = vertices.size() * sizeof(glm::vec4);
+            vertexData.pointers.push_back(GL::VertexAttrib(0, 4, GL_FLOAT, sizeof(glm::vec4) + sizeof(glm::vec4), nullptr));
+            vertexData.pointers.push_back(GL::VertexAttrib(1, 4, GL_FLOAT, sizeof(glm::vec4) + sizeof(glm::vec4), (GLvoid*)sizeof(glm::vec4)));
+
+            _vbo.bind();
+                thisConstless->_vbo.setUsage(VertexBuffer::Usage::DynamicDraw);
+                thisConstless->_vbo.setData(vertexData);
+            _vbo.unbind();
+
+            // Initialize VAO
+            if(_glInitialized == false) {
+                thisConstless->_vao.setDrawCount(vertices.size());
+                thisConstless->_vao.setDrawTarget(VertexArray::DrawTarget::Triangles);
+
+                _vao.bind();
+                    thisConstless->_vao.attachVBO(&_vbo);
+                    thisConstless->_vao.setAttribPointers();
+                _vao.unbind();
+
+                thisConstless->_glInitialized = true;
+            }
+
+            // Update button's text position
+            thisConstless->text.updatePosition();
+
+            thisConstless->setValid();
+        }
+
+        const glm::vec4& Button::getColor() const {
+            return _color;
+        }
+
+        float Button::getAlpha() const {
+            return _color.a;
+        }
+
+        void Button::setColor(const glm::vec3& color) {
+            setColor(glm::vec4(color, getAlpha()));
+        }
+
+        void Button::setColor(const glm::vec4& color) {
+            _color = color;
+        }
+
+        void Button::setAlpha(const float alpha) {
+            setColor(glm::vec4(getColor().r, getColor().g, getColor().b, alpha));
+        }
+
+        Program& Button::getProgram() {
+            static Program program(
+                Shader("assets/shaders/utilGUIButton.vp", Shader::Type::VertexShader), 
+                Shader("assets/shaders/utilGUIButton.fp", Shader::Type::FragmentShader)
+            );
+
+            return program;
+        }
+
+        void Button::handleInputEvent(const Util::Input::Event& inputEvent) {
+            std::cout << "Otrzymano event!";
+
+            switch(inputEvent.getType()) {
+                case Util::Input::Event::Type::MouseButton:
+                    {
+                        const Util::Input::MouseButtonEvent& mouseEvent = *inputEvent.asMouseButtonEvent();
+
+                        switch(mouseEvent.getMouseButton()) {
+                            case Util::Input::MouseButton::Left: std::cout << " LPM "; break;
+                            case Util::Input::MouseButton::Middle: std::cout << " SPM "; break;
+                            case Util::Input::MouseButton::Right: std::cout << " PPM "; break;
+                        }
+
+                        switch(mouseEvent.getAction()) {
+                            case Util::Input::Action::Press: std::cout << " wcisnieto"; break;
+                            case Util::Input::Action::Release: std::cout << " zwiolniono"; break;
+                            case Util::Input::Action::Repeat: std::cout << " ponownie wcisnieto"; break;
+                        }
+                    }
+
+                    std::cout << std::endl;
+                    break;
+
+                case Util::Input::Event::Type::MouseMovement:
+                    std::cout << " Mysz na pozycji: " << inputEvent.asMouseMovementEvent()->getX() << ", " << inputEvent.asMouseMovementEvent()->getY() << std::endl;
+                    break;
+            }
+        }
+
+        std::vector<glm::vec4> Button::getVertices() const {
+            std::vector<glm::vec4> result;
+
+            glm::vec2 scrPos = getScreenPosition().getPosition();
+            glm::vec2 posStart = glm::vec2(scrPos.x, GL::Context::Current->getViewportSize().y - scrPos.y);
+            glm::vec2 posEnd = posStart + glm::vec2(getSize().x, -getSize().y);
+
+            glm::vec2 borStart = posStart - glm::vec2( border.offset, -border.offset);
+            glm::vec2 borEnd   = posEnd   - glm::vec2(-border.offset,  border.offset);
+            glm::vec2 borWidth = glm::vec2(border.width);
+
+            static auto addRectangleVerticesWithColor = [](std::vector<glm::vec4>& result, const glm::vec2& posStart, const glm::vec2& posEnd, const glm::vec4& color) 
+            {
+                // Vertices                                                     // Colors
+                result.emplace_back(posStart.x, posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
+                result.emplace_back(posEnd.x,   posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
+                result.emplace_back(posStart.x, posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
+
+                result.emplace_back(posStart.x, posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
+                result.emplace_back(posEnd.x,   posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
+                result.emplace_back(posEnd.x,   posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
+            };
+
+            // Button
+            addRectangleVerticesWithColor(result, posStart, posEnd, getColor());
+
+            // Border
+            addRectangleVerticesWithColor(result, glm::vec2(borStart.x, borStart.y), glm::vec2(borEnd.x, borStart.y - borWidth.y), border.color); // top
+            addRectangleVerticesWithColor(result, glm::vec2(borStart.x, borStart.y), glm::vec2(borStart.x + borWidth.x, borEnd.y), border.color); // left
+            addRectangleVerticesWithColor(result, glm::vec2(borEnd.x   - borWidth.x, borStart.y), glm::vec2(borEnd.x, borEnd.y), border.color); // right
+            addRectangleVerticesWithColor(result, glm::vec2(borStart.x, borEnd.y + borWidth.y), glm::vec2(borEnd.x, borEnd.y), border.color); // bottom
+
+            return result;
+        }
+
+    }
+
+}

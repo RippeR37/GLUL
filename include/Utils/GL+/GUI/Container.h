@@ -11,6 +11,7 @@ namespace GL {
 
         class Container : public Component {
             public:
+                Container(Container& parent);
                 Container(Container* const parent = nullptr);
                 virtual ~Container();
 
@@ -18,9 +19,13 @@ namespace GL {
                 virtual void update(double deltaTime);
                 virtual void validate() const;
 
+                virtual void add(Component& component);
                 virtual void add(Component* const component);
 
                 virtual void setInvalid();
+
+            protected:
+                virtual void handleInputEvent(const Util::Input::Event& inputEvent);
 
             private:
                 void notifyChildsOfInvalidState();

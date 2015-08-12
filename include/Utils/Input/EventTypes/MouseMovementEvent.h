@@ -13,7 +13,7 @@ namespace Util {
             public:
                 MouseMovementEvent();
                 MouseMovementEvent(float x, float y);
-                MouseMovementEvent(const glm::vec2 position);
+                MouseMovementEvent(const glm::vec2& position);
 
                 float getX() const;
                 float getY() const;

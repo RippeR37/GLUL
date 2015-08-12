@@ -20,6 +20,7 @@ namespace GL {
 
         class Text : public Component {
             public:
+                Text(Container& parent);
                 Text(Container* const parent = nullptr);
                 ~Text();
 
@@ -38,6 +39,7 @@ namespace GL {
                 void setEnabled(bool flag);
                 void setFocused(bool flag);
                 void setVisible(bool flag);
+                void setFont(const Font& font);
                 void setFont(const Font* font);
                 void setText(const std::string& text);
                 void setSize(const glm::vec2& size);

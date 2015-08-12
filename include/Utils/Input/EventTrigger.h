@@ -15,6 +15,8 @@ namespace Util {
             public:
                 EventTrigger(EventAggregator& eventAggregator);
                 ~EventTrigger();
+
+                EventTrigger& operator=(const EventTrigger&) = delete;
                 
                 void reset();
 

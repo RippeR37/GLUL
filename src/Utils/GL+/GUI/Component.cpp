@@ -5,6 +5,10 @@ namespace GL {
 
     namespace GUI {
 
+        Component::Component(Container& parent) : Component(&parent) {
+
+        }
+
         Component::Component(Container* const parent) {
             setVisible(true);
             setEnabled(true);
@@ -22,6 +26,10 @@ namespace GL {
             notifyParentOfDestruction();
         }
 
+        void Component::bindTo(Container& container) {
+            bindTo(&container);
+        }
+
         void Component::bindTo(Container* container) {
             notifyParentOfDestruction();
 
@@ -29,6 +37,10 @@ namespace GL {
                 container->add(this);
             else
                 setParent(nullptr);
+        }
+
+        void Component::validate() const {
+            const_cast<Component*>(this)->setValid();
         }
 
         void Component::processEvent(const Event& event) {
@@ -97,18 +109,21 @@ namespace GL {
             _isEnabled = flag;
 
             setInvalid();
+            validate();
         }
         
         void Component::setFocused(bool flag) {
             _isFocused = flag;
 
             setInvalid();
+            validate();
         }
 
         void Component::setVisible(bool flag) {
             _isVisible = flag;
 
             setInvalid();
+            validate();
         }
 
         void Component::setInvalid() {
@@ -119,18 +134,22 @@ namespace GL {
             _size = size;
 
             setInvalid();
+            validate();
         }
         
         void Component::setPosition(const glm::vec2& position) {
             _position.setPoint(position);
 
             setInvalid();
+            validate();
         }
 
         void Component::setPosition(const Util::Point& position) {
-            _position = position;
+            setPosition(position.getPosition());
+        }
 
-            setInvalid();
+        void Component::handleInputEvent(const Util::Input::Event& inputEvent) {
+            (void) inputEvent; // skip input
         }
 
         void Component::setValid() {
