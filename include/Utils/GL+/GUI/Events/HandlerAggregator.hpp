@@ -1,7 +1,7 @@
-#ifndef UTILS_GL_GUI_EVENTS_HANDLERAGGREGATOR_H_INCLUDED
-#define UTILS_GL_GUI_EVENTS_HANDLERAGGREGATOR_H_INCLUDED
+#ifndef UTILS_GL_GUI_EVENTS_HANDLERAGGREGATOR_HPP_INCLUDED
+#define UTILS_GL_GUI_EVENTS_HANDLERAGGREGATOR_HPP_INCLUDED
 
-#include <Utils/GL+/GUI/Events/EventTemplate.h>
+#include <Utils/GL+/GUI/Events/EventTemplate.hpp>
 
 #include <string>
 #include <map>

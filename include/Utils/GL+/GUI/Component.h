@@ -2,8 +2,9 @@
 #define UTILS_GL_GUI_COMPONENT_H_INCLUDED
 
 #include <Utils/Rectangle.h>
-#include <Utils/GL+/GUI/Events/HandlerAggregator.h>
-#include <Utils/GL+/GUI/Events/OnClick.h>
+#include <Utils/GL+/GUI/Events/HandlerAggregator.hpp>
+#include <Utils/GL+/GUI/Events/MouseClick.h>
+#include <Utils/GL+/GUI/Events/MouseRelease.h>
 
 #include <glm/vec2.hpp>
 
@@ -53,8 +54,9 @@ namespace GL {
                 virtual void setPosition(const Util::Point& position);
 
             public:
-                Event::HandlerAggregator<Event::OnClick> onClick;
-
+                Event::HandlerAggregator<Event::MouseClick> onMouseClick;
+                Event::HandlerAggregator<Event::MouseRelease> onMouseRelease;
+                
             protected:
                 void setValid();
                 void setParent(Container* const parent);

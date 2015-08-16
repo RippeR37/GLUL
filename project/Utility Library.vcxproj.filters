@@ -287,13 +287,16 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Styles\Border.h">
       <Filter>Header Files\GL+\GUI\Styles</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Events\OnClick.h">
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\MouseClick.h">
       <Filter>Header Files\GL+\GUI\Events</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Events\EventTemplate.h">
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\MouseRelease.h">
       <Filter>Header Files\GL+\GUI\Events</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Events\HandlerAggregator.h">
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\EventTemplate.hpp">
+      <Filter>Header Files\GL+\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\HandlerAggregator.hpp">
       <Filter>Header Files\GL+\GUI\Events</Filter>
     </ClInclude>
   </ItemGroup>

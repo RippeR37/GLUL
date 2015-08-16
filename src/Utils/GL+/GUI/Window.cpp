@@ -68,8 +68,11 @@ namespace GL {
                     {
                         const Util::Input::MouseButtonEvent& thisEvent = *(inputEvent.asMouseButtonEvent());
 
-                        if(thisEvent.getAction() == Util::Input::Action::Press)
-                            onClick(*this, Event::OnClick(thisEvent.getMouseButton(), thisEvent.getPosition()));
+                        if(thisEvent.getAction() == Util::Input::Action::Press) {
+                            onMouseClick(*this, Event::MouseClick(thisEvent.getMouseButton(), thisEvent.getPosition()));
+                        } else if(thisEvent.getAction() == Util::Input::Action::Release) {
+                            onMouseRelease(*this, Event::MouseRelease(thisEvent.getMouseButton(), thisEvent.getPosition()));
+                        }
                     }
                     break;
 

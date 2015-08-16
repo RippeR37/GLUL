@@ -6,7 +6,7 @@
 #include <Utils/GL+/GUI/Font.h>
 #include <Utils/GL+/GUI/Text.h>
 #include <Utils/GL+/GUI/Window.h>
-#include <Utils/GL+/GUI/Events/OnClick.h>
+#include <Utils/GL+/GUI/Events/MouseClick.h>
 
 #include <vector>
 #include <iostream> // TODO: remove this
@@ -81,29 +81,33 @@ void run() {
     /*
      * Possible events:
      * 
-     * onClick          click (mouse button down) happens over element
-     * onRelease        click (mouse button up) happens over element
+     * onMouseClick     click (mouse button down) happens over element
+     * onMouseRelease   click (mouse button up) happens over element
      * onMouseOver      mouse cursor enters element's space on screen (it wasn't last time over it)
      * onMouseOut       mouse cursor leaves element's space on screen (it was last time but it's not anymore)
      * onMouseMove      mouse cursor moves over element's space on screen (it was and still is over it)
      */
     
-    // Add custom one-time handler
-    button.onClick += GL::GUI::Event::OnClick::Handler("myButtonClickHandler", [](GL::GUI::Component& component, const GL::GUI::Event::OnClick& onClickEvent) {
+    // Add anonymouse custom handler
+    button.onMouseRelease += GL::GUI::Event::MouseRelease::Handler("b:rls", [](GL::GUI::Component& component, const GL::GUI::Event::MouseRelease& mouseReleaseEvent) {
         (void) component;
+        (void) mouseReleaseEvent;
+
+        GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
+        std::cout << "Released mouse over: " << button.text.getText() << std::endl;
+    });
+
+    // Create custom onMouseClick handler that can be added to multiple components
+    GL::GUI::Event::MouseClick::Handler myButtonClickHandler("myButtonClickHandler", [](GL::GUI::Component& component, const GL::GUI::Event::MouseClick& mouseClickEvent) {
+        (void) component;
+        (void) mouseClickEvent;
+
         GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
         std::cout << "Clicked in: " << button.text.getText() << std::endl;
     });
 
-    // Create custom onClick handler that can be added to multiple components
-    GL::GUI::Event::OnClick::Handler myButtonClickHandler("myButtonClickHandler", [](GL::GUI::Component& component, const GL::GUI::Event::OnClick& onClickEvent) {
-        (void) component;
-        GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
-        std::cout << "Clicked in: " << button.text.getText() << std::endl;
-    });
-
-    button2.onClick += myButtonClickHandler;
-    button3.onClick += myButtonClickHandler;
+    button2.onMouseClick += myButtonClickHandler;
+    button3.onMouseClick += myButtonClickHandler;
     
 
     /////////////////////////////////////////////////////////////////

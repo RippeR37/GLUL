@@ -81,19 +81,39 @@ namespace GL {
         }
         
         void Container::initializeEventForwarding() {
-            onClick += Event::OnClick::Handler(
-                "__UtilLib::GUI::Event::onClick::Forwarding", 
-                [&](Component& container, const Event::OnClick& onClickEvent) {
+            // MouseClick
+            onMouseClick += Event::MouseClick::Handler(
+                "__UtilLib::GUI::Event::MouseClick::Forwarding", 
+                [&](Component& container, const Event::MouseClick& onMouseClickEvent) {
                     (void) container; // skip it
 
                     for(Component* componentPtr : _components) {
                         Component& component = *componentPtr;
-                        glm::vec2 newPosition = onClickEvent.position - component.getPosition().getPosition();
+                        glm::vec2 newPosition = onMouseClickEvent.position - component.getPosition().getPosition();
 
                         if(newPosition.x >= 0 && newPosition.x < component.getSize().x && 
                            newPosition.y >= 0 && newPosition.y < component.getSize().y)
                         {
-                            component.onClick(component, Event::OnClick(onClickEvent.button, newPosition));
+                            component.onMouseClick(component, Event::MouseClick(onMouseClickEvent.button, newPosition));
+                        }
+                    }
+                }
+            );
+
+            // MouseRelease
+            onMouseRelease += Event::MouseRelease::Handler(
+                "__UtilLib::GUI::Event::MouseRelease::Forwarding", 
+                [&](Component& container, const Event::MouseRelease& onMouseReleaseEvent) {
+                    (void) container; // skip it
+
+                    for(Component* componentPtr : _components) {
+                        Component& component = *componentPtr;
+                        glm::vec2 newPosition = onMouseReleaseEvent.position - component.getPosition().getPosition();
+
+                        if(newPosition.x >= 0 && newPosition.x < component.getSize().x && 
+                           newPosition.y >= 0 && newPosition.y < component.getSize().y)
+                        {
+                            component.onMouseRelease(component, Event::MouseRelease(onMouseReleaseEvent.button, newPosition));
                         }
                     }
                 }

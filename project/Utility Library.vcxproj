@@ -97,9 +97,10 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Button.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Component.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Container.h" />
-    <ClInclude Include="..\include\Utils\GL+\GUI\Events\EventTemplate.h" />
-    <ClInclude Include="..\include\Utils\GL+\GUI\Events\HandlerAggregator.h" />
-    <ClInclude Include="..\include\Utils\GL+\GUI\Events\OnClick.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\EventTemplate.hpp" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\HandlerAggregator.hpp" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\MouseClick.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\MouseRelease.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Font.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\InnerText.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Styles\Border.h" />
