@@ -16,7 +16,6 @@ namespace GL {
             setSize(glm::vec2(0.0f));
             setPosition(glm::vec2(0.0f));
             
-            clearListeners();
             setInvalid();
 
             bindTo(parent);
@@ -41,25 +40,6 @@ namespace GL {
 
         void Component::validate() const {
             const_cast<Component*>(this)->setValid();
-        }
-
-        void Component::processEvent(const Event& event) {
-            if(isEnabled())
-                for(auto& listener : _listeners[static_cast<int>(event.getType())])
-                    listener(event);
-        }
-
-        void Component::addListener(Event::Type eventType, std::function<void(const Event&)> function) {
-            _listeners[static_cast<int>(eventType)].push_back(function);
-        }
-
-        void Component::clearListeners() {
-            _listeners.clear();
-            _listeners.resize(7); // number of possible event types
-        }
-
-        void Component::clearListeners(Event::Type eventType) {
-            _listeners[static_cast<int>(eventType)].clear();
         }
         
         bool Component::isEnabled() const {
@@ -146,10 +126,6 @@ namespace GL {
 
         void Component::setPosition(const Util::Point& position) {
             setPosition(position.getPosition());
-        }
-
-        void Component::handleInputEvent(const Util::Input::Event& inputEvent) {
-            (void) inputEvent; // skip input
         }
 
         void Component::setValid() {

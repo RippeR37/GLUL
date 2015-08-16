@@ -61,7 +61,12 @@ namespace GL {
         void Window::setSize(const glm::uvec2& size) {
             Util::Window::setSize(size);
         }
+        
+        void Window::handleInputEvent(const Util::Input::Event& inputEvent) {
+            (void) inputEvent;
 
+            // build GUI-based events and pass them to Window's GUI container (self)
+        }
     }
 
 }

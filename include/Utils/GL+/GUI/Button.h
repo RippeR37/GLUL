@@ -39,9 +39,6 @@ namespace GL {
 
                 InnerText text;
                 Style::Border border;
-                
-            protected:
-                virtual void handleInputEvent(const Util::Input::Event& inputEvent);
 
             private:
                 std::vector<glm::vec4> getVertices() const;

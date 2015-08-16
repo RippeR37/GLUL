@@ -24,9 +24,6 @@ namespace GL {
 
                 virtual void setInvalid();
 
-            protected:
-                virtual void handleInputEvent(const Util::Input::Event& inputEvent);
-
             private:
                 void notifyChildsOfInvalidState();
                 void handleChildDestruction(Component* component);

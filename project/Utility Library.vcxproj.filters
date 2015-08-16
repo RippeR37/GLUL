@@ -221,9 +221,6 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Container.h">
       <Filter>Header Files\GL+\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\include\Utils\GL+\GUI\Event.h">
-      <Filter>Header Files\GL+\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\include\Utils\GL+\GUI\Font.h">
       <Filter>Header Files\GL+\GUI</Filter>
     </ClInclude>
@@ -419,9 +416,6 @@
       <Filter>Source Files\GL+\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp">
-      <Filter>Source Files\GL+\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp">
       <Filter>Source Files\GL+\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Utils\GL+\GUI\Font.cpp">

@@ -16,6 +16,8 @@ namespace GL {
                 public:
                     Border(Component& component);
 
+                    Border& operator=(const Border&) = delete;
+
                     void set(unsigned int width);
                     void set(unsigned int width, int offset);
                     void set(unsigned int width, int offset, const glm::vec3& color);

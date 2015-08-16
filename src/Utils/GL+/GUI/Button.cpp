@@ -115,36 +115,6 @@ namespace GL {
             return program;
         }
 
-        void Button::handleInputEvent(const Util::Input::Event& inputEvent) {
-            std::cout << "Otrzymano event!";
-
-            switch(inputEvent.getType()) {
-                case Util::Input::Event::Type::MouseButton:
-                    {
-                        const Util::Input::MouseButtonEvent& mouseEvent = *inputEvent.asMouseButtonEvent();
-
-                        switch(mouseEvent.getMouseButton()) {
-                            case Util::Input::MouseButton::Left: std::cout << " LPM "; break;
-                            case Util::Input::MouseButton::Middle: std::cout << " SPM "; break;
-                            case Util::Input::MouseButton::Right: std::cout << " PPM "; break;
-                        }
-
-                        switch(mouseEvent.getAction()) {
-                            case Util::Input::Action::Press: std::cout << " wcisnieto"; break;
-                            case Util::Input::Action::Release: std::cout << " zwiolniono"; break;
-                            case Util::Input::Action::Repeat: std::cout << " ponownie wcisnieto"; break;
-                        }
-                    }
-
-                    std::cout << std::endl;
-                    break;
-
-                case Util::Input::Event::Type::MouseMovement:
-                    std::cout << " Mysz na pozycji: " << inputEvent.asMouseMovementEvent()->getX() << ", " << inputEvent.asMouseMovementEvent()->getY() << std::endl;
-                    break;
-            }
-        }
-
         std::vector<glm::vec4> Button::getVertices() const {
             std::vector<glm::vec4> result;
 
@@ -154,7 +124,7 @@ namespace GL {
 
             glm::vec2 borStart = posStart - glm::vec2( border.getOffset(), -border.getOffset());
             glm::vec2 borEnd   = posEnd   - glm::vec2(-border.getOffset(),  border.getOffset());
-            glm::vec2 borWidth = glm::vec2(border.getWidth());
+            glm::vec2 borWidth = glm::vec2(static_cast<float>(border.getWidth()));
 
             static auto addRectangleVerticesWithColor = [](std::vector<glm::vec4>& result, const glm::vec2& posStart, const glm::vec2& posEnd, const glm::vec4& color) 
             {

@@ -97,7 +97,6 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Button.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Component.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Container.h" />
-    <ClInclude Include="..\include\Utils\GL+\GUI\Event.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Font.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\InnerText.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Styles\Border.h" />
@@ -168,7 +167,6 @@
     <ClCompile Include="..\src\Utils\GL+\GUI\Button.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp" />
-    <ClCompile Include="..\src\Utils\GL+\GUI\Event.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Font.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\InnerText.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Styles\Border.cpp" />

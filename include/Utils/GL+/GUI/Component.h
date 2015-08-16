@@ -1,8 +1,6 @@
 #ifndef UTILS_GL_GUI_COMPONENT_H_INCLUDED
 #define UTILS_GL_GUI_COMPONENT_H_INCLUDED
 
-#include <Utils/GL+/GUI/Event.h>
-#include <Utils/Input/EventHandler.h>
 #include <Utils/Rectangle.h>
 
 #include <glm/vec2.hpp>
@@ -16,7 +14,7 @@ namespace GL {
 
         class Container;
 
-        class Component : protected Util::Input::EventHandler {
+        class Component {
             public:
                 Component(Container& parent);
                 Component(Container* const parent = nullptr);
@@ -29,11 +27,6 @@ namespace GL {
                 virtual void update(double deltaTime) = 0;
 
                 virtual void validate() const;
-                virtual void processEvent(const Event& event);
-                
-                void addListener(Event::Type eventType, std::function<void(const Event&)> function);
-                void clearListeners();
-                void clearListeners(Event::Type eventType);
 
                 bool isEnabled() const;
                 bool isFocused() const;
@@ -56,11 +49,8 @@ namespace GL {
                 virtual void setSize(const glm::vec2& size);
                 virtual void setPosition(const glm::vec2& position);
                 virtual void setPosition(const Util::Point& position);
-                
 
             protected:
-                virtual void handleInputEvent(const Util::Input::Event& inputEvent);
-
                 void setValid();
                 void setParent(Container* const parent);
                 void notifyParentOfDestruction();
@@ -73,8 +63,6 @@ namespace GL {
                 glm::vec2 _size;
                 Util::Point _position;
                 Container* _parent;
-
-                std::vector<std::vector<std::function<void(const Event&)>>> _listeners;
 
             public:
                 friend Container;
