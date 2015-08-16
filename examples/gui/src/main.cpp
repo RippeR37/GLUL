@@ -61,7 +61,7 @@ void run() {
     button2.setSize(glm::vec2(150.0f, 30.0f));
     button2.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
     button2.setPosition(glm::vec2(50.0f, 180.0f));
-    button2.border.set(2, 0, glm::vec3(0.3f, 0.7f, 1.0f));
+    button2.border.set(1, 0, glm::vec3(0.3f, 0.7f, 1.0f));
         button2.text.setFont(fontArial);
         button2.text.setText("Press me #2");
         button2.text.setColor(glm::vec3(1.0f));
@@ -71,7 +71,7 @@ void run() {
     button3.setSize(glm::vec2(150.0f, 30.0f));
     button3.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
     button3.setPosition(glm::vec2(50.0f, 220.0f));
-    button3.border.set(1, 2, glm::vec3(0.0f, 0.0f, 1.0f));
+    button3.border.set(2, 4, glm::vec3(0.0f, 0.0f, 1.0f));
         button3.text.setFont(fontArial);
         button3.text.setText("Press me #3");
         button3.text.setColor(glm::vec3(1.0f));
@@ -89,41 +89,45 @@ void run() {
      */
     
     // Add anonymouse custom handler
-    button.onMouseRelease += GL::GUI::Event::MouseRelease::Handler("b:rls", [](GL::GUI::Component& component, const GL::GUI::Event::MouseRelease& mouseReleaseEvent) {
-        (void) component;
-        (void) mouseReleaseEvent;
-
-        GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
-        std::cout << "Released mouse over: " << button.text.getText() << std::endl;
-    });
+    button.onMouseRelease += GL::GUI::Event::MouseRelease::Handler(
+        "b:release", 
+        [](GL::GUI::Component& component, const GL::GUI::Event::MouseRelease& mouseReleaseEvent) {
+            (void) mouseReleaseEvent;
+            GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
+            std::cout << "Released mouse over: " << button.text.getText() << std::endl;
+        }
+    );
 
     // Create custom onMouseClick handler that can be added to multiple components
-    GL::GUI::Event::MouseClick::Handler myButtonClickHandler("myButtonClickHandler", [](GL::GUI::Component& component, const GL::GUI::Event::MouseClick& mouseClickEvent) {
-        (void) component;
-        (void) mouseClickEvent;
-
-        GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
-        std::cout << "Clicked in: " << button.text.getText() << std::endl;
-    });
+    GL::GUI::Event::MouseClick::Handler myButtonClickHandler(
+        "b:click", 
+        [](GL::GUI::Component& component, const GL::GUI::Event::MouseClick& mouseClickEvent) {
+            (void) mouseClickEvent;
+            GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
+            std::cout << "Clicked in: " << button.text.getText() << std::endl;
+        }
+    );
 
     button2.onMouseClick += myButtonClickHandler;
     button3.onMouseClick += myButtonClickHandler;
 
     // Mouse enter/leaves
-    button.onMouseEnter += GL::GUI::Event::MouseEnter::Handler("b:ent", [](GL::GUI::Component& component, const GL::GUI::Event::MouseEnter& mouseEnterEvent) {
-        (void) component;
-        (void) mouseEnterEvent;
-
-        GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
-        std::cout << "Mouse enters over: " << button.text.getText() << std::endl;
-    });
-    button.onMouseLeave += GL::GUI::Event::MouseLeave::Handler("b:lve", [](GL::GUI::Component& component, const GL::GUI::Event::MouseLeave& mouseEnterLeave) {
-        (void) component;
-        (void) mouseEnterLeave;
-
-        GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
-        std::cout << "Mouse leaves from: " << button.text.getText() << std::endl;
-    });
+    button2.onMouseEnter += GL::GUI::Event::MouseEnter::Handler(
+        "b:enter", 
+        [](GL::GUI::Component& component, const GL::GUI::Event::MouseEnter& mouseEnterEvent) {
+            (void) mouseEnterEvent;
+            GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
+            button.setColor(glm::vec3(0.07f, 0.4f, 1.0f));
+        }
+    );
+    button2.onMouseLeave += GL::GUI::Event::MouseLeave::Handler(
+        "b:leave", 
+        [](GL::GUI::Component& component, const GL::GUI::Event::MouseLeave& mouseEnterLeave) {
+            (void) mouseEnterLeave;
+            GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
+            button.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
+        }
+    );
     
 
     /////////////////////////////////////////////////////////////////

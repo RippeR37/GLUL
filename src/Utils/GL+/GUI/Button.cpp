@@ -98,6 +98,8 @@ namespace GL {
 
         void Button::setColor(const glm::vec4& color) {
             _color = color;
+
+            setInvalid();
         }
 
         void Button::setAlpha(const float alpha) {
