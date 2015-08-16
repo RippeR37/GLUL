@@ -83,8 +83,8 @@ void run() {
      * 
      * onMouseClick     click (mouse button down) happens over element
      * onMouseRelease   click (mouse button up) happens over element
-     * onMouseOver      mouse cursor enters element's space on screen (it wasn't last time over it)
-     * onMouseOut       mouse cursor leaves element's space on screen (it was last time but it's not anymore)
+     * onMouseEnter     mouse cursor enters element's space on screen (it wasn't last time over it)
+     * onMouseLeave     mouse cursor leaves element's space on screen (it was last time but it's not anymore)
      * onMouseMove      mouse cursor moves over element's space on screen (it was and still is over it)
      */
     
@@ -108,6 +108,22 @@ void run() {
 
     button2.onMouseClick += myButtonClickHandler;
     button3.onMouseClick += myButtonClickHandler;
+
+    // Mouse enter/leaves
+    button.onMouseEnter += GL::GUI::Event::MouseEnter::Handler("b:ent", [](GL::GUI::Component& component, const GL::GUI::Event::MouseEnter& mouseEnterEvent) {
+        (void) component;
+        (void) mouseEnterEvent;
+
+        GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
+        std::cout << "Mouse enters over: " << button.text.getText() << std::endl;
+    });
+    button.onMouseLeave += GL::GUI::Event::MouseLeave::Handler("b:lve", [](GL::GUI::Component& component, const GL::GUI::Event::MouseLeave& mouseEnterLeave) {
+        (void) component;
+        (void) mouseEnterLeave;
+
+        GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
+        std::cout << "Mouse leaves from: " << button.text.getText() << std::endl;
+    });
     
 
     /////////////////////////////////////////////////////////////////

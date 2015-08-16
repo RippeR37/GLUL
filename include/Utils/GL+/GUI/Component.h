@@ -5,6 +5,9 @@
 #include <Utils/GL+/GUI/Events/HandlerAggregator.hpp>
 #include <Utils/GL+/GUI/Events/MouseClick.h>
 #include <Utils/GL+/GUI/Events/MouseRelease.h>
+#include <Utils/GL+/GUI/Events/MouseEnter.h>
+#include <Utils/GL+/GUI/Events/MouseLeave.h>
+#include <Utils/GL+/GUI/Events/MouseMove.h>
 
 #include <glm/vec2.hpp>
 
@@ -56,11 +59,16 @@ namespace GL {
             public:
                 Event::HandlerAggregator<Event::MouseClick> onMouseClick;
                 Event::HandlerAggregator<Event::MouseRelease> onMouseRelease;
+                Event::HandlerAggregator<Event::MouseEnter> onMouseEnter;
+                Event::HandlerAggregator<Event::MouseLeave> onMouseLeave;
+                Event::HandlerAggregator<Event::MouseMove> onMouseMove;
                 
             protected:
                 void setValid();
                 void setParent(Container* const parent);
                 void notifyParentOfDestruction();
+
+                bool isUnderMouse() const;
 
                 bool _isEnabled;
                 bool _isFocused;

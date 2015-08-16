@@ -118,6 +118,77 @@ namespace GL {
                     }
                 }
             );
+
+            // MouseLeave
+            onMouseLeave += Event::MouseLeave::Handler(
+                "__UtilLib::GUI::Event::MouseLeave::Forwarding", 
+                [&](Component& container, const Event::MouseLeave& onMouseLeaveEvent) {
+                    (void) container; // skip it
+
+                    for(Component* componentPtr : _componentsUnderMouse) {
+                        Component& component = *componentPtr;
+                        component.onMouseLeave(component, Event::MouseLeave());
+                    }
+
+                    _componentsUnderMouse.clear();
+                }
+            );
+
+            // MouseEnter
+            onMouseEnter += Event::MouseEnter::Handler(
+                "__UtilLib::GUI::Event::MouseEnter::Forwarding", 
+                [&](Component& container, const Event::MouseEnter& onMouseEnterEvent) {
+                    (void) container; // skip it
+
+                    for(Component* componentPtr : _components) {
+                        Component& component = *componentPtr;
+                        glm::vec2 newPosition = onMouseEnterEvent.position - component.getPosition().getPosition();
+
+                        if(newPosition.x >= 0 && newPosition.x < component.getSize().x && 
+                           newPosition.y >= 0 && newPosition.y < component.getSize().y)
+                        {
+                            _componentsUnderMouse.insert(componentPtr);
+                            component.onMouseEnter(component, Event::MouseEnter(newPosition));
+                        }
+                    }
+                }
+            );
+
+            // MouseMove
+            onMouseMove += Event::MouseMove::Handler(
+                "__UtilLib::GUI::Event::MouseLeave::Forwarding", 
+                [&](Component& container, const Event::MouseMove& onMouseMoveEvent) {
+                    (void) container; // skip it
+
+                    for(Component* componentPtr : _components) {
+                        Component& component = *componentPtr;
+                        glm::vec2 newPosition = onMouseMoveEvent.position - component.getPosition().getPosition();
+
+                        bool isUnderMouseNow = (newPosition.x >= 0 && newPosition.x < component.getSize().x && 
+                                                newPosition.y >= 0 && newPosition.y < component.getSize().y);
+
+                        bool wasUnderMouseBefore = isUnderMouse(componentPtr); // returns result from previous frame !
+
+                        if(isUnderMouseNow) {
+                            if(wasUnderMouseBefore) {
+                                component.onMouseMove(component, Event::MouseMove(newPosition));
+                            } else {
+                                _componentsUnderMouse.insert(componentPtr);
+                                component.onMouseEnter(component, Event::MouseEnter(newPosition));
+                            }
+                        } else {
+                            if(wasUnderMouseBefore) {
+                                _componentsUnderMouse.erase(componentPtr);
+                                component.onMouseLeave(component, Event::MouseLeave());
+                            } 
+                        }
+                    }
+                }
+            );
+        }
+        
+        bool Container::isUnderMouse(Component* component) const {
+            return (_componentsUnderMouse.count(component) > 0);
         }
 
     }

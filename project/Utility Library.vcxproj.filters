@@ -299,6 +299,15 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Events\HandlerAggregator.hpp">
       <Filter>Header Files\GL+\GUI\Events</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\MouseEnter.h">
+      <Filter>Header Files\GL+\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\MouseLeave.h">
+      <Filter>Header Files\GL+\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\MouseMove.h">
+      <Filter>Header Files\GL+\GUI\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">

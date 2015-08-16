@@ -4,6 +4,7 @@
 #include <Utils/GL+/GUI/Component.h>
 
 #include <list>
+#include <set>
 
 namespace GL {
 
@@ -29,7 +30,10 @@ namespace GL {
                 void handleChildDestruction(Component* component);
                 void initializeEventForwarding();
 
+                bool isUnderMouse(Component* component) const;
+
                 std::list<Component*> _components;
+                std::set<Component*> _componentsUnderMouse;
 
             public:
                 friend Component;

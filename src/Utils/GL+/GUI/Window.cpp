@@ -76,6 +76,14 @@ namespace GL {
                     }
                     break;
 
+                case Util::Input::Event::Type::MouseMovement:
+                    {
+                        const Util::Input::MouseMovementEvent& thisEvent = *(inputEvent.asMouseMovementEvent());
+
+                        onMouseMove(*this, Event::MouseMove(thisEvent.getPosition()));
+                    }
+                    break;
+
                 default: break;
             }
         }

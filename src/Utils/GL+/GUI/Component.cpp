@@ -138,6 +138,13 @@ namespace GL {
             if(getParent())
                 getParent()->handleChildDestruction(this);
         }
+        
+        bool Component::isUnderMouse() const {
+            if(getParent() == nullptr)
+                return false;
+
+            return getParent()->isUnderMouse(const_cast<Component*>(this));
+        }
 
     }
 
