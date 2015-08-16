@@ -5,9 +5,7 @@ namespace GL {
 
     namespace GUI {
 
-        Component::Component(Container& parent) : Component(&parent) {
-
-        }
+        Component::Component(Container& parent) : Component(&parent) { }
 
         Component::Component(Container* const parent) {
             setVisible(true);

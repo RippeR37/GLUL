@@ -27,6 +27,7 @@ namespace GL {
             private:
                 void notifyChildsOfInvalidState();
                 void handleChildDestruction(Component* component);
+                void initializeEventForwarding();
 
                 std::list<Component*> _components;
 

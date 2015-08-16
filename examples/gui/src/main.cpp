@@ -6,8 +6,10 @@
 #include <Utils/GL+/GUI/Font.h>
 #include <Utils/GL+/GUI/Text.h>
 #include <Utils/GL+/GUI/Window.h>
+#include <Utils/GL+/GUI/Events/OnClick.h>
 
 #include <vector>
+#include <iostream> // TODO: remove this
 
 /**
  * Font loading helper function
@@ -75,6 +77,36 @@ void run() {
         button3.text.setColor(glm::vec3(1.0f));
         button3.text.setAlignment(GL::GUI::Style::HorizontalAlignment::Right, GL::GUI::Style::VerticalAlignment::Bottom);
 
+
+    /*
+     * Possible events:
+     * 
+     * onClick          click (mouse button down) happens over element
+     * onRelease        click (mouse button up) happens over element
+     * onMouseOver      mouse cursor enters element's space on screen (it wasn't last time over it)
+     * onMouseOut       mouse cursor leaves element's space on screen (it was last time but it's not anymore)
+     * onMouseMove      mouse cursor moves over element's space on screen (it was and still is over it)
+     */
+    
+    // Add custom one-time handler
+    button.onClick += GL::GUI::Event::OnClick::Handler("myButtonClickHandler", [](GL::GUI::Component& component, const GL::GUI::Event::OnClick& onClickEvent) {
+        (void) component;
+        GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
+        std::cout << "Clicked in: " << button.text.getText() << std::endl;
+    });
+
+    // Create custom onClick handler that can be added to multiple components
+    GL::GUI::Event::OnClick::Handler myButtonClickHandler("myButtonClickHandler", [](GL::GUI::Component& component, const GL::GUI::Event::OnClick& onClickEvent) {
+        (void) component;
+        GL::GUI::Button& button = static_cast<GL::GUI::Button&>(component);
+        std::cout << "Clicked in: " << button.text.getText() << std::endl;
+    });
+
+    button2.onClick += myButtonClickHandler;
+    button3.onClick += myButtonClickHandler;
+    
+
+    /////////////////////////////////////////////////////////////////
 
     while(window.isCreated() && window.shouldClose() == false) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);

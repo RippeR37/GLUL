@@ -5,8 +5,6 @@
 
 #include <cctype>
 
-#include <iostream> // TODO: remove this
-
 namespace GL {
 
     namespace GUI {

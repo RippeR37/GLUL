@@ -2,6 +2,8 @@
 #define UTILS_GL_GUI_COMPONENT_H_INCLUDED
 
 #include <Utils/Rectangle.h>
+#include <Utils/GL+/GUI/Events/HandlerAggregator.h>
+#include <Utils/GL+/GUI/Events/OnClick.h>
 
 #include <glm/vec2.hpp>
 
@@ -49,6 +51,9 @@ namespace GL {
                 virtual void setSize(const glm::vec2& size);
                 virtual void setPosition(const glm::vec2& position);
                 virtual void setPosition(const Util::Point& position);
+
+            public:
+                Event::HandlerAggregator<Event::OnClick> onClick;
 
             protected:
                 void setValid();

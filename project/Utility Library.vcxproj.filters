@@ -78,6 +78,9 @@
     <Filter Include="Source Files\GL+\GUI\Styles">
       <UniqueIdentifier>{3ba36171-0663-41ee-a7a8-7c5dc62ca83a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GL+\GUI\Events">
+      <UniqueIdentifier>{848a1b32-9124-4c2d-a73e-cab8e62ab284}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Utils\Clock.h">
@@ -283,6 +286,15 @@
     </ClInclude>
     <ClInclude Include="..\include\Utils\GL+\GUI\Styles\Border.h">
       <Filter>Header Files\GL+\GUI\Styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\OnClick.h">
+      <Filter>Header Files\GL+\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\EventTemplate.h">
+      <Filter>Header Files\GL+\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\HandlerAggregator.h">
+      <Filter>Header Files\GL+\GUI\Events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

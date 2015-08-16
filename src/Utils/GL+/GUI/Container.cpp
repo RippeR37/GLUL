@@ -4,12 +4,10 @@ namespace GL {
 
     namespace GUI {
 
-        Container::Container(Container& parent) : Container(&parent) {
-
-        }
+        Container::Container(Container& parent) : Container(&parent) { }
 
         Container::Container(Container* const parent) : Component(parent) {
-
+            initializeEventForwarding();
         }
 
         Container::~Container() {
@@ -80,6 +78,26 @@ namespace GL {
 
         void Container::handleChildDestruction(Component* component) {
             _components.remove(component);
+        }
+        
+        void Container::initializeEventForwarding() {
+            onClick += Event::OnClick::Handler(
+                "__UtilLib::GUI::Event::onClick::Forwarding", 
+                [&](Component& container, const Event::OnClick& onClickEvent) {
+                    (void) container; // skip it
+
+                    for(Component* componentPtr : _components) {
+                        Component& component = *componentPtr;
+                        glm::vec2 newPosition = onClickEvent.position - component.getPosition().getPosition();
+
+                        if(newPosition.x >= 0 && newPosition.x < component.getSize().x && 
+                           newPosition.y >= 0 && newPosition.y < component.getSize().y)
+                        {
+                            component.onClick(component, Event::OnClick(onClickEvent.button, newPosition));
+                        }
+                    }
+                }
+            );
         }
 
     }

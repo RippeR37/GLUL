@@ -63,9 +63,18 @@ namespace GL {
         }
         
         void Window::handleInputEvent(const Util::Input::Event& inputEvent) {
-            (void) inputEvent;
+            switch(inputEvent.getType()) {
+                case Util::Input::Event::Type::MouseButton:
+                    {
+                        const Util::Input::MouseButtonEvent& thisEvent = *(inputEvent.asMouseButtonEvent());
 
-            // build GUI-based events and pass them to Window's GUI container (self)
+                        if(thisEvent.getAction() == Util::Input::Action::Press)
+                            onClick(*this, Event::OnClick(thisEvent.getMouseButton(), thisEvent.getPosition()));
+                    }
+                    break;
+
+                default: break;
+            }
         }
     }
 
