@@ -110,6 +110,8 @@ namespace GL {
 
         private:
             OperationType _operation;
+
+            using Buffer::setTarget;
     };
 
 }

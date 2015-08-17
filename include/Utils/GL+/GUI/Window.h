@@ -27,6 +27,7 @@ namespace GL {
             protected:
                 virtual void handleInputEvent(const Util::Input::Event& inputEvent);
 
+                using Container::update;
         };
 
     }

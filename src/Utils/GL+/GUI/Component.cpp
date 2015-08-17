@@ -8,6 +8,7 @@ namespace GL {
         Component::Component(Container& parent) : Component(&parent) { }
 
         Component::Component(Container* const parent) {
+            setParent(nullptr);
             setVisible(true);
             setEnabled(true);
             setFocused(false);

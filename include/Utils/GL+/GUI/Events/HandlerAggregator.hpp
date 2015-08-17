@@ -16,7 +16,7 @@ namespace GL {
             template<class EventType>
             class HandlerAggregator {
                 public:
-                    HandlerAggregator& operator+=(typename const EventTemplate<EventType>::Handler& handler) {
+                    HandlerAggregator& operator+=(const typename EventTemplate<EventType>::Handler& handler) {
                         return add(handler);
                     }
 
@@ -28,7 +28,7 @@ namespace GL {
                         call(component, eventArg);
                     }
 
-                    HandlerAggregator& add(typename const EventTemplate<EventType>::Handler& handler) {
+                    HandlerAggregator& add(const typename EventTemplate<EventType>::Handler& handler) {
                         _handlers[handler.name] = handler.callback;
                         return *this;
                     }

@@ -40,11 +40,12 @@ namespace GL {
             Target getTarget() const;
             const std::list<VertexAttrib>& getAttributes() const;
 
+            using Buffer::setData;
+
         private:
             std::list<VertexAttrib> _attributePointers;
 
-        public: 
-            using Buffer::setData;
+            using Buffer::setTarget;
     };
 
 }

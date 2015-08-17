@@ -3,6 +3,8 @@
 #include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
+
+#define GLM_FORCE_RADIANS
 #include <glm/gtc/type_ptr.hpp>
 
 namespace GL {
