@@ -124,6 +124,7 @@ namespace GL {
                 "__UtilLib::GUI::Event::MouseLeave::Forwarding", 
                 [&](Component& container, const Event::MouseLeave& onMouseLeaveEvent) {
                     (void) container; // skip it
+                    (void) onMouseLeaveEvent; // skip it
 
                     for(Component* componentPtr : _componentsUnderMouse) {
                         Component& component = *componentPtr;

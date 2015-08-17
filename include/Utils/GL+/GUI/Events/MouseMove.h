@@ -13,8 +13,7 @@ namespace GL {
 
             class MouseMove : public EventTemplate<MouseMove> {
                 public:
-                    MouseMove(const glm::vec2& position) : position(position) { }
-
+                    MouseMove(const glm::vec2& position);
                     MouseMove& operator=(const MouseMove&) = delete;
 
                     const glm::vec2 position;

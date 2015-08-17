@@ -1,8 +1,6 @@
 #ifndef UTILS_GL_GUI_EVENTS_EVENTTEMPLATE_HPP_INCLUDED
 #define UTILS_GL_GUI_EVENTS_EVENTTEMPLATE_HPP_INCLUDED
 
-#include <Utils/GL+/GUI/Component.h>
-
 #include <string>
 #include <functional>
 

@@ -14,8 +14,7 @@ namespace GL {
 
             class MouseClick : public EventTemplate<MouseClick> {
                 public:
-                    MouseClick(const Util::Input::MouseButton& button, const glm::vec2& position) : button(button), position(position) { }
-
+                    MouseClick(const Util::Input::MouseButton& button, const glm::vec2& position);
                     MouseClick& operator=(const MouseClick&) = delete;
 
                     const Util::Input::MouseButton button;

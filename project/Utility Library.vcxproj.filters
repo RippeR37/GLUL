@@ -81,6 +81,9 @@
     <Filter Include="Header Files\GL+\GUI\Events">
       <UniqueIdentifier>{848a1b32-9124-4c2d-a73e-cab8e62ab284}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GL+\GUI\Events">
+      <UniqueIdentifier>{e4f9b5b8-406b-4291-8464-5a3313fd1ec4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\Utils\Clock.h">
@@ -492,6 +495,21 @@
     </ClCompile>
     <ClCompile Include="..\src\Utils\GL+\GUI\Styles\Border.cpp">
       <Filter>Source Files\GL+\GUI\Styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Events\MouseClick.cpp">
+      <Filter>Source Files\GL+\GUI\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Events\MouseEnter.cpp">
+      <Filter>Source Files\GL+\GUI\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Events\MouseRelease.cpp">
+      <Filter>Source Files\GL+\GUI\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Events\MouseMove.cpp">
+      <Filter>Source Files\GL+\GUI\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Events\MouseLeave.cpp">
+      <Filter>Source Files\GL+\GUI\Events</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

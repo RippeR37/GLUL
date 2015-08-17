@@ -14,8 +14,7 @@ namespace GL {
 
             class MouseRelease : public EventTemplate<MouseRelease> {
                 public:
-                    MouseRelease(const Util::Input::MouseButton& button, const glm::vec2& position) : button(button), position(position) { }
-
+                    MouseRelease(const Util::Input::MouseButton& button, const glm::vec2& position);
                     MouseRelease& operator=(const MouseRelease&) = delete;
 
                     const Util::Input::MouseButton button;

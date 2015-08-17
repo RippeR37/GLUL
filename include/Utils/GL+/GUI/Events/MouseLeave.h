@@ -13,8 +13,7 @@ namespace GL {
 
             class MouseLeave : public EventTemplate<MouseLeave> {
                 public:
-                    MouseLeave() { }
-
+                    MouseLeave();
                     MouseLeave& operator=(const MouseLeave&) = delete;
             };
 
