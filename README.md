@@ -1,5 +1,6 @@
-## Utility-Library
-Utility library to simplify using OpenGL written in C++11.   
+## Utility-Library [![Build Status](https://travis-ci.org/RippeR37/Utility-Library.svg?branch=master)](https://travis-ci.org/RippeR37/Utility-Library)
+
+Utility library written in C++11 to simplify usage of OpenGL.
 
 Library provides:
 - Object-oriented wrapper for OpenGL functionality
@@ -20,7 +21,11 @@ Library provides:
     - operations on strings, files, etc.
     - collision detection
     - and others...
-- _GUI module (**yet to be finished**)_
+- GUI module
+    - Component/container based
+    - Extendable
+    - Many handy events like onMouseEnter
+    - Still work in progress
 - Multiplatform support (tested on Windows, Linux and Mac OS)
 
 Library strongly uses C++11 features like move constructors/assignment operators, lambdas, range-based loops, strongly typed pointers (with nullptr), strongly typed enumerations (_enum class_), hash maps etc. when it's clear much would be gained by it.
@@ -113,11 +118,12 @@ Documentation for each module should be created soon.
 
 ### Compilers tested
 - MSVC (tested on Visual Studio 2013)
-- GCC (tested on 4.9.2)
+- GCC (tested on 5.1.0)
+- Clang 3.6
 
 ### Dependencies
 - [GLFW](http://www.glfw.org/) (tested on 3.1)
-- [GLEW](http://www.glew.sourceforge.net/) (tested on 1.12.0)
+- [GLEW](http://www.glew.sourceforge.net/) (tested on 1.13.0)
 - [GLM](http://www.glm.g-truc.net/) (tested on 0.9.5.4)
 - [FT2](http://www.freetype.org/freetype2/) (tested on 2.5.5)
 - [libJPEG](http://www.ijg.org/) ([tested](https://beeproc.wordpress.com/2012/11/18/building-libjpeg-8d-with-msvc-2012/) on 9a, [libjpeg-turbo](http://libjpeg-turbo.virtualgl.org/) might also work)
