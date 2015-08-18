@@ -4,6 +4,14 @@ compiler:
   - gcc
   - clang
 
+env:
+  - TASK=build
+  - TASK=analyze
+
+matrix:
+  allow_failures:
+    - env: TASK=analyze # fail on static code analysis doesn't fail whole build
+
 addons:
   apt:
     sources:
@@ -14,50 +22,64 @@ addons:
     - gcc-5
     - g++-5
 
-before_script:
-  # UPDATE GCC TO GCC-5
-  - if [ "$CXX" = "g++" ]; then export CXX="g++-5" CC="gcc-5"; fi
-  
-  # UPDATE CLANG TO CLANG-3.6
+
+before_install: 
+  # PREPARE ENVIRONMENT
+  #####################
+
+  # UPDATE COMPILERS (GCC-5, Clang 3.6)
+  - if [ "$CXX" = "g++"     ]; then export CXX="g++-5"       CC="gcc-5";     fi
   - if [ "$CXX" = "clang++" ]; then export CXX="clang++-3.6" CC="clang-3.6"; fi
-  
-  # DISPLAY COMPILER VERSION
-  - $CXX --version
-  
-  # UPDATE CMAKE TO >= 2.8.12
+
+  # UPDATE CMAKE TO >= 2.8.12, INSTALL CPPCHECK AND UPDATE GCC LINK
   - sudo add-apt-repository ppa:smspillaz/cmake-2.8.12 -y
-  - sudo apt-get update -qq
-  - sudo apt-get purge cmake -qq
-  - sudo apt-get install cmake -qq
+  - sudo apt-get update
+  - sudo apt-get purge cmake
+  - sudo apt-get install cmake
+
+  # INSTALL CPPCHECK
+  - sudo apt-get install cppcheck
+
+  # LINK GCC TO GCC-5
+  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 90
+
+  # DISPLAY SOFTWARE VERSIONS
+  - $CXX --version
   - cmake --version
-  
-  # DOWNLOAD & INSTALL GLM LIBRARY
+  - cppcheck --version
+
+
+install:
+  # INSTALL DEPENDENCIES
+  ######################
   - DEPENDENCY_GLM_BRANCH="0.9.5"
+  - DEPENDENCY_GLEW_VERSION="1.13.0"
+  - DEPENDENCY_FT2_VERSION="2.6"
+  - DEPENDENCY_FT2_VERSION_FILE="26"
+
+  # DOWNLOAD & INSTALL GLM LIBRARY
   - git clone -b $DEPENDENCY_GLM_BRANCH https://github.com/g-truc/glm.git glm
   - cd glm
   - cmake .
   - sudo make install
   - cd ..
-  
+
   # DOWNLOAD & INSTALL GLEW LIBRARY
-  - DEPENDENCY_GLEW_VERSION="1.13.0"
   - wget -O glew-${DEPENDENCY_GLEW_VERSION}.zip https://sourceforge.net/projects/glew/files/glew/${DEPENDENCY_GLEW_VERSION}/glew-${DEPENDENCY_GLEW_VERSION}.zip/download
   - unzip glew-${DEPENDENCY_GLEW_VERSION}.zip
   - cd glew-${DEPENDENCY_GLEW_VERSION}
   - make
   - sudo make install
   - cd ..
-  
+
   # DOWNLOAD & INSTALL GLFW3 LIBRARY
   - git clone https://github.com/glfw/glfw.git glfw
   - cd glfw
   - cmake -DBUILD_SHARED_LIBS=ON .
   - sudo make install
   - cd ..
-  
+
   # DOWNLOAD & INSTALL FREETYPE2 LIBRARY
-  - DEPENDENCY_FT2_VERSION="2.6"
-  - DEPENDENCY_FT2_VERSION_FILE="26"
   - wget -O ft${DEPENDENCY_FT2_VERSION_FILE}.zip http://sourceforge.net/projects/freetype/files/freetype2/${DEPENDENCY_FT2_VERSION}/ft${DEPENDENCY_FT2_VERSION_FILE}.zip/download
   - unzip ft${DEPENDENCY_FT2_VERSION_FILE}.zip
   - cd freetype-${DEPENDENCY_FT2_VERSION}
@@ -65,6 +87,20 @@ before_script:
   - sudo make install
   - cd ..
 
+before_script:
+  - echo "ENVIRONMENT VARIABLES:"
+  - echo "CXX = $CXX"
+  - echo "TASK = $TASK"
+
 script:
-  - cmake .
-  - make
+  # TASK = build
+  - if [ "$TASK" = "build" ]; then cmake .; fi
+  - if [ "$TASK" = "build" ]; then make;    fi
+
+  # TASK = analyze (GCC-5)
+  - if [ "$TASK" = "analyze" ] && [ "$CXX" = "g++-5" ]; then cppcheck "src" --inline-suppr --template=vs --enable=style --force --std=c++11 -j 8 -I "include" 2> cppcheck.txt; fi
+  - if [ "$TASK" = "analyze" ] && [ "$CXX" = "g++-5" ] && [ -s cppcheck.txt ]; then cat cppcheck.txt; exit 1; fi
+
+  # TASK = analyze (Clang-3.6)
+  - if [ "$TASK" = "analyze" ] && [ "$CXX" = "clang++-3.6" ]; then scan-build-3.6 cmake .; fi
+  - if [ "$TASK" = "analyze" ] && [ "$CXX" = "clang++-3.6" ]; then scan-build-3.6 --status-bugs -v make -j 8; fi
