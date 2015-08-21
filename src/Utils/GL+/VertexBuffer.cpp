@@ -41,7 +41,7 @@ namespace GL {
         _target = Target::Array;
     }
 
-    void VertexBuffer::setAttributes(const std::list<VertexAttrib> attributes) {
+    void VertexBuffer::setAttributes(const std::list<VertexAttrib>& attributes) {
         _attributePointers = attributes;
     }
 

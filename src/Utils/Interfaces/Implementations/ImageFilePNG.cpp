@@ -27,6 +27,7 @@ namespace Util {
             }
 
             if(fread(header, 1, 8, fp) != 8) {
+                fclose(fp);
                 image.reset();
                 Util::Log::LibraryStream().logError("Loaded file is not a proper PNG image file: '" + path + "'");
                 throw Exception::InitializationFailed("Loaded file is not a proper PNG image file: '" + path + "'");

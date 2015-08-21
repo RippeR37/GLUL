@@ -7,7 +7,9 @@ namespace GL {
         namespace Style {
 
             Border::Border(Component& component) : _component(component) {
-
+                _setWidth(0);
+                _setOffset(0);
+                _setColor(glm::vec4());
             }
 
             void Border::set(unsigned int width) {

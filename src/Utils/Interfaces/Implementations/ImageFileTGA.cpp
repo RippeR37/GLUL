@@ -13,7 +13,6 @@ namespace Util {
             unsigned char* data;
 
             std::ifstream fileStream;
-            std::string error;
             char buff[256];
             char c;
             char si_a[2];
@@ -86,7 +85,6 @@ namespace Util {
 
         void ImageFileTGA::save(const Image& image, const std::string& path) const throw(Util::Exception::InitializationFailed) {
             std::ofstream fileStream;
-            std::string error;
             unsigned int rowStride; // width * bits algined to 4bytes
             unsigned short int w = static_cast<unsigned short>(image.getWidth());
             unsigned short int h = static_cast<unsigned short>(image.getHeight());

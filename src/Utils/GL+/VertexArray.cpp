@@ -7,6 +7,8 @@ namespace GL {
 
     VertexArray::VertexArray() {
         _isCreated = false;
+        _isDrawTargetSet = false;
+        _isDrawCountSet = false;
     }
     
     VertexArray::VertexArray(VertexArray&& vao) {

@@ -32,7 +32,7 @@ namespace GL {
         void Mesh::build() {
             _vao.bind();
 
-                if(vertices.size() > 0) {
+                if(vertices.empty() == false) {
                     _vboV.bind();
                         _vboV.setData(vertices);
                         _vao.enableAttrib(0);
@@ -40,7 +40,7 @@ namespace GL {
                     _vboV.unbind();
                 }
 
-                if(texCoords.size() > 0) {
+                if(texCoords.empty() == false) {
                     _vboT.bind();
                         _vboT.setData(texCoords);
                         _vao.enableAttrib(1);
@@ -48,7 +48,7 @@ namespace GL {
                     _vboT.unbind();
                 }
 
-                if(normals.size() > 0) {
+                if(normals.empty() == false) {
                     _vboN.bind();
                         _vboN.setData(normals);
                         _vao.enableAttrib(2);

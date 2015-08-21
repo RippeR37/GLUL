@@ -2,8 +2,8 @@
 
 namespace GL {
 
-    Buffer::Buffer() {
-        _isCreated = false;
+    Buffer::Buffer() : Buffer(Target::Array, Usage::StaticDraw) {
+
     }
 
     Buffer::Buffer(Target target, Usage usage) {

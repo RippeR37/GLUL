@@ -6,7 +6,7 @@ namespace Util {
     namespace Input {
 
         EventAggregator::EventAggregator() {
-
+            _nextTriggerID = 0;
         }
 
         EventAggregator::~EventAggregator() {

@@ -22,6 +22,8 @@ namespace GL {
         }
 
         Font::Font(const std::string& path) throw(Util::Exception::FatalError) : Font() {
+            _height = 0;
+
             load(path);
         }
 

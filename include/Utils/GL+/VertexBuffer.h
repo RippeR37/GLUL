@@ -35,7 +35,7 @@ namespace GL {
             void setData(const VertexBuffer::Data& data);
 
             void setTarget();
-            void setAttributes(const std::list<VertexAttrib> attributes);
+            void setAttributes(const std::list<VertexAttrib>& attributes);
 
             Target getTarget() const;
             const std::list<VertexAttrib>& getAttributes() const;

@@ -10,7 +10,6 @@ namespace Util {
 
         Image ImageFileBMP::read(const std::string& path) const throw(Util::Exception::InitializationFailed) {
             Image image;
-            std::string error;
             unsigned char header[54];
             unsigned int dataOffset;
             unsigned int size;

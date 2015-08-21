@@ -25,7 +25,7 @@ namespace GL {
         }
 
         bool Material::processInput(const std::vector<std::string>& tokens) {
-            if(tokens.size() > 0) {
+            if(tokens.empty() == false) {
                 if(tokens[0][0] == '#') {
                     // comment, just ignore it
 

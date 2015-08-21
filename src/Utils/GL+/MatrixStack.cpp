@@ -48,7 +48,7 @@ namespace GL {
     }
 
     void MatrixStack::clear() {
-        while(_stack.size() > 0)
+        while(_stack.empty() == false)
             _stack.pop();
 
         _stack.push(glm::mat4(1.0));
