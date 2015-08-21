@@ -67,8 +67,8 @@ namespace Util {
             if(size == 0)
                 size = height * rowStride;
 
-            if(dataOffset == 0)
-                dataOffset = 54;
+            if(dataOffset != 0 && dataOffset != 54)
+                fseek(file, dataOffset, SEEK_SET);
 
             data = new unsigned char[size];
 
