@@ -45,6 +45,7 @@ namespace GL {
 
             private:
                 friend class Button;
+                friend class TextField;
         };
 
     }

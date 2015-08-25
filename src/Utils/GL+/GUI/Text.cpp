@@ -79,11 +79,11 @@ namespace GL {
                     thisConstless->_vbo.setUsage(VertexBuffer::Usage::DynamicDraw);
                     thisConstless->_vbo.setData(vertexData);
                 _vbo.unbind();
-
+                
+                thisConstless->_vao.setDrawCount(vertices.size());
 
                 // Initialize VAO
                 if(_glInitialized == false) {
-                    thisConstless->_vao.setDrawCount(vertices.size());
                     thisConstless->_vao.setDrawTarget(VertexArray::DrawTarget::Triangles);
 
                     _vao.bind();
@@ -92,6 +92,10 @@ namespace GL {
                     _vao.unbind();
 
                     thisConstless->_glInitialized = true;
+                } else {
+                    _vao.bind();
+                        thisConstless->_vao.setAttribPointers();
+                    _vao.unbind();
                 }
             }
 

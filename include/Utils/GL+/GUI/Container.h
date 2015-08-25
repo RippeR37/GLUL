@@ -24,6 +24,7 @@ namespace GL {
                 virtual void add(Component* const component);
 
                 virtual void setInvalid();
+                virtual void setFocused(bool flag);
 
             private:
                 void notifyChildsOfInvalidState();

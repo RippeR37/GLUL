@@ -69,6 +69,14 @@ namespace GL {
 
             notifyChildsOfInvalidState();
         }
+        
+        void Container::setFocused(bool flag) {
+            Component::setFocused(flag);
+
+            for(auto component : _components)
+                if(component)
+                    component->setFocused(flag);
+        }
 
         void Container::notifyChildsOfInvalidState() {
             for(auto component : _components)
@@ -81,6 +89,22 @@ namespace GL {
         }
         
         void Container::initializeEventForwarding() {
+            // KeyStroke
+            onKeyStroke += Event::KeyStroke::Handler(
+                "__UtilLib::GUI::Event::KeyStroke::Forwarding", 
+                [&](Component& container, const Event::KeyStroke& onKeyStrokeEvent) {
+                    (void) container; // skip it
+
+                    for(Component* componentPtr : _components) {
+                        Component& component = *componentPtr;
+
+                        if(component.isEnabled() && component.isFocused()) {
+                            component.onKeyStroke(component, onKeyStrokeEvent);
+                        }
+                    }
+                }
+            );
+
             // MouseClick
             onMouseClick += Event::MouseClick::Handler(
                 "__UtilLib::GUI::Event::MouseClick::Forwarding", 
@@ -94,7 +118,9 @@ namespace GL {
                         if(newPosition.x >= 0 && newPosition.x < component.getSize().x && 
                            newPosition.y >= 0 && newPosition.y < component.getSize().y)
                         {
-                            component.onMouseClick(component, Event::MouseClick(onMouseClickEvent.button, newPosition));
+                            if(component.isEnabled() && component.isVisible()) {
+                                component.onMouseClick(component, Event::MouseClick(onMouseClickEvent.button, newPosition));
+                            }
                         }
                     }
                 }
@@ -113,7 +139,17 @@ namespace GL {
                         if(newPosition.x >= 0 && newPosition.x < component.getSize().x && 
                            newPosition.y >= 0 && newPosition.y < component.getSize().y)
                         {
-                            component.onMouseRelease(component, Event::MouseRelease(onMouseReleaseEvent.button, newPosition));
+                            if(component.isEnabled() && component.isVisible()) {
+                                if(component.isFocused() == false) {
+                                    component.setFocused(true);
+                                }
+
+                                component.onMouseRelease(component, Event::MouseRelease(onMouseReleaseEvent.button, newPosition));
+                            }
+                        } else {
+                            if(component.isFocused() == true) {
+                                component.setFocused(false);
+                            }
                         }
                     }
                 }
@@ -128,7 +164,10 @@ namespace GL {
 
                     for(Component* componentPtr : _componentsUnderMouse) {
                         Component& component = *componentPtr;
-                        component.onMouseLeave(component, Event::MouseLeave());
+
+                        if(component.isEnabled() && component.isVisible()) {
+                            component.onMouseLeave(component, Event::MouseLeave());
+                        }
                     }
 
                     _componentsUnderMouse.clear();

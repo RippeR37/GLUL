@@ -311,6 +311,12 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Events\MouseMove.h">
       <Filter>Header Files\GL+\GUI\Events</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\TextField.h">
+      <Filter>Header Files\GL+\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\KeyStroke.h">
+      <Filter>Header Files\GL+\GUI\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\Utils\Clock.cpp">
@@ -509,6 +515,12 @@
       <Filter>Source Files\GL+\GUI\Events</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Utils\GL+\GUI\Events\MouseLeave.cpp">
+      <Filter>Source Files\GL+\GUI\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\TextField.cpp">
+      <Filter>Source Files\GL+\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Utils\GL+\GUI\Events\KeyStroke.cpp">
       <Filter>Source Files\GL+\GUI\Events</Filter>
     </ClCompile>
   </ItemGroup>

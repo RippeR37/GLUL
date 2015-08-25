@@ -3,6 +3,7 @@
 #include <Utils/GL+/VertexArray.h>
 #include <Utils/GL+/VertexBuffer.h>
 #include <Utils/GL+/GUI/Button.h>
+#include <Utils/GL+/GUI/TextField.h>
 #include <Utils/GL+/GUI/Font.h>
 #include <Utils/GL+/GUI/Text.h>
 #include <Utils/GL+/GUI/Window.h>
@@ -77,6 +78,18 @@ void run() {
         button3.text.setColor(glm::vec3(1.0f));
         button3.text.setAlignment(GL::GUI::Style::HorizontalAlignment::Right, GL::GUI::Style::VerticalAlignment::Bottom);
 
+
+    // TextField
+    GL::GUI::TextField textField(window);
+    textField.setSize(glm::vec2(150.0f, 30.0f));
+    textField.setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+    textField.setPosition(glm::vec2(250.0f, 140.0f));
+    textField.border.set(1, 0, glm::vec3(0.0f));
+        textField.text.setFont(fontArial);
+        textField.text.setText("defaultText");
+        textField.text.setColor(glm::vec3(0.0f));
+        textField.text.setAlignment(GL::GUI::Style::HorizontalAlignment::Left, GL::GUI::Style::VerticalAlignment::Center);
+    
 
     /*
      * Possible events:

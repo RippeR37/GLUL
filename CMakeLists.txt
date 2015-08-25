@@ -49,6 +49,7 @@ set(Utility_Library_SRCS
     
     "src/Utils/Frameworks/Application.cpp"
     
+    "src/Utils/GL+/GUI/Events/KeyStroke.cpp"
     "src/Utils/GL+/GUI/Events/MouseClick.cpp"
     "src/Utils/GL+/GUI/Events/MouseEnter.cpp"
     "src/Utils/GL+/GUI/Events/MouseLeave.cpp"
@@ -63,6 +64,7 @@ set(Utility_Library_SRCS
     "src/Utils/GL+/GUI/Font.cpp"
     "src/Utils/GL+/GUI/InnerText.cpp"
     "src/Utils/GL+/GUI/Text.cpp"
+    "src/Utils/GL+/GUI/TextField.cpp"
     "src/Utils/GL+/GUI/Window.cpp"
     
     "src/Utils/GL+/Models/Material.cpp"
@@ -132,6 +134,7 @@ set(Utility_Library_H
     
     "include/Utils/GL+/GUI/Events/EventTemplate.hpp"
     "include/Utils/GL+/GUI/Events/HandlerAggregator.hpp"
+    "include/Utils/GL+/GUI/Events/KeyStroke.h"
     "include/Utils/GL+/GUI/Events/MouseClick.h"
     "include/Utils/GL+/GUI/Events/MouseEnter.h"
     "include/Utils/GL+/GUI/Events/MouseLeave.h"
@@ -148,6 +151,7 @@ set(Utility_Library_H
     "include/Utils/GL+/GUI/Font.h"
     "include/Utils/GL+/GUI/InnerText.h"
     "include/Utils/GL+/GUI/Text.h"
+    "include/Utils/GL+/GUI/TextField.h"
     "include/Utils/GL+/GUI/Window.h"
     
     "include/Utils/GL+/Models/Material.h"

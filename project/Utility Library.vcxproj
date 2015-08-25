@@ -99,6 +99,7 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Container.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Events\EventTemplate.hpp" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Events\HandlerAggregator.hpp" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\Events\KeyStroke.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Events\MouseClick.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Events\MouseEnter.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Events\MouseLeave.h" />
@@ -110,6 +111,7 @@
     <ClInclude Include="..\include\Utils\GL+\GUI\Styles\HorizontalAlignment.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Styles\VerticalAlignment.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Text.h" />
+    <ClInclude Include="..\include\Utils\GL+\GUI\TextField.h" />
     <ClInclude Include="..\include\Utils\GL+\GUI\Window.h" />
     <ClInclude Include="..\include\Utils\GL+\MatrixStack.h" />
     <ClInclude Include="..\include\Utils\GL+\Models\Material.h" />
@@ -174,6 +176,7 @@
     <ClCompile Include="..\src\Utils\GL+\GUI\Button.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Component.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Container.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\Events\KeyStroke.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Events\MouseClick.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Events\MouseEnter.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Events\MouseLeave.cpp" />
@@ -183,6 +186,7 @@
     <ClCompile Include="..\src\Utils\GL+\GUI\InnerText.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Styles\Border.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Text.cpp" />
+    <ClCompile Include="..\src\Utils\GL+\GUI\TextField.cpp" />
     <ClCompile Include="..\src\Utils\GL+\GUI\Window.cpp" />
     <ClCompile Include="..\src\Utils\GL+\MatrixStack.cpp" />
     <ClCompile Include="..\src\Utils\GL+\Models\Material.cpp" />

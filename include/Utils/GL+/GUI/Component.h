@@ -3,6 +3,7 @@
 
 #include <Utils/Rectangle.h>
 #include <Utils/GL+/GUI/Events/HandlerAggregator.hpp>
+#include <Utils/GL+/GUI/Events/KeyStroke.h>
 #include <Utils/GL+/GUI/Events/MouseClick.h>
 #include <Utils/GL+/GUI/Events/MouseRelease.h>
 #include <Utils/GL+/GUI/Events/MouseEnter.h>
@@ -57,6 +58,7 @@ namespace GL {
                 virtual void setPosition(const Util::Point& position);
 
             public:
+                Event::HandlerAggregator<Event::KeyStroke> onKeyStroke;
                 Event::HandlerAggregator<Event::MouseClick> onMouseClick;
                 Event::HandlerAggregator<Event::MouseRelease> onMouseRelease;
                 Event::HandlerAggregator<Event::MouseEnter> onMouseEnter;
