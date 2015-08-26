@@ -1,16 +1,18 @@
 #ifndef UTILS_GL_VERTEX_BUFFER_H_INCLUDED
 #define UTILS_GL_VERTEX_BUFFER_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/GL+/Buffer.h>
 #include <Utils/GL+/VertexAttrib.h>
 
 #include <list>
 
+
 namespace GL {
 
-    class VertexBuffer : public GL::Buffer {
+    class UTILS_API VertexBuffer : public GL::Buffer {
         public:
-            class Data {
+            class UTILS_API Data {
                 public:
                     Data() : data(nullptr), size(0) { }
                     Data(GLvoid* data_, GLsizeiptr size_) : data(data_), size(size_) { }
@@ -51,3 +53,4 @@ namespace GL {
 }
 
 #endif
+

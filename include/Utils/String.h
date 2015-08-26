@@ -1,12 +1,15 @@
 #ifndef UTILS_STRING_H_INCLUDED
 #define UTILS_STRING_H_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <string>
 #include <vector>
 
+
 namespace Util {
 
-    class String {
+    class UTILS_API String {
         public:
             typedef std::vector<std::string> stringVector;
 

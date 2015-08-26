@@ -1,15 +1,18 @@
 #ifndef UTILS_LOGGER_H_INCLUDED
 #define UTILS_LOGGER_H_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <string>
 #include <fstream>
 #include <unordered_map>
 
+
 namespace Util {
 
-    class Logger {
+    class UTILS_API Logger {
         public:
-            class LoggerStream {
+            class UTILS_API LoggerStream {
                 public:
                     void operator<<(const std::string& message);
                     void log(const std::string& message);
@@ -18,6 +21,7 @@ namespace Util {
                     
                 private:
                     LoggerStream();
+                    LoggerStream(const LoggerStream&) = delete;
                     ~LoggerStream();
 
                     bool open();
@@ -33,7 +37,7 @@ namespace Util {
                     std::ofstream _stream;
 
                 public:
-                    friend class Util::Logger;
+                    friend class Logger;
                     friend struct std::pair<const std::string, LoggerStream>;
             };
 
@@ -46,7 +50,10 @@ namespace Util {
 
         private:
             Logger();
+            Logger(const Logger&) = delete;
             ~Logger();
+            
+            Logger& operator=(const Logger&) = delete;
 
             static Logger& getInstance();
 

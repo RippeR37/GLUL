@@ -14,11 +14,12 @@
 #include <string>
 #include <vector>
 
+
 namespace GL {
 
     namespace GUI {
 
-        class Text : public Component {
+        class UTILS_API Text : public Component {
             public:
                 Text(Container& parent);
                 Text(Container* const parent = nullptr);

@@ -1,6 +1,7 @@
 #include <Utils/GL+/GUI/InnerText.h>
 #include <Utils/GL+/GUI/Component.h>
 
+
 namespace GL {
 
     namespace GUI {

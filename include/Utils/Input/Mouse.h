@@ -1,9 +1,11 @@
 #ifndef UTILS_INPUT_MOUSE_H_INCLUDED
 #define UTILS_INPUT_MOUSE_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Input/Types.h>
 
 #include <glm/vec2.hpp>
+
 
 namespace Util {
 
@@ -11,7 +13,7 @@ namespace Util {
 
     namespace Input {
 
-        class Mouse {
+        class UTILS_API Mouse {
             public:
                 void setMode(CursorMode cursorMode);
                 void setMode(CursorMode cursorMode, Util::Window* window);

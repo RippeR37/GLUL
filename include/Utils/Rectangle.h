@@ -1,11 +1,13 @@
 #ifndef UTILS_RECTANGLE_H_INCLUDED
 #define UTILS_RECTANGLE_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Point.h>
+
 
 namespace Util {
 
-    class Rectangle {
+    class UTILS_API Rectangle {
         public:
             Rectangle();
             Rectangle(const Point& point, float width, float height);
@@ -34,4 +36,4 @@ namespace Util {
 
 }
 
-#endif 
+#endif

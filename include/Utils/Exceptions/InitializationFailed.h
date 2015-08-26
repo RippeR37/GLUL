@@ -3,9 +3,10 @@
 
 #include <Utils/Exception.h>
 
+
 namespace Util {
 
-    class Exception::InitializationFailed : public Exception {
+    class UTILS_API Exception::InitializationFailed : public Exception {
         public:
             InitializationFailed() throw();
             InitializationFailed(const std::string& description) throw();

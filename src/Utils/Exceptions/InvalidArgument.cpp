@@ -1,5 +1,6 @@
 #include <Utils/Exceptions/InvalidArgument.h>
 
+
 namespace Util {
 
     Exception::InvalidArgument::InvalidArgument() throw() {

@@ -1,12 +1,15 @@
 #ifndef UTILS_EXCEPTION_H_INCLUDED
 #define UTILS_EXCEPTION_H_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <string>
 #include <exception>
 
+
 namespace Util {
 
-    class Exception : public std::exception {
+    class UTILS_API Exception : public std::exception {
 
         public:
             Exception() throw();

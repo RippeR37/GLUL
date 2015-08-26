@@ -1,8 +1,11 @@
 #ifndef UTILS_GL_GUI_EVENTS_EVENTTEMPLATE_HPP_INCLUDED
 #define UTILS_GL_GUI_EVENTS_EVENTTEMPLATE_HPP_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <string>
 #include <functional>
+
 
 namespace GL {
 
@@ -13,9 +16,9 @@ namespace GL {
         namespace Event {
 
             template<class EventType>
-            class EventTemplate {
+            class UTILS_API EventTemplate {
                 public:
-                    class Handler {
+                    class UTILS_API Handler {
                         public:
                             typedef std::function<void(Component&, const EventType&)> CallbackType;
 

@@ -1,13 +1,16 @@
 #ifndef UTILS_GL_UNIFORM_H_INCLUDED
 #define UTILS_GL_UNIFORM_H_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <GL/glew.h>
 
 #include <string>
 
+
 namespace GL {
 
-    class Uniform {
+    class UTILS_API Uniform {
         public:
             Uniform();
             Uniform(GLuint location);

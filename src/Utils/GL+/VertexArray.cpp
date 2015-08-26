@@ -3,6 +3,7 @@
 
 #include <utility>
 
+
 namespace GL {
 
     VertexArray::VertexArray() {

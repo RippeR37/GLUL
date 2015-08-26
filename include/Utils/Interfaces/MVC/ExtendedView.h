@@ -6,6 +6,7 @@
 #include <Utils/GL+/VertexArray.h>
 #include <Utils/GL+/VertexBuffer.h>
 
+
 namespace Util {
 
     namespace Interface {
@@ -15,9 +16,8 @@ namespace Util {
             /***
              * Template class of extended view where type T is view's assigned model
              */
-
             template<typename T>
-            class ExtendedView : public View<T> {
+            class UTILS_API ExtendedView : public View<T> {
                 public:
                     virtual ~ExtendedView() {
                 
@@ -52,12 +52,12 @@ namespace Util {
                     GL::VertexBuffer _vbo;
             };
 
+
             /***
              * Template specialization of extended view for views without models
              */
-
             template<>
-            class ExtendedView<void> : public View<void> {
+            class UTILS_API ExtendedView<void> : public View<void> {
                 public:
                     virtual ~ExtendedView() {
 

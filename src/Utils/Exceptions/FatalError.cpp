@@ -1,5 +1,6 @@
 #include <Utils/Exceptions/FatalError.h>
 
+
 namespace Util {
 
     Exception::FatalError::FatalError() throw() {

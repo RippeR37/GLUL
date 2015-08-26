@@ -7,11 +7,12 @@
 
 #include <glm/vec2.hpp>
 
+
 namespace GL {
 
     namespace GUI {
 
-        class Window : public Util::Window, public Container, protected Util::Input::EventHandler {
+        class UTILS_API Window : public Util::Window, public Container, protected Util::Input::EventHandler {
             public:
                 Window();
                 Window(unsigned int width, unsigned int height, const std::string& title);

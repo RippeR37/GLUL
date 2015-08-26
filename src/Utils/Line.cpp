@@ -4,6 +4,7 @@
 
 #include <glm/geometric.hpp>
 
+
 namespace Util {
 
     Line::Line() {

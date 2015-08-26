@@ -1,7 +1,9 @@
 #ifndef UTILS_INTERFACES_STATE_H_INCLUDED
 #define UTILS_INTERFACES_STATE_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Input/EventHandler.h>
+
 
 namespace FW {
     class Application;
@@ -11,7 +13,7 @@ namespace Util {
     
     namespace Interface {
 
-        class State : public Input::EventHandler {
+        class UTILS_API State : public Input::EventHandler {
             public:
                 State();
                 virtual ~State();

@@ -1,15 +1,17 @@
 #ifndef UTILS_GL_VERTEX_ARRAY_H_INCLUDED
 #define UTILS_GL_VERTEX_ARRAY_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/GL+/VertexBuffer.h>
 
 #include <GL/glew.h>
 
 #include <list>
 
+
 namespace GL {
 
-    class VertexArray {
+    class UTILS_API VertexArray {
         public:
             enum class DrawTarget : GLenum {
                 Points                  = GL_POINTS, 

@@ -1,5 +1,6 @@
 #include <Utils/Exceptions/InitializationFailed.h>
 
+
 namespace Util {
 
     Exception::InitializationFailed::InitializationFailed() throw() {

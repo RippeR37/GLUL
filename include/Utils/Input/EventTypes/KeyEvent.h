@@ -1,14 +1,16 @@
 #ifndef UTILS_INPUT_EVENTTYPES_KEYEVENT_H_INCLUDED
 #define UTILS_INPUT_EVENTTYPES_KEYEVENT_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Input/Event.h>
 #include <Utils/Input/Types.h>
+
 
 namespace Util {
 
     namespace Input {
 
-        class KeyEvent : public Event {
+        class UTILS_API KeyEvent : public Event {
             public:
                 KeyEvent();
                 KeyEvent(Key key, Action action);

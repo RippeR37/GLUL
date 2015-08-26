@@ -1,11 +1,14 @@
 #ifndef UTILS_GL_VERTEX_ATTRIB_H_INCLUDED
 #define UTILS_GL_VERTEX_ATTRIB_H_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <GL/glew.h>
+
 
 namespace GL {
 
-    class VertexAttrib {
+    class UTILS_API VertexAttrib {
         public:
             VertexAttrib();
             VertexAttrib(GLuint index_, GLint size_, GLenum type_, GLsizei stride_, GLvoid* offset_);

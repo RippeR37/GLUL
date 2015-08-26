@@ -6,13 +6,14 @@
 
 #include <glm/vec2.hpp>
 
+
 namespace GL {
 
     namespace GUI {
 
         namespace Event {
 
-            class MouseClick : public EventTemplate<MouseClick> {
+            class UTILS_API MouseClick : public EventTemplate<MouseClick> {
                 public:
                     MouseClick(const Util::Input::MouseButton& button, const glm::vec2& position);
                     MouseClick& operator=(const MouseClick&) = delete;

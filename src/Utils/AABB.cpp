@@ -3,6 +3,7 @@
 #include <Utils/GL+/VertexArray.h>
 #include <Utils/GL+/VertexBuffer.h>
 
+
 namespace Util {
 
     AABB::AABB() : AABB(glm::vec3(0.0f), glm::vec3(0.0f)) {

@@ -4,6 +4,7 @@
 #include <climits>
 #include <cstring>
 
+
 namespace Util {
 
     namespace Interface {
@@ -14,7 +15,7 @@ namespace Util {
             unsigned int dataOffset;
             unsigned int size;
             unsigned int width, height, bits;
-            unsigned char* data;
+            unsigned char* data = nullptr;
             unsigned int rowStride; // width * bits algined to 4bytes
 
             FILE *file = fopen(path.c_str(), "rb");

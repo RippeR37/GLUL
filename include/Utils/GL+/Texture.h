@@ -1,6 +1,7 @@
 #ifndef UTILS_GL_TEXTURE_H_INCLUDED
 #define UTILS_GL_TEXTURE_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Image.h>
 #include <Utils/Exception.h>
 
@@ -11,9 +12,10 @@
 #include <string>
 #include <list>
 
+
 namespace GL {
 
-    class Texture {
+    class UTILS_API Texture {
         public:
             enum class Target {
                 Tex1D = GL_TEXTURE_1D,

@@ -1,6 +1,7 @@
 #ifndef UTILS_GL_FRAMEBUFFER_H_INCLUDED
 #define UTILS_GL_FRAMEBUFFER_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/GL+/Texture.h>
 
 #include <GL/glew.h>
@@ -8,9 +9,10 @@
 
 #include <stack>
 
+
 namespace GL {
 
-    class Framebuffer {
+    class UTILS_API Framebuffer {
         public:
             enum class Status {
                 Complete = GL_FRAMEBUFFER_COMPLETE,

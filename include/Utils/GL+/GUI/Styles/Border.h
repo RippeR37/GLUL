@@ -6,13 +6,14 @@
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 
+
 namespace GL {
 
     namespace GUI {
 
         namespace Style {
 
-            class Border {
+            class UTILS_API Border {
                 public:
                     Border(Component& component);
 

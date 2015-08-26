@@ -1,5 +1,6 @@
 #include <Utils/GL+/VertexBuffer.h>
 
+
 namespace GL {
 
     VertexBuffer::VertexBuffer() : Buffer(Target::Array) {

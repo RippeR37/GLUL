@@ -1,5 +1,6 @@
 #include <Utils/GL+/Buffer.h>
 
+
 namespace GL {
 
     Buffer::Buffer() : Buffer(Target::Array, Usage::StaticDraw) {

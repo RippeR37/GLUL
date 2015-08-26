@@ -1,6 +1,7 @@
 #include <Utils/Frameworks/Application.h>
 #include <Utils/Logger.h>
 
+
 namespace FW {
 
     Application::Application() : Window(_window) {

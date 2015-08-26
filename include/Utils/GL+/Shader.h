@@ -1,6 +1,7 @@
 #ifndef UTILS_GL_SHADER_H_INCLUDED
 #define UTILS_GL_SHADER_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Exception.h>
 
 #include <GL/glew.h>
@@ -8,9 +9,10 @@
 #include <map>
 #include <string>
 
+
 namespace GL {
 
-    class Shader {
+    class UTILS_API Shader {
         public:
             enum class Type : GLenum {
                 VertexShader   = GL_VERTEX_SHADER,

@@ -15,11 +15,12 @@
 #include <string>
 #include <vector>
 
+
 namespace GL {
 
     namespace GUI {
 
-        class TextField : public Component {
+        class UTILS_API TextField : public Component {
             public:
                 TextField(Container& parent);
                 TextField(Container* const parent = nullptr);

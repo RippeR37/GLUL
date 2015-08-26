@@ -1,13 +1,16 @@
 #ifndef UTILS_INTERFACES_CAMERA_H_INCLUDED
 #define UTILS_INTERFACES_CAMERA_H_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <glm/glm.hpp>
+
 
 namespace Util {
 
     namespace Interface {
 
-        class Camera {
+        class UTILS_API Camera {
             public:
                 Camera();
                 virtual ~Camera();

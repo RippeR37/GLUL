@@ -6,13 +6,14 @@
 
 #include <glm/vec2.hpp>
 
+
 namespace GL {
 
     namespace GUI {
 
         namespace Event {
 
-            class KeyStroke : public EventTemplate<KeyStroke> {
+            class UTILS_API KeyStroke : public EventTemplate<KeyStroke> {
                 public:
                     KeyStroke(const Util::Input::Key& key);
                     KeyStroke& operator=(const KeyStroke&) = delete;

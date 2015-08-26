@@ -1,13 +1,14 @@
 #ifndef UTILS_INPUT_EVENTTYPES_MOUSESCROLLEVENT_H_INCLUDED
 #define UTILS_INPUT_EVENTTYPES_MOUSESCROLLEVENT_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Input/Event.h>
 
 namespace Util {
 
     namespace Input {
 
-        class MouseScrollEvent : public Event {
+        class UTILS_API MouseScrollEvent : public Event {
             public:
                 MouseScrollEvent();
                 MouseScrollEvent(ScrollDirection scrollDirection);

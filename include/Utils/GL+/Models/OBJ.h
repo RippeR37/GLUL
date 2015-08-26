@@ -1,6 +1,7 @@
 #ifndef UTILS_GL_MODELS_OBJ_H_INCLUDED
 #define UTILS_GL_MODELS_OBJ_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Interfaces/Model.h>
 #include <Utils/GL+/Texture.h>
 #include <Utils/GL+/Models/Mesh.h>
@@ -9,11 +10,12 @@
 #include <string>
 #include <unordered_map>
 
+
 namespace GL {
 
     namespace Model {
 
-        class OBJ : public Util::Interface::Model {
+        class UTILS_API OBJ : public Util::Interface::Model {
             public:
                 OBJ();
                 OBJ(const std::string& path);

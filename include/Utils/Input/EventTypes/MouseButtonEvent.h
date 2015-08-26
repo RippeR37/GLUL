@@ -1,16 +1,18 @@
 #ifndef UTILS_INPUT_EVENTTYPES_MOUSEBUTTONEVENT_H_INCLUDED
 #define UTILS_INPUT_EVENTTYPES_MOUSEBUTTONEVENT_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Input/Event.h>
 #include <Utils/Input/Types.h>
 
 #include <glm/vec2.hpp>
 
+
 namespace Util {
 
     namespace Input {
 
-        class MouseButtonEvent : public Event {
+        class UTILS_API MouseButtonEvent : public Event {
             public:
                 MouseButtonEvent();
                 MouseButtonEvent(MouseButton button, Action action, float x, float y);

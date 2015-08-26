@@ -1,6 +1,7 @@
 #ifndef UTILS_INPUT_EVENTAGGREGATOR_H_INCLUDED
 #define UTILS_INPUT_EVENTAGGREGATOR_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Helpers/HashEnum.h>
 #include <Utils/Input/Event.h>
 #include <Utils/Input/Types.h>
@@ -11,6 +12,7 @@
 #include <unordered_map>
 #include <vector>
 
+
 namespace Util {
 
     class Window;
@@ -19,9 +21,10 @@ namespace Util {
 
         class EventHandler;
 
-        class EventAggregator {
+        class UTILS_API EventAggregator {
             public:
                 EventAggregator();
+                EventAggregator(const EventAggregator&) = delete;
                 ~EventAggregator();
 
                 EventAggregator& operator=(const EventAggregator&) = delete;

@@ -6,11 +6,12 @@
 #include <list>
 #include <set>
 
+
 namespace GL {
 
     namespace GUI {
 
-        class Container : public Component {
+        class UTILS_API Container : public Component {
             public:
                 Container(Container& parent);
                 Container(Container* const parent = nullptr);

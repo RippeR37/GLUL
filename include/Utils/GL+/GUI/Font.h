@@ -12,7 +12,7 @@ namespace GL {
 
     namespace GUI {
 
-        class Font {
+        class UTILS_API Font {
             private:
                 struct Metric {
                     glm::vec2 advance;
@@ -59,6 +59,5 @@ namespace GL {
     }
 
 }
-
 
 #endif

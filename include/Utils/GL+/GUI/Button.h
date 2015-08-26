@@ -15,11 +15,12 @@
 #include <string>
 #include <vector>
 
+
 namespace GL {
 
     namespace GUI {
 
-        class Button : public Component {
+        class UTILS_API Button : public Component {
             public:
                 Button(Container& parent);
                 Button(Container* const parent = nullptr);

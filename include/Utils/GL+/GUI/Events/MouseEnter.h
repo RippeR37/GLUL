@@ -5,13 +5,14 @@
 
 #include <glm/vec2.hpp>
 
+
 namespace GL {
 
     namespace GUI {
 
         namespace Event {
 
-            class MouseEnter : public EventTemplate<MouseEnter> {
+            class UTILS_API MouseEnter : public EventTemplate<MouseEnter> {
                 public:
                     MouseEnter(const glm::vec2& position);
                     MouseEnter& operator=(const MouseEnter&) = delete;

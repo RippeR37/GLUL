@@ -3,6 +3,7 @@
 
 #include <vector>
 
+
 namespace GL {
 
     Shader::Shader(Type type) {

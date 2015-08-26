@@ -1,6 +1,7 @@
 #ifndef UTILS_GL_GUI_EVENTS_HANDLERAGGREGATOR_HPP_INCLUDED
 #define UTILS_GL_GUI_EVENTS_HANDLERAGGREGATOR_HPP_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/GL+/GUI/Events/EventTemplate.hpp>
 
 #include <string>
@@ -14,7 +15,7 @@ namespace GL {
         namespace Event {
 
             template<class EventType>
-            class HandlerAggregator {
+            class UTILS_API HandlerAggregator {
                 public:
                     HandlerAggregator& operator+=(const typename EventTemplate<EventType>::Handler& handler) {
                         return add(handler);

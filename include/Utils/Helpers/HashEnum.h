@@ -1,6 +1,8 @@
 #ifndef UTILS_HELPERS_HASHENUM_H_INCLUDED
 #define UTILS_HELPERS_HASHENUM_H_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <cstddef>
 #include <functional>
 
@@ -8,7 +10,7 @@ namespace Util {
 
     namespace Helper {
 
-        struct HashEnum {
+        struct UTILS_API HashEnum {
             public:
                 template <typename T>
                 std::size_t operator()(T t) const {

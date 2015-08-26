@@ -5,11 +5,12 @@
 #include <Utils/GL+/GUI/Styles/HorizontalAlignment.h>
 #include <Utils/GL+/GUI/Styles/VerticalAlignment.h>
 
+
 namespace GL {
 
     namespace GUI {
 
-        class InnerText {
+        class UTILS_API InnerText {
             public:
                 InnerText(const Component& component);
 

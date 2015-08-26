@@ -1,6 +1,7 @@
 #ifndef UTILS_INPUT_EVENTHANDLER_H_INCLUDED
 #define UTILS_INPUT_EVENTHANDLER_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Helpers/HashEnum.h>
 #include <Utils/Input/Event.h>
 #include <Utils/Input/Types.h>
@@ -8,13 +9,14 @@
 #include <set>
 #include <unordered_map>
 
+
 namespace Util {
 
     namespace Input {
 
         class EventAggregator;
 
-        class EventHandler {
+        class UTILS_API EventHandler {
             friend class EventAggregator;
 
             public:

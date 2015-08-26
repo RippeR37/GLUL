@@ -3,9 +3,10 @@
 
 #include <Utils/Exception.h>
 
+
 namespace Util {
 
-    class Exception::InvalidArgument : public Exception {
+    class UTILS_API Exception::InvalidArgument : public Exception {
         public:
             InvalidArgument() throw();
             InvalidArgument(const std::string& description) throw();

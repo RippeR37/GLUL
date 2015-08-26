@@ -2,16 +2,18 @@
 #define UTILS_INTERFACES_MODEL_H_INCLUDED
 
 #include <Utils/AABB.h>
+#include <Utils/Config.h>
 #include <Utils/GL+/Pipeline.h>
 #include <Utils/GL+/Program.h>
 
 #include <string>
 
+
 namespace Util {
 
     namespace Interface {
 
-        class Model {
+        class UTILS_API Model {
             public:
                 enum class NormalType {
                     Flat,

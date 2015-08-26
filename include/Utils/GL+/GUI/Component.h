@@ -15,13 +15,14 @@
 #include <functional>
 #include <vector>
 
+
 namespace GL {
 
     namespace GUI {
 
         class Container;
 
-        class Component {
+        class UTILS_API Component {
             public:
                 Component(Container& parent);
                 Component(Container* const parent = nullptr);
@@ -89,4 +90,4 @@ namespace GL {
 
 }
 
-#endif 
+#endif

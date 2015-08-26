@@ -1,7 +1,6 @@
 #include <Utils/Image.h>
 #include <Utils/File.h>
 #include <Utils/Logger.h>
-
 #include <Utils/Interfaces/Implementations/ImageFileBMP.h>
 #include <Utils/Interfaces/Implementations/ImageFileTGA.h>
 #include <Utils/Interfaces/Implementations/ImageFileJPG.h>
@@ -16,6 +15,7 @@
 #include <fstream>
 #include <iterator>
 #include <cstring>
+
 
 namespace Util {
 

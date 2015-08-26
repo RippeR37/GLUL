@@ -1,6 +1,7 @@
 #ifndef UTILS_GL_BUFFER_H_INCLUDED
 #define UTILS_GL_BUFFER_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Exception.h>
 
 #include <GL/glew.h>
@@ -9,9 +10,10 @@
 #include <vector>
 #include <functional>
 
+
 namespace GL {
 
-    class Buffer {
+    class UTILS_API Buffer {
         public:
             enum class Usage {
                 StaticDraw  = GL_STATIC_DRAW,
