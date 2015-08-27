@@ -24,6 +24,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Examples", "Examples", "{5C
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GUI Example", "GUI Example\GUI Example.vcxproj", "{7C73D963-C33D-43ED-8285-05A3423534D8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Utility Library UnitTests", "Utility Library UnitTests\Utility Library UnitTests.vcxproj", "{0DDD9988-649C-4D35-A934-A7AB49E6EF15}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug (DLL)|Win32 = Debug (DLL)|Win32
@@ -96,6 +98,14 @@ Global
 		{7C73D963-C33D-43ED-8285-05A3423534D8}.Release (DLL)|Win32.Build.0 = Release|Win32
 		{7C73D963-C33D-43ED-8285-05A3423534D8}.Release|Win32.ActiveCfg = Release|Win32
 		{7C73D963-C33D-43ED-8285-05A3423534D8}.Release|Win32.Build.0 = Release|Win32
+		{0DDD9988-649C-4D35-A934-A7AB49E6EF15}.Debug (DLL)|Win32.ActiveCfg = Debug|Win32
+		{0DDD9988-649C-4D35-A934-A7AB49E6EF15}.Debug (DLL)|Win32.Build.0 = Debug|Win32
+		{0DDD9988-649C-4D35-A934-A7AB49E6EF15}.Debug|Win32.ActiveCfg = Debug|Win32
+		{0DDD9988-649C-4D35-A934-A7AB49E6EF15}.Debug|Win32.Build.0 = Debug|Win32
+		{0DDD9988-649C-4D35-A934-A7AB49E6EF15}.Release (DLL)|Win32.ActiveCfg = Release|Win32
+		{0DDD9988-649C-4D35-A934-A7AB49E6EF15}.Release (DLL)|Win32.Build.0 = Release|Win32
+		{0DDD9988-649C-4D35-A934-A7AB49E6EF15}.Release|Win32.ActiveCfg = Release|Win32
+		{0DDD9988-649C-4D35-A934-A7AB49E6EF15}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
