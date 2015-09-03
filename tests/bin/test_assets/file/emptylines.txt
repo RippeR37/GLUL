@@ -1,0 +1,6 @@
+sample text for unit test
+
+thrid line
+
+
+last line will be empty

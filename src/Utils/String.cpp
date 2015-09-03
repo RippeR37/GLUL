@@ -6,6 +6,7 @@
 #include <sstream>
 #include <cctype>
 
+
 namespace Util {
     
     std::vector<std::string>& String::split(std::vector<std::string> &input,  const std::string& data, char delimiter,  bool skipEmpty) {
@@ -58,15 +59,17 @@ namespace Util {
     bool String::startsWith(const std::string& string, const std::string& prefix) {
         bool result = true;
 
-        if(string.size() < prefix.size())
+        if(string.size() < prefix.size()) {
             result = false;
 
-        else
-            for(unsigned int i = 0; i < prefix.size(); ++i)
+        } else {
+            for(unsigned int i = 0; i < prefix.size(); ++i) {
                 if(string[i] != prefix[i]) {
                     result = false;
                     break;
                 }
+            }
+        }
 
         return result;
     }
@@ -74,15 +77,19 @@ namespace Util {
     bool String::endsWith(const std::string& string, const std::string& sufix) {
         bool result = true;
 
-        if(string.size() < sufix.size())
+        if(string.size() < sufix.size()) {
             result = false;
 
-        else
-            for(unsigned int i = string.size() - sufix.size(); i < string.size(); ++i)
-                if(string[i] != sufix[i]) {
+        } else {
+            unsigned int offset = string.size() - sufix.size();
+
+            for(unsigned int i = 0; i < sufix.size(); ++i) {
+                if(string[i + offset] != sufix[i]) {
                     result = false;
                     break;
                 }
+            }
+        }
 
         return result;
     }

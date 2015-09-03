@@ -1,18 +1,35 @@
 #include <Utils/File.h>
 #include <Utils/Logger.h>
 
+#include <fstream>
+
 
 namespace Util {
+    
+    bool File::exists(const std::string& path) {
+        bool result;
+        std::ifstream file(path.c_str());
 
-    std::string File::read(const std::string& path, ReadMode mode, bool throwException) throw(Util::Exception::FatalError) {
+        result = file.good();
+        
+        return result;
+    }
+
+    std::string File::readText(const std::string& path, bool throwException) throw(Util::Exception::FatalError) {
         std::ifstream fileStream;
         std::string result = "";
         std::string line   = "";
 
-        fileStream.open(path, std::fstream::in | static_cast<std::ios_base::openmode>(mode));
+        fileStream.open(path, std::fstream::in);
         if(fileStream.is_open()) {
-            while(std::getline(fileStream, line))
-                result += "\n" + line;
+            while(std::getline(fileStream, line)) {
+                result += line;
+
+                if(fileStream.eof() == false) {
+                    result += "\n";
+                }
+            }
+
             fileStream.close();
         } else {
             Util::Log::LibraryStream().logError("Could not open file: '" + path + "'");
@@ -26,19 +43,10 @@ namespace Util {
         return result;
     }
 
-    bool File::exists(const std::string& path) {
-        bool result;
-        std::ifstream file(path.c_str());
-
-        result = file.good();
-        
-        return result;
-    }
-
     std::string File::getPath(const std::string& path) {
         std::string result;
         
-        result = path.substr(0, path.find_last_of("/\\"));
+        result = path.substr(0, path.find_last_of("/\\") + 1);
         
         return result;
     }

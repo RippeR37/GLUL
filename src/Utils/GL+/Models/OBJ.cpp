@@ -117,7 +117,7 @@ namespace GL {
             std::vector<glm::vec2> dataTexCoords;
             std::vector<glm::vec3> dataNormals;
 
-            relativePath = Util::File::getPath(path) + "/";
+            relativePath = Util::File::getPath(path);
             meshInitialized = false;
             smoothNormals = (forcedNormalType == NormalType::Smooth);
             
@@ -395,7 +395,7 @@ namespace GL {
             std::ifstream mtlFile;
             std::string currentLine;
             std::string currentMaterial = "";
-            std::string currentDirectory = Util::File::getPath(path) + "/";
+            std::string currentDirectory = Util::File::getPath(path);
             std::vector<std::string> tokens;
 
             mtlFile.open(path);

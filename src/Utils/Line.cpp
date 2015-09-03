@@ -93,8 +93,10 @@ namespace Util {
     }
 
     glm::vec2 Line::getReflectedVector(const glm::vec2& inputVector, const glm::vec2& normal) {
-        glm::vec2 u  = (glm::dot(inputVector, normal) / glm::dot(normal, normal)) * normal;
-        glm::vec2 w  = inputVector - u;
+        glm::vec2 inputNormalized = glm::normalize(inputVector);
+
+        glm::vec2 u  = (glm::dot(inputNormalized, normal) / glm::dot(normal, normal)) * normal;
+        glm::vec2 w  = inputNormalized - u;
         glm::vec2 outputVector = w - u;
 
         return outputVector;

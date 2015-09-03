@@ -69,7 +69,7 @@ namespace GL {
 
         if(!isCompiled()) {
             _path = path;
-            _code = Util::File::read(_path, Util::File::ReadMode::Text, true);
+            _code = Util::File::readText(_path, true);
             _isCompiled = compile();
         }
     }
