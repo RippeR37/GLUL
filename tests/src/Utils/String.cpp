@@ -74,7 +74,7 @@ TEST(Utils_String, Trim_Right) {
 
 TEST(Utils_String, Starts_With) {
     std::string str1 = "hello world";
-    std::string str2 = "lorem ipsum dolor sit omet";
+    std::string str2 = "lorem ipsum dolor sit amet";
     std::string str3 = " some text ";
     
     ASSERT_TRUE(Util::String::startsWith(str1, "hello"));
@@ -82,16 +82,16 @@ TEST(Utils_String, Starts_With) {
     ASSERT_TRUE(Util::String::startsWith(str3, " som"));
     ASSERT_TRUE(Util::String::startsWith(str3, str3));
     ASSERT_FALSE(Util::String::startsWith(str1, " " + str1));
-    ASSERT_FALSE(Util::String::startsWith(str2, "omet"));
+    ASSERT_FALSE(Util::String::startsWith(str2, "amet"));
 }
 
 TEST(Utils_String, Ends_With) {
     std::string str1 = "hello world";
-    std::string str2 = "lorem ipsum dolor sit omet";
+    std::string str2 = "lorem ipsum dolor sit amet";
     std::string str3 = " some text ";
     
     ASSERT_TRUE(Util::String::endsWith(str1, " world"));
-    ASSERT_TRUE(Util::String::endsWith(str2, "sit omet"));
+    ASSERT_TRUE(Util::String::endsWith(str2, "sit amet"));
     ASSERT_TRUE(Util::String::endsWith(str3, "text "));
     ASSERT_TRUE(Util::String::endsWith(str2, str2));
     ASSERT_FALSE(Util::String::endsWith(str1, str1 + " "));
