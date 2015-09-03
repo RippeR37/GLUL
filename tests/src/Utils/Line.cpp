@@ -3,6 +3,8 @@
 #include <Utils/Line.h>
 #include <Utils/Point.h>
 
+#include <cmath>
+
 
 TEST(Utils_Line, Constructors) {
     Util::Line line1;

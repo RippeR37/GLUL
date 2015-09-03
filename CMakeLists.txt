@@ -1,6 +1,15 @@
 cmake_minimum_required (VERSION 2.8 FATAL_ERROR)
 
+
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+
+
+###############################################
+# Build options
+###############################################
+
+option(BUILD_TESTS "Build all tests." OFF)
+
 
 ###############################################
 # Utility Library (shared library) project
@@ -232,6 +241,52 @@ target_link_libraries(Utility_Library_SHARED
     jpeg            # libjpeg
     z               # zlib
 )
+
+
+###############################################
+# Unit tests
+###############################################
+
+if(BUILD_TESTS)
+    enable_testing()
+
+    set(Utility_Library_Unit_Tests_SRCS
+        "tests/src/main.cpp"
+        
+        "tests/src/Utils/Clock.cpp"
+        "tests/src/Utils/Line.cpp"
+        "tests/src/Utils/Point.cpp"
+        "tests/src/Utils/String.cpp"
+    )
+
+    set(Utility_Library_Unit_Tests_H
+        
+    )
+
+    add_executable(Utility_Library_Unit_Tests 
+        ${Utility_Library_Unit_Tests_SRCS}
+        ${Utility_Library_Unit_Tests_H}
+    )
+
+    target_link_libraries(Utility_Library_Unit_Tests 
+        gtest
+        gtest_main
+    )
+
+    target_link_libraries(Utility_Library_Unit_Tests
+        Utility_Library_SHARED
+    )
+
+    add_test(
+        NAME UtilityLibraryUnitTests 
+        COMMAND Utility_Library_Unit_Tests
+    )
+
+    set_target_properties(Utility_Library_Unit_Tests PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY "tests/bin/"
+    )
+
+endif()
 
 
 ###############################################

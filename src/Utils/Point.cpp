@@ -3,6 +3,7 @@
 
 #include <glm/geometric.hpp>
 
+
 namespace Util {
 
     Point::Point() {

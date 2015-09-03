@@ -6,6 +6,7 @@
 
 #include <algorithm>
 
+
 namespace Util {
 
     // Static instance of Windows class
@@ -93,5 +94,4 @@ namespace Util {
         setActiveWindow(activeWindow);
     }
     
-
 }

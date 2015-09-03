@@ -5,8 +5,10 @@ compiler:
   - clang
 
 env:
-  - TASK=build
-  - TASK=analyze
+  matrix:
+    - TASK=build
+    - TASK=unit_tests
+    - TASK=analyze
 
 matrix:
   allow_failures:
@@ -43,6 +45,14 @@ before_install:
   # LINK GCC TO GCC-5
   - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 90
 
+  # INSTALL GTEST (workaround)
+  - sudo apt-get install libgtest-dev
+  - cd /usr/src/gtest
+  - sudo cmake .
+  - sudo make
+  - sudo mv libgtest* /usr/lib/
+  - cd "${TRAVIS_BUILD_DIR}"
+
   # DISPLAY SOFTWARE VERSIONS
   - $CXX --version
   - cmake --version
@@ -52,6 +62,7 @@ before_install:
 install:
   # INSTALL DEPENDENCIES
   ######################
+  
   - DEPENDENCY_GLM_BRANCH="0.9.5"
   - DEPENDENCY_GLEW_VERSION="1.13.0"
   - DEPENDENCY_FT2_VERSION="2.6"
@@ -87,6 +98,14 @@ install:
   - sudo make install
   - cd ..
 
+  # CONFIGURE INSTALLED DEPENDENCIES
+  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
+  - sudo ldconfig
+
+  # CREATE FAKE DISPLAY
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+
 before_script:
   - echo "ENVIRONMENT VARIABLES:"
   - echo "CXX = $CXX"
@@ -104,3 +123,8 @@ script:
   # TASK = analyze (Clang-3.6)
   - if [ "$TASK" = "analyze" ] && [ "$CXX" = "clang++-3.6" ]; then scan-build-3.6 cmake .; fi
   - if [ "$TASK" = "analyze" ] && [ "$CXX" = "clang++-3.6" ]; then scan-build-3.6 --status-bugs -v make -j 8; fi
+
+  # TASK = unit_tests
+  - if [ "$TASK" = "unit_tests" ]; then cmake -DBUILD_TESTS=ON .; fi
+  - if [ "$TASK" = "unit_tests" ]; then make; fi
+  - if [ "$TASK" = "unit_tests" ]; then ./tests/bin/Utility_Library_Unit_Tests; fi

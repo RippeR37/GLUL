@@ -3,6 +3,7 @@
 #include <Utils/Logger.h>
 #include <Utils/Line.h>
 
+
 namespace Util {
 
     Rectangle::Rectangle() {
