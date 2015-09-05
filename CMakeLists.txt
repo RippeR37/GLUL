@@ -254,6 +254,7 @@ if(BUILD_TESTS)
         "tests/src/main.cpp"
         
         "tests/src/Utils/Clock.cpp"
+        "tests/src/Utils/Image.cpp"
         "tests/src/Utils/Line.cpp"
         "tests/src/Utils/Point.cpp"
         "tests/src/Utils/String.cpp"

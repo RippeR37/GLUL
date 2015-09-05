@@ -198,6 +198,7 @@ namespace Util {
         unsigned int newOffset;
         unsigned int newSize;
         unsigned char* newData;
+        unsigned int newRowWidth;
         
         glm::uvec2 boundaryOrigin = origin;
         glm::uvec2 boundarySize = size;
@@ -212,6 +213,7 @@ namespace Util {
         // Compute offsets in memory to peform copying of data
         oldRowStride = getAlignedRowSize(getWidth(), getBits());
         newRowStride = getAlignedRowSize(boundarySize.x, getBits());
+        newRowWidth  = boundarySize.x * (getBits() / 8);
 
         newOffset = 0;
         newSize = boundarySize.y * newRowStride;
@@ -219,7 +221,8 @@ namespace Util {
         // Copy cropped data into new array
         newData = new unsigned char[newSize];
         for(unsigned int row = boundaryOrigin.y; row < boundaryOrigin.y + boundarySize.y; ++row) {
-            std::memcpy(newData + newOffset, _data + row * oldRowStride + boundaryOrigin.x * (getBits() / 8), newRowStride);
+            std::memcpy(newData + newOffset, _data + row * oldRowStride + boundaryOrigin.x * (getBits() / 8), newRowWidth);
+            std::memset(newData + newOffset + newRowWidth, 0, newRowStride - newRowWidth); // reset aligned bytes to zero
             newOffset += newRowStride;
         }
 
@@ -237,6 +240,7 @@ namespace Util {
         Image old = std::move(*this);
         unsigned int oldRowStride = getAlignedRowSize(old.getWidth(),  old.getBits());
         unsigned int newRowStride = getAlignedRowSize(old.getHeight(), old.getBits());
+        unsigned int newRowWidth = old.getHeight() * (old.getBits() / 8);
         unsigned int newRow = 0;
         unsigned int newPixel = 0;
         unsigned int bytes = old.getBits() / 8;
@@ -266,12 +270,20 @@ namespace Util {
                 std::memcpy(newPtr, buffer, bytes);
             }
         }
+        
+        // Clearing aligned bytes
+        if((_bits / 8) % 4 != 0) {
+            for(unsigned int newRow = 0; newRow < _height; ++newRow) {
+                std::memset(_data + newRow * newRowStride + newRowWidth, 0, newRowStride - newRowWidth);
+            }
+        }
     }
 
     void Image::rotate90CCW() {
         Image old = std::move(*this);
         unsigned int oldRowStride = getAlignedRowSize(old.getWidth(),  old.getBits());
         unsigned int newRowStride = getAlignedRowSize(old.getHeight(), old.getBits());
+        unsigned int newRowWidth = old.getHeight() * (old.getBits() / 8);
         unsigned int newRow = 0;
         unsigned int newPixel = 0;
         unsigned int bytes = old.getBits() / 8;
@@ -301,10 +313,18 @@ namespace Util {
                 std::memcpy(newPtr, buffer, bytes);
             }
         }
+        
+        // Clearing aligned bytes
+        if((_bits / 8) % 4 != 0) {
+            for(unsigned int newRow = 0; newRow < _height; ++newRow) {
+                std::memset(_data + newRow * newRowStride + newRowWidth, 0, newRowStride - newRowWidth);
+            }
+        }
     }
 
     void Image::rotate180() {
         unsigned int rowStride = getAlignedRowSize(getWidth(), getBits());
+        unsigned int rowWidth = getWidth() * (getBits() / 8);
         unsigned char buffer[4];
         unsigned int bytes = getBits() / 8;
         unsigned char* pixelPtr[2];
@@ -331,6 +351,13 @@ namespace Util {
                 std::memcpy(buffer, pixelPtr[0], bytes);
                 std::memcpy(pixelPtr[0], pixelPtr[1], bytes);
                 std::memcpy(pixelPtr[1], buffer, bytes);
+            }
+        }
+        
+        // Clearing aligned bytes
+        if((_bits / 8) % 4 != 0) {
+            for(unsigned int newRow = 0; newRow < _height; ++newRow) {
+                std::memset(_data + newRow * rowStride + rowWidth, 0, rowStride - rowWidth);
             }
         }
     }

@@ -28,5 +28,8 @@
     <ClCompile Include="..\..\tests\src\Utils\String.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\tests\src\Utils\Image.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
