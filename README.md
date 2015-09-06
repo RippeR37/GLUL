@@ -2,8 +2,8 @@
 
 | Branch | Build status | Coverage |
 | :----: | :----------: | :------: |
-| Master | [![Build Status](https://travis-ci.org/RippeR37/Utility-Library.svg?branch=master)](https://travis-ci.org/RippeR37/Utility-Library) | [![Coverage Status](https://coveralls.io/repos/RippeR37/Utility-Library/badge.svg?branch=master&service=github)](https://coveralls.io/github/RippeR37/Utility-Library?branch=master) |
-| Develop | [![Build Status](https://travis-ci.org/RippeR37/Utility-Library.svg?branch=develop)](https://travis-ci.org/RippeR37/Utility-Library) | [![Coverage Status](https://coveralls.io/repos/RippeR37/Utility-Library/badge.svg?branch=develop&service=github)](https://coveralls.io/github/RippeR37/Utility-Library?branch=develop) |
+| Master | [![Build Status](https://travis-ci.org/RippeR37/Utility-Library.svg?branch=master)](https://travis-ci.org/RippeR37/Utility-Library) | [![Coverage Status](https://coveralls.io/repos/RippeR37/Utility-Library/badge.svg?branch=master)](https://coveralls.io/github/RippeR37/Utility-Library?branch=master) |
+| Develop | [![Build Status](https://travis-ci.org/RippeR37/Utility-Library.svg?branch=develop)](https://travis-ci.org/RippeR37/Utility-Library) | [![Coverage Status](https://coveralls.io/repos/RippeR37/Utility-Library/badge.svg?branch=develop)](https://coveralls.io/github/RippeR37/Utility-Library?branch=develop) |
 
 
 ### Main features
