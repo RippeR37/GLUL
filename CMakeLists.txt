@@ -15,6 +15,8 @@ option(BUILD_TESTS "Build all tests." OFF)
 # Compiler flags
 ###############################################
 
+enable_language(CXX)
+
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(WARNINGS "-Wall -Wextra -Werror")
     set(EXTRA_FLAGS "-std=c++11")
