@@ -1,13 +1,15 @@
 #ifndef UTILS_INTERFACES_IMAGEFILE_H_INCLUDED
 #define UTILS_INTERFACES_IMAGEFILE_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Image.h>
+
 
 namespace Util {
 
     namespace Interface {
 
-        class ImageFile {
+        class UTILS_API ImageFile {
             public:
                 ImageFile();
                 virtual ~ImageFile();

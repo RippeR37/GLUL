@@ -1,6 +1,7 @@
 #include <Utils/Logger.h>
 #include <Utils/Window.h>
 #include <Utils/Windows.h>
+#include <Utils/Input/Mouse.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -207,7 +208,11 @@ namespace Util {
 
                         if(inputWindow) {
                             inputWindow->eventAggregator.registerEvent(
-                                new Util::Input::MouseButtonEvent(inputButton, inputAction)
+                                new Util::Input::MouseButtonEvent(
+                                    inputButton, 
+                                    inputAction, 
+                                    Util::Input::Mouse::getPosition(Util::Windows::Get(window))
+                                )
                             );
                         }
                     }

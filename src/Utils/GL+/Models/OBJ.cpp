@@ -6,6 +6,7 @@
 #include <iostream>
 #include <fstream>
 
+
 namespace GL {
 
     namespace Model {
@@ -106,8 +107,6 @@ namespace GL {
             bool meshInitialized;
             bool smoothNormals;
 
-            std::string linePrefix;
-            std::string fileName;
             std::string relativePath;
             std::string currentLine;
             std::string currentMeshName;
@@ -118,7 +117,6 @@ namespace GL {
             std::vector<glm::vec2> dataTexCoords;
             std::vector<glm::vec3> dataNormals;
 
-            fileName = Util::File::getFilenameExtensionless(path);
             relativePath = Util::File::getPath(path) + "/";
             meshInitialized = false;
             smoothNormals = (forcedNormalType == NormalType::Smooth);
@@ -132,11 +130,10 @@ namespace GL {
             } else {
                 while(std::getline(objFile, currentLine)) {
                     ++lineNumber;
-                    linePrefix = std::string("Line ") + std::to_string(lineNumber) + ": ";
 
                     tokens = Util::String::split(currentLine, ' ');
 
-                    if(tokens.size() > 0) {
+                    if(tokens.empty() == false) {
 
                         if(tokens[0] == "#") {
                             // comment, just ignore it
@@ -411,7 +408,7 @@ namespace GL {
                 while(std::getline(mtlFile, currentLine)) {
                     tokens = Util::String::split(currentLine, ' ');
 
-                    if(tokens.size() > 0) {
+                    if(tokens.empty() == false) {
 
                         if(tokens[0] == "newmtl") {
                             currentMaterial = tokens[1];

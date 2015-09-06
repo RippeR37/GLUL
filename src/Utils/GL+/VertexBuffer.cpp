@@ -1,5 +1,6 @@
 #include <Utils/GL+/VertexBuffer.h>
 
+
 namespace GL {
 
     VertexBuffer::VertexBuffer() : Buffer(Target::Array) {
@@ -41,7 +42,7 @@ namespace GL {
         _target = Target::Array;
     }
 
-    void VertexBuffer::setAttributes(const std::list<VertexAttrib> attributes) {
+    void VertexBuffer::setAttributes(const std::list<VertexAttrib>& attributes) {
         _attributePointers = attributes;
     }
 

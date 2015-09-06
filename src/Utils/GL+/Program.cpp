@@ -2,15 +2,15 @@
 #include <Utils/Logger.h>
 #include <Utils/File.h>
 
+
 namespace GL {
 
     Program::Program() {
         _isCreated = false;
+        _isLinked = false;
     }
 
-    Program::Program(Program&& program) {
-        _isCreated = false;
-
+    Program::Program(Program&& program) : Program() {
         std::swap(_isLinked,    program._isLinked);
         std::swap(_isCreated,   program._isCreated);
         std::swap(_programID,   program._programID);

@@ -1,5 +1,6 @@
 #include <Utils/Input/EventTypes/MouseButtonEvent.h>
 
+
 namespace Util {
 
     namespace Input {
@@ -8,11 +9,28 @@ namespace Util {
 
         }
 
-        MouseButtonEvent::MouseButtonEvent(MouseButton button, Action action) : Event(Type::MouseButton) {
-            setMouseButton(button);
-            setAction(action);
+        MouseButtonEvent::MouseButtonEvent(MouseButton button, Action action, float x, float y) : MouseButtonEvent(button, action, glm::vec2(x, y)) {
+
         }
 
+        MouseButtonEvent::MouseButtonEvent(MouseButton button, Action action, const glm::vec2& position) : Event(Type::MouseButton) {
+            setMouseButton(button);
+            setAction(action);
+            setPosition(position);
+        }
+
+
+        float MouseButtonEvent::getX() const {
+            return getPosition().x;
+        }
+
+        float MouseButtonEvent::getY() const {
+            return getPosition().y;
+        }
+
+        const glm::vec2& MouseButtonEvent::getPosition() const {
+            return _position;
+        }
 
         MouseButton MouseButtonEvent::getMouseButton() const {
             return _button;
@@ -20,6 +38,18 @@ namespace Util {
 
         Action MouseButtonEvent::getAction() const {
             return _action;
+        }
+
+        void MouseButtonEvent::setX(float x) {
+            _position.x = x;
+        }
+
+        void MouseButtonEvent::setY(float y) {
+            _position.y = y;
+        }
+
+        void MouseButtonEvent::setPosition(const glm::vec2& position) {
+            _position = position;
         }
 
         void MouseButtonEvent::setMouseButton(MouseButton button) {

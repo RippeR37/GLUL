@@ -1,20 +1,24 @@
 #ifndef UTILS_INPUT_EVENTTRIGGER_H_INCLUDED
 #define UTILS_INPUT_EVENTTRIGGER_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Input/Event.h>
 #include <Utils/Input/EventAggregator.h>
 
 #include <functional>
 #include <vector>
 
+
 namespace Util {
 
     namespace Input {
 
-        class EventTrigger {
+        class UTILS_API EventTrigger {
             public:
                 EventTrigger(EventAggregator& eventAggregator);
                 ~EventTrigger();
+
+                EventTrigger& operator=(const EventTrigger&) = delete;
                 
                 void reset();
 

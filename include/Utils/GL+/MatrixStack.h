@@ -1,14 +1,17 @@
 #ifndef UTILS_GL_MATRIXSTACK_H_INCLUDED
 #define UTILS_GL_MATRIXSTACK_H_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <GL/glew.h>
 #include <glm/matrix.hpp>
 
 #include <stack>
 
+
 namespace GL {
 
-    class MatrixStack {
+    class UTILS_API MatrixStack {
         public:
             MatrixStack();
             ~MatrixStack();

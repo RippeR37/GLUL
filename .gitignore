@@ -7,6 +7,7 @@
 *.log
 *.ilk
 *.suo
+*.exp
 
 examples/framework/bin/assets/shaders/*
 examples/models/bin/assets/shaders/*
@@ -47,3 +48,8 @@ project/Input example/build/*
 project/Input example/examples/*
 project/Input example/Debug/*
 project/Input example/Release/*
+
+project/GUI example/build/*
+project/GUI example/examples/*
+project/GUI example/Debug/*
+project/GUI example/Release/*

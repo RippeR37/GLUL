@@ -2,13 +2,11 @@
 #include <Utils/Logger.h>
 #include <Utils/Window.h>
 
-namespace GL {
 
+namespace GL {
 
     Context Context::DefaultContext;
     Context* Context::Current = &Context::DefaultContext;
-
-
 
     Context::Context() {
         setActive(false);

@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+
 namespace Util {
 
     namespace Input {
@@ -14,10 +15,9 @@ namespace Util {
 
         Input::Action Keyboard::getState(Key key, Util::Window* window) {
             Input::Action result = Input::Action::Release;
-            int libResult;
 
             if(window) {
-                libResult = glfwGetKey(window->getHandle(), static_cast<int>(key));
+                int libResult = glfwGetKey(window->getHandle(), static_cast<int>(key));
 
                 switch(libResult) {
                     case GLFW_PRESS:    result = Input::Action::Press;   break;

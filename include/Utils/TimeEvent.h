@@ -1,11 +1,14 @@
 #ifndef UTILS_TIMEEVENT_H_INCLUDED
 #define UTILS_TIMEEVENT_H_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <functional>
+
 
 namespace Util {
 
-    class TimeEvent {
+    class UTILS_API TimeEvent {
         public:
             enum class Type {
                 DelayedEvent,

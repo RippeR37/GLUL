@@ -1,5 +1,6 @@
 #include <Utils/Input/EventTypes/MouseMovementEvent.h>
 
+
 namespace Util {
 
     namespace Input {
@@ -12,7 +13,7 @@ namespace Util {
             setPosition(glm::vec2(x, y));
         }
 
-        MouseMovementEvent::MouseMovementEvent(const glm::vec2 position) : Event(Type::MouseMovement) {
+        MouseMovementEvent::MouseMovementEvent(const glm::vec2& position) : Event(Type::MouseMovement) {
             setPosition(position);
         }
 

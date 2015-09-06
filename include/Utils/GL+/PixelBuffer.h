@@ -1,12 +1,14 @@
 #ifndef UTILS_GL_PIXEL_BUFFER_H_INCLUDED
 #define UTILS_GL_PIXEL_BUFFER_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/GL+/Buffer.h>
 #include <Utils/GL+/Texture.h>
 
+
 namespace GL {
 
-    class PixelBuffer : public GL::Buffer {
+    class UTILS_API PixelBuffer : public GL::Buffer {
         public:
             enum class OperationType {
                 Pack,
@@ -110,6 +112,8 @@ namespace GL {
 
         private:
             OperationType _operation;
+
+            using Buffer::setTarget;
     };
 
 }

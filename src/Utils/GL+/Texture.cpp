@@ -1,9 +1,16 @@
 #include <Utils/GL+/Texture.h>
 
+
 namespace GL {
     
     Texture::Texture() {
         _isCreated = false;
+        _isAlpha = false;
+        _width = 0;
+        _height = 0;
+        _target = Target::Tex2D;
+        _format = Format::RGB;
+        _internalFormat = InternalFormat::RGB;
     }
 
     Texture::Texture(const Util::Image& image, Target target, Format format, InternalFormat internalFormat) {

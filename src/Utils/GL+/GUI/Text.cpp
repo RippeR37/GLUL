@@ -4,9 +4,14 @@
 
 #include <cctype>
 
+
 namespace GL {
 
     namespace GUI {
+
+        Text::Text(Container& parent) : Text(&parent) {
+
+        }
 
         Text::Text(Container* const parent) : Component(parent) {
             setFont(nullptr);
@@ -75,11 +80,11 @@ namespace GL {
                     thisConstless->_vbo.setUsage(VertexBuffer::Usage::DynamicDraw);
                     thisConstless->_vbo.setData(vertexData);
                 _vbo.unbind();
-
+                
+                thisConstless->_vao.setDrawCount(vertices.size());
 
                 // Initialize VAO
                 if(_glInitialized == false) {
-                    thisConstless->_vao.setDrawCount(vertices.size());
                     thisConstless->_vao.setDrawTarget(VertexArray::DrawTarget::Triangles);
 
                     _vao.bind();
@@ -88,6 +93,10 @@ namespace GL {
                     _vao.unbind();
 
                     thisConstless->_glInitialized = true;
+                } else {
+                    _vao.bind();
+                        thisConstless->_vao.setAttribPointers();
+                    _vao.unbind();
                 }
             }
 
@@ -136,16 +145,20 @@ namespace GL {
             }
         }
 
+        void Text::setFont(const Font& font) {
+            setFont(&font);
+        }
+
         void Text::setFont(const Font* font) {
             _font = font;
 
-            setInvalid();
+            validate();
         }
 
         void Text::setText(const std::string& text) {
             _text = text;
-
-            setInvalid();
+            
+            validate();
         }
 
         void Text::setSize(const glm::vec2& size) {
@@ -168,8 +181,8 @@ namespace GL {
 
         void Text::setScale(const float scale) {
             _scale = scale;
-
-            setInvalid();
+            
+            validate();
         }
 
         void Text::setColor(const glm::vec3& color) {

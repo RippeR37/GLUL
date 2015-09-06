@@ -1,6 +1,7 @@
 #ifndef UTILS_GL_MODELS_MESH_H_INCLUDED
 #define UTILS_GL_MODELS_MESH_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Interfaces/Model.h>
 #include <Utils/GL+/Pipeline.h>
 #include <Utils/GL+/Texture.h>
@@ -9,13 +10,14 @@
 
 #include <string>
 
+
 namespace GL {
 
     namespace Model {
 
         class Material;
 
-        class Mesh {
+        class UTILS_API Mesh {
             public:
                 Mesh(std::unordered_map<std::string, GL::Texture>* textures = nullptr);
                 Mesh(const std::string& materialName, std::unordered_map<std::string, GL::Texture>* textures = nullptr);

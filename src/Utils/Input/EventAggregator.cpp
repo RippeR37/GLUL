@@ -1,12 +1,13 @@
 #include <Utils/Input/EventAggregator.h>
 #include <Utils/Input/EventHandler.h>
 
+
 namespace Util {
 
     namespace Input {
 
         EventAggregator::EventAggregator() {
-
+            _nextTriggerID = 0;
         }
 
         EventAggregator::~EventAggregator() {

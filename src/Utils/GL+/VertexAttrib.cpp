@@ -1,5 +1,6 @@
 #include <Utils/GL+/VertexAttrib.h>
 
+
 namespace GL {
     
     VertexAttrib::VertexAttrib() {
@@ -27,6 +28,5 @@ namespace GL {
     void VertexAttrib::set() {
         glVertexAttribPointer(index, size, type, normalized, stride, offset);
     }
-
 
 }

@@ -1,10 +1,8 @@
-#ifndef GLM_FORCE_RADIANS
-#define GLM_FORCE_RADIANS
-#endif
-
 #include <Utils/GL+/Pipeline.h>
 
+#define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
+
 
 namespace GL {
 

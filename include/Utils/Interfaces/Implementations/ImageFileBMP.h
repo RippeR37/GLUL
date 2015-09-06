@@ -3,11 +3,12 @@
 
 #include <Utils/Interfaces/ImageFile.h>
 
+
 namespace Util {
 
     namespace Interface {
 
-        class ImageFileBMP : public Interface::ImageFile {
+        class UTILS_API ImageFileBMP : public Interface::ImageFile {
             private:
                 struct BMPheader {
                     unsigned char bmpID[4]; // xxBM where xx is skipped due to alignment

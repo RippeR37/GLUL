@@ -4,6 +4,7 @@
 #include <chrono>
 #include <ctime>
 
+
 namespace Util {
 
     Logger::Logger() {
@@ -42,15 +43,14 @@ namespace Util {
 
         if(getInstance()._streams.count(libraryStreamName) == 0)
             Stream(libraryStreamName, libraryStreamPath);
-
+        
         return Stream(libraryStreamName);
     }
 
 
-    /***
-        LoggerStream's implementation
-    ***/
-
+    /**
+     * LoggerStream's implementation
+     */
     Logger::LoggerStream::LoggerStream() {
 
     }
@@ -78,7 +78,6 @@ namespace Util {
             _stream << std::endl;
         }
     }
-
 
     void Logger::LoggerStream::logError(const std::string& errorMessage) {
         log(std::string("[Error]: ") + errorMessage);
@@ -111,6 +110,5 @@ namespace Util {
     std::ofstream& Logger::LoggerStream::getStream() {
         return _stream;
     }
-
 
 }

@@ -1,9 +1,12 @@
 #ifndef UTILS_WINDOWS_H_INCLUDED
 #define UTILS_WINDOWS_H_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <string>
 #include <unordered_set>
 #include <unordered_map>
+
 
 struct GLFWwindow;
 
@@ -11,7 +14,7 @@ namespace Util {
 
     class Window;
     
-    class Windows {
+    class UTILS_API Windows {
         friend class Window;
 
         public:

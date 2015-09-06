@@ -1,6 +1,7 @@
 #ifndef UTILS_AABB_H_INCLUDED
 #define UTILS_AABB_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Point.h>
 #include <Utils/GL+/Pipeline.h>
 
@@ -8,9 +9,10 @@
 
 #include <vector>
 
+
 namespace Util {
 
-    class AABB {
+    class UTILS_API AABB {
         public:
             AABB();
             AABB(const glm::vec3& min, const glm::vec3& max);

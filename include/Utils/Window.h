@@ -1,6 +1,7 @@
 #ifndef UTILS_WINDOW_H_INCLUDED
 #define UTILS_WINDOW_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Clock.h>
 #include <Utils/Image.h>
 #include <Utils/Exception.h>
@@ -15,11 +16,12 @@
 #include <vector>
 #include <functional>
 
+
 struct GLFWwindow;
 
 namespace Util {
     
-    class Window {
+    class UTILS_API Window {
         public:
             Window();
             Window(unsigned int width, unsigned int height, const std::string& title);

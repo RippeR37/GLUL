@@ -16,6 +16,7 @@ namespace Util {
     TimeEvent::TimeEvent(const std::function<void(TimeEvent& event, double deltaTime)>& updateEvent) :
         _isDone(false),
         _id(TimeEvent::getNewID()),
+        _time(0.0),
         _type(Type::UpdateEvent),
         _updateEvent(updateEvent)
     { 

@@ -1,11 +1,14 @@
 #ifndef UTILS_TIMELOOP_H_INCLUDED
 #define UTILS_TIMELOOP_H_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <functional>
+
 
 namespace Util {
 
-    class TimeLoop {
+    class UTILS_API TimeLoop {
         public:
             TimeLoop();
 

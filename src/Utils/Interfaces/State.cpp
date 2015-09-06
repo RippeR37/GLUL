@@ -15,6 +15,8 @@ namespace Util {
         void State::handleInputEvent(const Input::Event& inputEvent) {
             if(shouldSkip())
                 return;
+
+            (void) inputEvent;
         }
 
         State* State::getNext() {

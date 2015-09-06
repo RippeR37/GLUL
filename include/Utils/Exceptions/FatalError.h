@@ -3,9 +3,10 @@
 
 #include <Utils/Exception.h>
 
+
 namespace Util {
 
-    class Exception::FatalError : public Exception {
+    class UTILS_API Exception::FatalError : public Exception {
         public:
             FatalError() throw();
             FatalError(const std::string& description) throw();

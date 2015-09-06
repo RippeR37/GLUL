@@ -1,9 +1,6 @@
-#ifndef GLM_FORCE_RADIANS
-#define GLM_FORCE_RADIANS
-#endif
-
 #include <Utils/GL+/MatrixStack.h>
 
+#define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 
 namespace GL {
@@ -48,7 +45,7 @@ namespace GL {
     }
 
     void MatrixStack::clear() {
-        while(_stack.size() > 0)
+        while(_stack.empty() == false)
             _stack.pop();
 
         _stack.push(glm::mat4(1.0));

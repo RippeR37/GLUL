@@ -1,6 +1,7 @@
 #ifndef UTILS_GL_PIPELINE_H_INCLUDED
 #define UTILS_GL_PIPELINE_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Exception.h>
 #include <Utils/Interfaces/Camera.h>
 #include <Utils/GL+/MatrixStack.h>
@@ -8,9 +9,10 @@
 #include <GL/glew.h>
 #include <glm/matrix.hpp>
 
+
 namespace GL {
 
-    class Pipeline {
+    class UTILS_API Pipeline {
         public:
             enum class ViewSource {
                 Camera,

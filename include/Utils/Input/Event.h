@@ -1,19 +1,19 @@
 #ifndef UTILS_INPUT_EVENT_H_INCLUDED
 #define UTILS_INPUT_EVENT_H_INCLUDED
 
+#include <Utils/Config.h>
+
 
 namespace Util {
 
     namespace Input {
-
 
         class KeyEvent;
         class MouseButtonEvent;
         class MouseMovementEvent;
         class MouseScrollEvent;
 
-
-        class Event {
+        class UTILS_API Event {
             public:
                 enum class Type {
                     Key,

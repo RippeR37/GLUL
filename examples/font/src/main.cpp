@@ -19,11 +19,6 @@ void initFont(GL::GUI::Font& font, const std::string& fontName, int size) {
     font.load("assets/fonts/" + fontName + ".ttf", size);
 }
 
-void initText(GL::GUI::Text& text, const GL::GUI::Font& font, GL::GUI::Window& window) {
-    text.setFont(&font);
-    window.add(&text);
-}
-
 void initVertices(std::vector<glm::vec4>& vertices, const GL::GUI::Font& font) {
     // Display whole texture
     float xS = 0.0f;
@@ -108,25 +103,27 @@ void run() {
     initFont(fontText1, "verdanai", 16);
     initFont(fontText2, "verdanai", 32);
 
-    // set font to given text and add text to window's container
-    initText(textHeader, fontText2, window);
-    initText(textFooter1, fontText1, window);
-    initText(textFooter2, fontText2, window);
-
     // set textHeader object
+    textHeader.setFont(fontText2);
     textHeader.setText("Hello world!\nSecond line. Tab: '\t'\n\nTexture with font's glyphs:");
     textHeader.setColor(glm::vec4(1.0f, 0.7f, 0.3f, 1.0f));
     textHeader.setPosition(glm::vec2(200.0f, 40.0f));
+    textHeader.bindTo(window);
 
-    // set textFooter* objects
+    // set textFooter1 object
+    textFooter1.setFont(fontText1);
     textFooter1.setText("Text using font with size 16");
     textFooter1.setColor(glm::vec4(0.2f, 0.5f, 0.7f, 1.0f));
     textFooter1.setPosition(glm::vec2(200.0f, 480.0f));
-
+    textFooter1.bindTo(window);
+    
+    // set textFooter2 object
+    textFooter2.setFont(fontText2);
     textFooter2.setText("Text using font with size 32 scaled to 16");
     textFooter2.setColor(glm::vec4(0.2f, 0.5f, 0.7f, 1.0f));
     textFooter2.setPosition(glm::vec2(200.0f, 500.0f));
     textFooter2.setSize(16);
+    textFooter2.bindTo(window);
 
 
     initVertices(vertices, fontAtlas);

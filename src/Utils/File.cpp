@@ -1,6 +1,7 @@
 #include <Utils/File.h>
 #include <Utils/Logger.h>
 
+
 namespace Util {
 
     std::string File::read(const std::string& path, ReadMode mode, bool throwException) throw(Util::Exception::FatalError) {

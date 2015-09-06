@@ -1,9 +1,12 @@
 #ifndef UTILS_GL_CONTEXT_H_INCLUDED
 #define UTILS_GL_CONTEXT_H_INCLUDED
 
+#include <Utils/Config.h>
+
 #include <GL/glew.h>
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
+
 
 namespace Util {
     class Window;
@@ -11,7 +14,7 @@ namespace Util {
 
 namespace GL {
 
-    class Context {
+    class UTILS_API Context {
         public:
             enum class BufferMask : GLbitfield {
                 Color   = GL_COLOR_BUFFER_BIT,

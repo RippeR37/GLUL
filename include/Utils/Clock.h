@@ -1,9 +1,12 @@
 #ifndef UTILS_FILE_H_INCLUDED
 #define UTILS_FILE_H_INCLUDED
 
+#include <Utils/Config.h>
+
+
 namespace Util {
 
-    class Clock {
+    class UTILS_API Clock {
         public:
             Clock();
 

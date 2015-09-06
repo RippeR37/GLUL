@@ -1,16 +1,18 @@
 #ifndef UTILS_GL_VERTEX_BUFFER_H_INCLUDED
 #define UTILS_GL_VERTEX_BUFFER_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/GL+/Buffer.h>
 #include <Utils/GL+/VertexAttrib.h>
 
 #include <list>
 
+
 namespace GL {
 
-    class VertexBuffer : public GL::Buffer {
+    class UTILS_API VertexBuffer : public GL::Buffer {
         public:
-            class Data {
+            class UTILS_API Data {
                 public:
                     Data() : data(nullptr), size(0) { }
                     Data(GLvoid* data_, GLsizeiptr size_) : data(data_), size(size_) { }
@@ -35,18 +37,20 @@ namespace GL {
             void setData(const VertexBuffer::Data& data);
 
             void setTarget();
-            void setAttributes(const std::list<VertexAttrib> attributes);
+            void setAttributes(const std::list<VertexAttrib>& attributes);
 
             Target getTarget() const;
             const std::list<VertexAttrib>& getAttributes() const;
 
+            using Buffer::setData;
+
         private:
             std::list<VertexAttrib> _attributePointers;
 
-        public: 
-            using Buffer::setData;
+            using Buffer::setTarget;
     };
 
 }
 
 #endif
+

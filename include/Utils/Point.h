@@ -1,13 +1,15 @@
 #ifndef UTILS_POINT_H_INCLUDED
 #define UTILS_POINT_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <glm/vec2.hpp>
+
 
 namespace Util {
     
     class Line;
 
-    class Point {
+    class UTILS_API Point {
         public:
             Point();
             Point(const Point& point);

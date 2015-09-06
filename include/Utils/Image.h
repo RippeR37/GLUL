@@ -1,11 +1,13 @@
 #ifndef UTILS_IMAGE_H_INCLUDED
 #define UTILS_IMAGE_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Exception.h>
 
 #include <glm/vec4.hpp>
 
 #include <string>
+
 
 namespace Util {
 
@@ -13,7 +15,7 @@ namespace Util {
         class ImageFile; // Interface for reading and writing image files
     }
 
-    class Image {
+    class UTILS_API Image {
         public:
             enum class Format {
                 BMP,

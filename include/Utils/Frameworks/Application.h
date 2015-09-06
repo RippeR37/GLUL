@@ -6,9 +6,10 @@
 
 #include <vector>
 
+
 namespace FW {
 
-    class Application {
+    class UTILS_API Application {
         public:
             Application();
             ~Application();

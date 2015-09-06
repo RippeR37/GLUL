@@ -1,6 +1,7 @@
 #ifndef UTILS_GL_PROGRAM_H_INCLUDED
 #define UTILS_GL_PROGRAM_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Exception.h>
 #include <Utils/GL+/Shader.h>
 #include <Utils/GL+/Uniform.h>
@@ -12,9 +13,10 @@
 #include <vector>
 #include <sstream>
 
+
 namespace GL {
 
-    class Program {
+    class UTILS_API Program {
         public:
             Program();
             Program(Program&& program);

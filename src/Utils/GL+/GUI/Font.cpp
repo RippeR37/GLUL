@@ -7,6 +7,7 @@
 #include <algorithm>
 #include <cctype>
 
+
 namespace GL {
 
     namespace GUI {
@@ -22,6 +23,8 @@ namespace GL {
         }
 
         Font::Font(const std::string& path) throw(Util::Exception::FatalError) : Font() {
+            _height = 0;
+
             load(path);
         }
 
@@ -74,7 +77,7 @@ namespace GL {
                 } else {
                     if(std::isgraph(glyph)) {
                         totalWidth += (*static_cast<FT_Face*>(_face))->glyph->bitmap.width + pixelGlyphInterval;
-                        maxHeight = std::max(maxHeight, (*static_cast<FT_Face*>(_face))->glyph->bitmap.rows);
+                        maxHeight = std::max<long int>(maxHeight, (*static_cast<FT_Face*>(_face))->glyph->bitmap.rows);
 
                         if(totalWidth > maxWidth) {
                             maxWidthReached = true;

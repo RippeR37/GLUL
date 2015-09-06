@@ -4,6 +4,7 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+
 namespace Util {
 
     namespace Input {
@@ -13,9 +14,9 @@ namespace Util {
         }
 
         void Mouse::setMode(CursorMode cursorMode, Util::Window* window) {
-            int libMode = GLFW_CURSOR_NORMAL;
-
             if(window) {
+                int libMode = GLFW_CURSOR_NORMAL;
+
                 switch(cursorMode) {
                     case CursorMode::Normal: libMode = GLFW_CURSOR_NORMAL; break;
                     case CursorMode::Hidden: libMode = GLFW_CURSOR_HIDDEN; break;
@@ -36,10 +37,10 @@ namespace Util {
 
         Input::Action Mouse::getState(MouseButton mouseButton, Util::Window* window) {
             Input::Action result = Input::Action::Release;
-            int libButton = GLFW_MOUSE_BUTTON_LEFT;
-            int libResult;
 
             if(window) {
+                int libButton = GLFW_MOUSE_BUTTON_LEFT;
+
                 switch(mouseButton) {
                     case MouseButton::Left:   libButton = GLFW_MOUSE_BUTTON_LEFT;   break;
                     case MouseButton::Right:  libButton = GLFW_MOUSE_BUTTON_RIGHT;  break;
@@ -49,7 +50,7 @@ namespace Util {
                         break;
                 }
 
-                libResult = glfwGetMouseButton(window->getHandle(), libButton);
+                int libResult = glfwGetMouseButton(window->getHandle(), libButton);
 
                 switch(libResult) {
                     case GLFW_PRESS:   result = Input::Action::Press;   break;

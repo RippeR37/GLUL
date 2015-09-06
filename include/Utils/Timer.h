@@ -1,15 +1,17 @@
 #ifndef UTILS_TIMER_H_INCLUDED
 #define UTILS_TIMER_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Clock.h>
 #include <Utils/TimeEvent.h>
 
 #include <list>
 #include <functional>
 
+
 namespace Util {
 
-    class Timer {
+    class UTILS_API Timer {
         public:
             Timer();
 

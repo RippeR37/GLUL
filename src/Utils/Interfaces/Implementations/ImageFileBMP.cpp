@@ -4,18 +4,18 @@
 #include <climits>
 #include <cstring>
 
+
 namespace Util {
 
     namespace Interface {
 
         Image ImageFileBMP::read(const std::string& path) const throw(Util::Exception::InitializationFailed) {
             Image image;
-            std::string error;
             unsigned char header[54];
             unsigned int dataOffset;
             unsigned int size;
             unsigned int width, height, bits;
-            unsigned char* data;
+            unsigned char* data = nullptr;
             unsigned int rowStride; // width * bits algined to 4bytes
 
             FILE *file = fopen(path.c_str(), "rb");
@@ -67,8 +67,8 @@ namespace Util {
             if(size == 0)
                 size = height * rowStride;
 
-            if(dataOffset == 0)
-                dataOffset = 54;
+            if(dataOffset != 0 && dataOffset != 54)
+                fseek(file, dataOffset, SEEK_SET);
 
             data = new unsigned char[size];
 

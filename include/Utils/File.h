@@ -1,14 +1,16 @@
 #ifndef UTILS_FILE_H_INCLUDED
 #define UTILS_FILE_H_INCLUDED
 
+#include <Utils/Config.h>
 #include <Utils/Exception.h>
 
 #include <string>
 #include <fstream>
 
+
 namespace Util {
 
-    class File {
+    class UTILS_API File {
         public:
             enum class ReadMode {
                 Text   = 0,

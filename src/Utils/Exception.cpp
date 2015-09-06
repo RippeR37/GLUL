@@ -2,6 +2,7 @@
 
 #include <iostream>
 
+
 namespace Util {
 
     Exception::Exception() throw() {

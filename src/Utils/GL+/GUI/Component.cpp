@@ -1,18 +1,22 @@
 #include <Utils/GL+/GUI/Component.h>
 #include <Utils/GL+/GUI/Container.h>
 
+
 namespace GL {
 
     namespace GUI {
 
+        Component::Component(Container& parent) : Component(&parent) { }
+
         Component::Component(Container* const parent) {
+            setValid();
+            setParent(nullptr);
             setVisible(true);
             setEnabled(true);
             setFocused(false);
             setSize(glm::vec2(0.0f));
             setPosition(glm::vec2(0.0f));
             
-            clearListeners();
             setInvalid();
 
             bindTo(parent);
@@ -20,6 +24,10 @@ namespace GL {
 
         Component::~Component() {
             notifyParentOfDestruction();
+        }
+
+        void Component::bindTo(Container& container) {
+            bindTo(&container);
         }
 
         void Component::bindTo(Container* container) {
@@ -31,23 +39,8 @@ namespace GL {
                 setParent(nullptr);
         }
 
-        void Component::processEvent(const Event& event) {
-            if(isEnabled())
-                for(auto& listener : _listeners[static_cast<int>(event.getType())])
-                    listener(event);
-        }
-
-        void Component::addListener(Event::Type eventType, std::function<void(const Event&)> function) {
-            _listeners[static_cast<int>(eventType)].push_back(function);
-        }
-
-        void Component::clearListeners() {
-            _listeners.clear();
-            _listeners.resize(7); // number of possible event types
-        }
-
-        void Component::clearListeners(Event::Type eventType) {
-            _listeners[static_cast<int>(eventType)].clear();
+        void Component::validate() const {
+            const_cast<Component*>(this)->setValid();
         }
         
         bool Component::isEnabled() const {
@@ -97,18 +90,21 @@ namespace GL {
             _isEnabled = flag;
 
             setInvalid();
+            validate();
         }
         
         void Component::setFocused(bool flag) {
             _isFocused = flag;
 
             setInvalid();
+            validate();
         }
 
         void Component::setVisible(bool flag) {
             _isVisible = flag;
 
             setInvalid();
+            validate();
         }
 
         void Component::setInvalid() {
@@ -119,18 +115,18 @@ namespace GL {
             _size = size;
 
             setInvalid();
+            validate();
         }
         
         void Component::setPosition(const glm::vec2& position) {
             _position.setPoint(position);
 
             setInvalid();
+            validate();
         }
 
         void Component::setPosition(const Util::Point& position) {
-            _position = position;
-
-            setInvalid();
+            setPosition(position.getPosition());
         }
 
         void Component::setValid() {
@@ -144,6 +140,13 @@ namespace GL {
         void Component::notifyParentOfDestruction() {
             if(getParent())
                 getParent()->handleChildDestruction(this);
+        }
+        
+        bool Component::isUnderMouse() const {
+            if(getParent() == nullptr)
+                return false;
+
+            return getParent()->isUnderMouse(const_cast<Component*>(this));
         }
 
     }
