@@ -12,25 +12,31 @@ option(BUILD_TESTS "Build all tests." OFF)
 
 
 ###############################################
-# Utility Library (shared library) project
+# Compiler flags
 ###############################################
 
-project (Utility_Library_SHARED CXX)
-
-# Compiler flags
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
-    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(WARNINGS "-Wall -Wextra -Werror")
     set(EXTRA_FLAGS "-std=c++11")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
     set(WARNINGS "/W4 /WX /EHsc")
 endif()
 
+if(BUILD_TESTS AND "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+   set(COVERAGE_FLAGS "-g -fprofile-arcs -ftest-coverage")
+endif()
+
 if (NOT CONFIGURED_ONCE)
-    set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
+    set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS} ${COVERAGE_FLAGS}"
     CACHE STRING "Flags used by the compiler during all build types." FORCE)
 endif()
 
+
+###############################################
+# Utility Library (shared library) project
+###############################################
+
+project (Utility_Library_SHARED CXX)
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -297,21 +303,6 @@ endif()
 
 project (Utility_Library_Example_Basic CXX)
 
-# Compiler flags
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
-    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(WARNINGS "-Wall -Wextra -Werror")
-    set(EXTRA_FLAGS "-std=c++11")
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    set(WARNINGS "/W4 /WX /EHsc")
-endif()
-
-if (NOT CONFIGURED_ONCE)
-    set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
-    CACHE STRING "Flags used by the compiler during all build types." FORCE)
-endif()
-
-
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
@@ -344,21 +335,6 @@ set_target_properties(Utility_Library_Example_Basic PROPERTIES
 
 project (Utility_Library_Example_Font CXX)
 
-# Compiler flags
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
-    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(WARNINGS "-Wall -Wextra -Werror")
-    set(EXTRA_FLAGS "-std=c++11")
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    set(WARNINGS "/W4 /WX /EHsc")
-endif()
-
-if (NOT CONFIGURED_ONCE)
-    set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
-    CACHE STRING "Flags used by the compiler during all build types." FORCE)
-endif()
-
-
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
@@ -384,26 +360,12 @@ set_target_properties(Utility_Library_Example_Font PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/font/bin/"
 )
 
+
 ###############################################
 # Framework example project
 ###############################################
 
 project (Utility_Library_Example_Framework CXX)
-
-# Compiler flags
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
-    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(WARNINGS "-Wall -Wextra -Werror")
-    set(EXTRA_FLAGS "-std=c++11")
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    set(WARNINGS "/W4 /WX /EHsc")
-endif()
-
-if (NOT CONFIGURED_ONCE)
-    set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
-    CACHE STRING "Flags used by the compiler during all build types." FORCE)
-endif()
-
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -431,26 +393,12 @@ set_target_properties(Utility_Library_Example_Framework PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/framework/bin/"
 )
 
+
 ###############################################
 # Image example project
 ###############################################
 
 project (Utility_Library_Example_Image CXX)
-
-# Compiler flags
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
-    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(WARNINGS "-Wall -Wextra -Werror")
-    set(EXTRA_FLAGS "-std=c++11")
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    set(WARNINGS "/W4 /WX /EHsc")
-endif()
-
-if (NOT CONFIGURED_ONCE)
-    set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
-    CACHE STRING "Flags used by the compiler during all build types." FORCE)
-endif()
-
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -478,26 +426,12 @@ set_target_properties(Utility_Library_Example_Image PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/image/bin/"
 )
 
+
 ###############################################
 # Input example project
 ###############################################
 
 project (Utility_Library_Example_Input CXX)
-
-# Compiler flags
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
-    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(WARNINGS "-Wall -Wextra -Werror")
-    set(EXTRA_FLAGS "-std=c++11")
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    set(WARNINGS "/W4 /WX /EHsc")
-endif()
-
-if (NOT CONFIGURED_ONCE)
-    set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
-    CACHE STRING "Flags used by the compiler during all build types." FORCE)
-endif()
-
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -524,26 +458,12 @@ set_target_properties(Utility_Library_Example_Input PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/input/bin/"
 )
 
+
 ###############################################
 # Models example project
 ###############################################
 
 project (Utility_Library_Example_Models CXX)
-
-# Compiler flags
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
-    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(WARNINGS "-Wall -Wextra -Werror")
-    set(EXTRA_FLAGS "-std=c++11")
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    set(WARNINGS "/W4 /WX /EHsc")
-endif()
-
-if (NOT CONFIGURED_ONCE)
-    set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
-    CACHE STRING "Flags used by the compiler during all build types." FORCE)
-endif()
-
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
@@ -573,26 +493,12 @@ set_target_properties(Utility_Library_Example_Models PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/models/bin/"
 )
 
+
 ###############################################
 # GUI example project
 ###############################################
 
 project (Utility_Library_Example_GUI CXX)
-
-# Compiler flags
-if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
-    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-    set(WARNINGS "-Wall -Wextra -Werror")
-    set(EXTRA_FLAGS "-std=c++11")
-elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-    set(WARNINGS "/W4 /WX /EHsc")
-endif()
-
-if (NOT CONFIGURED_ONCE)
-    set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
-    CACHE STRING "Flags used by the compiler during all build types." FORCE)
-endif()
-
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)

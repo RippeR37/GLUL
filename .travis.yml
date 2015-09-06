@@ -43,7 +43,9 @@ before_install:
   - sudo apt-get install cppcheck
 
   # LINK GCC TO GCC-5
-  - sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 90
+  - sudo update-alternatives --install /usr/bin/gcc  gcc  /usr/bin/gcc-5  90
+  - sudo update-alternatives --install /usr/bin/g++  g++  /usr/bin/g++-5  90
+  - sudo update-alternatives --install /usr/bin/gcov gcov /usr/bin/gcov-5 90
 
   # INSTALL GTEST (workaround)
   - sudo apt-get install libgtest-dev
@@ -67,6 +69,10 @@ install:
   - DEPENDENCY_GLEW_VERSION="1.13.0"
   - DEPENDENCY_FT2_VERSION="2.6"
   - DEPENDENCY_FT2_VERSION_FILE="26"
+
+  # CREATE DIRECTORY FOR EXTERNAL LIBS
+  - mkdir external
+  - cd external
 
   # DOWNLOAD & INSTALL GLM LIBRARY
   - git clone -b $DEPENDENCY_GLM_BRANCH https://github.com/g-truc/glm.git glm
@@ -98,6 +104,9 @@ install:
   - sudo make install
   - cd ..
 
+  # LEAVE EXTERNAL LIB DIRECTORY
+  - cd ..
+
   # CONFIGURE INSTALLED DEPENDENCIES
   - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
   - sudo ldconfig
@@ -106,10 +115,16 @@ install:
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
 
+  # INSTALL CPP-COVERALLS
+  - sudo pip install requests[security]
+  - sudo pip install cpp-coveralls
+
+
 before_script:
   - echo "ENVIRONMENT VARIABLES:"
   - echo "CXX = $CXX"
   - echo "TASK = $TASK"
+
 
 script:
   # TASK = build
@@ -130,3 +145,10 @@ script:
   - if [ "$TASK" = "unit_tests" ]; then cd tests/bin/; fi
   - if [ "$TASK" = "unit_tests" ]; then ./Utility_Library_Unit_Tests; fi
   - if [ "$TASK" = "unit_tests" ]; then cd ../../; fi
+
+
+after_success:
+  # TASK = unit_tests
+  - if [ "$TASK" = "unit_tests" ] && [ "$CXX" = "g++-5" ]; then cd tests/bin/; fi
+  - if [ "$TASK" = "unit_tests" ] && [ "$CXX" = "g++-5" ]; then coveralls --verbose --root ../../ -E ".*external.*" -E ".*CMakeFiles.*" -E ".*tests/.*.cpp.*" -E ".*examples.*" -E ".*bin.*" -E ".*project.*"; fi
+  - if [ "$TASK" = "unit_tests" ] && [ "$CXX" = "g++-5" ]; then cd ../../; fi
