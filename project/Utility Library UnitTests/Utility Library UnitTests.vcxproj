@@ -87,11 +87,11 @@
   <ItemGroup>
     <ClCompile Include="..\..\tests\src\main.cpp" />
     <ClCompile Include="..\..\tests\src\Utils\Clock.cpp" />
+    <ClCompile Include="..\..\tests\src\Utils\File.cpp" />
     <ClCompile Include="..\..\tests\src\Utils\Image.cpp" />
     <ClCompile Include="..\..\tests\src\Utils\Line.cpp" />
     <ClCompile Include="..\..\tests\src\Utils\Point.cpp" />
     <ClCompile Include="..\..\tests\src\Utils\String.cpp" />
-    <ClCompile Include="tests\src\Utils\File.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Utility Library.vcxproj">

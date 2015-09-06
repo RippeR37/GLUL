@@ -127,4 +127,6 @@ script:
   # TASK = unit_tests
   - if [ "$TASK" = "unit_tests" ]; then cmake -DBUILD_TESTS=ON .; fi
   - if [ "$TASK" = "unit_tests" ]; then make; fi
-  - if [ "$TASK" = "unit_tests" ]; then ./tests/bin/Utility_Library_Unit_Tests; fi
+  - if [ "$TASK" = "unit_tests" ]; then cd tests/bin/; fi
+  - if [ "$TASK" = "unit_tests" ]; then ./Utility_Library_Unit_Tests; fi
+  - if [ "$TASK" = "unit_tests" ]; then cd ../../; fi

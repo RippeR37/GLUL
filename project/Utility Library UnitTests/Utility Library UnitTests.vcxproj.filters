@@ -16,9 +16,6 @@
     <ClCompile Include="..\..\tests\src\main.cpp">
       <Filter>Main</Filter>
     </ClCompile>
-    <ClCompile Include="tests\src\Utils\File.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\tests\src\Utils\Clock.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
@@ -29,6 +26,9 @@
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\tests\src\Utils\Image.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\tests\src\Utils\File.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
   </ItemGroup>

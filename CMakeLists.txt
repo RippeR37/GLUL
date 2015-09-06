@@ -19,16 +19,16 @@ project (Utility_Library_SHARED CXX)
 
 # Compiler flags
 if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR
-	"${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
-	set(WARNINGS "-Wall -Wextra -Werror")
-	set(EXTRA_FLAGS "-std=c++11")
+    "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+    set(WARNINGS "-Wall -Wextra -Werror")
+    set(EXTRA_FLAGS "-std=c++11")
 elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
-	set(WARNINGS "/W4 /WX /EHsc")
+    set(WARNINGS "/W4 /WX /EHsc")
 endif()
 
 if (NOT CONFIGURED_ONCE)
-	set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
-	CACHE STRING "Flags used by the compiler during all build types." FORCE)
+    set(CMAKE_CXX_FLAGS "${WARNINGS} ${EXTRA_FLAGS}"
+    CACHE STRING "Flags used by the compiler during all build types." FORCE)
 endif()
 
 
@@ -103,7 +103,7 @@ set(Utility_Library_SRCS
     "src/Utils/Input/EventAggregator.cpp"
     "src/Utils/Input/EventHandler.cpp"
     "src/Utils/Input/EventTrigger.cpp"
-	"src/Utils/Input/Keyboard.cpp"
+    "src/Utils/Input/Keyboard.cpp"
     "src/Utils/Input/Mouse.cpp"
     
     "src/Utils/Interfaces/Implementations/ImageFileBMP.cpp"
@@ -138,7 +138,7 @@ set(Utility_Library_H
     "include/Utils/Exceptions/FatalError.h"
     "include/Utils/Exceptions/InitializationFailed.h"
     "include/Utils/Exceptions/InvalidArgument.h"
-	
+    
     "include/Utils/Frameworks/Application.h"
     
     "include/Utils/GL+/GUI/Events/EventTemplate.hpp"
@@ -254,6 +254,7 @@ if(BUILD_TESTS)
         "tests/src/main.cpp"
         
         "tests/src/Utils/Clock.cpp"
+        "tests/src/Utils/File.cpp"
         "tests/src/Utils/Image.cpp"
         "tests/src/Utils/Line.cpp"
         "tests/src/Utils/Point.cpp"
