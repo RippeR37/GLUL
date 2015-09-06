@@ -1,8 +1,12 @@
-## Utility-Library [![Build Status](https://travis-ci.org/RippeR37/Utility-Library.svg?branch=master)](https://travis-ci.org/RippeR37/Utility-Library)
+## Utility-Library
 
-Utility library written in C++11 to simplify usage of OpenGL.
+| Branch | Build status | Coverage |
+| :----: | :----------: | :------: |
+| Master | [![Build Status](https://travis-ci.org/RippeR37/Utility-Library.svg?branch=master)](https://travis-ci.org/RippeR37/Utility-Library) | [![Coverage Status](https://coveralls.io/repos/RippeR37/Utility-Library/badge.svg?branch=master&service=github)](https://coveralls.io/github/RippeR37/Utility-Library?branch=master) |
+| Develop | [![Build Status](https://travis-ci.org/RippeR37/Utility-Library.svg?branch=develop)](https://travis-ci.org/RippeR37/Utility-Library) | [![Coverage Status](https://coveralls.io/repos/RippeR37/Utility-Library/badge.svg?branch=develop&service=github)](https://coveralls.io/github/RippeR37/Utility-Library?branch=develop) |
 
-Library provides:
+
+### Main features
 - Object-oriented wrapper for OpenGL functionality
     - provides type-safety using strongly typed enumerations
 - Window creation and management
@@ -131,7 +135,7 @@ Documentation for each module should be created soon.
 - [zlib](http://www.zlib.net/) (tested on 1.2.8, libPNG's dependency)
 
 ### License
-[GNU GPLv2](LICENSE).
+See [LICENSE](LICENSE) file.
 
 ### Examples of usage
 You can find examples of this library's usage in `example` directory or [here](https://github.com/RippeR37/Utility-Library/wiki/ExampleProjects).
