@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 
+#include <Utils/Line.h>
 #include <Utils/Point.h>
 
 #include <cmath>
@@ -41,9 +42,11 @@ TEST(Utils_Point, Constructor_Copy) {
 TEST(Utils_Point, Operator_Assignment) {
     glm::vec2 vec(12.34f, 56.78f);
     Util::Point point_org(vec);
-
-    Util::Point point1 = point_org;
-    Util::Point point2 = vec;
+    Util::Point point1;
+    Util::Point point2;
+    
+    point1 = point_org;
+    point2 = vec;
 
     ASSERT_EQ(vec, point1.getPosition());
     ASSERT_EQ(vec, point2.getPosition());
@@ -87,14 +90,26 @@ TEST(Utils_Point, Distance_Point) {
     
     ASSERT_EQ(point1.distance(point2), point2.distance(point1));
     ASSERT_EQ(point1.distance(point3), point3.distance(point1));
-    ASSERT_EQ(point2.distance(point3), point3.distance(point2));
+    ASSERT_EQ(point2.distance(point3), point3.distance(point2.getPosition()));
     ASSERT_LE(std::abs(point1.distance(point2) - dist12), DOUBLE_EPSILON);
     ASSERT_LE(std::abs(point1.distance(point3) - dist13), DOUBLE_EPSILON);
     ASSERT_LE(std::abs(point2.distance(point3) - dist23), DOUBLE_EPSILON);
 }
 
 TEST(Utils_Point, Distance_Line) {
-    // TODO: add test for computing distance between point and line
+    Util::Point point1(0.0f, 0.0f);
+    Util::Point point2(1.0f, 0.0f);
+    Util::Point point3(0.0f, 1.0f);
+    Util::Point point4(2.0f, 5.0f);
+    Util::Point point5(3.0f, 1.0f);
 
-    ASSERT_TRUE(true);
+    Util::Line line1(point1, point2);
+    Util::Line line2(point2, point3);
+    Util::Line line3(point2, point4);
+    Util::Line line4(point1, point5);
+
+    ASSERT_FLOAT_EQ(5.09902f, static_cast<float>(line1.distance(point4)));
+    ASSERT_FLOAT_EQ(2.236068f, static_cast<float>(line2.distance(point5)));
+    ASSERT_FLOAT_EQ(1.7650452f, static_cast<float>(line3.distance(point5.getPosition())));
+    ASSERT_FLOAT_EQ(0.0f, static_cast<float>(line4.distance(point1)));
 }

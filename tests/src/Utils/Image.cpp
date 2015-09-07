@@ -39,6 +39,145 @@ TEST(Utils_Image, Constructor_Empty) {
     ASSERT_EQ(0u, image.getSize());
 }
 
+TEST(Utils_Image, Constructor_Path_Format_Existing) {
+    ASSERT_NO_THROW(
+    {
+        Util::Image image("test_assets/image/image.bmp");
+
+        ASSERT_NE(nullptr, image.getData());
+        ASSERT_EQ(24u, image.getBits());
+        ASSERT_EQ(2u,  image.getWidth());
+        ASSERT_EQ(2u,  image.getHeight()); 
+        ASSERT_EQ(16u, image.getSize()); // size = (bits / 8) * height * rowStride (where rowstride is aligned row's size)
+
+        ASSERT_TRUE(isValidImageData(image.getData(), 24u));
+    });
+}
+
+TEST(Utils_Image, Constructor_Path_Format_Non_Existing) {
+    ASSERT_THROW({
+        Util::Image image("test_assets/image/nonexisting.bmp");
+    }, Util::Exception::InitializationFailed);
+}
+
+TEST(Utils_Image, Constructor_Copy_Empty) {
+    ASSERT_NO_THROW({
+        Util::Image image;
+        Util::Image imageCopy(image);
+
+        ASSERT_EQ(nullptr, image.getData());
+        ASSERT_EQ(0u, image.getBits());
+        ASSERT_EQ(0u, image.getWidth());
+        ASSERT_EQ(0u, image.getHeight());
+        ASSERT_EQ(0u, image.getSize());
+    
+        ASSERT_EQ(nullptr, imageCopy.getData());
+        ASSERT_EQ(0u, imageCopy.getBits());
+        ASSERT_EQ(0u, imageCopy.getWidth());
+        ASSERT_EQ(0u, imageCopy.getHeight());
+        ASSERT_EQ(0u, imageCopy.getSize());
+    });
+}
+
+TEST(Utils_Image, Constructor_Copy_Loaded) {
+    ASSERT_NO_THROW({
+        Util::Image image("test_assets/image/image.bmp");
+        Util::Image imageCopy(image);
+
+        ASSERT_NE(nullptr, image.getData());
+        ASSERT_NE(nullptr, imageCopy.getData());
+        ASSERT_NE(image.getData(), imageCopy.getData());
+        ASSERT_EQ(0, std::memcmp(image.getData(), imageCopy.getData(), image.getSize()));
+
+        ASSERT_EQ(24u, image.getBits());
+        ASSERT_EQ(24u, imageCopy.getBits());
+        ASSERT_EQ(2u,  image.getWidth());
+        ASSERT_EQ(2u,  imageCopy.getWidth());
+        ASSERT_EQ(2u,  image.getHeight());
+        ASSERT_EQ(2u,  imageCopy.getHeight());
+        ASSERT_EQ(16u, image.getSize()); // size = (bits / 8) * height * rowStride (where rowstride is aligned row's size)
+        ASSERT_EQ(16u, imageCopy.getSize()); // size = (bits / 8) * height * rowStride (where rowstride is aligned row's size)
+
+        ASSERT_TRUE(isValidImageData(image.getData(), 24u));
+        ASSERT_TRUE(isValidImageData(imageCopy.getData(), 24u));
+    });
+}
+
+TEST(Utils_Image, Constructor_Move) {
+    ASSERT_NO_THROW({
+        Util::Image image("test_assets/image/image.bmp"); // this should be empty after being moved
+        Util::Image image2(std::move(image)); // this should be image.bmp
+
+        ASSERT_EQ(nullptr, image.getData());
+        ASSERT_EQ(0u, image.getBits());
+        ASSERT_EQ(0u, image.getWidth());
+        ASSERT_EQ(0u, image.getHeight());
+        ASSERT_EQ(0u, image.getSize());
+
+        ASSERT_NE(nullptr, image2.getData());
+        ASSERT_EQ(24u, image2.getBits());
+        ASSERT_EQ(2u,  image2.getWidth());
+        ASSERT_EQ(2u,  image2.getHeight()); 
+        ASSERT_EQ(16u, image2.getSize()); // size = (bits / 8) * height * rowStride (where rowstride is aligned row's size)
+        ASSERT_TRUE(isValidImageData(image2.getData(), 24u));
+    });
+}
+
+TEST(Utils_Image, Assignment_Existing) {
+    ASSERT_NO_THROW({
+        Util::Image image("test_assets/image/image.bmp");
+        Util::Image image2;
+
+        image2 = image;
+
+        ASSERT_NE(nullptr, image.getData());
+        ASSERT_EQ(24u, image.getBits());
+        ASSERT_EQ(2u,  image.getWidth());
+        ASSERT_EQ(2u,  image.getHeight()); 
+        ASSERT_EQ(16u, image.getSize()); // size = (bits / 8) * height * rowStride (where rowstride is aligned row's size)
+        ASSERT_TRUE(isValidImageData(image.getData(), 24u));
+
+        ASSERT_NE(nullptr, image2.getData());
+        ASSERT_EQ(24u, image2.getBits());
+        ASSERT_EQ(2u,  image2.getWidth());
+        ASSERT_EQ(2u,  image2.getHeight()); 
+        ASSERT_EQ(16u, image2.getSize()); // size = (bits / 8) * height * rowStride (where rowstride is aligned row's size)
+        ASSERT_TRUE(isValidImageData(image2.getData(), 24u));
+
+        ASSERT_NE(image.getData(), image2.getData());
+    });
+}
+
+TEST(Utils_Image, Load_Unsupported) {
+    Util::Image image;
+
+    ASSERT_THROW({
+        image.load("test_assets/image/image.unsupported_extension");
+    }, Util::Exception::InitializationFailed);
+
+    ASSERT_EQ(nullptr, image.getData());
+    ASSERT_EQ(0u, image.getBits());
+    ASSERT_EQ(0u, image.getWidth());
+    ASSERT_EQ(0u, image.getHeight());
+    ASSERT_EQ(0u, image.getSize());
+}
+
+TEST(Utils_Image, Load_From_Array) {
+    Util::Image image("test_assets/image/image.bmp");
+    Util::Image image2;
+
+    image2.load(image.getWidth(), image.getHeight(), image.getBits(), image.getData(), true);
+
+    ASSERT_NE(image.getData(), image2.getData());
+    ASSERT_NE(nullptr, image.getData());
+    ASSERT_EQ(24u, image.getBits());
+    ASSERT_EQ(2u,  image.getWidth());
+    ASSERT_EQ(2u,  image.getHeight()); 
+    ASSERT_EQ(16u, image.getSize()); // size = (bits / 8) * height * rowStride (where rowstride is aligned row's size)
+
+    ASSERT_TRUE(isValidImageData(image.getData(), 24u));
+}
+
 TEST(Utils_Image, Load_BMP) {
     Util::Image image;
 

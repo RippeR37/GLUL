@@ -63,6 +63,9 @@
       <AdditionalLibraryDirectories>..\..\libs\gtest-1.7.0\msvc\gtest-md;..\..\libs\glew-1.12.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>gtestd.lib;opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d  "$(ProjectDir)\..\..\bin\Utility Library.dll" "$(ProjectDir)$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -83,6 +86,9 @@
       <AdditionalLibraryDirectories>..\..\libs\gtest-1.7.0\msvc\gtest-md;..\..\libs\glew-1.12.0\lib\Release\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>gtest.lib;opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /y /d  "$(ProjectDir)\..\..\bin\Utility Library.dll" "$(ProjectDir)$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\tests\src\main.cpp" />
@@ -96,6 +102,12 @@
   <ItemGroup>
     <ProjectReference Include="..\Utility Library.vcxproj">
       <Project>{a18ba2dc-a847-4094-9a2b-40935a118e4f}</Project>
+      <Private>true</Private>
+      <CopyLocal>true</CopyLocal>
+      <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
+      <CopyLocalSatelliteAssemblies>false</CopyLocalSatelliteAssemblies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

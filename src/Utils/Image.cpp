@@ -53,6 +53,7 @@ namespace Util {
         _data(std::move(image._data))
     {
         image._data = nullptr;
+        image.reset();
     }
 
     Image::~Image() {

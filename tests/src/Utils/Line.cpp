@@ -11,6 +11,11 @@ TEST(Utils_Line, Constructors) {
     Util::Line line2(Util::Point(1.0f, 1.0f), Util::Point(2.0f, 2.0f));
     Util::Line line3(glm::vec2(2.0f, 2.0f), glm::vec2(1.0f, 1.0f));
     Util::Line line4(line3);
+    Util::Line line5;
+    Util::Line line6;
+
+    line5 = line4;
+    line6.setLine(line5);
 
     glm::vec2 vec_0(0.0f, 0.0f);
     glm::vec2 vec_1(1.0f, 1.0f);
@@ -27,6 +32,12 @@ TEST(Utils_Line, Constructors) {
 
     ASSERT_EQ(vec_1, line4.getPoint1().getPosition());
     ASSERT_EQ(vec_2, line4.getPoint2().getPosition());
+
+    ASSERT_EQ(vec_1, line5.getPoint1().getPosition());
+    ASSERT_EQ(vec_2, line5.getPoint2().getPosition());
+
+    ASSERT_EQ(vec_1, line6.getPoint1().getPosition());
+    ASSERT_EQ(vec_2, line6.getPoint2().getPosition());
 }
 
 TEST(Utils_Line, Distance) {
@@ -43,7 +54,7 @@ TEST(Utils_Line, Distance) {
 
     ASSERT_FLOAT_EQ(5.09902f, static_cast<float>(line1.distance(point4)));
     ASSERT_FLOAT_EQ(2.236068f, static_cast<float>(line2.distance(point5)));
-    ASSERT_FLOAT_EQ(1.7650452f, static_cast<float>(line3.distance(point5)));
+    ASSERT_FLOAT_EQ(1.7650452f, static_cast<float>(line3.distance(point5.getPosition())));
     ASSERT_FLOAT_EQ(0.0f, static_cast<float>(line4.distance(point1)));
 }
 
@@ -55,11 +66,10 @@ TEST(Utils_Line, Normals) {
 
     Util::Line line1(point1, point2);
     Util::Line line2(point2, point3);
-    Util::Line line3(point2, point4);
 
     glm::vec2 normal1 = line1.getNormal();
-    glm::vec2 normal2 = line2.getNormal();
-    glm::vec2 normal3 = line3.getNormal();
+    glm::vec2 normal2 = Util::Line::getNormal(line2);
+    glm::vec2 normal3 = Util::Line::getNormal(point2.getPosition(), point4.getPosition());
 
     ASSERT_FLOAT_EQ(0.0f, normal1.x);
     ASSERT_FLOAT_EQ(1.0f, normal1.y);

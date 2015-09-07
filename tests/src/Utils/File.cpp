@@ -23,6 +23,24 @@ TEST(Utils_File, Read_Text_OneLine) {
     ASSERT_EQ(originalContent, fileContent);
 }
 
+TEST(Utils_File, Read_Text_Nonexisting_Nothrow) {
+    std::string fileContent;
+
+    ASSERT_NO_THROW({
+        fileContent = Util::File::readText("test_assets/file/nonexisting.txt", false);
+    });
+
+    ASSERT_EQ("", fileContent);
+}
+
+TEST(Utils_File, Read_Text_Nonexisting_Throw) {
+    std::string fileContent;
+
+    ASSERT_THROW({
+        fileContent = Util::File::readText("test_assets/file/nonexisting.txt", true);
+    }, Util::Exception::FatalError);
+}
+
 TEST(Utils_File, Read_Text_MultiLine) {
     std::string fileContent;
     std::string originalContent = "sample text for unit test\nsecond line\nthrid";
