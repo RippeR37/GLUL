@@ -64,7 +64,7 @@
       <AdditionalDependencies>gtestd.lib;opengl32.lib;glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d  "$(ProjectDir)\..\..\bin\Utility Library.dll" "$(ProjectDir)$(OutDir)"</Command>
+      <Command>xcopy /y /d  "$(ProjectDir)\..\..\bin\Utility Library_debug.dll" "$(ProjectDir)$(OutDir)"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

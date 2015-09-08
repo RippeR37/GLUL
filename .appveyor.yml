@@ -1,0 +1,84 @@
+configuration:
+  - Debug (DLL)
+
+
+init:
+  - cmd: echo "################"
+  - cmd: echo "###   INIT   ###"
+  - cmd: echo "################"
+
+
+before_build:
+  - cmd: echo "########################"
+  - cmd: echo "###   BEFORE BUILD   ###"
+  - cmd: echo "########################"
+  - cmd: echo ""
+  - cmd: echo %cd%'
+
+  ### INSTALLING DEPENDENCIES
+  - cmd: mkdir libs
+  - cmd: cd libs
+
+  - cmd: echo "##########################"
+  - cmd: echo "###   INSTALLING GLM   ###"
+  - cmd: echo "##########################"
+  - cmd: git clone -b 0.9.5 --depth 1 https://github.com/g-truc/glm.git glm-0.9.5.4/
+  - cmd: mkdir glm-0.9.5.4\include
+  - cmd: move glm-0.9.5.4\glm glm-0.9.5.4\include\glm
+
+  - cmd: echo "###########################"
+  - cmd: echo "###   INSTALLING GLEW   ###"
+  - cmd: echo "###########################"
+  - cmd: appveyor DownloadFile https://www.dropbox.com/s/psb96votnpm6ulw/glew-1.12.0.zip?dl=1 -FileName glew.zip
+  - cmd: 7z x glew.zip
+
+  - cmd: echo "###########################"
+  - cmd: echo "###   INSTALLING GLFW   ###"
+  - cmd: echo "###########################"
+  - cmd: appveyor DownloadFile https://github.com/glfw/glfw/releases/download/3.1/glfw-3.1.bin.WIN32.zip -FileName glfw.zip
+  - cmd: 7z x glfw.zip
+  - cmd: move glfw-3.1.bin.WIN32 glfw-3.1
+
+  - cmd: echo "################################"
+  - cmd: echo "###   INSTALLING FREETYPE2   ###"
+  - cmd: echo "################################"
+  - cmd: appveyor DownloadFile https://www.dropbox.com/s/6kvjny8dgt0dkai/freetype-2.5.5.zip?dl=1 -FileName freetype2.zip
+  - cmd: 7z x freetype2.zip
+
+  - cmd: echo "##############################"
+  - cmd: echo "###   INSTALLING LIBJPEG   ###"
+  - cmd: echo "##############################"
+  - cmd: appveyor DownloadFile https://www.dropbox.com/s/rtjlezqqqny3lr0/jpeg-9a.rar?dl=1 -FileName libjpeg.zip
+  - cmd: 7z x libjpeg.zip
+
+  - cmd: echo "#############################"
+  - cmd: echo "###   INSTALLING LIBPNG   ###"
+  - cmd: echo "#############################"
+  - cmd: appveyor DownloadFile https://www.dropbox.com/s/5081ts8grc90xkj/libpng-1.6.17.rar?dl=1 -FileName libpng.zip
+  - cmd: 7z x libpng.zip
+
+  - cmd: echo "###########################"
+  - cmd: echo "###   INSTALLING ZLIB   ###"
+  - cmd: echo "###########################"
+  - cmd: appveyor DownloadFile https://www.dropbox.com/s/857rpc08be1ya82/zlib-1.2.8.rar?dl=1 -FileName zlib.zip
+  - cmd: 7z x zlib.zip
+
+  - cmd: echo "############################"
+  - cmd: echo "###   INSTALLING GTEST   ###"
+  - cmd: echo "############################"
+  - cmd: appveyor DownloadFile https://www.dropbox.com/s/z74oruxw6syaua8/gtest-1.7.0.rar?dl=1 -FileName gtest.zip
+  - cmd: 7z x gtest.zip
+
+  ### ENDING INSTALLATION ###
+  - cmd: cd ..
+
+
+test_script:
+  ### RUN UNIT TESTS ###
+  - cmd: echo "######################"
+  - cmd: echo "###   UNIT TESTS   ###"
+  - cmd: echo "######################"
+  - cmd: cd tests\bin
+  - cmd: move "Utility Library UnitTests.exe" "unit_tests.exe" # required to have no space in name
+  - cmd: unit_tests.exe
+  - cmd: cd ..\..
