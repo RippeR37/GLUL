@@ -1,9 +1,9 @@
 ## Utility-Library
 
-| Branch | Linux | Windows | Coverage |
-| :----: | :---: | :-----: | :------: |
-| Master | [![Build Status](https://travis-ci.org/RippeR37/Utility-Library.svg?branch=master)](https://travis-ci.org/RippeR37/Utility-Library) | [![Build status](https://ci.appveyor.com/api/projects/status/6wovi9autsa27rbo/branch/master?svg=true)](https://ci.appveyor.com/project/RippeR37/utility-library/branch/master) | [![Coverage Status](https://coveralls.io/repos/RippeR37/Utility-Library/badge.svg?branch=master)](https://coveralls.io/github/RippeR37/Utility-Library?branch=master) |
-| Develop | [![Build Status](https://travis-ci.org/RippeR37/Utility-Library.svg?branch=develop)](https://travis-ci.org/RippeR37/Utility-Library) | [![Build status](https://ci.appveyor.com/api/projects/status/6wovi9autsa27rbo/branch/develop?svg=true)](https://ci.appveyor.com/project/RippeR37/utility-library/branch/develop) | [![Coverage Status](https://coveralls.io/repos/RippeR37/Utility-Library/badge.svg?branch=develop)](https://coveralls.io/github/RippeR37/Utility-Library?branch=develop) |
+| Branch | Linux | Windows | Coverage | Download |
+| :----: | :---: | :-----: | :------: | :------: |
+| Master | [![Build Status](https://travis-ci.org/RippeR37/Utility-Library.svg?branch=master)](https://travis-ci.org/RippeR37/Utility-Library) | [![Build status](https://ci.appveyor.com/api/projects/status/6wovi9autsa27rbo/branch/master?svg=true)](https://ci.appveyor.com/project/RippeR37/utility-library/branch/master) | [![Coverage Status](https://coveralls.io/repos/RippeR37/Utility-Library/badge.svg?branch=master)](https://coveralls.io/github/RippeR37/Utility-Library?branch=master) | [ ![Download](https://api.bintray.com/packages/ripper37/generic/Utility-Library/images/download.svg) ](https://bintray.com/ripper37/generic/Utility-Library/_latestVersion#files) |
+| Develop | [![Build Status](https://travis-ci.org/RippeR37/Utility-Library.svg?branch=develop)](https://travis-ci.org/RippeR37/Utility-Library) | [![Build status](https://ci.appveyor.com/api/projects/status/6wovi9autsa27rbo/branch/develop?svg=true)](https://ci.appveyor.com/project/RippeR37/utility-library/branch/develop) | [![Coverage Status](https://coveralls.io/repos/RippeR37/Utility-Library/badge.svg?branch=develop)](https://coveralls.io/github/RippeR37/Utility-Library?branch=develop) | [ ![Download](https://api.bintray.com/packages/ripper37/generic/Utility-Library/images/download.svg) ](https://bintray.com/ripper37/generic/Utility-Library/_latestVersion#files) |
 
 
 ### Main features
