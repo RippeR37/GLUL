@@ -152,3 +152,61 @@ after_success:
   - if [ "$TASK" = "unit_tests" ] && [ "$CXX" = "g++-5" ]; then cd tests/bin/; fi
   - if [ "$TASK" = "unit_tests" ] && [ "$CXX" = "g++-5" ]; then coveralls --verbose --root ../../ -E ".*external.*" -E ".*CMakeFiles.*" -E ".*tests/.*.cpp.*" -E ".*examples.*" -E ".*bin.*" -E ".*project.*"; fi
   - if [ "$TASK" = "unit_tests" ] && [ "$CXX" = "g++-5" ]; then cd ../../; fi
+
+
+before_deploy:
+  - echo "Deploying..."
+  
+  # Setup variables
+  - DEPLOY_NAME="Utility-Library-${CC}.${TRAVIS_BRANCH}"
+  - DEPLOY_NAME_FILE="${DEPLOY_NAME}.latest.tar.gz"
+  - DEPLOY_DIR_1="deploy"
+  - DEPLOY_DIR_2="${DEPLOY_DIR_1}/ubuntu"
+  - DEPLOY_DIR_FULL="${DEPLOY_DIR_2}/${DEPLOY_NAME}"
+  - DEPLOY_DATE="`date`"
+  
+  # Create directories
+  - mkdir "${DEPLOY_DIR_1}"
+  - mkdir "${DEPLOY_DIR_2}"
+  - mkdir "${DEPLOY_DIR_FULL}"
+
+  # Copy files to directories
+  - cp -r bin             "${DEPLOY_DIR_FULL}/"
+  - cp -r examples        "${DEPLOY_DIR_FULL}/"
+  - cp -r include         "${DEPLOY_DIR_FULL}/"
+  - cp -r lib             "${DEPLOY_DIR_FULL}/"
+  - cp -r src             "${DEPLOY_DIR_FULL}/"
+  - cp -r tests           "${DEPLOY_DIR_FULL}/"
+  - cp -r CMakeLists.txt  "${DEPLOY_DIR_FULL}/"
+  - cp -r LICENSE         "${DEPLOY_DIR_FULL}/"
+  - cp -r README.md       "${DEPLOY_DIR_FULL}/"
+  
+  # Add build info
+  - echo "Build system - Travis-CI" > "${DEPLOY_DIR_FULL}/BuildInfo.txt"
+  - echo "Build id - ${TRAVIS_BUILD_ID} (#${TRAVIS_BUILD_NUMBER})" >> "${DEPLOY_DIR_FULL}/BuildInfo.txt"
+  - echo "Branch - ${TRAVIS_BRANCH}" >> "${DEPLOY_DIR_FULL}/BuildInfo.txt"
+  - echo "Date of build - ${DEPLOY_DATE}" >> "${DEPLOY_DIR_FULL}/BuildInfo.txt"
+  
+  # Create package to upload
+  - cd deploy/ubuntu
+  - GZIP=-9 tar -cvzf "${DEPLOY_NAME_FILE}" "${DEPLOY_NAME}/"
+  - cd ../..
+  - echo "Package ${DEPLOY_NAME_FILE} created..."
+
+
+deploy:
+  provider: bintray
+  user: "ripper37"
+  file: ".bintray.json"
+  skip_cleanup: true
+  key:
+    secure: QDOTrVuXKR8IjNYmDqN0RfPotTaPDZ8YibuNu92u5QmBczjCko1XerbziYQ7AH7vHAZ/ESH+5iSj9F/h07i9v3SzkQsetj7BUryTdSpf7EVG7xWzoqkOEPrHL1G7yRVtoqZxKe4wwmAAb40l5lCc9NJQn8h3hkvsNdqRi2E+OGculk1GTAifvXc0n1ahe9eBQhtc6tf9zrgdUu3As68wvAI4x/muCm2nwJ/JPRxESB/uPnBwOAZC/cbNd2+Fv9x+Ii+VqJ5baf/+MeIYJT0mKZ8u0QtX1a2B0LHeH/4l2UAqi+lsE3Gmj5b95jKXPAB7aQfuKA1rgno9SmKp7VaEUhuOLkHvqLusv2MT+SWLA6ypFdYeVC9EFw54ztAsC33AghVm4AUl4YXxR7YGir1Zmi62EWbpAAuY5ZGpnvXpGpceIBNkgX/h0hFTi+PkCMuwJ2L1Dl/GVJSl1w7olXJ8hcn1gA+9vmd8TWmeKeGaTpAw6Isl0LMFmYIREVUXeOJ8kI+NND6Yh8NambnC2nHclRKwS1o53S/sE8RqmNHLpD51tgIi0ebwR4ihfFMtzNBnoWQHnNi8q+7/L2cWiFZClLvsUHXJFb7bPJ1V/yPBJrJ6sjtCUamLLy2R76fWzb47MnTk4jJOr3d+Ck/N5GQZNXcVlYCkRjzubtvkhwt9wmc=
+  on:
+    all_branches: true
+    condition: $TASK = "build"
+
+
+after_deploy:
+  - echo "Deployed!"
+
+

@@ -1,0 +1,41 @@
+{
+    "package": {
+        "name": "Utility-Library", // Bintray package name 
+        "repo": "generic",         // Bintray repository name
+        "subject": "ripper37",     // Bintray subject
+        "desc": "Utility Library written in C++11 to simplify usage of OpenGL.",
+        "website_url": "https://github.com/RippeR37/Utility-Library",
+        "issue_tracker_url": "https://github.com/RippeR37/Utility-Library/issues",
+        "vcs_url": "https://github.com/RippeR37/Utility-Library.git",
+        "github_use_tag_release_notes": true,
+        "github_release_notes_file": "README.md",
+        "licenses": [ "MIT" ],
+        "labels": [],
+        "public_download_numbers": false,
+        "public_stats": false,
+        "attributes": []
+    },
+
+    "version": {
+        "name": "0.2",
+        "desc": "Utility Library v0.2",
+        "released": "2015-09-09",
+        "vcs_tag": "0.2",
+        "attributes": [],
+        "gpgSign": false
+    },
+    
+    "files": [
+        { 
+          "includePattern": "deploy/ubuntu/(.*\.tar.gz)", 
+          "uploadPattern": "linux/ubuntu/12.04/$1",
+          "matrixParams": {
+            "override": 1
+          }
+        }
+    ],
+    
+    "publish": true
+    
+}
+

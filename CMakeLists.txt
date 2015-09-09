@@ -2,6 +2,7 @@ cmake_minimum_required (VERSION 2.8 FATAL_ERROR)
 
 
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/lib")
 
 
 ###############################################
@@ -35,30 +36,9 @@ endif()
 
 
 ###############################################
-# Utility Library (shared library) project
+# Utility Library source files
 ###############################################
 
-project (Utility_Library_SHARED CXX)
-
-# Include directories paths
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-
-# Include directories for libraries
-set(LIBRARY_INCLUDE_DIR_GLFW "/usr/local/include/GLFW")
-set(LIBRARY_INCLUDE_DIR_GLEW "/usr/include/GL/")
-set(LIBRARY_INCLUDE_DIR_GLM "/usr/local/include/glm/")
-set(LIBRARY_INCLUDE_DIR_FREETYPE2 "/usr/include/freetype2/")
-set(LIBRARY_INCLUDE_DIR_LIBJPEG "/usr/local/include/")
-set(LIBRARY_INCLUDE_DIR_LIBPNG "/usr/include/libpng/")
-
-include_directories(${LIBRARY_INCLUDE_DIR_GLFW})
-include_directories(${LIBRARY_INCLUDE_DIR_GLEW})
-include_directories(${LIBRARY_INCLUDE_DIR_GLM})
-include_directories(${LIBRARY_INCLUDE_DIR_FREETYPE2})
-include_directories(${LIBRARY_INCLUDE_DIR_LIBJPEG})
-include_directories(${LIBRARY_INCLUDE_DIR_LIBPNG})
-
-# Library sources
 set(Utility_Library_SRCS
     "src/Utils/Exceptions/FatalError.cpp"
     "src/Utils/Exceptions/InitializationFailed.cpp"
@@ -141,7 +121,11 @@ set(Utility_Library_SRCS
     "src/Utils/Windows.cpp"
 )
 
-# Library headers
+
+###############################################
+# Utility Library header files
+###############################################
+
 set(Utility_Library_H
     "include/Utils/Exceptions/FatalError.h"
     "include/Utils/Exceptions/InitializationFailed.h"
@@ -235,6 +219,34 @@ set(Utility_Library_H
     "include/Utils/Windows.h"
 )
 
+
+###############################################
+# Utility Library dependencies setup
+###############################################
+
+# Include directories for dependencies
+set(LIBRARY_INCLUDE_DIR_GLFW "/usr/local/include/GLFW")
+set(LIBRARY_INCLUDE_DIR_GLEW "/usr/include/GL/")
+set(LIBRARY_INCLUDE_DIR_GLM "/usr/local/include/glm/")
+set(LIBRARY_INCLUDE_DIR_FREETYPE2 "/usr/include/freetype2/")
+set(LIBRARY_INCLUDE_DIR_LIBJPEG "/usr/local/include/")
+set(LIBRARY_INCLUDE_DIR_LIBPNG "/usr/include/libpng/")
+
+
+###############################################
+# Utility Library (shared library) project
+###############################################
+
+project (Utility_Library_SHARED CXX)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(${LIBRARY_INCLUDE_DIR_GLFW})
+include_directories(${LIBRARY_INCLUDE_DIR_GLEW})
+include_directories(${LIBRARY_INCLUDE_DIR_GLM})
+include_directories(${LIBRARY_INCLUDE_DIR_FREETYPE2})
+include_directories(${LIBRARY_INCLUDE_DIR_LIBJPEG})
+include_directories(${LIBRARY_INCLUDE_DIR_LIBPNG})
+
 add_library(Utility_Library_SHARED SHARED 
     ${Utility_Library_SRCS} 
     ${Utility_Library_H}
@@ -248,6 +260,34 @@ target_link_libraries(Utility_Library_SHARED
     png             # libpng
     jpeg            # libjpeg
     z               # zlib
+)
+
+set_target_properties(Utility_Library_SHARED PROPERTIES 
+    OUTPUT_NAME Utility_Library
+)
+
+
+###############################################
+# Utility Library (static library) project
+###############################################
+
+project (Utility_Library_Static CXX)
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+include_directories(${LIBRARY_INCLUDE_DIR_GLFW})
+include_directories(${LIBRARY_INCLUDE_DIR_GLEW})
+include_directories(${LIBRARY_INCLUDE_DIR_GLM})
+include_directories(${LIBRARY_INCLUDE_DIR_FREETYPE2})
+include_directories(${LIBRARY_INCLUDE_DIR_LIBJPEG})
+include_directories(${LIBRARY_INCLUDE_DIR_LIBPNG})
+
+add_library(Utility_Library_Static STATIC 
+    ${Utility_Library_SRCS} 
+    ${Utility_Library_H}
+)
+
+set_target_properties(Utility_Library_Static PROPERTIES 
+    OUTPUT_NAME Utility_Library
 )
 
 
