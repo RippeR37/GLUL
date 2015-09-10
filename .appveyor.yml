@@ -2,6 +2,13 @@ configuration:
   - Debug (DLL)
 
 
+environment:
+  BINTRAY_USER:
+    secure: 9iEGe4JL2hgRpnU8mx5QcQ==
+  BINTRAY_APIKEY:
+    secure: ES2msT1RuviApoNuuliFo4lr05APq+mG6Rx9XCO5swkUpvyxR2kc7af4WCqfnxmv
+
+
 init:
   - cmd: echo "################"
   - cmd: echo "###   INIT   ###"
@@ -82,3 +89,64 @@ test_script:
   - cmd: move "Utility Library UnitTests.exe" "unit_tests.exe" # required to have no space in name
   - cmd: unit_tests.exe
   - cmd: cd ..\..
+
+
+deploy_script:
+  ### DEPLOYING ###
+  - cmd: echo "#####################"
+  - cmd: echo "###   DEPLOYING   ###"
+  - cmd: echo "#####################"
+
+  # Directories & variables
+  - cmd: set DEPLOY_NAME=Utility-Library-win32-%APPVEYOR_REPO_BRANCH%
+  - cmd: set DEPLOY_NAME_FILE=%DEPLOY_NAME%.latest.zip
+  - cmd: set DEPLOY_DIR_1=deploy
+  - cmd: set DEPLOY_DIR_2=%DEPLOY_DIR_1%\windows
+  - cmd: set DEPLOY_DIR_FULL=%DEPLOY_DIR_2%\%DEPLOY_NAME%
+
+  # Create directory and clone clean repository
+  - cmd: git clone --depth 1 --branch=%APPVEYOR_REPO_BRANCH% https://github.com/%APPVEYOR_REPO_NAME% "%DEPLOY_DIR_FULL%"
+
+  # Copy necessary folders and files
+  - cmd: XCOPY /E /Y bin "%DEPLOY_DIR_FULL%\bin"
+  - cmd: XCOPY /E /Y examples "%DEPLOY_DIR_FULL%\examples"
+  - cmd: XCOPY /E /Y tests "%DEPLOY_DIR_FULL%\tests"
+
+  # Remove unnecessary folders and files
+  - cmd: RMDIR /S /Q "%DEPLOY_DIR_FULL%\.git"         # REMOVE GIT REPO
+  - cmd: DEL /Q "%DEPLOY_DIR_FULL%\.gitignore"        # REMOVE .gitignore
+  - cmd: DEL /Q "%DEPLOY_DIR_FULL%\*.yml"             # REMOVE all .yml files (Travis, AppVeyor etc.)
+  - cmd: DEL /Q "%DEPLOY_DIR_FULL%\*.json"            # REMOVE all .json files (Bintray etc.)
+  - cmd: DEL /Q /S "%DEPLOY_DIR_FULL%\bin\*.exp"      # REMOVE all .exp files from bin
+  - cmd: DEL /Q /S "%DEPLOY_DIR_FULL%\*.ilk"          # REMOVE all .exp files from examples and tests
+  - cmd: DEL /Q /S "%DEPLOY_DIR_FULL%\*.pdb"          # REMOVE all .exp files from examples and tests
+  - cmd: DEL /Q /S "%DEPLOY_DIR_FULL%\examples\*.dll" # REMOVE all .dll files from examples (copies of library's dll)
+  - cmd: DEL /Q /S "%DEPLOY_DIR_FULL%\tests\*.dll"    # REMOVE all .dll files from tests (copy of library's dll)
+
+  # Add build info
+  - cmd: echo "Build id - %APPVEYOR_BUILD_ID% (#%APPVEYOR_BUILD_NUMBER%)" > "%DEPLOY_DIR_FULL%\BuildInfo.txt"
+  - cmd: echo "Branch - %APPVEYOR_REPO_BRANCH%" >> "%DEPLOY_DIR_FULL%\BuildInfo.txt"
+  - cmd: echo "Date of build - " >> "%DEPLOY_DIR_FULL%\BuildInfo.txt"
+  - cmd: DATE /T >> "%DEPLOY_DIR_FULL%\BuildInfo.txt"
+  - cmd: TIME /T >> "%DEPLOY_DIR_FULL%\BuildInfo.txt"
+
+  # Go to deploy directory
+  - cmd: cd "%DEPLOY_DIR_1%"
+
+  # Create package to upload
+  - cmd: 7z a -tzip "%DEPLOY_NAME_FILE%" ./*
+  - cmd: echo "Package %DEPLOY_NAME% created..."
+
+  # Deploy variables
+  - cmd: set BINTRAY_REPO=generic
+  - cmd: set BINTRAY_PACKAGE=Utility-Library
+  - cmd: set BINTRAY_VERSION=0.2
+  - cmd: set BINTRAY_PATH=%BINTRAY_USER%/%BINTRAY_REPO%/%BINTRAY_PACKAGE%/%BINTRAY_VERSION%
+  - cmd: set BINTRAY_PATH_FULL=%BINTRAY_PATH%/windows/%DEPLOY_NAME_FILE%
+
+  # Deploy package
+  - cmd: curl -fsS -u "%BINTRAY_USER%:%BINTRAY_APIKEY%" -X PUT "https://api.bintray.com/content/%BINTRAY_PATH_FULL%?override=1&publish=1" --data-binary @%DEPLOY_NAME_FILE%
+  - cmd: echo "Deployed!"
+
+  # Return to build directory and finish deploying
+  - cmd: cd "%APPVEYOR_BUILD_FOLDER%"

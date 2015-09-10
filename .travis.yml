@@ -156,9 +156,9 @@ after_success:
 
 before_deploy:
   - echo "Deploying..."
-  
+
   # Setup variables
-  - DEPLOY_NAME="Utility-Library-${CC}.${TRAVIS_BRANCH}"
+  - DEPLOY_NAME="Utility-Library-${CC}-${TRAVIS_BRANCH}"
   - DEPLOY_NAME_FILE="${DEPLOY_NAME}.latest.tar.gz"
   - DEPLOY_DIR_1="deploy"
   - DEPLOY_DIR_2="${DEPLOY_DIR_1}/ubuntu"
@@ -182,8 +182,7 @@ before_deploy:
   - cp -r README.md       "${DEPLOY_DIR_FULL}/"
   
   # Add build info
-  - echo "Build system - Travis-CI" > "${DEPLOY_DIR_FULL}/BuildInfo.txt"
-  - echo "Build id - ${TRAVIS_BUILD_ID} (#${TRAVIS_BUILD_NUMBER})" >> "${DEPLOY_DIR_FULL}/BuildInfo.txt"
+  - echo "Build id - ${TRAVIS_BUILD_ID} (#${TRAVIS_BUILD_NUMBER})" > "${DEPLOY_DIR_FULL}/BuildInfo.txt"
   - echo "Branch - ${TRAVIS_BRANCH}" >> "${DEPLOY_DIR_FULL}/BuildInfo.txt"
   - echo "Date of build - ${DEPLOY_DATE}" >> "${DEPLOY_DIR_FULL}/BuildInfo.txt"
   
