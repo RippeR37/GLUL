@@ -1,5 +1,4 @@
 configuration:
-  - "Debug (DLL)"
   - "Release (DLL)"
 
 
@@ -94,14 +93,10 @@ test_script:
 
 before_deploy:
   ### BUILDING EXTRA CONFIGURATIONS TO DEPLOY ###
-  - cmd: set DEPLOY_CONFIGURATION="Release (DLL)"
-  - cmd: IF %CONFIGURATION% EQU %DEPLOY_CONFIGURATION% MSBuild "project\msvc\GLUL\GLUL.vcxproj" /p:Configuration="Debug"
-  - cmd: IF %CONFIGURATION% EQU %DEPLOY_CONFIGURATION% MSBuild "project\msvc\GLUL\GLUL.vcxproj" /p:Configuration="Release"
-  - cmd: IF %CONFIGURATION% EQU %DEPLOY_CONFIGURATION% MSBuild "project\msvc\GLUL\GLUL.vcxproj" /p:Configuration="Debug (DLL)"
-  - cmd: IF %CONFIGURATION% EQU %DEPLOY_CONFIGURATION% MSBuild "project\msvc\GLUL\GLUL.vcxproj" /p:Configuration="Release (DLL)"
-
-  ### SKIP DEPLOY ON OTHER CONFIGURATIONS ###
-  - cmd: IF %CONFIGURATION% NEQ %DEPLOY_CONFIGURATION% exit 0
+  - cmd: MSBuild "project\msvc\GLUL\GLUL.vcxproj" /p:Configuration="Debug"
+  - cmd: MSBuild "project\msvc\GLUL\GLUL.vcxproj" /p:Configuration="Release"
+  - cmd: MSBuild "project\msvc\GLUL\GLUL.vcxproj" /p:Configuration="Debug (DLL)"
+  - cmd: MSBuild "project\msvc\GLUL\GLUL.vcxproj" /p:Configuration="Release (DLL)"
 
 
 deploy_script:
