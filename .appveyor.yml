@@ -106,8 +106,8 @@ deploy_script:
   - cmd: echo "#####################"
 
   # Directories & variables
-  - cmd: set DEPLOY_NAME=GLUL-win32-%APPVEYOR_REPO_BRANCH%
-  - cmd: set DEPLOY_NAME_FILE=%DEPLOY_NAME%.latest.zip
+  - cmd: set DEPLOY_NAME=GLUL-msvc-win32-%APPVEYOR_REPO_BRANCH%
+  - cmd: set DEPLOY_NAME_FILE=%DEPLOY_NAME%.latest.7z
   - cmd: set DEPLOY_DIR_1=deploy
   - cmd: set DEPLOY_DIR_2=%DEPLOY_DIR_1%\windows
   - cmd: set DEPLOY_DIR_FULL=%DEPLOY_DIR_2%\%DEPLOY_NAME%
@@ -142,7 +142,7 @@ deploy_script:
   - cmd: cd "%DEPLOY_DIR_2%"
 
   # Create package to upload
-  - cmd: 7z a -tzip "%DEPLOY_NAME_FILE%" ./*
+  - cmd: 7z a -t7z -r -m0=LZMA2 -mx=9 "%DEPLOY_NAME_FILE%" ./*
   - cmd: echo "Package %DEPLOY_NAME% created..."
 
   # Deploy variables
