@@ -1,9 +1,9 @@
-#include <Utils/Logger.h>
-#include <Utils/Image.h>
-#include <Utils/Window.h>
-#include <Utils/GL+/VertexArray.h>
-#include <Utils/GL+/Program.h>
-#include <Utils/GL+/Texture.h>
+#include <GLUL/Logger.h>
+#include <GLUL/Image.h>
+#include <GLUL/Window.h>
+#include <GLUL/GL++/VertexArray.h>
+#include <GLUL/GL++/Program.h>
+#include <GLUL/GL++/Texture.h>
 
 #include <vector>
 #include <iostream>
@@ -64,7 +64,7 @@ void switchTexture(GL::Texture& texture) {
     static glm::uvec4 firstPixel;
     
     try {
-        Util::Image image;
+        GLUL::Image image;
 
         switch(texID) {
             case 0: image.load("assets/images/image0.bmp"); break; // BMP
@@ -77,7 +77,7 @@ void switchTexture(GL::Texture& texture) {
 
         image.save("lastImage.tga");
 
-    } catch(const Util::Exception::InitializationFailed& exception) {
+    } catch(const GLUL::Exception::InitializationFailed& exception) {
         std::cerr << "Caught initialization exception: " << exception.what() << std::endl;
     }
 
@@ -88,7 +88,7 @@ void switchTexture(GL::Texture& texture) {
  * Main loop
  */
 void run() {
-    Util::Window window(800, 600, "Press [space] to change image or [enter] to take screenshot");
+    GLUL::Window window(800, 600, "Press [space] to change image or [enter] to take screenshot");
     GL::Program program;
     GL::VertexArray vao;
     GL::VertexBuffer vbo;
@@ -98,24 +98,24 @@ void run() {
     window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f));
     
     // Input handling
-    window.registerEvents(Util::Input::Event::Type::Key);
+    window.registerEvents(GLUL::Input::Event::Type::Key);
     window.eventAggregator.registerTrigger(
-        Util::Input::Event::Type::Key,
-        [&](Util::Input::Event& inputEvent) {
-            Util::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent();
+        GLUL::Input::Event::Type::Key,
+        [&](GLUL::Input::Event& inputEvent) {
+            GLUL::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent();
 
-            if(keyEvent.getAction() == Util::Input::Action::Press) { // if key is pressed, not released or repeated signal
+            if(keyEvent.getAction() == GLUL::Input::Action::Press) { // if key is pressed, not released or repeated signal
                 switch(keyEvent.getKey()) {
-                    case Util::Input::Key::Space:
+                    case GLUL::Input::Key::Space:
                         switchTexture(texture);
                         break;
                 
-                    case Util::Input::Key::Enter:
+                    case GLUL::Input::Key::Enter:
                         window.takeScreenshot();    // takeScreenshot() sets flag to take screenshot just before swapping buffers (frame 
                                                     // is complete), but if you want partialy rendered frame, use getScreenshotNow(...) method
                         break;
 
-                    case Util::Input::Key::Escacpe:
+                    case GLUL::Input::Key::Escacpe:
                         window.destroy();
                         break;
 
@@ -138,8 +138,6 @@ void run() {
     while(window.isCreated() && window.shouldClose() == false) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);
 
-        glActiveTexture(GL_TEXTURE0);
-
         texture.bind();
             program.use();
             program["textureSampler"].setSampler(0);
@@ -160,16 +158,16 @@ int main() {
     try {
         run();
 
-    } catch(const Util::Exception::FatalError& exception) {
-        Util::Log::Stream("Example", "logExample.log") << "Cought fatal error exception: " + std::string(exception.what());
+    } catch(const GLUL::Exception::FatalError& exception) {
+        GLUL::Log::Stream("Example", "logExample.log") << "Cought fatal error exception: " + std::string(exception.what());
         return 1;
 
     } catch(const std::exception& exception) {
-        Util::Log::Stream("Example", "logExample.log") << "Cought std::exception: " + std::string(exception.what());
+        GLUL::Log::Stream("Example", "logExample.log") << "Cought std::exception: " + std::string(exception.what());
         return 1;
 
     } catch(...) {
-        Util::Log::Stream("Example", "logExample.log") << "Cought unknown exception!";
+        GLUL::Log::Stream("Example", "logExample.log") << "Cought unknown exception!";
         return 1;
     }
 

@@ -143,7 +143,7 @@ script:
   - if [ "$TASK" = "unit_tests" ]; then cmake -DBUILD_TESTS=ON .; fi
   - if [ "$TASK" = "unit_tests" ]; then make; fi
   - if [ "$TASK" = "unit_tests" ]; then cd tests/bin/; fi
-  - if [ "$TASK" = "unit_tests" ]; then ./Utility_Library_Unit_Tests; fi
+  - if [ "$TASK" = "unit_tests" ]; then ./GLUL_Unit_Tests; fi
   - if [ "$TASK" = "unit_tests" ]; then cd ../../; fi
 
 
@@ -158,7 +158,7 @@ before_deploy:
   - echo "Deploying..."
 
   # Setup variables
-  - DEPLOY_NAME="Utility-Library-${CC}-${TRAVIS_BRANCH}"
+  - DEPLOY_NAME="GLUL-${CC}-${TRAVIS_BRANCH}"
   - DEPLOY_NAME_FILE="${DEPLOY_NAME}.latest.tar.gz"
   - DEPLOY_DIR_1="deploy"
   - DEPLOY_DIR_2="${DEPLOY_DIR_1}/ubuntu"

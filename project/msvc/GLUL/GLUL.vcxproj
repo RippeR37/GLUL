@@ -1,0 +1,330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="12.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug (DLL)|Win32">
+      <Configuration>Debug (DLL)</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release (DLL)|Win32">
+      <Configuration>Release (DLL)</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{BE39DC36-BB6D-4DFB-8418-455170DECDAA}</ProjectGuid>
+    <RootNamespace>GLUL</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug (DLL)|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release (DLL)|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug (DLL)|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release (DLL)|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug (DLL)|Win32'">
+    <OutDir>..\..\..\bin\</OutDir>
+    <IntDir>$(SolutionDir)\Build\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)d</TargetName>
+    <TargetExt>.dll</TargetExt>
+    <ExtensionsToDeleteOnClean>$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>..\..\..\bin\</OutDir>
+    <IntDir>$(SolutionDir)\Build\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)sd</TargetName>
+    <ExtensionsToDeleteOnClean>$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>..\..\..\bin\</OutDir>
+    <IntDir>$(SolutionDir)\Build\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetName>$(ProjectName)s</TargetName>
+    <ExtensionsToDeleteOnClean>$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release (DLL)|Win32'">
+    <OutDir>..\..\..\bin\</OutDir>
+    <IntDir>$(SolutionDir)\Build\$(ProjectName)\$(Configuration)\</IntDir>
+    <TargetExt>.dll</TargetExt>
+    <ExtensionsToDeleteOnClean>$(ExtensionsToDeleteOnClean)</ExtensionsToDeleteOnClean>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\..\include\;..\..\..\libs\glew-1.12.0\include;..\..\..\libs\glfw-3.1\include;..\..\..\libs\glm-0.9.5.4\include;..\..\..\libs\jpeg-9a\include;..\..\..\libs\libpng-1.6.17\include;..\..\..\libs\freetype-2.5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <ObjectFileName>$(IntDir)\x\x\x\%(RelativeDir)\</ObjectFileName>
+      <DisableSpecificWarnings>4290;4996;4018;4611;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+    <BuildLog>
+      <Path>$(IntDir)\Logs\$(MSBuildProjectName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug (DLL)|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\..\include\;..\..\..\libs\glew-1.12.0\include;..\..\..\libs\glfw-3.1\include;..\..\..\libs\glm-0.9.5.4\include;..\..\..\libs\jpeg-9a\include;..\..\..\libs\libpng-1.6.17\include;..\..\..\libs\freetype-2.5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;GLUL_DLL;GLUL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <ObjectFileName>$(IntDir)\x\x\x\%(RelativeDir)\</ObjectFileName>
+      <DisableSpecificWarnings>4290;4996;4018;4611;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>..\..\..\libs\glfw-3.1\lib-vc2013;..\..\..\libs\glew-1.12.0\lib\Release\Win32;..\..\..\libs\jpeg-9a\lib\Debug;..\..\..\libs\zlib-1.2.8\lib\Debug;..\..\..\libs\libpng-1.6.17\lib\Debug;..\..\..\libs\freetype-2.5.5\objs\vc2010\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;freetype255d.lib;jpeg.lib;libpng16.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <BuildLog>
+      <Path>$(IntDir)\Logs\$(MSBuildProjectName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\..\include\;..\..\..\libs\glew-1.12.0\include;..\..\..\libs\glfw-3.1\include;..\..\..\libs\glm-0.9.5.4\include;..\..\..\libs\jpeg-9a\include;..\..\..\libs\libpng-1.6.17\include;..\..\..\libs\freetype-2.5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <ObjectFileName>$(IntDir)\x\x\x\%(RelativeDir)\</ObjectFileName>
+      <DisableSpecificWarnings>4290;4996;4018;4611;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+    <BuildLog>
+      <Path>$(IntDir)\Logs\$(MSBuildProjectName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release (DLL)|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>..\..\..\include\;..\..\..\libs\glew-1.12.0\include;..\..\..\libs\glfw-3.1\include;..\..\..\libs\glm-0.9.5.4\include;..\..\..\libs\jpeg-9a\include;..\..\..\libs\libpng-1.6.17\include;..\..\..\libs\freetype-2.5.5\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>GLEW_STATIC;GLUL_DLL;GLUL_EXPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <ObjectFileName>$(IntDir)\x\x\x\%(RelativeDir)\</ObjectFileName>
+      <DisableSpecificWarnings>4290;4996;4018;4611;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>..\..\..\libs\glfw-3.1\lib-vc2013;..\..\..\libs\glew-1.12.0\lib\Release\Win32;..\..\..\libs\jpeg-9a\lib\Release;..\..\..\libs\zlib-1.2.8\lib\Release;..\..\..\libs\libpng-1.6.17\lib\Release;..\..\..\libs\freetype-2.5.5\objs\vc2010\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;freetype255.lib;jpeg.lib;libpng16.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <BuildLog>
+      <Path>$(IntDir)\Logs\$(MSBuildProjectName).log</Path>
+    </BuildLog>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\GLUL\AABB.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Clock.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Config.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Exception.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Exceptions\FatalError.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Exceptions\InitializationFailed.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Exceptions\InvalidArgument.h" />
+    <ClInclude Include="..\..\..\include\GLUL\File.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Frameworks\Application.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Buffer.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Buffer.hpp" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Context.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Framebuffer.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\MatrixStack.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Models\Material.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Models\Mesh.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Models\OBJ.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Pipeline.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\PixelBuffer.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Program.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Shader.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Texture.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Uniform.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\VertexArray.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\VertexAttrib.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GL++\VertexBuffer.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Button.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Component.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Container.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\EventTemplate.hpp" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\HandlerAggregator.hpp" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\KeyStroke.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseClick.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseEnter.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseLeave.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseMove.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseRelease.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Font.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\InnerText.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\Border.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\HorizontalAlignment.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\VerticalAlignment.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Text.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\TextField.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Window.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Helpers\HashEnum.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Image.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Input\Event.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventAggregator.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventHandler.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventTrigger.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\KeyEvent.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\MouseButtonEvent.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\MouseMovementEvent.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\MouseScrollEvent.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Input\Keyboard.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Input\Mouse.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Input\Types.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\Camera.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\ImageFile.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\Implementations\ImageFileBMP.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\Implementations\ImageFileJPG.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\Implementations\ImageFilePNG.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\Implementations\ImageFileTGA.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\Model.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\MVC\ExtendedView.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\MVC\View.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\State.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Line.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Logger.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Point.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Rectangle.h" />
+    <ClInclude Include="..\..\..\include\GLUL\String.h" />
+    <ClInclude Include="..\..\..\include\GLUL\TimeEvent.h" />
+    <ClInclude Include="..\..\..\include\GLUL\TimeLoop.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Timer.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Window.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Windows.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\GLUL\AABB.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Clock.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Exception.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Exceptions\FatalError.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Exceptions\InitializationFailed.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Exceptions\InvalidArgument.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\File.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Frameworks\Application.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Buffer.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Context.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Framebuffer.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\MatrixStack.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Models\Material.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Models\Mesh.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Models\OBJ.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Pipeline.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\PixelBuffer.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Program.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Shader.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Texture.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Uniform.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\VertexArray.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\VertexAttrib.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GL++\VertexBuffer.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Button.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Component.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Container.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\KeyStroke.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseClick.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseEnter.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseLeave.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseMove.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseRelease.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Font.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\InnerText.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Styles\Border.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Text.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\TextField.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Window.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Image.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Input\Event.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventAggregator.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventHandler.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventTrigger.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\KeyEvent.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\MouseButtonEvent.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\MouseMovementEvent.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\MouseScrollEvent.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Input\Keyboard.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Input\Mouse.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\Camera.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\ImageFile.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\Implementations\ImageFileBMP.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\Implementations\ImageFileJPG.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\Implementations\ImageFilePNG.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\Implementations\ImageFileTGA.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\Model.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\State.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Line.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Logger.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Point.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Rectangle.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\String.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\TimeEvent.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\TimeLoop.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Timer.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Window.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Windows.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

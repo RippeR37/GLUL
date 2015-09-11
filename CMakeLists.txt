@@ -36,192 +36,192 @@ endif()
 
 
 ###############################################
-# Utility Library source files
+# GLUL source files
 ###############################################
 
-set(Utility_Library_SRCS
-    "src/Utils/Exceptions/FatalError.cpp"
-    "src/Utils/Exceptions/InitializationFailed.cpp"
-    "src/Utils/Exceptions/InvalidArgument.cpp"
+set(GLUL_SRCS
+    "src/GLUL/Exceptions/FatalError.cpp"
+    "src/GLUL/Exceptions/InitializationFailed.cpp"
+    "src/GLUL/Exceptions/InvalidArgument.cpp"
     
-    "src/Utils/Frameworks/Application.cpp"
+    "src/GLUL/Frameworks/Application.cpp"
     
-    "src/Utils/GL+/GUI/Events/KeyStroke.cpp"
-    "src/Utils/GL+/GUI/Events/MouseClick.cpp"
-    "src/Utils/GL+/GUI/Events/MouseEnter.cpp"
-    "src/Utils/GL+/GUI/Events/MouseLeave.cpp"
-    "src/Utils/GL+/GUI/Events/MouseMove.cpp"
-    "src/Utils/GL+/GUI/Events/MouseRelease.cpp"
+    "src/GLUL/GL++/Models/Material.cpp"
+    "src/GLUL/GL++/Models/Mesh.cpp"
+    "src/GLUL/GL++/Models/OBJ.cpp"
     
-    "src/Utils/GL+/GUI/Styles/Border.cpp"
+    "src/GLUL/GL++/Buffer.cpp"
+    "src/GLUL/GL++/Context.cpp"
+    "src/GLUL/GL++/Framebuffer.cpp"
+    "src/GLUL/GL++/MatrixStack.cpp"
+    "src/GLUL/GL++/Pipeline.cpp"
+    "src/GLUL/GL++/PixelBuffer.cpp"
+    "src/GLUL/GL++/Program.cpp"
+    "src/GLUL/GL++/Shader.cpp"
+    "src/GLUL/GL++/Texture.cpp"
+    "src/GLUL/GL++/Uniform.cpp"
+    "src/GLUL/GL++/VertexArray.cpp"
+    "src/GLUL/GL++/VertexAttrib.cpp"
+    "src/GLUL/GL++/VertexBuffer.cpp"
     
-    "src/Utils/GL+/GUI/Button.cpp"
-    "src/Utils/GL+/GUI/Component.cpp"
-    "src/Utils/GL+/GUI/Container.cpp"
-    "src/Utils/GL+/GUI/Font.cpp"
-    "src/Utils/GL+/GUI/InnerText.cpp"
-    "src/Utils/GL+/GUI/Text.cpp"
-    "src/Utils/GL+/GUI/TextField.cpp"
-    "src/Utils/GL+/GUI/Window.cpp"
+    "src/GLUL/GUI/Events/KeyStroke.cpp"
+    "src/GLUL/GUI/Events/MouseClick.cpp"
+    "src/GLUL/GUI/Events/MouseEnter.cpp"
+    "src/GLUL/GUI/Events/MouseLeave.cpp"
+    "src/GLUL/GUI/Events/MouseMove.cpp"
+    "src/GLUL/GUI/Events/MouseRelease.cpp"
     
-    "src/Utils/GL+/Models/Material.cpp"
-    "src/Utils/GL+/Models/Mesh.cpp"
-    "src/Utils/GL+/Models/OBJ.cpp"
+    "src/GLUL/GUI/Styles/Border.cpp"
     
-    "src/Utils/GL+/Buffer.cpp"
-    "src/Utils/GL+/Context.cpp"
-    "src/Utils/GL+/Framebuffer.cpp"
-    "src/Utils/GL+/MatrixStack.cpp"
-    "src/Utils/GL+/Pipeline.cpp"
-    "src/Utils/GL+/PixelBuffer.cpp"
-    "src/Utils/GL+/Program.cpp"
-    "src/Utils/GL+/Shader.cpp"
-    "src/Utils/GL+/Texture.cpp"
-    "src/Utils/GL+/Uniform.cpp"
-    "src/Utils/GL+/VertexArray.cpp"
-    "src/Utils/GL+/VertexAttrib.cpp"
-    "src/Utils/GL+/VertexBuffer.cpp"
+    "src/GLUL/GUI/Button.cpp"
+    "src/GLUL/GUI/Component.cpp"
+    "src/GLUL/GUI/Container.cpp"
+    "src/GLUL/GUI/Font.cpp"
+    "src/GLUL/GUI/InnerText.cpp"
+    "src/GLUL/GUI/Text.cpp"
+    "src/GLUL/GUI/TextField.cpp"
+    "src/GLUL/GUI/Window.cpp"
     
-    "src/Utils/Input/EventTypes/KeyEvent.cpp"
-    "src/Utils/Input/EventTypes/MouseButtonEvent.cpp"
-    "src/Utils/Input/EventTypes/MouseMovementEvent.cpp"
-    "src/Utils/Input/EventTypes/MouseScrollEvent.cpp"
+    "src/GLUL/Input/EventTypes/KeyEvent.cpp"
+    "src/GLUL/Input/EventTypes/MouseButtonEvent.cpp"
+    "src/GLUL/Input/EventTypes/MouseMovementEvent.cpp"
+    "src/GLUL/Input/EventTypes/MouseScrollEvent.cpp"
     
-    "src/Utils/Input/Event.cpp"
-    "src/Utils/Input/EventAggregator.cpp"
-    "src/Utils/Input/EventHandler.cpp"
-    "src/Utils/Input/EventTrigger.cpp"
-    "src/Utils/Input/Keyboard.cpp"
-    "src/Utils/Input/Mouse.cpp"
+    "src/GLUL/Input/Event.cpp"
+    "src/GLUL/Input/EventAggregator.cpp"
+    "src/GLUL/Input/EventHandler.cpp"
+    "src/GLUL/Input/EventTrigger.cpp"
+    "src/GLUL/Input/Keyboard.cpp"
+    "src/GLUL/Input/Mouse.cpp"
     
-    "src/Utils/Interfaces/Implementations/ImageFileBMP.cpp"
-    "src/Utils/Interfaces/Implementations/ImageFileJPG.cpp"
-    "src/Utils/Interfaces/Implementations/ImageFilePNG.cpp"
-    "src/Utils/Interfaces/Implementations/ImageFileTGA.cpp"
+    "src/GLUL/Interfaces/Implementations/ImageFileBMP.cpp"
+    "src/GLUL/Interfaces/Implementations/ImageFileJPG.cpp"
+    "src/GLUL/Interfaces/Implementations/ImageFilePNG.cpp"
+    "src/GLUL/Interfaces/Implementations/ImageFileTGA.cpp"
     
-    "src/Utils/Interfaces/Camera.cpp"
-    "src/Utils/Interfaces/ImageFile.cpp"
-    "src/Utils/Interfaces/Model.cpp"
-    "src/Utils/Interfaces/State.cpp"
+    "src/GLUL/Interfaces/Camera.cpp"
+    "src/GLUL/Interfaces/ImageFile.cpp"
+    "src/GLUL/Interfaces/Model.cpp"
+    "src/GLUL/Interfaces/State.cpp"
     
-    "src/Utils/AABB.cpp"
-    "src/Utils/Clock.cpp"
-    "src/Utils/Exception.cpp"
-    "src/Utils/File.cpp"
-    "src/Utils/Image.cpp"
-    "src/Utils/Line.cpp"
-    "src/Utils/Logger.cpp"
-    "src/Utils/Point.cpp"
-    "src/Utils/Rectangle.cpp"
-    "src/Utils/String.cpp"
-    "src/Utils/TimeEvent.cpp"
-    "src/Utils/TimeLoop.cpp"
-    "src/Utils/Timer.cpp"
-    "src/Utils/Window.cpp"
-    "src/Utils/Windows.cpp"
+    "src/GLUL/AABB.cpp"
+    "src/GLUL/Clock.cpp"
+    "src/GLUL/Exception.cpp"
+    "src/GLUL/File.cpp"
+    "src/GLUL/Image.cpp"
+    "src/GLUL/Line.cpp"
+    "src/GLUL/Logger.cpp"
+    "src/GLUL/Point.cpp"
+    "src/GLUL/Rectangle.cpp"
+    "src/GLUL/String.cpp"
+    "src/GLUL/TimeEvent.cpp"
+    "src/GLUL/TimeLoop.cpp"
+    "src/GLUL/Timer.cpp"
+    "src/GLUL/Window.cpp"
+    "src/GLUL/Windows.cpp"
 )
 
 
 ###############################################
-# Utility Library header files
+# GLUL header files
 ###############################################
 
-set(Utility_Library_H
-    "include/Utils/Exceptions/FatalError.h"
-    "include/Utils/Exceptions/InitializationFailed.h"
-    "include/Utils/Exceptions/InvalidArgument.h"
+set(GLUL_H
+    "include/GLUL/Exceptions/FatalError.h"
+    "include/GLUL/Exceptions/InitializationFailed.h"
+    "include/GLUL/Exceptions/InvalidArgument.h"
     
-    "include/Utils/Frameworks/Application.h"
+    "include/GLUL/Frameworks/Application.h"
     
-    "include/Utils/GL+/GUI/Events/EventTemplate.hpp"
-    "include/Utils/GL+/GUI/Events/HandlerAggregator.hpp"
-    "include/Utils/GL+/GUI/Events/KeyStroke.h"
-    "include/Utils/GL+/GUI/Events/MouseClick.h"
-    "include/Utils/GL+/GUI/Events/MouseEnter.h"
-    "include/Utils/GL+/GUI/Events/MouseLeave.h"
-    "include/Utils/GL+/GUI/Events/MouseMove.h"
-    "include/Utils/GL+/GUI/Events/MouseRelease.h"
+    "include/GLUL/GL++/Models/Material.h"
+    "include/GLUL/GL++/Models/Mesh.h"
+    "include/GLUL/GL++/Models/OBJ.h"
     
-    "include/Utils/GL+/GUI/Styles/Border.h"
-    "include/Utils/GL+/GUI/Styles/HorizontalAlignment.h"
-    "include/Utils/GL+/GUI/Styles/VerticalAlignment.h"
+    "include/GLUL/GL++/Buffer.h"
+    "include/GLUL/GL++/Buffer.hpp"
+    "include/GLUL/GL++/Context.h"
+    "include/GLUL/GL++/Framebuffer.h"
+    "include/GLUL/GL++/MatrixStack.h"
+    "include/GLUL/GL++/Pipeline.h"
+    "include/GLUL/GL++/PixelBuffer.h"
+    "include/GLUL/GL++/Program.h"
+    "include/GLUL/GL++/Shader.h"
+    "include/GLUL/GL++/Texture.h"
+    "include/GLUL/GL++/Uniform.h"
+    "include/GLUL/GL++/VertexArray.h"
+    "include/GLUL/GL++/VertexAttrib.h"
+    "include/GLUL/GL++/VertexBuffer.h"
     
-    "include/Utils/GL+/GUI/Button.h"
-    "include/Utils/GL+/GUI/Component.h"
-    "include/Utils/GL+/GUI/Container.h"
-    "include/Utils/GL+/GUI/Font.h"
-    "include/Utils/GL+/GUI/InnerText.h"
-    "include/Utils/GL+/GUI/Text.h"
-    "include/Utils/GL+/GUI/TextField.h"
-    "include/Utils/GL+/GUI/Window.h"
+    "include/GLUL/GUI/Events/EventTemplate.hpp"
+    "include/GLUL/GUI/Events/HandlerAggregator.hpp"
+    "include/GLUL/GUI/Events/KeyStroke.h"
+    "include/GLUL/GUI/Events/MouseClick.h"
+    "include/GLUL/GUI/Events/MouseEnter.h"
+    "include/GLUL/GUI/Events/MouseLeave.h"
+    "include/GLUL/GUI/Events/MouseMove.h"
+    "include/GLUL/GUI/Events/MouseRelease.h"
     
-    "include/Utils/GL+/Models/Material.h"
-    "include/Utils/GL+/Models/Mesh.h"
-    "include/Utils/GL+/Models/OBJ.h"
+    "include/GLUL/GUI/Styles/Border.h"
+    "include/GLUL/GUI/Styles/HorizontalAlignment.h"
+    "include/GLUL/GUI/Styles/VerticalAlignment.h"
     
-    "include/Utils/GL+/Buffer.h"
-    "include/Utils/GL+/Buffer.hpp"
-    "include/Utils/GL+/Context.h"
-    "include/Utils/GL+/Framebuffer.h"
-    "include/Utils/GL+/MatrixStack.h"
-    "include/Utils/GL+/Pipeline.h"
-    "include/Utils/GL+/PixelBuffer.h"
-    "include/Utils/GL+/Program.h"
-    "include/Utils/GL+/Shader.h"
-    "include/Utils/GL+/Texture.h"
-    "include/Utils/GL+/Uniform.h"
-    "include/Utils/GL+/VertexArray.h"
-    "include/Utils/GL+/VertexAttrib.h"
-    "include/Utils/GL+/VertexBuffer.h"
+    "include/GLUL/GUI/Button.h"
+    "include/GLUL/GUI/Component.h"
+    "include/GLUL/GUI/Container.h"
+    "include/GLUL/GUI/Font.h"
+    "include/GLUL/GUI/InnerText.h"
+    "include/GLUL/GUI/Text.h"
+    "include/GLUL/GUI/TextField.h"
+    "include/GLUL/GUI/Window.h"
     
-    "include/Utils/Helpers/HashEnum.h"
+    "include/GLUL/Helpers/HashEnum.h"
     
-    "include/Utils/Input/EventTypes/KeyEvent.h"
-    "include/Utils/Input/EventTypes/MouseButtonEvent.h"
-    "include/Utils/Input/EventTypes/MouseMovementEvent.h"
-    "include/Utils/Input/EventTypes/MouseScrollEvent.h"
+    "include/GLUL/Input/EventTypes/KeyEvent.h"
+    "include/GLUL/Input/EventTypes/MouseButtonEvent.h"
+    "include/GLUL/Input/EventTypes/MouseMovementEvent.h"
+    "include/GLUL/Input/EventTypes/MouseScrollEvent.h"
     
-    "include/Utils/Input/Event.h"
-    "include/Utils/Input/EventAggregator.h"
-    "include/Utils/Input/EventHandler.h"
-    "include/Utils/Input/EventTrigger.h"
-    "include/Utils/Input/Keyboard.h"
-    "include/Utils/Input/Mouse.h"
-    "include/Utils/Input/Types.h"
+    "include/GLUL/Input/Event.h"
+    "include/GLUL/Input/EventAggregator.h"
+    "include/GLUL/Input/EventHandler.h"
+    "include/GLUL/Input/EventTrigger.h"
+    "include/GLUL/Input/Keyboard.h"
+    "include/GLUL/Input/Mouse.h"
+    "include/GLUL/Input/Types.h"
     
-    "include/Utils/Interfaces/Implementations/ImageFileBMP.h"
-    "include/Utils/Interfaces/Implementations/ImageFileJPG.h"
-    "include/Utils/Interfaces/Implementations/ImageFilePNG.h"
-    "include/Utils/Interfaces/Implementations/ImageFileTGA.h"
+    "include/GLUL/Interfaces/Implementations/ImageFileBMP.h"
+    "include/GLUL/Interfaces/Implementations/ImageFileJPG.h"
+    "include/GLUL/Interfaces/Implementations/ImageFilePNG.h"
+    "include/GLUL/Interfaces/Implementations/ImageFileTGA.h"
     
-    "include/Utils/Interfaces/MVC/View.h"
-    "include/Utils/Interfaces/MVC/ExtendedView.h"
+    "include/GLUL/Interfaces/MVC/View.h"
+    "include/GLUL/Interfaces/MVC/ExtendedView.h"
     
-    "include/Utils/Interfaces/Camera.h"
-    "include/Utils/Interfaces/ImageFile.h"
-    "include/Utils/Interfaces/Model.h"
-    "include/Utils/Interfaces/State.h"
+    "include/GLUL/Interfaces/Camera.h"
+    "include/GLUL/Interfaces/ImageFile.h"
+    "include/GLUL/Interfaces/Model.h"
+    "include/GLUL/Interfaces/State.h"
     
-    "include/Utils/AABB.h"
-    "include/Utils/Clock.h"
-    "include/Utils/Exception.h"
-    "include/Utils/File.h"
-    "include/Utils/Image.h"
-    "include/Utils/Line.h"
-    "include/Utils/Logger.h"
-    "include/Utils/Point.h"
-    "include/Utils/Rectangle.h"
-    "include/Utils/String.h"
-    "include/Utils/TimeEvent.h"
-    "include/Utils/TimeLoop.h"
-    "include/Utils/Timer.h"
-    "include/Utils/Window.h"
-    "include/Utils/Windows.h"
+    "include/GLUL/AABB.h"
+    "include/GLUL/Clock.h"
+    "include/GLUL/Exception.h"
+    "include/GLUL/File.h"
+    "include/GLUL/Image.h"
+    "include/GLUL/Line.h"
+    "include/GLUL/Logger.h"
+    "include/GLUL/Point.h"
+    "include/GLUL/Rectangle.h"
+    "include/GLUL/String.h"
+    "include/GLUL/TimeEvent.h"
+    "include/GLUL/TimeLoop.h"
+    "include/GLUL/Timer.h"
+    "include/GLUL/Window.h"
+    "include/GLUL/Windows.h"
 )
 
 
 ###############################################
-# Utility Library dependencies setup
+# GLUL dependencies setup
 ###############################################
 
 # Include directories for dependencies
@@ -234,10 +234,10 @@ set(LIBRARY_INCLUDE_DIR_LIBPNG "/usr/include/libpng/")
 
 
 ###############################################
-# Utility Library (shared library) project
+# GLUL (shared library) project
 ###############################################
 
-project (Utility_Library_SHARED CXX)
+project (GLUL_SHARED CXX)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${LIBRARY_INCLUDE_DIR_GLFW})
@@ -247,12 +247,12 @@ include_directories(${LIBRARY_INCLUDE_DIR_FREETYPE2})
 include_directories(${LIBRARY_INCLUDE_DIR_LIBJPEG})
 include_directories(${LIBRARY_INCLUDE_DIR_LIBPNG})
 
-add_library(Utility_Library_SHARED SHARED 
-    ${Utility_Library_SRCS} 
-    ${Utility_Library_H}
+add_library(GLUL_SHARED SHARED 
+    ${GLUL_SRCS} 
+    ${GLUL_H}
 )
 
-target_link_libraries(Utility_Library_SHARED
+target_link_libraries(GLUL_SHARED
     glfw            # GLFW3
     GLEW            # GLEW
     GL              # OpenGL
@@ -262,16 +262,16 @@ target_link_libraries(Utility_Library_SHARED
     z               # zlib
 )
 
-set_target_properties(Utility_Library_SHARED PROPERTIES 
-    OUTPUT_NAME Utility_Library
+set_target_properties(GLUL_SHARED PROPERTIES 
+    OUTPUT_NAME GLUL
 )
 
 
 ###############################################
-# Utility Library (static library) project
+# GLUL (static library) project
 ###############################################
 
-project (Utility_Library_Static CXX)
+project (GLUL_Static CXX)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 include_directories(${LIBRARY_INCLUDE_DIR_GLFW})
@@ -281,13 +281,13 @@ include_directories(${LIBRARY_INCLUDE_DIR_FREETYPE2})
 include_directories(${LIBRARY_INCLUDE_DIR_LIBJPEG})
 include_directories(${LIBRARY_INCLUDE_DIR_LIBPNG})
 
-add_library(Utility_Library_Static STATIC 
-    ${Utility_Library_SRCS} 
-    ${Utility_Library_H}
+add_library(GLUL_Static STATIC 
+    ${GLUL_SRCS} 
+    ${GLUL_H}
 )
 
-set_target_properties(Utility_Library_Static PROPERTIES 
-    OUTPUT_NAME Utility_Library
+set_target_properties(GLUL_Static PROPERTIES 
+    OUTPUT_NAME GLUL
 )
 
 
@@ -298,41 +298,41 @@ set_target_properties(Utility_Library_Static PROPERTIES
 if(BUILD_TESTS)
     enable_testing()
 
-    set(Utility_Library_Unit_Tests_SRCS
+    set(GLUL_Unit_Tests_SRCS
         "tests/src/main.cpp"
         
-        "tests/src/Utils/Clock.cpp"
-        "tests/src/Utils/File.cpp"
-        "tests/src/Utils/Image.cpp"
-        "tests/src/Utils/Line.cpp"
-        "tests/src/Utils/Point.cpp"
-        "tests/src/Utils/String.cpp"
+        "tests/src/GLUL/Clock.cpp"
+        "tests/src/GLUL/File.cpp"
+        "tests/src/GLUL/Image.cpp"
+        "tests/src/GLUL/Line.cpp"
+        "tests/src/GLUL/Point.cpp"
+        "tests/src/GLUL/String.cpp"
     )
 
-    set(Utility_Library_Unit_Tests_H
+    set(GLUL_Unit_Tests_H
         
     )
 
-    add_executable(Utility_Library_Unit_Tests 
-        ${Utility_Library_Unit_Tests_SRCS}
-        ${Utility_Library_Unit_Tests_H}
+    add_executable(GLUL_Unit_Tests 
+        ${GLUL_Unit_Tests_SRCS}
+        ${GLUL_Unit_Tests_H}
     )
 
-    target_link_libraries(Utility_Library_Unit_Tests 
+    target_link_libraries(GLUL_Unit_Tests 
         gtest
         gtest_main
     )
 
-    target_link_libraries(Utility_Library_Unit_Tests
-        Utility_Library_SHARED
+    target_link_libraries(GLUL_Unit_Tests
+        GLUL_SHARED
     )
 
     add_test(
-        NAME UtilityLibraryUnitTests 
-        COMMAND Utility_Library_Unit_Tests
+        NAME GLUL_UnitTests 
+        COMMAND GLUL_Unit_Tests
     )
 
-    set_target_properties(Utility_Library_Unit_Tests PROPERTIES
+    set_target_properties(GLUL_Unit_Tests PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY "tests/bin/"
     )
 
@@ -343,30 +343,30 @@ endif()
 # Basic example project
 ###############################################
 
-project (Utility_Library_Example_Basic CXX)
+project (GLUL_Example_Basic CXX)
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # These files are to build basic example
-set(Utility_Library_Example_Basic_SRCS
+set(GLUL_Example_Basic_SRCS
     "examples/basic/src/main.cpp"
 )
 
-set(Utility_Library_Example_Basic_H
+set(GLUL_Example_Basic_H
     
 )
 
-add_executable(Utility_Library_Example_Basic 
-    ${Utility_Library_Example_Basic_SRCS}
-    ${Utility_Library_Example_Basic_H}
+add_executable(GLUL_Example_Basic 
+    ${GLUL_Example_Basic_SRCS}
+    ${GLUL_Example_Basic_H}
 )
 
-target_link_libraries(Utility_Library_Example_Basic
-    Utility_Library_SHARED
+target_link_libraries(GLUL_Example_Basic
+    GLUL_SHARED
 )
 
-set_target_properties(Utility_Library_Example_Basic PROPERTIES
+set_target_properties(GLUL_Example_Basic PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/basic/bin/"
 )
 
@@ -375,30 +375,30 @@ set_target_properties(Utility_Library_Example_Basic PROPERTIES
 # Font example project
 ###############################################
 
-project (Utility_Library_Example_Font CXX)
+project (GLUL_Example_Font CXX)
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # These files are to build basic example
-set(Utility_Library_Example_Font_SRCS
+set(GLUL_Example_Font_SRCS
     "examples/font/src/main.cpp"
 )
 
-set(Utility_Library_Example_Font_H
+set(GLUL_Example_Font_H
     
 )
 
-add_executable(Utility_Library_Example_Font 
-    ${Utility_Library_Example_Font_SRCS}
-    ${Utility_Library_Example_Font_H}
+add_executable(GLUL_Example_Font 
+    ${GLUL_Example_Font_SRCS}
+    ${GLUL_Example_Font_H}
 )
 
-target_link_libraries(Utility_Library_Example_Font
-    Utility_Library_SHARED
+target_link_libraries(GLUL_Example_Font
+    GLUL_SHARED
 )
 
-set_target_properties(Utility_Library_Example_Font PROPERTIES
+set_target_properties(GLUL_Example_Font PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/font/bin/"
 )
 
@@ -407,31 +407,31 @@ set_target_properties(Utility_Library_Example_Font PROPERTIES
 # Framework example project
 ###############################################
 
-project (Utility_Library_Example_Framework CXX)
+project (GLUL_Example_Framework CXX)
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # These files are to build basic example
-set(Utility_Library_Example_Framework_SRCS
+set(GLUL_Example_Framework_SRCS
     "examples/framework/src/main.cpp"
     "examples/framework/src/ExampleState.cpp"
 )
 
-set(Utility_Library_Example_Framework_H
+set(GLUL_Example_Framework_H
     "examples/framework/src/ExampleState.h"
 )
 
-add_executable(Utility_Library_Example_Framework 
-    ${Utility_Library_Example_Framework_SRCS}
-    ${Utility_Library_Example_Framework_H}
+add_executable(GLUL_Example_Framework 
+    ${GLUL_Example_Framework_SRCS}
+    ${GLUL_Example_Framework_H}
 )
 
-target_link_libraries(Utility_Library_Example_Framework
-    Utility_Library_SHARED
+target_link_libraries(GLUL_Example_Framework
+    GLUL_SHARED
 )
 
-set_target_properties(Utility_Library_Example_Framework PROPERTIES
+set_target_properties(GLUL_Example_Framework PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/framework/bin/"
 )
 
@@ -440,31 +440,31 @@ set_target_properties(Utility_Library_Example_Framework PROPERTIES
 # Image example project
 ###############################################
 
-project (Utility_Library_Example_Image CXX)
+project (GLUL_Example_Image CXX)
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # These files are to build basic example
-set(Utility_Library_Example_Image_SRCS
+set(GLUL_Example_Image_SRCS
     "examples/image/src/main.cpp"
 )
 
-set(Utility_Library_Example_Image_H
+set(GLUL_Example_Image_H
     "examples/models/src/InitializationState.h"
     "examples/models/src/WorkState.h"
 )
 
-add_executable(Utility_Library_Example_Image 
-    ${Utility_Library_Example_Image_SRCS}
-    ${Utility_Library_Example_Image_H}
+add_executable(GLUL_Example_Image 
+    ${GLUL_Example_Image_SRCS}
+    ${GLUL_Example_Image_H}
 )
 
-target_link_libraries(Utility_Library_Example_Image
-    Utility_Library_SHARED
+target_link_libraries(GLUL_Example_Image
+    GLUL_SHARED
 )
 
-set_target_properties(Utility_Library_Example_Image PROPERTIES
+set_target_properties(GLUL_Example_Image PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/image/bin/"
 )
 
@@ -473,30 +473,30 @@ set_target_properties(Utility_Library_Example_Image PROPERTIES
 # Input example project
 ###############################################
 
-project (Utility_Library_Example_Input CXX)
+project (GLUL_Example_Input CXX)
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # These files are to build input example
-set(Utility_Library_Example_Input_SRCS
+set(GLUL_Example_Input_SRCS
     "examples/input/src/main.cpp"
 )
 
-set(Utility_Library_Example_Input_H
+set(GLUL_Example_Input_H
     
 )
 
-add_executable(Utility_Library_Example_Input 
-    ${Utility_Library_Example_Input_SRCS}
-    ${Utility_Library_Example_Input_H}
+add_executable(GLUL_Example_Input 
+    ${GLUL_Example_Input_SRCS}
+    ${GLUL_Example_Input_H}
 )
 
-target_link_libraries(Utility_Library_Example_Input
-    Utility_Library_SHARED
+target_link_libraries(GLUL_Example_Input
+    GLUL_SHARED
 )
 
-set_target_properties(Utility_Library_Example_Input PROPERTIES
+set_target_properties(GLUL_Example_Input PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/input/bin/"
 )
 
@@ -505,33 +505,33 @@ set_target_properties(Utility_Library_Example_Input PROPERTIES
 # Models example project
 ###############################################
 
-project (Utility_Library_Example_Models CXX)
+project (GLUL_Example_Models CXX)
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # These files are to build basic example
-set(Utility_Library_Example_Models_SRCS
+set(GLUL_Example_Models_SRCS
     "examples/models/src/main.cpp"
     "examples/models/src/InitializationState.cpp"
     "examples/models/src/WorkState.cpp"
 )
 
-set(Utility_Library_Example_Models_H
+set(GLUL_Example_Models_H
     "examples/models/src/InitializationState.h"
     "examples/models/src/WorkState.h"
 )
 
-add_executable(Utility_Library_Example_Models 
-    ${Utility_Library_Example_Models_SRCS}
-    ${Utility_Library_Example_Models_H}
+add_executable(GLUL_Example_Models 
+    ${GLUL_Example_Models_SRCS}
+    ${GLUL_Example_Models_H}
 )
 
-target_link_libraries(Utility_Library_Example_Models
-    Utility_Library_SHARED
+target_link_libraries(GLUL_Example_Models
+    GLUL_SHARED
 )
 
-set_target_properties(Utility_Library_Example_Models PROPERTIES
+set_target_properties(GLUL_Example_Models PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/models/bin/"
 )
 
@@ -540,29 +540,29 @@ set_target_properties(Utility_Library_Example_Models PROPERTIES
 # GUI example project
 ###############################################
 
-project (Utility_Library_Example_GUI CXX)
+project (GLUL_Example_GUI CXX)
 
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 # These files are to build basic example
-set(Utility_Library_Example_GUI_SRCS
+set(GLUL_Example_GUI_SRCS
     "examples/gui/src/main.cpp"
 )
 
-set(Utility_Library_Example_GUI_H
+set(GLUL_Example_GUI_H
     
 )
 
-add_executable(Utility_Library_Example_GUI 
-    ${Utility_Library_Example_GUI_SRCS}
-    ${Utility_Library_Example_GUI_H}
+add_executable(GLUL_Example_GUI 
+    ${GLUL_Example_GUI_SRCS}
+    ${GLUL_Example_GUI_H}
 )
 
-target_link_libraries(Utility_Library_Example_GUI
-    Utility_Library_SHARED
+target_link_libraries(GLUL_Example_GUI
+    GLUL_SHARED
 )
 
-set_target_properties(Utility_Library_Example_GUI PROPERTIES
+set_target_properties(GLUL_Example_GUI PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/gui/bin/"
 )

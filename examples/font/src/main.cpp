@@ -1,10 +1,10 @@
-#include <Utils/Logger.h>
-#include <Utils/GL+/Program.h>
-#include <Utils/GL+/VertexArray.h>
-#include <Utils/GL+/VertexBuffer.h>
-#include <Utils/GL+/GUI/Font.h>
-#include <Utils/GL+/GUI/Text.h>
-#include <Utils/GL+/GUI/Window.h>
+#include <GLUL/Logger.h>
+#include <GLUL/GL++/Program.h>
+#include <GLUL/GL++/VertexArray.h>
+#include <GLUL/GL++/VertexBuffer.h>
+#include <GLUL/GUI/Font.h>
+#include <GLUL/GUI/Text.h>
+#include <GLUL/GUI/Window.h>
 
 #include <vector>
 
@@ -12,14 +12,14 @@
  * Initialize functions
  */
 
-void initFont(GL::GUI::Font& font, const std::string& fontName, int size) {
+void initFont(GLUL::GUI::Font& font, const std::string& fontName, int size) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     font.load("assets/fonts/" + fontName + ".ttf", size);
 }
 
-void initVertices(std::vector<glm::vec4>& vertices, const GL::GUI::Font& font) {
+void initVertices(std::vector<glm::vec4>& vertices, const GLUL::GUI::Font& font) {
     // Display whole texture
     float xS = 0.0f;
     float xE = 1.0f;
@@ -81,19 +81,19 @@ void initVAO(GL::VertexArray& vao, const GL::VertexBuffer& vbo, const std::vecto
  * Main loop
  */
 void run() {
-    GL::GUI::Window window(800, 600, "Title"); // Be advised - GUI-supporting Window is GL::GUI::Window, not Util::Window !
+    GLUL::GUI::Window window(800, 600, "Title"); // Be advised - GUI-supporting Window is GLUL::GUI::Window, not GLUL::Window !
 
     GL::Program program;
     GL::VertexArray vao;
     GL::VertexBuffer vbo;
     std::vector<glm::vec4> vertices;
 
-    GL::GUI::Font fontAtlas;
-    GL::GUI::Font fontText1;
-    GL::GUI::Font fontText2;
-    GL::GUI::Text textHeader;
-    GL::GUI::Text textFooter1;
-    GL::GUI::Text textFooter2;
+    GLUL::GUI::Font fontAtlas;
+    GLUL::GUI::Font fontText1;
+    GLUL::GUI::Font fontText2;
+    GLUL::GUI::Text textHeader;
+    GLUL::GUI::Text textFooter1;
+    GLUL::GUI::Text textFooter2;
 
     window.create();
     window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f));
@@ -158,16 +158,16 @@ int main() {
     try {
         run();
 
-    } catch(const Util::Exception::FatalError& exception) {
-        Util::Log::Stream("Example", "logExample.log") << "Cought fatal error exception: " + std::string(exception.what());
+    } catch(const GLUL::Exception::FatalError& exception) {
+        GLUL::Log::Stream("Example", "logExample.log") << "Cought fatal error exception: " + std::string(exception.what());
         return 1;
 
     } catch(const std::exception& exception) {
-        Util::Log::Stream("Example", "logExample.log") << "Cought std::exception: " + std::string(exception.what());
+        GLUL::Log::Stream("Example", "logExample.log") << "Cought std::exception: " + std::string(exception.what());
         return 1;
 
     } catch(...) {
-        Util::Log::Stream("Example", "logExample.log") << "Cought unknown exception!";
+        GLUL::Log::Stream("Example", "logExample.log") << "Cought unknown exception!";
         return 1;
     }
 

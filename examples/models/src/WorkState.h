@@ -1,14 +1,14 @@
 #ifndef WORKSTATE_H_INCLUDED
 #define WORKSTATE_H_INCLUDED
 
-#include <Utils/GL+/Models/OBJ.h>
-#include <Utils/Interfaces/State.h>
+#include <GLUL/GL++/Models/OBJ.h>
+#include <GLUL/Interfaces/State.h>
 
 #include <memory>
 
-class WorkState : public Util::Interface::State {
+class WorkState : public GLUL::Interface::State {
     public:
-        WorkState(Util::Interface::State* parentState);
+        WorkState(GLUL::Interface::State* parentState);
         ~WorkState();
 
         void update(const double frameTime);
@@ -17,10 +17,10 @@ class WorkState : public Util::Interface::State {
         void onUnload();
         void signalExit();
 
-        void handleInputEvent(const Util::Input::Event& inputEvent);
+        void handleInputEvent(const GLUL::Input::Event& inputEvent);
 
     private:
-        Util::Interface::State* _parentState;
+        GLUL::Interface::State* _parentState;
 
         GL::Pipeline _pipeline;
         GL::Model::OBJ _modelOBJ[2];

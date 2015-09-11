@@ -1,0 +1,527 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Exceptions">
+      <UniqueIdentifier>{90930726-119a-4463-baf8-99640be528b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Frameworks">
+      <UniqueIdentifier>{48f56544-d862-4c60-8b01-483a1a5f7c66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GL++">
+      <UniqueIdentifier>{4373f6a0-59be-4451-9d9f-4c3cfd9f3708}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Helpers">
+      <UniqueIdentifier>{a8510b3f-7f21-491d-a15f-d5e1e240916f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input">
+      <UniqueIdentifier>{e73b1e14-1f9a-487d-99a4-75d64b2b9e37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interfaces">
+      <UniqueIdentifier>{0e946858-526a-460d-a47c-b0fb41948c19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GL++\Models">
+      <UniqueIdentifier>{ac412b48-e7d3-4ce9-a75f-d37db200a162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input\EventTypes">
+      <UniqueIdentifier>{b6a1f4dd-57b9-429f-b48a-8aa9ed4f86c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interfaces\Implementations">
+      <UniqueIdentifier>{6a76dfc5-bdbd-40d3-b9be-f40614d8d3d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Interfaces\MVC">
+      <UniqueIdentifier>{b5e0907f-a581-4bdd-be19-5d1b35976cf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Exceptions">
+      <UniqueIdentifier>{acf2c3ec-ec58-4a3a-b759-7f40ccbe57c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Frameworks">
+      <UniqueIdentifier>{2a94ca5f-c015-4725-9c89-14819f83eeb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GL++">
+      <UniqueIdentifier>{fc2698a8-83dc-4c80-879c-604d00510e52}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input">
+      <UniqueIdentifier>{b0f2f8f7-06d3-49a1-b7b6-68f68be3d346}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interfaces">
+      <UniqueIdentifier>{f752c26b-8c4f-43fd-bab5-2119b8cb59e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GL++\Models">
+      <UniqueIdentifier>{ea26d86f-cad9-4ad3-8b99-856d3b839dde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input\EventTypes">
+      <UniqueIdentifier>{cc15bb76-a749-4a6e-ac54-b557da2f902f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Interfaces\Implementations">
+      <UniqueIdentifier>{f4c8231c-b4d2-4d45-9976-e97b1dfbe698}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{c4518752-337c-4b9b-92e6-82946827d850}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\Events">
+      <UniqueIdentifier>{a00e1cda-1dfb-4c93-9824-070b043c2578}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI\Styles">
+      <UniqueIdentifier>{4a9415a3-eb51-4daa-bcab-5178a0795b55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{09cdac41-a972-42f2-835b-90fd235e894d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI\Events">
+      <UniqueIdentifier>{5f329a77-5ad4-421e-b07e-d9bbf9eb19fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI\Styles">
+      <UniqueIdentifier>{13f59ee7-c625-4dbb-b4db-9d3ba4778b43}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\include\GLUL\AABB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Clock.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Exception.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\File.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Line.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Logger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Point.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Rectangle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\String.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\TimeEvent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\TimeLoop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Timer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Windows.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Exceptions\FatalError.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Exceptions\InitializationFailed.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Exceptions\InvalidArgument.h">
+      <Filter>Header Files\Exceptions</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Frameworks\Application.h">
+      <Filter>Header Files\Frameworks</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Buffer.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Buffer.hpp">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Context.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Framebuffer.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\MatrixStack.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Pipeline.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\PixelBuffer.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Program.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Shader.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Texture.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Uniform.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\VertexArray.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\VertexAttrib.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\VertexBuffer.h">
+      <Filter>Header Files\GL++</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Models\Material.h">
+      <Filter>Header Files\GL++\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Models\Mesh.h">
+      <Filter>Header Files\GL++\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GL++\Models\OBJ.h">
+      <Filter>Header Files\GL++\Models</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Button.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Component.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Container.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Font.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\InnerText.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Text.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\TextField.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Window.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\EventTemplate.hpp">
+      <Filter>Header Files\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\HandlerAggregator.hpp">
+      <Filter>Header Files\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\KeyStroke.h">
+      <Filter>Header Files\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseClick.h">
+      <Filter>Header Files\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseEnter.h">
+      <Filter>Header Files\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseLeave.h">
+      <Filter>Header Files\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseMove.h">
+      <Filter>Header Files\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseRelease.h">
+      <Filter>Header Files\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\Border.h">
+      <Filter>Header Files\GUI\Styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\HorizontalAlignment.h">
+      <Filter>Header Files\GUI\Styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\VerticalAlignment.h">
+      <Filter>Header Files\GUI\Styles</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Helpers\HashEnum.h">
+      <Filter>Header Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Input\Event.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventAggregator.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventHandler.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventTrigger.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Input\Keyboard.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Input\Mouse.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Input\Types.h">
+      <Filter>Header Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\KeyEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\MouseButtonEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\MouseMovementEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\MouseScrollEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\Camera.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\ImageFile.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\Model.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\State.h">
+      <Filter>Header Files\Interfaces</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\Implementations\ImageFileBMP.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\Implementations\ImageFileJPG.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\Implementations\ImageFilePNG.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\Implementations\ImageFileTGA.h">
+      <Filter>Header Files\Interfaces\Implementations</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\MVC\ExtendedView.h">
+      <Filter>Header Files\Interfaces\MVC</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Interfaces\MVC\View.h">
+      <Filter>Header Files\Interfaces\MVC</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Clock.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Exception.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\File.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Image.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Line.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Logger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Point.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Rectangle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\String.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\TimeEvent.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\TimeLoop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Timer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Window.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Windows.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Exceptions\FatalError.cpp">
+      <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Exceptions\InitializationFailed.cpp">
+      <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Exceptions\InvalidArgument.cpp">
+      <Filter>Source Files\Exceptions</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Frameworks\Application.cpp">
+      <Filter>Source Files\Frameworks</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Buffer.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Context.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Framebuffer.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\MatrixStack.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Pipeline.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\PixelBuffer.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Program.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Shader.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Texture.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Uniform.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\VertexArray.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\VertexAttrib.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\VertexBuffer.cpp">
+      <Filter>Source Files\GL++</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Models\Material.cpp">
+      <Filter>Source Files\GL++\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Models\Mesh.cpp">
+      <Filter>Source Files\GL++\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GL++\Models\OBJ.cpp">
+      <Filter>Source Files\GL++\Models</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Button.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Component.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Container.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Font.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\InnerText.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Text.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\TextField.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Window.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\KeyStroke.cpp">
+      <Filter>Source Files\GUI\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseClick.cpp">
+      <Filter>Source Files\GUI\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseEnter.cpp">
+      <Filter>Source Files\GUI\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseLeave.cpp">
+      <Filter>Source Files\GUI\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseMove.cpp">
+      <Filter>Source Files\GUI\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseRelease.cpp">
+      <Filter>Source Files\GUI\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Styles\Border.cpp">
+      <Filter>Source Files\GUI\Styles</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Input\Event.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventAggregator.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventHandler.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventTrigger.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Input\Keyboard.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Input\Mouse.cpp">
+      <Filter>Source Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\KeyEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\MouseButtonEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\MouseMovementEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\MouseScrollEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\Camera.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\ImageFile.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\Model.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\State.cpp">
+      <Filter>Source Files\Interfaces</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\Implementations\ImageFileBMP.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\Implementations\ImageFileJPG.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\Implementations\ImageFilePNG.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Interfaces\Implementations\ImageFileTGA.cpp">
+      <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

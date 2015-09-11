@@ -9,17 +9,11 @@
 *.suo
 *.exp
 
-examples/framework/bin/assets/shaders/*
-examples/models/bin/assets/shaders/*
+examples/*/bin/assets/*/GLUL/*
 examples/image/bin/lastImage.*
 examples/image/bin/screenshot.*
 
 libs/*
 personal/*
 
-project/build/*
-project/*/build/*
-project/*/tests/*
-project/*/examples/*
-project/*/Debug/*
-project/*/Release/*
+project/msvc/Build/*

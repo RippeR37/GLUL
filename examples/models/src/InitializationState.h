@@ -3,11 +3,11 @@
 
 #include "WorkState.h"
 
-#include <Utils/Interfaces/State.h>
+#include <GLUL/Interfaces/State.h>
 
 #include <memory>
 
-class InitializationState : public Util::Interface::State {
+class InitializationState : public GLUL::Interface::State {
     public:
         InitializationState(FW::Application* application);
         ~InitializationState();
@@ -20,7 +20,7 @@ class InitializationState : public Util::Interface::State {
 
     private:
         FW::Application* _application;
-        std::unique_ptr<Util::Interface::State> _workState;
+        std::unique_ptr<GLUL::Interface::State> _workState;
 };
 
 #endif

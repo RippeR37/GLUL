@@ -1,7 +1,7 @@
 #include "ExampleState.h"
 
-#include <Utils/Frameworks/Application.h>
-#include <Utils/TimeLoop.h>
+#include <GLUL/Frameworks/Application.h>
+#include <GLUL/TimeLoop.h>
 
 ExampleState::ExampleState(FW::Application& application) : Application(application) {
 
@@ -12,7 +12,7 @@ ExampleState::~ExampleState() {
 }
 
 void ExampleState::update(const double frameTime) {
-    Util::TimeLoop::semiFixed(frameTime, 1.0f / 120.0f, [](double deltaTime) {
+    GLUL::TimeLoop::semiFixed(frameTime, 1.0f / 120.0f, [](double deltaTime) {
         (void) deltaTime;
 
         // update here
@@ -39,27 +39,27 @@ void ExampleState::onLoad() {
     GL::Context::Current->setClearColor(glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
 
     // Registering state as event handler
-    Util::Windows::Get("FW::Application::Window::1")->eventAggregator.registerHandler(Util::Input::Event::Type::Key, this);
+    GLUL::Windows::Get("FW::Application::Window::1")->eventAggregator.registerHandler(GLUL::Input::Event::Type::Key, this);
 }
 
 void ExampleState::onUnload() {
     // cleanup
 
     // Unregistering state as event handler
-    Util::Windows::Get("FW::Application::Window::1")->eventAggregator.unregisterHandler(Util::Input::Event::Type::Key, this);
+    GLUL::Windows::Get("FW::Application::Window::1")->eventAggregator.unregisterHandler(GLUL::Input::Event::Type::Key, this);
 }
 
 void ExampleState::signalExit() {
     changeTo(nullptr);
 }
 
-void ExampleState::handleInputEvent(const Util::Input::Event& inputEvent) {
-    if(inputEvent.getType() == Util::Input::Event::Type::Key) {
-        const Util::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent();
+void ExampleState::handleInputEvent(const GLUL::Input::Event& inputEvent) {
+    if(inputEvent.getType() == GLUL::Input::Event::Type::Key) {
+        const GLUL::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent();
 
-        if(keyEvent.getAction() == Util::Input::Action::Press) {
+        if(keyEvent.getAction() == GLUL::Input::Action::Press) {
             switch(keyEvent.getKey()) {
-                case Util::Input::Key::Escacpe:
+                case GLUL::Input::Key::Escacpe:
                     signalExit();
                     break;
 

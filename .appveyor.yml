@@ -86,7 +86,7 @@ test_script:
   - cmd: echo "###   UNIT TESTS   ###"
   - cmd: echo "######################"
   - cmd: cd tests\bin
-  - cmd: move "Utility Library UnitTests.exe" "unit_tests.exe" # required to have no space in name
+  - cmd: move "Unit tests.exe" "unit_tests.exe" # required to have no space in name
   - cmd: unit_tests.exe
   - cmd: cd ..\..
 
@@ -98,7 +98,7 @@ deploy_script:
   - cmd: echo "#####################"
 
   # Directories & variables
-  - cmd: set DEPLOY_NAME=Utility-Library-win32-%APPVEYOR_REPO_BRANCH%
+  - cmd: set DEPLOY_NAME=GLUL-win32-%APPVEYOR_REPO_BRANCH%
   - cmd: set DEPLOY_NAME_FILE=%DEPLOY_NAME%.latest.zip
   - cmd: set DEPLOY_DIR_1=deploy
   - cmd: set DEPLOY_DIR_2=%DEPLOY_DIR_1%\windows
@@ -139,7 +139,7 @@ deploy_script:
 
   # Deploy variables
   - cmd: set BINTRAY_REPO=generic
-  - cmd: set BINTRAY_PACKAGE=Utility-Library
+  - cmd: set BINTRAY_PACKAGE=GLUL
   - cmd: set BINTRAY_VERSION=0.2
   - cmd: set BINTRAY_PATH=%BINTRAY_USER%/%BINTRAY_REPO%/%BINTRAY_PACKAGE%/%BINTRAY_VERSION%
   - cmd: set BINTRAY_PATH_FULL=%BINTRAY_PATH%/windows/%DEPLOY_NAME_FILE%

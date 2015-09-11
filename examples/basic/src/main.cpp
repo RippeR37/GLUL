@@ -1,7 +1,7 @@
-#include <Utils/Logger.h>
-#include <Utils/Window.h>
-#include <Utils/GL+/VertexArray.h>
-#include <Utils/GL+/Program.h>
+#include <GLUL/Logger.h>
+#include <GLUL/Window.h>
+#include <GLUL/GL++/VertexArray.h>
+#include <GLUL/GL++/Program.h>
 
 #include <vector>
 
@@ -49,7 +49,7 @@ void initVAO(GL::VertexArray& vao, const GL::VertexBuffer& vbo, const std::vecto
  * Main loop
  */
 void run() {
-    Util::Window window(800, 600, "Title");
+    GLUL::Window window(800, 600, "Title");
     GL::Program program;
     GL::VertexArray vao;
     GL::VertexBuffer vbo;
@@ -83,16 +83,16 @@ int main() {
     try {
         run();
 
-    } catch(const Util::Exception::FatalError& exception) {
-        Util::Log::Stream("Example", "logExample.log") << "Cought fatal error exception: " + std::string(exception.what());
+    } catch(const GLUL::Exception::FatalError& exception) {
+        GLUL::Log::Stream("Example", "logExample.log") << "Cought fatal error exception: " + std::string(exception.what());
         return 1;
 
     } catch(const std::exception& exception) {
-        Util::Log::Stream("Example", "logExample.log") << "Cought std::exception: " + std::string(exception.what());
+        GLUL::Log::Stream("Example", "logExample.log") << "Cought std::exception: " + std::string(exception.what());
         return 1;
 
     } catch(...) {
-        Util::Log::Stream("Example", "logExample.log") << "Cought unknown exception!";
+        GLUL::Log::Stream("Example", "logExample.log") << "Cought unknown exception!";
         return 1;
     }
 

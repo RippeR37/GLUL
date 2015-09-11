@@ -1,14 +1,14 @@
 #include "WorkState.h"
 
-#include <Utils/Logger.h>
-#include <Utils/Interfaces/Model.h>
-#include <Utils/Frameworks/Application.h>
-#include <Utils/TimeLoop.h>
+#include <GLUL/Logger.h>
+#include <GLUL/Interfaces/Model.h>
+#include <GLUL/Frameworks/Application.h>
+#include <GLUL/TimeLoop.h>
 
 #define GLM_FORCE_RADIANS
 #include <glm/gtc/matrix_transform.hpp>
 
-WorkState::WorkState(Util::Interface::State* parentState) {
+WorkState::WorkState(GLUL::Interface::State* parentState) {
     _parentState = parentState;
 }
 
@@ -17,7 +17,7 @@ WorkState::~WorkState() {
 }
 
 void WorkState::update(const double frameTime) {
-    Util::TimeLoop::semiFixed(frameTime, 1.0f / 120.0f, [](double deltaTime) {
+    GLUL::TimeLoop::semiFixed(frameTime, 1.0f / 120.0f, [](double deltaTime) {
         (void) deltaTime;
 
         // update objects here
@@ -33,7 +33,7 @@ void WorkState::render() {
 
 void WorkState::onLoad() {
     GL::Context::Current->setClearColor(glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
-    Util::Windows::Get("FW::Application::Window::1")->eventAggregator.registerHandler(Util::Input::Event::Type::Key, this);
+    GLUL::Windows::Get("FW::Application::Window::1")->eventAggregator.registerHandler(GLUL::Input::Event::Type::Key, this);
 
     // Set OpenGL settings
     glEnable(GL_DEPTH_TEST);
@@ -51,29 +51,29 @@ void WorkState::onLoad() {
     _modelOBJ[1].setMatrix(glm::translate(glm::mat4(1.0), glm::vec3( 1.3,  0.0, -4.0)));
 
     if(!loaded[0] || !loaded[1]) {
-        Util::Log::Stream("Example", "logExample.log");
+        GLUL::Log::Stream("Example", "logExample.log");
 
         for(int i : { 0, 1 })
             if(!loaded[i])
-                Util::Log::Stream("Example") << "OBJ model '" + _modelOBJ[0].getPath() + "' not loaded!";
+                GLUL::Log::Stream("Example") << "OBJ model '" + _modelOBJ[0].getPath() + "' not loaded!";
     }
 }
 
 void WorkState::onUnload() {
-    Util::Windows::Get("FW::Application::Window::1")->eventAggregator.unregisterHandler(Util::Input::Event::Type::Key, this);
+    GLUL::Windows::Get("FW::Application::Window::1")->eventAggregator.unregisterHandler(GLUL::Input::Event::Type::Key, this);
 }
 
 void WorkState::signalExit() {
     changeTo(nullptr);
 }
 
-void WorkState::handleInputEvent(const Util::Input::Event& inputEvent) {
-    if(inputEvent.getType() == Util::Input::Event::Type::Key) {
-        const Util::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent();
+void WorkState::handleInputEvent(const GLUL::Input::Event& inputEvent) {
+    if(inputEvent.getType() == GLUL::Input::Event::Type::Key) {
+        const GLUL::Input::KeyEvent& keyEvent = *inputEvent.asKeyEvent();
 
-        if(keyEvent.getAction() == Util::Input::Action::Press) {
+        if(keyEvent.getAction() == GLUL::Input::Action::Press) {
             switch(keyEvent.getKey()) {
-                case Util::Input::Key::Escacpe: 
+                case GLUL::Input::Key::Escacpe: 
                     const_cast<WorkState*>(this)->changeTo(_parentState);
                     break;
 

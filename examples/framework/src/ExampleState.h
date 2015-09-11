@@ -1,9 +1,9 @@
 #ifndef EXAMPLESTATE_H_INCLUDED
 #define EXAMPLESTATE_H_INCLUDED
 
-#include <Utils/Interfaces/State.h>
+#include <GLUL/Interfaces/State.h>
 
-class ExampleState : public Util::Interface::State {
+class ExampleState : public GLUL::Interface::State {
     public:
         ExampleState(FW::Application& application);
         ~ExampleState();
@@ -16,7 +16,7 @@ class ExampleState : public Util::Interface::State {
         void onUnload();
         void signalExit();
 
-        void handleInputEvent(const Util::Input::Event& inputEvent);
+        void handleInputEvent(const GLUL::Input::Event& inputEvent);
 
     private:
         FW::Application& Application;

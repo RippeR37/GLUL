@@ -1,7 +1,7 @@
 #include "InitializationState.h"
 
-#include <Utils/Frameworks/Application.h>
-#include <Utils/TimeLoop.h>
+#include <GLUL/Frameworks/Application.h>
+#include <GLUL/TimeLoop.h>
 
 InitializationState::InitializationState(FW::Application* application) {
     _application = application;
@@ -28,7 +28,7 @@ void InitializationState::onLoad() {
             _application->Window.setSize(800u, 600u);
             _application->Window.setTitle("Title");
             _application->Window.create();
-            _application->Window.registerEvents(Util::Input::Event::Type::Key);
+            _application->Window.registerEvents(GLUL::Input::Event::Type::Key);
             _application->Window.setDestroyCallback([&]() {
                 _application->signalExit();
             });
