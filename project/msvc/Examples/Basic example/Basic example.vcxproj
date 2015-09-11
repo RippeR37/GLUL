@@ -71,8 +71,8 @@
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PostBuildEvent>
-      <Command>xcopy /y /d  "$(ProjectDir)\..\..\..\..\bin\GLULd.dll" "$(ProjectDir)$(OutDir)"
-xcopy /y /d /e "$(ProjectDir)\..\..\..\..\bin\assets" "$(ProjectDir)$(OutDir)\assets"</Command>
+      <Command>xcopy /y /d "$(ProjectDir)\..\..\..\..\bin\GLULd.dll" "$(ProjectDir)$(OutDir)"
+xcopy /y /d /e /i "$(ProjectDir)\..\..\..\..\bin\assets" "$(ProjectDir)$(OutDir)\assets"</Command>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>
