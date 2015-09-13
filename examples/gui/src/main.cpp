@@ -80,15 +80,26 @@ void run() {
 
 
     // TextField
-    GLUL::GUI::TextField textField(window);
-    textField.setSize(glm::vec2(150.0f, 30.0f));
-    textField.setColor(glm::vec3(1.0f, 1.0f, 1.0f));
-    textField.setPosition(glm::vec2(250.0f, 140.0f));
-    textField.border.set(1, 0, glm::vec3(0.0f));
-        textField.text.setFont(fontArial);
-        textField.text.setText("defaultText");
-        textField.text.setColor(glm::vec3(0.0f));
-        textField.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Left, GLUL::GUI::Style::VerticalAlignment::Center);
+    GLUL::GUI::TextField textField1(window);
+    textField1.setSize(glm::vec2(150.0f, 30.0f));
+    textField1.setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+    textField1.setPosition(glm::vec2(250.0f, 140.0f));
+    textField1.border.set(1, 0, glm::vec3(0.0f));
+        textField1.text.setFont(fontArial);
+        textField1.text.setText("Default text");
+        textField1.text.setColor(glm::vec3(0.0f));
+        textField1.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Left, GLUL::GUI::Style::VerticalAlignment::Center);
+
+
+    GLUL::GUI::TextField textField2(window);
+    textField2.setSize(glm::vec2(150.0f, 30.0f));
+    textField2.setColor(glm::vec3(1.0f, 1.0f, 1.0f));
+    textField2.setPosition(glm::vec2(250.0f, 180.0f));
+    textField2.border.set(1, 0, glm::vec3(0.0f));
+        textField2.text.setFont(fontArial);
+        textField2.text.setText("Right alignment");
+        textField2.text.setColor(glm::vec3(0.0f));
+        textField2.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Right, GLUL::GUI::Style::VerticalAlignment::Center);
     
 
     /*

@@ -26,18 +26,26 @@ namespace GLUL {
 
         void InnerText::setFont(const Font& font) {
             _text.setFont(font);
+
+            updatePosition();
         }
 
         void InnerText::setFont(const Font* font) {
             _text.setFont(font);
+
+            updatePosition();
         }
 
         void InnerText::setText(const std::string& text) {
             _text.setText(text);
+
+            updatePosition();
         }
 
         void InnerText::setColor(const glm::vec3& color) {
             _text.setColor(color);
+
+            updatePosition();
         }
 
         void InnerText::setColor(const glm::vec4& color) {
