@@ -47,18 +47,20 @@ namespace GLUL {
             return triggerID;
         }
 
-        void EventAggregator::unregisterHandler(Event::Type type, EventHandler* inputHandler) {
-            auto iter = _handlers[type].find(inputHandler);
+        void EventAggregator::unregisterHandler(Event::Type type, EventHandler* inputHandler, bool removeFromHandler) {
+            auto handler = _handlers[type].find(inputHandler);
 
-            if(iter != _handlers[type].end()) {
-                (*iter)->_removeAggregator(type, this);
-                _handlers[type].erase(iter);
+            if(handler != _handlers[type].end()) {
+                if(removeFromHandler)
+                    (*handler)->_removeAggregator(type, this);
+
+                _handlers[type].erase(handler);
             }
         }
         
-        void EventAggregator::unregisterHandler(std::initializer_list<Event::Type> types, EventHandler* inputHandler) {
+        void EventAggregator::unregisterHandler(std::initializer_list<Event::Type> types, EventHandler* inputHandler, bool removeFromHandler) {
             for(auto type : types) {
-                unregisterHandler(type, inputHandler);
+                unregisterHandler(type, inputHandler, removeFromHandler);
             }
         }
 

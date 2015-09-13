@@ -15,7 +15,7 @@ namespace GLUL {
         void EventHandler::_unregisterNotifications() {
             for(auto& typeSet : _inputEventAggregators) {
                 for(auto& aggregator : typeSet.second) {
-                    aggregator->unregisterHandler(typeSet.first, this);
+                    aggregator->unregisterHandler(typeSet.first, this, false);
                 }
             }
 

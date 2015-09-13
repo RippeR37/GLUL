@@ -37,8 +37,8 @@ namespace GLUL {
                 unsigned int registerTrigger(Event::Type type, const std::function<void(Event&)>& inputTrigger);
                 unsigned int registerTrigger(std::initializer_list<Event::Type> types, const std::function<void(Event&)>& inputTrigger);
 
-                void unregisterHandler(Event::Type type, EventHandler* inputHandler);
-                void unregisterHandler(std::initializer_list<Event::Type> types, EventHandler* inputHandler);
+                void unregisterHandler(Event::Type type, EventHandler* inputHandler, bool removeFromHandler = true);
+                void unregisterHandler(std::initializer_list<Event::Type> types, EventHandler* inputHandler, bool removeFromHandler = true);
 
                 void unregisterTrigger(Event::Type type, unsigned int triggerID);
                 void unregisterTrigger(std::initializer_list<Event::Type> types, unsigned int triggerID);

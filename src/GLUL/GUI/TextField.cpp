@@ -25,7 +25,7 @@ namespace GLUL {
                     int inputCharI = static_cast<int>(onKeyStrokeEvent.key);
                     char inputChar = static_cast<char>(inputCharI);
                     
-                    if(std::isgraph(inputCharI) && inputCharI < 128 && inputCharI >= 0) {
+                    if(inputCharI >= 0 && inputCharI < 256 && std::isgraph(inputCharI)) {
                         textField.text.setText(textField.text.getText() + inputChar);
                     } else if(onKeyStrokeEvent.key == GLUL::Input::Key::Space) {
                         textField.text.setText(textField.text.getText() + " ");

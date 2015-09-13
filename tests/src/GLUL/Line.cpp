@@ -103,3 +103,13 @@ TEST(GLUL_Line, Reflected_Vectors) {
     ASSERT_FLOAT_EQ( 0.11622813f, reflected3.x);
     ASSERT_FLOAT_EQ( 0.99322248f, reflected3.y);
 }
+
+TEST(GLUL_Line, Set_Line_Equal_Points) {
+    glm::vec2 pos(3.14f);
+    GLUL::Line line;
+
+    line.setLine(pos, pos);
+
+    ASSERT_EQ(line.getPosition1(), pos);
+    ASSERT_EQ(line.getPosition2(), pos);
+}
