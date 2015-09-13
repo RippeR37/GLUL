@@ -70,6 +70,7 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Events/MouseLeave.cpp"
     "src/GLUL/GUI/Events/MouseMove.cpp"
     "src/GLUL/GUI/Events/MouseRelease.cpp"
+    "src/GLUL/GUI/Events/TextInput.cpp"
     
     "src/GLUL/GUI/Styles/Border.cpp"
     
@@ -82,6 +83,7 @@ set(GLUL_SRCS
     "src/GLUL/GUI/TextField.cpp"
     "src/GLUL/GUI/Window.cpp"
     
+    "src/GLUL/Input/EventTypes/CharacterEvent.cpp"
     "src/GLUL/Input/EventTypes/KeyEvent.cpp"
     "src/GLUL/Input/EventTypes/MouseButtonEvent.cpp"
     "src/GLUL/Input/EventTypes/MouseMovementEvent.cpp"
@@ -160,6 +162,7 @@ set(GLUL_H
     "include/GLUL/GUI/Events/MouseLeave.h"
     "include/GLUL/GUI/Events/MouseMove.h"
     "include/GLUL/GUI/Events/MouseRelease.h"
+    "include/GLUL/GUI/Events/TextInput.h"
     
     "include/GLUL/GUI/Styles/Border.h"
     "include/GLUL/GUI/Styles/HorizontalAlignment.h"
@@ -176,6 +179,7 @@ set(GLUL_H
     
     "include/GLUL/Helpers/HashEnum.h"
     
+    "include/GLUL/Input/EventTypes/CharacterEvent.h"
     "include/GLUL/Input/EventTypes/KeyEvent.h"
     "include/GLUL/Input/EventTypes/MouseButtonEvent.h"
     "include/GLUL/Input/EventTypes/MouseMovementEvent.h"

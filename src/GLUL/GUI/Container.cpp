@@ -226,6 +226,22 @@ namespace GLUL {
                     }
                 }
             );
+
+            // TextInput
+            onTextInput += Event::TextInput::Handler(
+                "__GLUL::GUI::Event::TextInput::Forwarding", 
+                [&](Component& container, const Event::TextInput& onTextInputEvent) {
+                    (void) container; // skip it
+
+                    for(Component* componentPtr : _components) {
+                        Component& component = *componentPtr;
+
+                        if(component.isEnabled() && component.isFocused()) {
+                            component.onTextInput(component, onTextInputEvent);
+                        }
+                    }
+                }
+            );
         }
         
         bool Container::isUnderMouse(Component* component) const {

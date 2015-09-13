@@ -152,6 +152,7 @@ namespace GLUL {
 
     void Window::registerEvents() {
         registerEvents({
+            GLUL::Input::Event::Type::Character,
             GLUL::Input::Event::Type::Key,
             GLUL::Input::Event::Type::MouseButton,
             GLUL::Input::Event::Type::MouseMovement,
@@ -163,6 +164,21 @@ namespace GLUL {
         getContext().makeActive(this);
 
         switch(type) {
+            case Input::Event::Type::Character:
+                glfwSetCharCallback(
+                    getHandle(), 
+                    [](GLFWwindow* window, unsigned int codepoint) {
+                        GLUL::Window* inputWindow = GLUL::Windows::Get(window);
+
+                        if(inputWindow) {
+                            inputWindow->eventAggregator.registerEvent(
+                                new GLUL::Input::CharacterEvent(codepoint)
+                            );
+                        }
+                    }
+                );
+                break;
+
             case Input::Event::Type::Key:
                 glfwSetKeyCallback(
                     getHandle(), 
@@ -269,6 +285,7 @@ namespace GLUL {
     
     void Window::skipEvents() {
         skipEvents({
+            GLUL::Input::Event::Type::Character,
             GLUL::Input::Event::Type::Key,
             GLUL::Input::Event::Type::MouseButton,
             GLUL::Input::Event::Type::MouseMovement,
@@ -278,6 +295,7 @@ namespace GLUL {
 
     void Window::skipEvents(Input::Event::Type type) {
         switch(type) {
+            case GLUL::Input::Event::Type::Character: glfwSetCharCallback(getHandle(), nullptr); break;
             case GLUL::Input::Event::Type::Key: glfwSetKeyCallback(getHandle(), nullptr); break;
             case GLUL::Input::Event::Type::MouseButton: glfwSetMouseButtonCallback(getHandle(), nullptr); break;
             case GLUL::Input::Event::Type::MouseMovement: glfwSetCursorPosCallback(getHandle(), nullptr); break;

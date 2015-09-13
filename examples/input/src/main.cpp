@@ -21,6 +21,9 @@ class MyInputHandler : public GLUL::Input::EventHandler {
          */
         void handleInputEvent(const GLUL::Input::Event& inputEvent) {
             switch(inputEvent.getType()) {
+                case GLUL::Input::Event::Type::Character:
+                    handleCharacterInputEvent(*inputEvent.asCharacterEvent()); break;
+
                 case GLUL::Input::Event::Type::Key: 
                     handleKeyInputEvent(*inputEvent.asKeyEvent()); break;
 
@@ -33,6 +36,21 @@ class MyInputHandler : public GLUL::Input::EventHandler {
                 case GLUL::Input::Event::Type::MouseScroll:
                     handleMouseScrollInputEvent(*inputEvent.asMouseScrollEvent()); break;
             }
+        }
+
+        /**
+         * Handler for character input events (ASCII text)
+         */
+        void handleCharacterInputEvent(const GLUL::Input::CharacterEvent& characterEvent) {
+            std::cout << "Character entered: " << characterEvent.getCharacter() << "] - ASCII: ";
+
+            if(characterEvent.isASCII()) {
+                std::cout << "true (" << characterEvent.asASCII() << ")";
+            } else {
+                std::cout << "false";
+            }
+
+            std::cout << std::endl;
         }
 
         /**
@@ -99,6 +117,7 @@ void setupInputEvents(GLUL::Window& window) {
     
     /*
     window.registerEvents({
+        GLUL::Input::Event::Type::Character,
         GLUL::Input::Event::Type::Key,
         GLUL::Input::Event::Type::MouseButton,
         GLUL::Input::Event::Type::MouseMovement,
@@ -113,6 +132,7 @@ void setupInputEvents(GLUL::Window& window) {
 void registerHandler(GLUL::Window& window, GLUL::Input::EventHandler* handler) {
     window.eventAggregator.registerHandler(
         {
+            GLUL::Input::Event::Type::Character,
             GLUL::Input::Event::Type::Key,
             GLUL::Input::Event::Type::MouseButton,
             GLUL::Input::Event::Type::MouseMovement,

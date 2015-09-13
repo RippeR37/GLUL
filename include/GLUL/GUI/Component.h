@@ -8,6 +8,7 @@
 #include <GLUL/GUI/Events/MouseEnter.h>
 #include <GLUL/GUI/Events/MouseLeave.h>
 #include <GLUL/GUI/Events/MouseMove.h>
+#include <GLUL/GUI/Events/TextInput.h>
 
 #include <glm/vec2.hpp>
 
@@ -64,6 +65,7 @@ namespace GLUL {
                 Event::HandlerAggregator<Event::MouseEnter> onMouseEnter;
                 Event::HandlerAggregator<Event::MouseLeave> onMouseLeave;
                 Event::HandlerAggregator<Event::MouseMove> onMouseMove;
+                Event::HandlerAggregator<Event::TextInput> onTextInput;
                 
             protected:
                 void setValid();

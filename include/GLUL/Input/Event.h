@@ -7,6 +7,7 @@ namespace GLUL {
 
     namespace Input {
 
+        class CharacterEvent;
         class KeyEvent;
         class MouseButtonEvent;
         class MouseMovementEvent;
@@ -15,6 +16,7 @@ namespace GLUL {
         class GLUL_API Event {
             public:
                 enum class Type {
+                    Character,
                     Key,
                     MouseButton,
                     MouseMovement,
@@ -29,12 +31,14 @@ namespace GLUL {
             public:
                 Event* asEvent();
                 const Event* asEvent() const;
-
+                
+                virtual CharacterEvent* asCharacterEvent();
                 virtual KeyEvent* asKeyEvent();
                 virtual MouseButtonEvent* asMouseButtonEvent();
                 virtual MouseMovementEvent* asMouseMovementEvent();
                 virtual MouseScrollEvent* asMouseScrollEvent();
-
+                
+                virtual const CharacterEvent* asCharacterEvent() const;
                 virtual const KeyEvent* asKeyEvent() const;
                 virtual const MouseButtonEvent* asMouseButtonEvent() const;
                 virtual const MouseMovementEvent* asMouseMovementEvent() const;
@@ -50,6 +54,7 @@ namespace GLUL {
 
 }
 
+#include <GLUL/Input/EventTypes/CharacterEvent.h>
 #include <GLUL/Input/EventTypes/KeyEvent.h>
 #include <GLUL/Input/EventTypes/MouseButtonEvent.h>
 #include <GLUL/Input/EventTypes/MouseMovementEvent.h>

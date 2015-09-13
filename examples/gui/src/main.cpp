@@ -10,7 +10,7 @@
 #include <GLUL/GUI/Events/MouseClick.h>
 
 #include <vector>
-#include <iostream> // TODO: remove this
+#include <iostream>
 
 /**
  * Font loading helper function

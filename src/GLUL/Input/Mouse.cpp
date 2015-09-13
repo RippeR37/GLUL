@@ -18,8 +18,8 @@ namespace GLUL {
                 int libMode = GLFW_CURSOR_NORMAL;
 
                 switch(cursorMode) {
-                    case CursorMode::Normal: libMode = GLFW_CURSOR_NORMAL; break;
-                    case CursorMode::Hidden: libMode = GLFW_CURSOR_HIDDEN; break;
+                    case CursorMode::Normal:   libMode = GLFW_CURSOR_NORMAL; break;
+                    case CursorMode::Hidden:   libMode = GLFW_CURSOR_HIDDEN; break;
                     case CursorMode::Disabled: libMode = GLFW_CURSOR_DISABLED; break;
 
                     default: 

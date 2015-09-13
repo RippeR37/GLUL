@@ -204,6 +204,7 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Button.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Component.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Container.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\TextInput.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\EventTemplate.hpp" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\HandlerAggregator.hpp" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\KeyStroke.h" />
@@ -230,6 +231,7 @@
     <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\MouseButtonEvent.h" />
     <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\MouseMovementEvent.h" />
     <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\MouseScrollEvent.h" />
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\CharacterEvent.h" />
     <ClInclude Include="..\..\..\include\GLUL\Input\Keyboard.h" />
     <ClInclude Include="..\..\..\include\GLUL\Input\Mouse.h" />
     <ClInclude Include="..\..\..\include\GLUL\Input\Types.h" />
@@ -288,6 +290,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseLeave.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseMove.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseRelease.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\TextInput.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Font.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\InnerText.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Styles\Border.cpp" />
@@ -299,6 +302,7 @@
     <ClCompile Include="..\..\..\src\GLUL\Input\EventAggregator.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Input\EventHandler.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Input\EventTrigger.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\CharacterEvent.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\KeyEvent.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\MouseButtonEvent.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\MouseMovementEvent.cpp" />

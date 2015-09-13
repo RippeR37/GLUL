@@ -21,17 +21,21 @@ namespace GLUL {
                 "__GLUL::GUI::TextField::KeyStroke", 
                 [&](Component& component, const Event::KeyStroke& onKeyStrokeEvent) {
                     TextField& textField = *static_cast<TextField*>(&component);
-
-                    int inputCharI = static_cast<int>(onKeyStrokeEvent.key);
-                    char inputChar = static_cast<char>(inputCharI);
                     
-                    if(inputCharI >= 0 && inputCharI < 256 && std::isgraph(inputCharI)) {
-                        textField.text.setText(textField.text.getText() + inputChar);
-                    } else if(onKeyStrokeEvent.key == GLUL::Input::Key::Space) {
+                    if(onKeyStrokeEvent.key == GLUL::Input::Key::Space) {
                         textField.text.setText(textField.text.getText() + " ");
                     } else if(onKeyStrokeEvent.key == GLUL::Input::Key::Backspace) {
                         textField.text.setText(textField.text.getText().substr(0, textField.text.getText().length() - 1));
                     }
+                }
+            );
+
+            onTextInput += Event::TextInput::Handler(
+                "__GLUL::GUI::TextField::TextInput", 
+                [&](Component& component, const Event::TextInput& onTextInputEvent) {
+                    TextField& textField = *static_cast<TextField*>(&component);
+                    
+                    textField.text.setText(textField.text.getText() + onTextInputEvent.text);
                 }
             );
 

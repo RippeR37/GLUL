@@ -24,6 +24,10 @@ namespace GLUL {
         }
 
 
+        
+        CharacterEvent* Event::asCharacterEvent() {
+            return nullptr;
+        }
 
         KeyEvent* Event::asKeyEvent() {
             return nullptr;
@@ -38,6 +42,10 @@ namespace GLUL {
         }
 
         MouseScrollEvent* Event::asMouseScrollEvent() {
+            return nullptr;
+        }
+
+        const CharacterEvent* Event::asCharacterEvent() const {
             return nullptr;
         }
 

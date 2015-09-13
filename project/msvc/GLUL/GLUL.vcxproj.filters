@@ -317,6 +317,12 @@
     <ClInclude Include="..\..\..\include\GLUL\Interfaces\MVC\View.h">
       <Filter>Header Files\Interfaces\MVC</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Input\EventTypes\CharacterEvent.h">
+      <Filter>Header Files\Input\EventTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\TextInput.h">
+      <Filter>Header Files\GUI\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
@@ -522,6 +528,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\Interfaces\Implementations\ImageFileTGA.cpp">
       <Filter>Source Files\Interfaces\Implementations</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Input\EventTypes\CharacterEvent.cpp">
+      <Filter>Source Files\Input\EventTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\TextInput.cpp">
+      <Filter>Source Files\GUI\Events</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

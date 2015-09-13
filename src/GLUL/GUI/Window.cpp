@@ -8,6 +8,7 @@ namespace GLUL {
         Window::Window() : GLUL::Window(), Container(nullptr) {
             this->eventAggregator.registerHandler(
                 {
+                    GLUL::Input::Event::Type::Character,
                     GLUL::Input::Event::Type::Key,
                     GLUL::Input::Event::Type::MouseButton, 
                     GLUL::Input::Event::Type::MouseMovement
@@ -19,6 +20,7 @@ namespace GLUL {
         Window::Window(unsigned int width, unsigned int height, const std::string& title) : GLUL::Window(width, height, title), Container(nullptr) {
             this->eventAggregator.registerHandler(
                 {
+                    GLUL::Input::Event::Type::Character,
                     GLUL::Input::Event::Type::Key,
                     GLUL::Input::Event::Type::MouseButton, 
                     GLUL::Input::Event::Type::MouseMovement
@@ -30,6 +32,7 @@ namespace GLUL {
         Window::Window(const glm::uvec2& size, const std::string& title) : GLUL::Window(size, title), Container(nullptr) {
             this->eventAggregator.registerHandler(
                 {
+                    GLUL::Input::Event::Type::Character,
                     GLUL::Input::Event::Type::Key,
                     GLUL::Input::Event::Type::MouseButton, 
                     GLUL::Input::Event::Type::MouseMovement
@@ -41,6 +44,7 @@ namespace GLUL {
         Window::~Window() {
             this->eventAggregator.unregisterHandler(
                 {
+                    GLUL::Input::Event::Type::Character,
                     GLUL::Input::Event::Type::Key,
                     GLUL::Input::Event::Type::MouseButton, 
                     GLUL::Input::Event::Type::MouseMovement
@@ -69,6 +73,22 @@ namespace GLUL {
         
         void Window::handleInputEvent(const GLUL::Input::Event& inputEvent) {
             switch(inputEvent.getType()) {
+                case GLUL::Input::Event::Type::Character:
+                    {
+                        const GLUL::Input::CharacterEvent& thisEvent = *(inputEvent.asCharacterEvent());
+
+                        if(thisEvent.isASCII()) {
+                            unsigned char character;
+                            std::string text;
+
+                            character = thisEvent.asASCII();
+                            text = reinterpret_cast<char&>(character);
+
+                            onTextInput(*this, Event::TextInput(text));
+                        }
+                    }
+                    break;
+
                 case GLUL::Input::Event::Type::Key:
                     {
                         const GLUL::Input::KeyEvent& thisEvent = *(inputEvent.asKeyEvent());
