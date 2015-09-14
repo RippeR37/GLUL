@@ -187,7 +187,7 @@ namespace GLUL {
             }
 
             // Correct size for 'space' character
-            _glyphs[' '].size = _glyphs['a'].size;
+            _glyphs[static_cast<unsigned char>(' ')].size = _glyphs[static_cast<unsigned char>('a')].size;
             
             _height = fontHeight;
             _texture.unbind();
