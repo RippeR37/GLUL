@@ -153,7 +153,7 @@ deploy_script:
   # Deploy variables
   - cmd: set BINTRAY_REPO=generic
   - cmd: set BINTRAY_PACKAGE=GLUL
-  - cmd: set BINTRAY_VERSION=0.2
+  - cmd: set BINTRAY_VERSION=0.3
   - cmd: set BINTRAY_PATH=%BINTRAY_USER%/%BINTRAY_REPO%/%BINTRAY_PACKAGE%/%BINTRAY_VERSION%
   - cmd: set BINTRAY_PATH_FULL=%BINTRAY_PATH%/windows/%DEPLOY_NAME_FILE%
   - cmd: set BINTRAY_PATH_TAG_FULL=%BINTRAY_PATH%/windows/%DEPLOY_NAME_FILE_TAG%

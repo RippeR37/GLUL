@@ -17,10 +17,10 @@
     },
 
     "version": {
-        "name": "0.2",
-        "desc": "GLUL v0.2",
-        "released": "2015-09-09",
-        "vcs_tag": "0.2",
+        "name": "0.3",
+        "desc": "GLUL v0.3",
+        "released": "2015-09-15",
+        "vcs_tag": "v0.3",
         "attributes": [],
         "gpgSign": false
     },
