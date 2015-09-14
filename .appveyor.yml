@@ -106,8 +106,10 @@ deploy_script:
   - cmd: echo "#####################"
 
   # Directories & variables
-  - cmd: set DEPLOY_NAME=GLUL-msvc-win32-%APPVEYOR_REPO_BRANCH%
-  - cmd: set DEPLOY_NAME_FILE=%DEPLOY_NAME%.latest.7z
+  - cmd: set DEPLOY_NAME=GLUL-msvc-win32-%APPVEYOR_REPO_BRANCH%.latest
+  - cmd: set DEPLOY_NAME_TAG=GLUL-%APPVEYOR_REPO_TAG_NAME%-msvc-win32
+  - cmd: set DEPLOY_NAME_FILE=%DEPLOY_NAME%.7z
+  - cmd: set DEPLOY_NAME_FILE_TAG=%DEPLOY_NAME_TAG%.7z
   - cmd: set DEPLOY_DIR_1=deploy
   - cmd: set DEPLOY_DIR_2=%DEPLOY_DIR_1%\windows
   - cmd: set DEPLOY_DIR_FULL=%DEPLOY_DIR_2%\%DEPLOY_NAME%
@@ -145,16 +147,24 @@ deploy_script:
   - cmd: 7z a -t7z -r -m0=LZMA2 -mx=9 "%DEPLOY_NAME_FILE%" ./*
   - cmd: echo "Package %DEPLOY_NAME% created..."
 
+  # Create TAG package to upload for commits with new tags
+  - cmd: copy "%DEPLOY_NAME_FILE%" "%DEPLOY_NAME_FILE_TAG%"
+
   # Deploy variables
   - cmd: set BINTRAY_REPO=generic
   - cmd: set BINTRAY_PACKAGE=GLUL
   - cmd: set BINTRAY_VERSION=0.2
   - cmd: set BINTRAY_PATH=%BINTRAY_USER%/%BINTRAY_REPO%/%BINTRAY_PACKAGE%/%BINTRAY_VERSION%
   - cmd: set BINTRAY_PATH_FULL=%BINTRAY_PATH%/windows/%DEPLOY_NAME_FILE%
+  - cmd: set BINTRAY_PATH_TAG_FULL=%BINTRAY_PATH%/windows/%DEPLOY_NAME_FILE_TAG%
 
   # Deploy package
   - cmd: curl -fsS -u "%BINTRAY_USER%:%BINTRAY_APIKEY%" -X PUT "https://api.bintray.com/content/%BINTRAY_PATH_FULL%?override=1&publish=1" --data-binary @%DEPLOY_NAME_FILE%
-  - cmd: echo "Deployed!"
+  - cmd: echo "Deployed package!"
+
+  # If commit was tagged, deploy also TAG package
+  - cmd: if [%APPVEYOR_REPO_TAG%]==[true] curl -fsS -u "%BINTRAY_USER%:%BINTRAY_APIKEY%" -X PUT "https://api.bintray.com/content/%BINTRAY_PATH_TAG_FULL%?override=1&publish=1" --data-binary @%DEPLOY_NAME_FILE_TAG%
+  - cmd: if [%APPVEYOR_REPO_TAG%]==[true] echo "Deployed TAG package!"
 
   # Return to build directory and finish deploying
   - cmd: cd "%APPVEYOR_BUILD_FOLDER%"
