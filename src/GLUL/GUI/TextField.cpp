@@ -22,10 +22,12 @@ namespace GLUL {
                 [&](Component& component, const Event::KeyStroke& onKeyStrokeEvent) {
                     TextField& textField = *static_cast<TextField*>(&component);
                     
-                    if(onKeyStrokeEvent.key == GLUL::Input::Key::Space) {
-                        textField.text.setText(textField.text.getText() + " ");
-                    } else if(onKeyStrokeEvent.key == GLUL::Input::Key::Backspace) {
-                        textField.text.setText(textField.text.getText().substr(0, textField.text.getText().length() - 1));
+                    switch(onKeyStrokeEvent.key) {
+                        case GLUL::Input::Key::Backspace:
+                            textField.text.setText(textField.text.getText().substr(0, textField.text.getText().length() - 1));
+                            break;
+
+                        default: break;
                     }
                 }
             );
@@ -115,6 +117,10 @@ namespace GLUL {
             return _color.a;
         }
 
+        const std::string& TextField::getValue() const {
+            return text.getText();
+        }
+
         void TextField::setColor(const glm::vec3& color) {
             setColor(glm::vec4(color, getAlpha()));
         }
@@ -127,6 +133,10 @@ namespace GLUL {
 
         void TextField::setAlpha(const float alpha) {
             setColor(glm::vec4(getColor().r, getColor().g, getColor().b, alpha));
+        }
+
+        void TextField::setValue(const std::string& value) {
+            text.setText(value);
         }
 
         GL::Program& TextField::getProgram() {

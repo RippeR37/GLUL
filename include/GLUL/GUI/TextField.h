@@ -31,10 +31,12 @@ namespace GLUL {
 
                 const glm::vec4& getColor() const;
                 float getAlpha() const;
+                const std::string& getValue() const;
                 
                 void setColor(const glm::vec3& color);
                 void setColor(const glm::vec4& color);
                 void setAlpha(const float alpha);
+                void setValue(const std::string& value);
 
                 InnerText text;
                 Style::Border border;

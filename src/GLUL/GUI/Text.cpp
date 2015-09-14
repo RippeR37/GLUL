@@ -228,23 +228,23 @@ namespace GLUL {
                 character = getText()[i];
                 isDrawn = (std::isgraph(character) > 0);
 
+                // Calculations - position
+                posStart = posCursor + getScale() * glm::vec2(
+                    getFont()->getMetric(character).glyphPos.x,
+                    getFont()->getMetric(character).glyphPos.y - getFont()->getMetric(character).size.y
+                );
+                posEnd = posStart  + getScale() * getFont()->getMetric(character).size;
+
+                // Bounding-rectangle update
+                if(posStart.x < bbBottomLeft.x) bbBottomLeft.x = posStart.x;
+                if(posStart.y < bbBottomLeft.y) bbBottomLeft.y = posStart.y;
+                if(posEnd.x > bbTopRight.x) bbTopRight.x = posEnd.x;
+                if(posEnd.y > bbTopRight.y) bbTopRight.y = posEnd.y;
+
                 if(isDrawn) {
                     // Calcuations - texture
                     texStart  = getFont()->getMetric(character).texPosStart;
                     texEnd    = getFont()->getMetric(character).texPosEnd;
-
-                    // Calculations - position
-                    posStart = posCursor + getScale() * glm::vec2(
-                        getFont()->getMetric(character).glyphPos.x,
-                        getFont()->getMetric(character).glyphPos.y - getFont()->getMetric(character).size.y
-                    );
-                    posEnd = posStart  + getScale() * getFont()->getMetric(character).size;
-
-                    // Bounding-rectangle update
-                    if(posStart.x < bbBottomLeft.x) bbBottomLeft.x = posStart.x;
-                    if(posStart.y < bbBottomLeft.y) bbBottomLeft.y = posStart.y;
-                    if(posEnd.x > bbTopRight.x) bbTopRight.x = posEnd.x;
-                    if(posEnd.y > bbTopRight.y) bbTopRight.y = posEnd.y;
 
                     // Vertices
                     if(getFont()->getMetric(character).size.x > 0 && getFont()->getMetric(character).size.y > 0) {

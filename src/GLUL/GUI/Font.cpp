@@ -185,6 +185,9 @@ namespace GLUL {
                     }
                 }
             }
+
+            // Correct size for 'space' character
+            _glyphs[' '].size = _glyphs['a'].size;
             
             _height = fontHeight;
             _texture.unbind();
