@@ -3,9 +3,10 @@
 #include <GLUL/GL++/VertexArray.h>
 #include <GLUL/GL++/VertexBuffer.h>
 #include <GLUL/GUI/Button.h>
-#include <GLUL/GUI/TextField.h>
+#include <GLUL/GUI/Checkbox.h>
 #include <GLUL/GUI/Font.h>
 #include <GLUL/GUI/Text.h>
+#include <GLUL/GUI/TextField.h>
 #include <GLUL/GUI/Window.h>
 #include <GLUL/GUI/Events/MouseClick.h>
 
@@ -45,6 +46,12 @@ void run() {
     text.setColor(glm::vec3(1.0f, 0.7f, 0.3f));
     text.setPosition(glm::vec2(50.0f, 50.0f));
     text.bindTo(window);
+
+    GLUL::GUI::Text text2(window);
+    text2.setFont(fontArial);
+    text2.setText("Buttons\t\t\t\t\t\t\t\t\t Text fields\t\t\t\t\t\t\t\tCheckboxes");
+    text2.setColor(glm::vec3(0.3f, 0.7f, 0.7f));
+    text2.setPosition(glm::vec2(50.0f, 110.0f));
 
 
     // Buttons
@@ -101,6 +108,44 @@ void run() {
         textField2.text.setColor(glm::vec3(0.0f));
         textField2.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Right, GLUL::GUI::Style::VerticalAlignment::Center);
     
+    // Checkboxes
+    GLUL::GUI::Checkbox checkbox1_off(window);
+    checkbox1_off.setSize(glm::vec2(20.0f));
+    checkbox1_off.setPosition(glm::vec2(450.0f, 140.0f));
+
+    GLUL::GUI::Checkbox checkbox2_off(window);
+    checkbox2_off.setSize(glm::vec2(20.0f));
+    checkbox2_off.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
+    checkbox2_off.setPosition(glm::vec2(480.0f, 140.0f));
+    checkbox2_off.border.set(2, 0, glm::vec3(0.0f, 0.0f, 0.0f));
+
+    GLUL::GUI::Checkbox checkbox3_off(window);
+    checkbox3_off.setSize(glm::vec2(20.0f));
+    checkbox3_off.setColor(glm::vec3(0.2f, 0.2f, 0.2f));
+    checkbox3_off.setMarkColor(glm::vec3(0.8f, 0.8f, 0.8f));
+    checkbox3_off.setMarkScale(0.7f);
+    checkbox3_off.setPosition(glm::vec2(510.0f, 140.0f));
+    checkbox3_off.border.set(1, 0, glm::vec3(0.0f, 0.0f, 0.0f));
+
+    GLUL::GUI::Checkbox checkbox1_on(window);
+    checkbox1_on.setSize(glm::vec2(20.0f));
+    checkbox1_on.setPosition(glm::vec2(450.0f, 170.0f));
+    checkbox1_on.setState(true);
+
+    GLUL::GUI::Checkbox checkbox2_on(window, true); // default state can be passed as constructor parameter
+    checkbox2_on.setSize(glm::vec2(20.0f));
+    checkbox2_on.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
+    checkbox2_on.setPosition(glm::vec2(480.0f, 170.0f));
+    checkbox2_on.border.set(2, 0, glm::vec3(0.0f, 0.0f, 0.0f));
+
+    GLUL::GUI::Checkbox checkbox3_on(window, true);
+    checkbox3_on.setSize(glm::vec2(20.0f));
+    checkbox3_on.setColor(glm::vec3(0.2f, 0.2f, 0.2f));
+    checkbox3_on.setMarkColor(glm::vec3(0.8f, 0.8f, 0.8f));
+    checkbox3_on.setMarkScale(0.7f);
+    checkbox3_on.setPosition(glm::vec2(510.0f, 170.0f));
+    checkbox3_on.border.set(1, 0, glm::vec3(0.0f, 0.0f, 0.0f));
+
 
     /*
      * Possible events:

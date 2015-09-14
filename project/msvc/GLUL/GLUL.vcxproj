@@ -202,6 +202,7 @@
     <ClInclude Include="..\..\..\include\GLUL\GL++\VertexAttrib.h" />
     <ClInclude Include="..\..\..\include\GLUL\GL++\VertexBuffer.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Button.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Checkbox.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Component.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Container.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\TextInput.h" />
@@ -282,6 +283,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GL++\VertexAttrib.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GL++\VertexBuffer.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Button.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Checkbox.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Component.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Container.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\KeyStroke.cpp" />

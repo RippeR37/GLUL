@@ -42,11 +42,11 @@ namespace GLUL {
                 void setFont(const Font* font);
                 void setText(const std::string& text);
                 void setSize(const glm::vec2& size);
-                void setSize(const unsigned int newHeight);
-                void setScale(const float scale);
+                void setSize(unsigned int newHeight);
+                void setScale(float scale);
                 void setColor(const glm::vec3& color);
                 void setColor(const glm::vec4& color);
-                void setAlpha(const float alpha);
+                void setAlpha(float alpha);
                 
 
             private:

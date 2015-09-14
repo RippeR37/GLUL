@@ -75,6 +75,7 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Styles/Border.cpp"
     
     "src/GLUL/GUI/Button.cpp"
+    "src/GLUL/GUI/Checkbox.cpp"
     "src/GLUL/GUI/Component.cpp"
     "src/GLUL/GUI/Container.cpp"
     "src/GLUL/GUI/Font.cpp"
@@ -169,6 +170,7 @@ set(GLUL_H
     "include/GLUL/GUI/Styles/VerticalAlignment.h"
     
     "include/GLUL/GUI/Button.h"
+    "include/GLUL/GUI/Checkbox.h"
     "include/GLUL/GUI/Component.h"
     "include/GLUL/GUI/Container.h"
     "include/GLUL/GUI/Font.h"

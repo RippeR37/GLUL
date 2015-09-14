@@ -323,6 +323,9 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\TextInput.h">
       <Filter>Header Files\GUI\Events</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Checkbox.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
@@ -534,6 +537,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\TextInput.cpp">
       <Filter>Source Files\GUI\Events</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Checkbox.cpp">
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

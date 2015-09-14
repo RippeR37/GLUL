@@ -172,14 +172,14 @@ namespace GLUL {
             setSize(static_cast<unsigned int>(size.y));
         }
 
-        void Text::setSize(const unsigned int newHeight) {
+        void Text::setSize(unsigned int newHeight) {
             float oldFontHeight = static_cast<float>(getFont() ? getFont()->getHeight() : 1.0f);
             float newFontHeight = static_cast<float>(newHeight);
 
             setScale(newFontHeight / oldFontHeight);
         }
 
-        void Text::setScale(const float scale) {
+        void Text::setScale(float scale) {
             _scale = scale;
             
             validate();
@@ -193,7 +193,7 @@ namespace GLUL {
             _color = color;
         }
 
-        void Text::setAlpha(const float alpha) {
+        void Text::setAlpha(float alpha) {
             setColor(glm::vec4(getColor().r, getColor().g, getColor().b, alpha));
         }
 
