@@ -24,12 +24,12 @@ TEST(GLUL_Clock, Get_Elapsed_With_Sleep) {
     GLUL::Window::initializeGLFW();
     time1 = clock.getElapsedTime();
     time2 = clock.getElapsedTime();
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
     time3 = clock.getElapsedTime();
 
     ASSERT_TRUE(time1 <= time2);
     ASSERT_TRUE(time2 <= time3);
-    ASSERT_TRUE(time3 - time2 >= 0.045);
+    ASSERT_TRUE(time3 - time2 >= 0.05);
 }
 
 TEST(GLUL_Clock, Reset) {
