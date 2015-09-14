@@ -195,10 +195,10 @@ before_deploy:
   - echo "Package ${DEPLOY_NAME_FILE} created..."
 
   # Create TAG package to upload for commits with new tags
-  - if [ -n "TRAVIS_TAG" ]; then cd deploy/ubuntu; fi
-  - if [ -n "TRAVIS_TAG" ]; then cp "${DEPLOY_NAME_FILE}" "${DEPLOY_NAME_FILE_TAG}"; fi
-  - if [ -n "TRAVIS_TAG" ]; then cd ../..; fi
-  - if [ -n "TRAVIS_TAG" ]; then echo "TAG package ${DEPLOY_NAME_FILE} created..."; fi
+  - if [ -n "${TRAVIS_TAG}" ]; then cd deploy/ubuntu; fi
+  - if [ -n "${TRAVIS_TAG}" ]; then cp "${DEPLOY_NAME_FILE}" "${DEPLOY_NAME_FILE_TAG}"; fi
+  - if [ -n "${TRAVIS_TAG}" ]; then cd ../..; fi
+  - if [ -n "${TRAVIS_TAG}" ]; then echo "TAG package ${DEPLOY_NAME_FILE} created..."; fi
 
 
 deploy:
