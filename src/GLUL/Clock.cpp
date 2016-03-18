@@ -1,8 +1,5 @@
 #include <GLUL/Clock.h>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include <string>
 #include <fstream>
 
@@ -10,27 +7,35 @@
 namespace GLUL {
 
     Clock::Clock() {
-        setStartTime(Clock::now());
+        reset();
     }
 
-    double Clock::reset() {
-        double now = Clock::now();
-        double elapsed = now - _startTime;
-        setStartTime(now);
-        
-        return elapsed;
+    void Clock::reset() {
+        TimePoint tpNow = now();
+
+        _tpStart = _tpLast = tpNow;
     }
 
-    double Clock::getElapsedTime() {
-        return (Clock::now() - _startTime);
+    Clock::TimePoint Clock::now() {
+        return std::chrono::high_resolution_clock::now();
     }
 
-    void Clock::setStartTime(double time) {
-        _startTime = time;
+    Clock::Duration Clock::getElapsedTime() {
+        TimePoint tpNow = now();
+        Duration result = tpNow - _tpLast;
+
+        _tpLast = tpNow;
+
+        return result;
     }
 
-    double Clock::now() {
-        return glfwGetTime();
+    Clock::Duration Clock::getTotalTime() {
+        TimePoint tpNow = now();
+        Duration result = tpNow - _tpStart;
+
+        _tpLast = tpNow;
+
+        return result;
     }
 
 }

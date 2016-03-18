@@ -8,39 +8,34 @@
 
 
 TEST(GLUL_Clock, Now_Notdecreasing) {
-    double time1, time2;
-
-    GLUL::Window::initializeGLFW();
-    time1 = GLUL::Clock::now();
-    time2 = GLUL::Clock::now();
+    auto time1 = GLUL::Clock::now();
+    auto time2 = GLUL::Clock::now();
 
     ASSERT_TRUE(time1 <= time2);
 }
 
 TEST(GLUL_Clock, Get_Elapsed_With_Sleep) {
     GLUL::Clock clock;
-    double time1, time2, time3;
+    double t1, t2, t3;
 
-    GLUL::Window::initializeGLFW();
-    time1 = clock.getElapsedTime();
-    time2 = clock.getElapsedTime();
+    t1 = clock.getElapsedTime();
+    t2 = clock.getElapsedTime();
     std::this_thread::sleep_for(std::chrono::milliseconds(100));
-    time3 = clock.getElapsedTime();
+    t3 = clock.getElapsedTime();
 
-    ASSERT_TRUE(time1 <= time2);
-    ASSERT_TRUE(time2 <= time3);
-    ASSERT_TRUE(time3 - time2 >= 0.05);
+    ASSERT_TRUE(t1 <= t2);
+    ASSERT_TRUE(t2 <= t3);
+    ASSERT_TRUE(t3 - t2 >= 0.1);
 }
 
 TEST(GLUL_Clock, Reset) {
     GLUL::Clock clock;
-    double time1, time2;
+    double t1, t2;
 
-    GLUL::Window::initializeGLFW();
-    std::this_thread::sleep_for(std::chrono::milliseconds(50));
-    time1 = clock.getElapsedTime();
+    std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    t1 = clock.getElapsedTime();
     clock.reset();
-    time2 = clock.getElapsedTime();
+    t2 = clock.getElapsedTime();
 
-    ASSERT_TRUE(time2 < time1);
+    ASSERT_TRUE(t2 < t1);
 }
