@@ -41,7 +41,7 @@ namespace GLUL {
             return getState();
         }
 
-        void Checkbox::render() const {
+        const Checkbox& Checkbox::render() const {
             if(isVisible() && getAlpha() > 0.0f) {
                 if(!isValid())
                     validate();
@@ -55,16 +55,20 @@ namespace GLUL {
 
                 getProgram().unbind();
             }
+
+            return *this;
         }
 
-        void Checkbox::update(double deltaTime) {
+        Checkbox& Checkbox::update(double deltaTime) {
             (void) deltaTime;
 
             if(!isValid())
                 validate();
+
+            return *this;
         }
 
-        void Checkbox::validate() const {
+        const Checkbox& Checkbox::validate() const {
             Checkbox* thisConstless = const_cast<Checkbox*>(this);
 
             // (Re)build VBO
@@ -95,6 +99,8 @@ namespace GLUL {
             }
 
             thisConstless->setValid();
+
+            return *this;
         }
 
         const glm::vec4& Checkbox::getColor() const {
@@ -117,42 +123,75 @@ namespace GLUL {
             return _state;
         }
 
-        void Checkbox::setColor(const glm::vec3& color) {
+        Checkbox& Checkbox::setColor(const glm::vec3& color) {
             setColor(glm::vec4(color, getAlpha()));
+
+            return *this;
         }
 
-        void Checkbox::setColor(const glm::vec4& color) {
+        Checkbox& Checkbox::setColor(const glm::vec4& color) {
             _color = color;
 
             setInvalid();
+
+            return *this;
         }
 
-        void Checkbox::setMarkColor(const glm::vec3& color) {
+        Checkbox& Checkbox::setMarkColor(const glm::vec3& color) {
             setMarkColor(glm::vec4(color, getMarkColor().a));
+
+            return *this;
         }
 
-        void Checkbox::setMarkColor(const glm::vec4& color) {
+        Checkbox& Checkbox::setMarkColor(const glm::vec4& color) {
             _markColor = color;
 
             setInvalid();
+
+            return *this;
         }
 
-        void Checkbox::setMarkScale(float scale) {
+        Checkbox& Checkbox::setMarkScale(float scale) {
             _markScale = scale;
 
             setInvalid();
+
+            return *this;
         }
 
-        void Checkbox::setAlpha(float alpha) {
+        Checkbox& Checkbox::setAlpha(float alpha) {
             setColor(glm::vec4(getColor().r, getColor().g, getColor().b, alpha));
+
+            return *this;
         }
 
-        void Checkbox::setState(bool state) {
+        Checkbox& Checkbox::setState(bool state) {
             _state = state;
 
             setInvalid();
             validate();
+
+            return *this;
         }
+
+        Checkbox& Checkbox::setSize(const glm::vec2& size) {
+            Component::setSize(size);
+
+            return *this;
+        }
+
+        Checkbox& Checkbox::setPosition(const glm::vec2& position) {
+            Component::setPosition(position);
+
+            return *this;
+        }
+
+        Checkbox& Checkbox::setPosition(const GLUL::Point& position) {
+            Component::setPosition(position);
+
+            return *this;
+        }
+
 
         bool Checkbox::switchState() {
             setState(!getState());

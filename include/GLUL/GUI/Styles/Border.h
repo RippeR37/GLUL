@@ -23,10 +23,10 @@ namespace GLUL {
                     void set(unsigned int width, int offset, const glm::vec3& color);
                     void set(unsigned int width, int offset, const glm::vec4& color);
 
-                    void setWidth(unsigned int width);
-                    void setOffset(int offset);
-                    void setColor(const glm::vec3& color);
-                    void setColor(const glm::vec4& color);
+                    Border& setWidth(unsigned int width);
+                    Border& setOffset(int offset);
+                    Border& setColor(const glm::vec3& color);
+                    Border& setColor(const glm::vec4& color);
 
                     unsigned int getWidth() const;
                     int getOffset() const;

@@ -6,7 +6,7 @@ namespace GLUL {
     namespace Input {
 
         MouseScrollEvent::MouseScrollEvent() : Event(Type::MouseScroll) {
-
+            _direction = ScrollDirection::Up;
         }
         
         MouseScrollEvent::MouseScrollEvent(ScrollDirection scrollDirection) : Event(Type::MouseScroll) {

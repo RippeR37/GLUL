@@ -6,7 +6,8 @@ namespace GLUL {
     namespace Input {
 
         MouseButtonEvent::MouseButtonEvent() : Event(Type::MouseButton) {
-
+            _button = MouseButton::Left;
+            _action = Action::Press;
         }
 
         MouseButtonEvent::MouseButtonEvent(MouseButton button, Action action, float x, float y) : MouseButtonEvent(button, action, glm::vec2(x, y)) {

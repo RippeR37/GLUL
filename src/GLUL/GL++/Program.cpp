@@ -8,6 +8,7 @@ namespace GL {
     Program::Program() {
         _isCreated = false;
         _isLinked = false;
+        _programID = 0;
     }
 
     Program::Program(Program&& program) : Program() {
@@ -44,29 +45,12 @@ namespace GL {
         return *this;
     }
 
-    Uniform& Program::operator[](const std::string& uniformName) {
-        const auto& uniformIterator = _uniforms.find(uniformName);
-
-        if(uniformIterator == _uniforms.end()) {
-            GLUL::Log::LibraryStream() << "Request for non-existent uniform '" + uniformName + "'";
-
-            return _uniforms[uniformName];
-        } else {
-            return uniformIterator->second;
-        }
+    Uniform& Program::operator[](const std::string& uniformName) throw(std::out_of_range) {
+        return _uniforms.at(uniformName);
     }
 
-    const Uniform& Program::operator[](const std::string& uniformName) const {
-        const auto& uniformIterator = _uniforms.find(uniformName);
-
-        if(uniformIterator == _uniforms.end()) {
-            GLUL::Log::LibraryStream() << "Request for non-existent uniform '" + uniformName + "'";
-
-            Program* thisConstless = const_cast<Program*>(this);
-            return thisConstless->_uniforms[uniformName];
-        } else {
-            return uniformIterator->second;
-        }
+    const Uniform& Program::operator[](const std::string& uniformName) const throw(std::out_of_range) {
+        return _uniforms.at(uniformName);
     }
 
     void Program::create() {

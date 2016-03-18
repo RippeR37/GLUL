@@ -24,7 +24,7 @@ namespace GLUL {
 
         }
 
-        void Button::render() const {
+        const Button& Button::render() const {
             if(isVisible() && getAlpha() > 0.0f) {
                 if(!isValid())
                     validate();
@@ -40,16 +40,20 @@ namespace GLUL {
 
                 text.render();
             }
+
+            return *this;
         }
 
-        void Button::update(double deltaTime) {
+        Button& Button::update(double deltaTime) {
             if(!isValid())
                 validate();
 
             text.update(deltaTime);
+
+            return *this;
         }
 
-        void Button::validate() const {
+        const Button& Button::validate() const {
             Button* thisConstless = const_cast<Button*>(this);
 
             // (Re)build VBO
@@ -83,6 +87,8 @@ namespace GLUL {
             thisConstless->text.updatePosition();
 
             thisConstless->setValid();
+
+            return *this;
         }
 
         const glm::vec4& Button::getColor() const {
@@ -93,19 +99,45 @@ namespace GLUL {
             return _color.a;
         }
 
-        void Button::setColor(const glm::vec3& color) {
+        Button& Button::setColor(const glm::vec3& color) {
             setColor(glm::vec4(color, getAlpha()));
+
+            return *this;
         }
 
-        void Button::setColor(const glm::vec4& color) {
+        Button& Button::setColor(const glm::vec4& color) {
             _color = color;
 
             setInvalid();
+
+            return *this;
         }
 
-        void Button::setAlpha(const float alpha) {
+        Button& Button::setAlpha(const float alpha) {
             setColor(glm::vec4(getColor().r, getColor().g, getColor().b, alpha));
+
+            return *this;
         }
+
+
+        Button& Button::setSize(const glm::vec2& size) {
+            Component::setSize(size);
+
+            return *this;
+        }
+
+        Button& Button::setPosition(const glm::vec2& position) {
+            Component::setPosition(position);
+
+            return *this;
+        }
+
+        Button& Button::setPosition(const GLUL::Point& position) {
+            Component::setPosition(position);
+
+            return *this;
+        }
+
 
         GL::Program& Button::getProgram() {
             static GL::Program program(

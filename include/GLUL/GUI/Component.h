@@ -31,10 +31,10 @@ namespace GLUL {
                 void bindTo(Container& container);
                 void bindTo(Container* container);
 
-                virtual void render() const = 0;
-                virtual void update(double deltaTime) = 0;
+                virtual const Component& render() const = 0;
+                virtual Component& update(double deltaTime) = 0;
 
-                virtual void validate() const;
+                virtual const Component& validate() const;
 
                 bool isEnabled() const;
                 bool isFocused() const;
@@ -49,14 +49,14 @@ namespace GLUL {
                 const GLUL::Point getScreenPosition() const;
                 const GLUL::Rectangle getBounds() const;
 
-                virtual void setEnabled(bool flag);
-                virtual void setFocused(bool flag);
-                virtual void setVisible(bool flag);
-                virtual void setInvalid();
+                virtual Component& setEnabled(bool flag);
+                virtual Component& setFocused(bool flag);
+                virtual Component& setVisible(bool flag);
+                virtual Component& setInvalid();
                 
-                virtual void setSize(const glm::vec2& size);
-                virtual void setPosition(const glm::vec2& position);
-                virtual void setPosition(const GLUL::Point& position);
+                virtual Component& setSize(const glm::vec2& size);
+                virtual Component& setPosition(const glm::vec2& position);
+                virtual Component& setPosition(const GLUL::Point& position);
 
             public:
                 Event::HandlerAggregator<Event::KeyStroke> onKeyStroke;
@@ -68,8 +68,8 @@ namespace GLUL {
                 Event::HandlerAggregator<Event::TextInput> onTextInput;
                 
             protected:
-                void setValid();
-                void setParent(Container* const parent);
+                Component& setValid();
+                Component& setParent(Container* const parent);
                 void notifyParentOfDestruction();
 
                 bool isUnderMouse() const;

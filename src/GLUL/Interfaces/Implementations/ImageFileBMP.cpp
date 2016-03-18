@@ -52,7 +52,7 @@ namespace GLUL {
                 unsigned int result = 0;
 
                 for(unsigned int i = 0; i < 4; ++i)
-                    result |= (*(ptr + i) << i * CHAR_BIT);
+                    result |= ((*(ptr + i)) << (i * CHAR_BIT));
 
                 return result;
             };

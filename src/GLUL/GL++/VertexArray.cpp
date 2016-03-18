@@ -10,11 +10,13 @@ namespace GL {
         _isCreated = false;
         _isDrawTargetSet = false;
         _isDrawCountSet = false;
+        _vaoID = 0;
+        _drawOffset = 0;
+        _drawCount = 0;
+        _drawTarget = DrawTarget::Triangles;
     }
     
-    VertexArray::VertexArray(VertexArray&& vao) {
-        _isCreated = false;
-
+    VertexArray::VertexArray(VertexArray&& vao) : VertexArray() {
         std::swap(_vaoID, vao._vaoID);
         std::swap(_isCreated, vao._isCreated);
         std::swap(_isDrawTargetSet, vao._isDrawTargetSet);

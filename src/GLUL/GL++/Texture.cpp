@@ -11,19 +11,19 @@ namespace GL {
         _target = Target::Tex2D;
         _format = Format::RGB;
         _internalFormat = InternalFormat::RGB;
+        _textureID = 0;
     }
 
-    Texture::Texture(const GLUL::Image& image, Target target, Format format, InternalFormat internalFormat) {
-        _isCreated = false;
-
+    Texture::Texture(const GLUL::Image& image, Target target, Format format, InternalFormat internalFormat)
+        : Texture()
+    {
         load(image, target, format, internalFormat);
     }
 
     Texture::Texture(const std::string& path, Target target, Format format, InternalFormat internalFormat) 
         throw(GLUL::Exception::InitializationFailed, GLUL::Exception::FatalError) 
+        : Texture()
     {
-        _isCreated = false;
-
         try {
             GLUL::Image image(path, GLUL::Image::Format::Auto);
             load(image, target, format, internalFormat);
@@ -41,9 +41,7 @@ namespace GL {
         }
     }
     
-    Texture::Texture(Texture&& texture) {
-        _isCreated = false;
-
+    Texture::Texture(Texture&& texture) : Texture() {
         std::swap(_isAlpha,   texture._isAlpha);
         std::swap(_isCreated, texture._isCreated);
         std::swap(_width,  texture._width);

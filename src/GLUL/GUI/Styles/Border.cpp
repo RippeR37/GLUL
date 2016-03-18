@@ -38,24 +38,32 @@ namespace GLUL {
                 updateComponent();
             }
 
-            void Border::setWidth(unsigned int width) {
+            Border& Border::setWidth(unsigned int width) {
                 _setWidth(width);
                 updateComponent();
+
+                return *this;
             }
 
-            void Border::setOffset(int offset) {
+            Border& Border::setOffset(int offset) {
                 _setOffset(offset);
                 updateComponent();
+
+                return *this;
             }
 
-            void Border::setColor(const glm::vec3& color) {
+            Border& Border::setColor(const glm::vec3& color) {
                 _setColor(color);
                 updateComponent();
+
+                return *this;
             }
 
-            void Border::setColor(const glm::vec4& color) {
+            Border& Border::setColor(const glm::vec4& color) {
                 _setColor(color);
                 updateComponent();
+
+                return *this;
             }
 
             unsigned int Border::getWidth() const {

@@ -6,7 +6,7 @@
 
 namespace GL {
 
-    Pipeline::Pipeline() {
+    Pipeline::Pipeline() : _camera(nullptr) {
         setModel();
         setView();
         setProjection();

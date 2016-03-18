@@ -23,10 +23,10 @@ namespace GLUL {
                 Text(Container* const parent = nullptr);
                 ~Text();
 
-                void render() const;
-                void update(double deltaTime);
+                const Text& render() const;
+                Text& update(double deltaTime);
 
-                void validate() const;
+                const Text& validate() const;
 
                 const Font* getFont() const;
                 const std::string& getText() const;
@@ -35,18 +35,20 @@ namespace GLUL {
                 float getScale() const;
                 unsigned int getFontHeight() const;
                 
-                void setEnabled(bool flag);
-                void setFocused(bool flag);
-                void setVisible(bool flag);
-                void setFont(const Font& font);
-                void setFont(const Font* font);
-                void setText(const std::string& text);
-                void setSize(const glm::vec2& size);
-                void setSize(unsigned int newHeight);
-                void setScale(float scale);
-                void setColor(const glm::vec3& color);
-                void setColor(const glm::vec4& color);
-                void setAlpha(float alpha);
+                Text& setEnabled(bool flag);
+                Text& setFocused(bool flag);
+                Text& setVisible(bool flag);
+                Text& setFont(const Font& font);
+                Text& setFont(const Font* font);
+                Text& setText(const std::string& text);
+                Text& setSize(const glm::vec2& size);
+                Text& setSize(unsigned int newHeight);
+                Text& setScale(float scale);
+                Text& setColor(const glm::vec3& color);
+                Text& setColor(const glm::vec4& color);
+                Text& setAlpha(float alpha);
+                Text& setPosition(const glm::vec2& position);
+                Text& setPosition(const GLUL::Point& position);
                 
 
             private:

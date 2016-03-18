@@ -27,11 +27,13 @@ void initFont(GLUL::GUI::Font& font, const std::string& fontName, int size) {
  * Main loop
  */
 void run() {
+    using namespace glm;
+
     GLUL::GUI::Window window(800, 600, "Title"); // Be advised - GUI-supporting Window is GLUL::GUI::Window, not GLUL::Window !
     
     window.create();
     window.registerEvents();
-    window.getContext().setClearColor(glm::vec4(0.1f, 0.1, 0.1, 1.0f));
+    window.getContext().setClearColor(vec4(0.1f, 0.1f, 0.1f, 1.0f));
 
     // Fonts
     GLUL::GUI::Font fontArial;
@@ -41,110 +43,74 @@ void run() {
 
     // Text
     GLUL::GUI::Text text;
-    text.setFont(fontVerdanaI);
+    text.setFont(fontVerdanaI).setColor(vec3(1.0f, 0.7f, 0.3f)).setPosition(vec2(50.0f, 50.0f));
     text.setText("Hello world! Tab demo: '\t'\n{ std::cout << \"Hello world!\" << std::endl; }");
-    text.setColor(glm::vec3(1.0f, 0.7f, 0.3f));
-    text.setPosition(glm::vec2(50.0f, 50.0f));
     text.bindTo(window);
 
     GLUL::GUI::Text text2(window);
-    text2.setFont(fontArial);
+    text2.setFont(fontArial).setColor(vec3(0.3f, 0.7f, 0.7f)).setPosition(vec2(50.0f, 110.0f));
     text2.setText("Buttons\t\t\t\t\t\t\t\t\t Text fields\t\t\t\t\t\t\t\tCheckboxes");
-    text2.setColor(glm::vec3(0.3f, 0.7f, 0.7f));
-    text2.setPosition(glm::vec2(50.0f, 110.0f));
 
 
     // Buttons
     GLUL::GUI::Button button(window); // you can specify parent container in constructor
-    button.setSize(glm::vec2(150.0f, 30.0f));
-    button.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
-    button.setPosition(glm::vec2(50.0f, 140.0f));
-    button.border.set(1, -2, glm::vec3(1.0f, 0.0f, 0.0f));
-        button.text.setFont(fontArial);
-        button.text.setText("Press me #1");
-        button.text.setColor(glm::vec3(1.0f));
-        button.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Left, GLUL::GUI::Style::VerticalAlignment::Top);
+    button.setSize(vec2(150.0f, 30.0f)).setColor(vec3(0.12f, 0.625f, 1.0f)).setPosition(vec2(50.0f, 140.0f));
+    button.border.set(1, -2, vec3(1.0f, 0.0f, 0.0f));
+    button.text.setFont(fontArial).setText("Press me #1").setColor(vec3(1.0f));
+    button.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Left, GLUL::GUI::Style::VerticalAlignment::Top);
 
     GLUL::GUI::Button button2(window);
-    button2.setSize(glm::vec2(150.0f, 30.0f));
-    button2.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
-    button2.setPosition(glm::vec2(50.0f, 180.0f));
-    button2.border.set(1, 0, glm::vec3(0.3f, 0.7f, 1.0f));
-        button2.text.setFont(fontArial);
-        button2.text.setText("Press me #2");
-        button2.text.setColor(glm::vec3(1.0f));
-        button2.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Center, GLUL::GUI::Style::VerticalAlignment::Center);
+    button2.setSize(vec2(150.0f, 30.0f)).setColor(vec3(0.12f, 0.625f, 1.0f)).setPosition(vec2(50.0f, 180.0f));
+    button2.border.set(1, 0, vec3(0.3f, 0.7f, 1.0f));
+    button2.text.setFont(fontArial).setText("Press me #2").setColor(vec3(1.0f));
+    button2.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Center, GLUL::GUI::Style::VerticalAlignment::Center);
 
     GLUL::GUI::Button button3(window);
-    button3.setSize(glm::vec2(150.0f, 30.0f));
-    button3.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
-    button3.setPosition(glm::vec2(50.0f, 220.0f));
-    button3.border.set(2, 4, glm::vec3(0.0f, 0.0f, 1.0f));
-        button3.text.setFont(fontArial);
-        button3.text.setText("Press me #3");
-        button3.text.setColor(glm::vec3(1.0f));
-        button3.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Right, GLUL::GUI::Style::VerticalAlignment::Bottom);
+    button3.setSize(vec2(150.0f, 30.0f)).setColor(vec3(0.12f, 0.625f, 1.0f)).setPosition(vec2(50.0f, 220.0f));
+    button3.border.set(2, 4, vec3(0.0f, 0.0f, 1.0f));
+    button3.text.setFont(fontArial).setText("Press me #3").setColor(vec3(1.0f));
+    button3.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Right, GLUL::GUI::Style::VerticalAlignment::Bottom);
 
 
     // TextField
     GLUL::GUI::TextField textField1(window);
-    textField1.setSize(glm::vec2(150.0f, 30.0f));
-    textField1.setColor(glm::vec3(1.0f, 1.0f, 1.0f));
-    textField1.setPosition(glm::vec2(250.0f, 140.0f));
-    textField1.border.set(1, 0, glm::vec3(0.0f));
-        textField1.text.setFont(fontArial);
-        textField1.text.setText("Default text");
-        textField1.text.setColor(glm::vec3(0.0f));
-        textField1.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Left, GLUL::GUI::Style::VerticalAlignment::Center);
-
+    textField1.setSize(vec2(150.0f, 30.0f)).setColor(vec3(1.0f)).setPosition(vec2(250.0f, 140.0f));
+    textField1.border.set(1, 0, vec3(0.0f));
+    textField1.text.setFont(fontArial).setText("Default text").setColor(vec3(0.0f));
+    textField1.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Left, GLUL::GUI::Style::VerticalAlignment::Center);
 
     GLUL::GUI::TextField textField2(window);
-    textField2.setSize(glm::vec2(150.0f, 30.0f));
-    textField2.setColor(glm::vec3(1.0f, 1.0f, 1.0f));
-    textField2.setPosition(glm::vec2(250.0f, 180.0f));
-    textField2.border.set(1, 0, glm::vec3(0.0f));
-        textField2.text.setFont(fontArial);
-        textField2.text.setText("Right alignment");
-        textField2.text.setColor(glm::vec3(0.0f));
-        textField2.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Right, GLUL::GUI::Style::VerticalAlignment::Center);
+    textField2.setSize(vec2(150.0f, 30.0f)).setColor(vec3(1.0f)).setPosition(vec2(250.0f, 180.0f));
+    textField2.border.set(1, 0, vec3(0.0f));
+    textField2.text.setFont(fontArial).setText("Right alignment").setColor(vec3(0.0f));
+    textField2.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Right, GLUL::GUI::Style::VerticalAlignment::Center);
     
+
     // Checkboxes
     GLUL::GUI::Checkbox checkbox1_off(window);
-    checkbox1_off.setSize(glm::vec2(20.0f));
-    checkbox1_off.setPosition(glm::vec2(450.0f, 140.0f));
+    checkbox1_off.setSize(vec2(20.0f)).setPosition(vec2(450.0f, 140.0f));
 
     GLUL::GUI::Checkbox checkbox2_off(window);
-    checkbox2_off.setSize(glm::vec2(20.0f));
-    checkbox2_off.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
-    checkbox2_off.setPosition(glm::vec2(480.0f, 140.0f));
-    checkbox2_off.border.set(2, 0, glm::vec3(0.0f, 0.0f, 0.0f));
+    checkbox2_off.setSize(vec2(20.0f)).setColor(vec3(0.12f, 0.625f, 1.0f)).setPosition(vec2(480.0f, 140.0f));
+    checkbox2_off.border.set(2, 0, vec3(0.0f));
 
     GLUL::GUI::Checkbox checkbox3_off(window);
-    checkbox3_off.setSize(glm::vec2(20.0f));
-    checkbox3_off.setColor(glm::vec3(0.2f, 0.2f, 0.2f));
-    checkbox3_off.setMarkColor(glm::vec3(0.8f, 0.8f, 0.8f));
-    checkbox3_off.setMarkScale(0.7f);
-    checkbox3_off.setPosition(glm::vec2(510.0f, 140.0f));
-    checkbox3_off.border.set(1, 0, glm::vec3(0.0f, 0.0f, 0.0f));
+    checkbox3_off.setSize(vec2(20.0f)).setColor(vec3(0.2f, 0.2f, 0.2f)).setPosition(vec2(510.0f, 140.0f));
+    checkbox3_off.setMarkColor(vec3(0.8f, 0.8f, 0.8f)).setMarkScale(0.7f);
+    checkbox3_off.border.set(1, 0, vec3(0.0f));
+
 
     GLUL::GUI::Checkbox checkbox1_on(window);
-    checkbox1_on.setSize(glm::vec2(20.0f));
-    checkbox1_on.setPosition(glm::vec2(450.0f, 170.0f));
-    checkbox1_on.setState(true);
+    checkbox1_on.setSize(vec2(20.0f)).setPosition(vec2(450.0f, 170.0f)).setState(true);
 
     GLUL::GUI::Checkbox checkbox2_on(window, true); // default state can be passed as constructor parameter
-    checkbox2_on.setSize(glm::vec2(20.0f));
-    checkbox2_on.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
-    checkbox2_on.setPosition(glm::vec2(480.0f, 170.0f));
-    checkbox2_on.border.set(2, 0, glm::vec3(0.0f, 0.0f, 0.0f));
+    checkbox2_on.setSize(vec2(20.0f)).setColor(vec3(0.12f, 0.625f, 1.0f)).setPosition(vec2(480.0f, 170.0f));
+    checkbox2_on.border.set(2, 0, vec3(0.0f));
 
     GLUL::GUI::Checkbox checkbox3_on(window, true);
-    checkbox3_on.setSize(glm::vec2(20.0f));
-    checkbox3_on.setColor(glm::vec3(0.2f, 0.2f, 0.2f));
-    checkbox3_on.setMarkColor(glm::vec3(0.8f, 0.8f, 0.8f));
-    checkbox3_on.setMarkScale(0.7f);
-    checkbox3_on.setPosition(glm::vec2(510.0f, 170.0f));
-    checkbox3_on.border.set(1, 0, glm::vec3(0.0f, 0.0f, 0.0f));
+    checkbox3_on.setSize(vec2(20.0f)).setColor(vec3(0.2f, 0.2f, 0.2f)).setPosition(vec2(510.0f, 170.0f));
+    checkbox3_on.setMarkColor(vec3(0.8f, 0.8f, 0.8f)).setMarkScale(0.7f);
+    checkbox3_on.border.set(1, 0, vec3(0.0f));
 
 
     /*
@@ -186,7 +152,7 @@ void run() {
         [](GLUL::GUI::Component& component, const GLUL::GUI::Event::MouseEnter& mouseEnterEvent) {
             (void) mouseEnterEvent;
             GLUL::GUI::Button& button = static_cast<GLUL::GUI::Button&>(component);
-            button.setColor(glm::vec3(0.07f, 0.4f, 1.0f));
+            button.setColor(vec3(0.07f, 0.4f, 1.0f));
         }
     );
     button2.onMouseLeave += GLUL::GUI::Event::MouseLeave::Handler(
@@ -194,7 +160,7 @@ void run() {
         [](GLUL::GUI::Component& component, const GLUL::GUI::Event::MouseLeave& mouseEnterLeave) {
             (void) mouseEnterLeave;
             GLUL::GUI::Button& button = static_cast<GLUL::GUI::Button&>(component);
-            button.setColor(glm::vec3(0.12f, 0.625f, 1.0f));
+            button.setColor(vec3(0.12f, 0.625f, 1.0f));
         }
     );
     

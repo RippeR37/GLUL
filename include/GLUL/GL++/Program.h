@@ -27,8 +27,8 @@ namespace GL {
             Program& operator=(const Program&) = delete;
             Program& operator=(Program&& program);
 
-            Uniform& operator[](const std::string& uniformName);
-            const Uniform& operator[](const std::string& uniformName) const;
+            Uniform& operator[](const std::string& uniformName) throw(std::out_of_range);
+            const Uniform& operator[](const std::string& uniformName) const throw(std::out_of_range);
 
             void create();
             void destroy();

@@ -25,11 +25,11 @@ namespace GLUL {
 
         }
 
-        void Text::render() const {
+        const Text& Text::render() const {
             if(isVisible() && getAlpha() > 0.0f) {
                 if(_font == nullptr) {
                     GLUL::Log::Stream("_Library").logError("[GUI] Attempt to render render text '" + _text + "' without font");
-                    return;
+                    return *this;
                 }
 
                 if(!isValid())
@@ -52,18 +52,22 @@ namespace GLUL {
                     _font->getTexture().unbind();
                 }
             }
+
+            return *this;
         }
 
-        void Text::update(double deltaTime) {
+        Text& Text::update(double deltaTime) {
             if(!isValid())
                 validate();
 
             (void) deltaTime;
 
             // Nothing to update here
+
+            return *this;
         }
 
-        void Text::validate() const {
+        const Text& Text::validate() const {
             Text* thisConstless = const_cast<Text*>(this);
 
             if(_text != "" && _font != nullptr) {
@@ -101,6 +105,8 @@ namespace GLUL {
             }
 
             thisConstless->setValid();
+
+            return *this;
         }
 
         const Font* Text::getFont() const {
@@ -129,39 +135,49 @@ namespace GLUL {
             return result;
         }
         
-        void Text::setEnabled(bool flag) {
+        Text& Text::setEnabled(bool flag) {
             _isEnabled = flag;
+            
+            return *this;
         }
 
-        void Text::setFocused(bool flag) {
+        Text& Text::setFocused(bool flag) {
             _isFocused = flag;
+
+            return *this;
         }
 
-        void Text::setVisible(bool flag) {
+        Text& Text::setVisible(bool flag) {
             if(_isVisible != flag) {
                 _isVisible = flag;
 
                 setInvalid();
             }
+
+            return *this;
         }
 
-        void Text::setFont(const Font& font) {
-            setFont(&font);
+        Text& Text::setFont(const Font& font) {
+            return setFont(&font);
         }
 
-        void Text::setFont(const Font* font) {
+        Text& Text::setFont(const Font* font) {
             _font = font;
 
             validate();
+
+            return *this;
         }
 
-        void Text::setText(const std::string& text) {
+        Text& Text::setText(const std::string& text) {
             _text = text;
             
             validate();
+
+            return *this;
         }
 
-        void Text::setSize(const glm::vec2& size) {
+        Text& Text::setSize(const glm::vec2& size) {
             // [DEPRECATED] - size.x will not be used
             GLUL::Log::Stream("_Library").logWarning(
                 "Use of deprecated functionality Text::setSize(const glm::vec2&) for text '" + 
@@ -169,33 +185,50 @@ namespace GLUL {
                 "' - width will not be used"
             );
 
-            setSize(static_cast<unsigned int>(size.y));
+            return setSize(static_cast<unsigned int>(size.y));
         }
 
-        void Text::setSize(unsigned int newHeight) {
+        Text& Text::setSize(unsigned int newHeight) {
             float oldFontHeight = static_cast<float>(getFont() ? getFont()->getHeight() : 1.0f);
             float newFontHeight = static_cast<float>(newHeight);
 
-            setScale(newFontHeight / oldFontHeight);
+            return setScale(newFontHeight / oldFontHeight);
         }
 
-        void Text::setScale(float scale) {
+        Text& Text::setScale(float scale) {
             _scale = scale;
             
             validate();
+
+            return *this;
         }
 
-        void Text::setColor(const glm::vec3& color) {
-            setColor(glm::vec4(color, getAlpha()));
+        Text& Text::setColor(const glm::vec3& color) {
+            return setColor(glm::vec4(color, getAlpha()));
         }
 
-        void Text::setColor(const glm::vec4& color) {
+        Text& Text::setColor(const glm::vec4& color) {
             _color = color;
+            
+            return *this;
         }
 
-        void Text::setAlpha(float alpha) {
-            setColor(glm::vec4(getColor().r, getColor().g, getColor().b, alpha));
+        Text& Text::setAlpha(float alpha) {
+            return setColor(glm::vec4(getColor().r, getColor().g, getColor().b, alpha));
         }
+
+        Text& Text::setPosition(const glm::vec2& position) {
+            Component::setPosition(position);
+            
+            return *this;
+        }
+
+        Text& Text::setPosition(const GLUL::Point& position) {
+            Component::setPosition(position);
+
+            return *this;
+        }
+
 
         GL::Program& Text::getProgram() {
             static GL::Program program(

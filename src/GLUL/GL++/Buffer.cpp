@@ -9,6 +9,7 @@ namespace GL {
 
     Buffer::Buffer(Target target, Usage usage) {
         _isCreated = false;
+        _bufferID = 0;
 
         setTarget(target);
         setUsage(usage);

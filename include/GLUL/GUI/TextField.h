@@ -24,19 +24,22 @@ namespace GLUL {
                 TextField(Container* const parent = nullptr);
                 ~TextField();
 
-                void render() const;
-                void update(double deltaTime);
+                const TextField& render() const;
+                TextField& update(double deltaTime);
 
-                void validate() const;
+                const TextField& validate() const;
 
                 const glm::vec4& getColor() const;
                 float getAlpha() const;
                 const std::string& getValue() const;
                 
-                void setColor(const glm::vec3& color);
-                void setColor(const glm::vec4& color);
-                void setAlpha(const float alpha);
-                void setValue(const std::string& value);
+                TextField& setColor(const glm::vec3& color);
+                TextField& setColor(const glm::vec4& color);
+                TextField& setAlpha(const float alpha);
+                TextField& setValue(const std::string& value);
+                TextField& setSize(const glm::vec2& size);
+                TextField& setPosition(const glm::vec2& position);
+                TextField& setPosition(const GLUL::Point& position);
 
                 InnerText text;
                 Style::Border border;

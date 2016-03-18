@@ -39,8 +39,10 @@ namespace GLUL {
                 setParent(nullptr);
         }
 
-        void Component::validate() const {
+        const Component& Component::validate() const {
             const_cast<Component*>(this)->setValid();
+
+            return *this;
         }
         
         bool Component::isEnabled() const {
@@ -86,55 +88,73 @@ namespace GLUL {
             return _parent;
         }
 
-        void Component::setEnabled(bool flag) {
+        Component& Component::setEnabled(bool flag) {
             _isEnabled = flag;
 
             setInvalid();
             validate();
+
+            return *this;
         }
         
-        void Component::setFocused(bool flag) {
+        Component& Component::setFocused(bool flag) {
             _isFocused = flag;
 
             setInvalid();
             validate();
+
+            return *this;
         }
 
-        void Component::setVisible(bool flag) {
+        Component& Component::setVisible(bool flag) {
             _isVisible = flag;
 
             setInvalid();
             validate();
+
+            return *this;
         }
 
-        void Component::setInvalid() {
+        Component& Component::setInvalid() {
             _isValid = false;
+
+            return *this;
         }
 
-        void Component::setSize(const glm::vec2& size) {
+        Component& Component::setSize(const glm::vec2& size) {
             _size = size;
 
             setInvalid();
             validate();
+
+            return *this;
         }
         
-        void Component::setPosition(const glm::vec2& position) {
+        Component& Component::setPosition(const glm::vec2& position) {
             _position.setPoint(position);
 
             setInvalid();
             validate();
+
+            return *this;
         }
 
-        void Component::setPosition(const GLUL::Point& position) {
+        Component& Component::setPosition(const GLUL::Point& position) {
             setPosition(position.getPosition());
+
+            return *this;
         }
 
-        void Component::setValid() {
+        Component& Component::setValid() {
             _isValid = true;
+
+            return *this;
         }
         
-        void Component::setParent(Container* const parent) {
+        Component& Component::setParent(Container* const parent) {
             _parent = parent;
+
+            return *this;
         }
 
         void Component::notifyParentOfDestruction() {

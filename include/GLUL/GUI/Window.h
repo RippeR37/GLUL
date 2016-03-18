@@ -20,9 +20,9 @@ namespace GLUL {
             
                 virtual void update();
                 
-                void setSize(unsigned int width, unsigned int height);
-                void setSize(const glm::vec2& size);
-                void setSize(const glm::uvec2& size);
+                Window& setSize(unsigned int width, unsigned int height);
+                Window& setSize(const glm::vec2& size);
+                Window& setSize(const glm::uvec2& size);
 
             protected:
                 virtual void handleInputEvent(const GLUL::Input::Event& inputEvent);

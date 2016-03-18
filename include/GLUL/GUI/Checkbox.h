@@ -25,10 +25,10 @@ namespace GLUL {
 
                 operator bool() const;
 
-                void render() const;
-                void update(double deltaTime);
+                const Checkbox& render() const;
+                Checkbox& update(double deltaTime);
 
-                void validate() const;
+                const Checkbox& validate() const;
 
                 const glm::vec4& getColor() const;
                 const glm::vec4& getMarkColor() const;
@@ -36,13 +36,16 @@ namespace GLUL {
                 float getAlpha() const;
                 bool getState() const;
                 
-                void setColor(const glm::vec3& color);
-                void setColor(const glm::vec4& color);
-                void setMarkColor(const glm::vec3& color);
-                void setMarkColor(const glm::vec4& color);
-                void setMarkScale(float scale);
-                void setAlpha(float alpha);
-                void setState(bool state);
+                Checkbox& setColor(const glm::vec3& color);
+                Checkbox& setColor(const glm::vec4& color);
+                Checkbox& setMarkColor(const glm::vec3& color);
+                Checkbox& setMarkColor(const glm::vec4& color);
+                Checkbox& setMarkScale(float scale);
+                Checkbox& setAlpha(float alpha);
+                Checkbox& setState(bool state);
+                Checkbox& setSize(const glm::vec2& size);
+                Checkbox& setPosition(const glm::vec2& position);
+                Checkbox& setPosition(const GLUL::Point& position);
 
                 bool switchState();
 

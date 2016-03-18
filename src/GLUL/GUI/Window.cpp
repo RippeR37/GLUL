@@ -59,16 +59,22 @@ namespace GLUL {
             Container::update(getFrameTime());
         }
         
-        void Window::setSize(unsigned int width, unsigned int height) {
+        Window& Window::setSize(unsigned int width, unsigned int height) {
             GLUL::Window::setSize(width, height);
+
+            return *this;
         }
 
-        void Window::setSize(const glm::vec2& size) {
+        Window& Window::setSize(const glm::vec2& size) {
             GLUL::Window::setSize(glm::uvec2(size));
+
+            return *this;
         }
 
-        void Window::setSize(const glm::uvec2& size) {
+        Window& Window::setSize(const glm::uvec2& size) {
             GLUL::Window::setSize(size);
+
+            return *this;
         }
         
         void Window::handleInputEvent(const GLUL::Input::Event& inputEvent) {

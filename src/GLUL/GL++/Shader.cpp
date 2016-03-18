@@ -8,19 +8,16 @@ namespace GL {
 
     Shader::Shader(Type type) {
         _isCreated = false;
+        _isCompiled = false;
         _type = type;
+        _shaderID = 0;
     }
 
-    Shader::Shader(const std::string& path, Type type) {
-        _isCreated = false;
-        _type = type;
-
+    Shader::Shader(const std::string& path, Type type) : Shader(type) {
         load(path);
     }
     
-    Shader::Shader(Shader&& shader) {
-        _isCreated = false;
-
+    Shader::Shader(Shader&& shader) : Shader(shader._type) {
         std::swap(_type,       shader._type);
         std::swap(_shaderID,   shader._shaderID);
         std::swap(_isCreated,  shader._isCreated);

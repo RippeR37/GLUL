@@ -21,40 +21,48 @@ namespace GLUL {
             _components.clear();
         }
 
-        void Container::render() const {
+        const Container& Container::render() const {
             if(!isValid())
                 validate();
 
             for(auto component : _components)
                 if(component)
                     component->render();
+
+            return *this;
         }
 
-        void Container::update(double deltaTime) {
+        Container& Container::update(double deltaTime) {
             if(!isValid())
                 validate();
 
             for(auto component : _components)
                 if(component)
                     component->update(deltaTime);
+
+            return *this;
         }
 
-        void Container::validate() const {
+        const Container& Container::validate() const {
             if(isValid())
-                return;
+                return *this;
 
             for(auto component : _components)
                 if(component)
                     component->validate();
 
             const_cast<Container*>(this)->setValid();
+
+            return *this;
         }
 
-        void Container::add(Component& component) {
+        Container& Container::add(Component& component) {
             add(&component);
+
+            return *this;
         }
 
-        void Container::add(Component* const component) {
+        Container& Container::add(Component* const component) {
             if(component) {
                 if(component->getParent() != this) {
                     component->notifyParentOfDestruction();
@@ -63,20 +71,26 @@ namespace GLUL {
                     _components.push_back(component);
                 }
             }
+
+            return *this;
         }
 
-        void Container::setInvalid() {
+        Container& Container::setInvalid() {
             Component::setInvalid();
 
             notifyChildsOfInvalidState();
+
+            return *this;
         }
         
-        void Container::setFocused(bool flag) {
+        Container& Container::setFocused(bool flag) {
             Component::setFocused(flag);
 
             for(auto component : _components)
                 if(component)
                     component->setFocused(flag);
+
+            return *this;
         }
 
         void Container::notifyChildsOfInvalidState() {

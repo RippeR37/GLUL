@@ -8,6 +8,7 @@ namespace GLUL {
 
         EventTrigger::EventTrigger(EventAggregator& eventAggregator) : _eventAggregator(eventAggregator) {
             _registered = false;
+            _triggerID = 0;
         }
 
         EventTrigger::~EventTrigger() {

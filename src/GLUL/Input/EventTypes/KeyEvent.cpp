@@ -6,7 +6,8 @@ namespace GLUL {
     namespace Input {
 
         KeyEvent::KeyEvent() : Event(Type::Key) {
-
+            _key = Key::Enter;
+            _action = Action::Press;
         }
         
         KeyEvent::KeyEvent(Key key, Action action) : Event(Type::Key) {

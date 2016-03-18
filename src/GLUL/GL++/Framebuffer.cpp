@@ -7,13 +7,10 @@ namespace GL {
         _isCreated = false;
         _isComplete = false;
         _isCompleteValid = true;
+        _framebufferID = 0;
     }
 
-    Framebuffer::Framebuffer(Framebuffer&& framebuffer) {
-        _isCreated = false;
-        _isComplete = false;
-        _isCompleteValid = true;
-
+    Framebuffer::Framebuffer(Framebuffer&& framebuffer) : Framebuffer() {
         std::swap(_isComplete, framebuffer._isComplete);
         std::swap(_isCompleteValid, framebuffer._isCompleteValid);
         std::swap(_isCreated,       framebuffer._isCreated);

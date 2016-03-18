@@ -16,15 +16,15 @@ namespace GLUL {
                 Container(Container* const parent = nullptr);
                 virtual ~Container();
 
-                virtual void render() const;
-                virtual void update(double deltaTime);
-                virtual void validate() const;
+                virtual const Container& render() const;
+                virtual Container& update(double deltaTime);
+                virtual const Container& validate() const;
 
-                virtual void add(Component& component);
-                virtual void add(Component* const component);
+                virtual Container& add(Component& component);
+                virtual Container& add(Component* const component);
 
-                virtual void setInvalid();
-                virtual void setFocused(bool flag);
+                virtual Container& setInvalid();
+                virtual Container& setFocused(bool flag);
 
             private:
                 void notifyChildsOfInvalidState();

@@ -11,6 +11,9 @@ namespace GL {
     Context::Context() {
         setActive(false);
         _window = nullptr;
+        _clearDepth = 0.0f;
+        _clearColor = glm::vec4(0.0f);
+        _clearStencil = 0;
 
         _viewportSize = glm::ivec2(0, 0);
         _viewportPosition = glm::ivec2(0, 0);

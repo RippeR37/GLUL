@@ -18,15 +18,15 @@ namespace GLUL {
                 void update(double deltaTime);
                 void render() const;
 
-                void setFont(const Font& font);
-                void setFont(const Font* font);
-                void setText(const std::string& text);
-                void setColor(const glm::vec3& color);
-                void setColor(const glm::vec4& color);
-                void setAlpha(float alpha);
-                void setHorizontalAlignment(Style::HorizontalAlignment horizontalAlignment);
-                void setVerticalAlignment(Style::VerticalAlignment verticalAlignment);
-                void setAlignment(Style::HorizontalAlignment horizontalAlignment, Style::VerticalAlignment verticalAlignment);
+                InnerText& setFont(const Font& font);
+                InnerText& setFont(const Font* font);
+                InnerText& setText(const std::string& text);
+                InnerText& setColor(const glm::vec3& color);
+                InnerText& setColor(const glm::vec4& color);
+                InnerText& setAlpha(float alpha);
+                InnerText& setHorizontalAlignment(Style::HorizontalAlignment horizontalAlignment);
+                InnerText& setVerticalAlignment(Style::VerticalAlignment verticalAlignment);
+                InnerText& setAlignment(Style::HorizontalAlignment horizontalAlignment, Style::VerticalAlignment verticalAlignment);
 
                 const Font* getFont() const;
                 const std::string& getText() const;

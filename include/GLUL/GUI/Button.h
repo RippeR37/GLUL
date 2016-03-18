@@ -24,17 +24,20 @@ namespace GLUL {
                 Button(Container* const parent = nullptr);
                 ~Button();
 
-                void render() const;
-                void update(double deltaTime);
+                const Button& render() const;
+                Button& update(double deltaTime);
 
-                void validate() const;
+                const Button& validate() const;
 
                 const glm::vec4& getColor() const;
                 float getAlpha() const;
                 
-                void setColor(const glm::vec3& color);
-                void setColor(const glm::vec4& color);
-                void setAlpha(float alpha);
+                Button& setColor(const glm::vec3& color);
+                Button& setColor(const glm::vec4& color);
+                Button& setAlpha(float alpha);
+                Button& setSize(const glm::vec2& size);
+                Button& setPosition(const glm::vec2& position);
+                Button& setPosition(const GLUL::Point& position);
 
                 InnerText text;
                 Style::Border border;

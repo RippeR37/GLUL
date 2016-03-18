@@ -12,8 +12,7 @@ namespace GLUL {
         }
 
         InnerText& InnerText::operator=(const std::string& text) {
-            setText(text);
-            return *this;
+            return setText(text);
         }
 
         void InnerText::update(double deltaTime) {
@@ -24,47 +23,55 @@ namespace GLUL {
             _text.render();
         }
 
-        void InnerText::setFont(const Font& font) {
+        InnerText& InnerText::setFont(const Font& font) {
+            return setFont(&font);
+        }
+
+        InnerText& InnerText::setFont(const Font* font) {
             _text.setFont(font);
 
             updatePosition();
+
+            return *this;
         }
 
-        void InnerText::setFont(const Font* font) {
-            _text.setFont(font);
-
-            updatePosition();
-        }
-
-        void InnerText::setText(const std::string& text) {
+        InnerText& InnerText::setText(const std::string& text) {
             _text.setText(text);
 
             updatePosition();
+
+            return *this;
         }
 
-        void InnerText::setColor(const glm::vec3& color) {
+        InnerText& InnerText::setColor(const glm::vec3& color) {
             _text.setColor(color);
 
             updatePosition();
+
+            return *this;
         }
 
-        void InnerText::setColor(const glm::vec4& color) {
+        InnerText& InnerText::setColor(const glm::vec4& color) {
             _text.setColor(color);
+
+            return *this;
         }
 
-        void InnerText::setAlpha(float alpha) {
+        InnerText& InnerText::setAlpha(float alpha) {
             _text.setAlpha(alpha);
+
+            return *this;
         }
 
-        void InnerText::setHorizontalAlignment(Style::HorizontalAlignment horizontalAlignment) {
-            setAlignment(horizontalAlignment, getVerticalAlignment());
+        InnerText& InnerText::setHorizontalAlignment(Style::HorizontalAlignment horizontalAlignment) {
+            return setAlignment(horizontalAlignment, getVerticalAlignment());
         }
 
-        void InnerText::setVerticalAlignment(Style::VerticalAlignment verticalAlignment) {
-            setAlignment(getHorizontalAlignment(), verticalAlignment);
+        InnerText& InnerText::setVerticalAlignment(Style::VerticalAlignment verticalAlignment) {
+            return setAlignment(getHorizontalAlignment(), verticalAlignment);
         }
 
-        void InnerText::setAlignment(Style::HorizontalAlignment horizontalAlignment, Style::VerticalAlignment verticalAlignment) {
+        InnerText& InnerText::setAlignment(Style::HorizontalAlignment horizontalAlignment, Style::VerticalAlignment verticalAlignment) {
             bool update = false;
 
             if(_horizontalAlignment != horizontalAlignment) {
@@ -79,6 +86,8 @@ namespace GLUL {
 
             if(update)
                 updatePosition();
+
+            return *this;
         }
 
         const Font* InnerText::getFont() const {

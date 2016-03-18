@@ -48,7 +48,7 @@ namespace GLUL {
 
         }
 
-        void TextField::render() const {
+        const TextField& TextField::render() const {
             if(isVisible() && getAlpha() > 0.0f) {
                 if(!isValid())
                     validate();
@@ -64,16 +64,20 @@ namespace GLUL {
 
                 text.render();
             }
+
+            return *this;
         }
 
-        void TextField::update(double deltaTime) {
+        TextField& TextField::update(double deltaTime) {
             if(!isValid())
                 validate();
 
             text.update(deltaTime);
+
+            return *this;
         }
 
-        void TextField::validate() const {
+        const TextField& TextField::validate() const {
             TextField* thisConstless = const_cast<TextField*>(this);
 
             // (Re)build VBO
@@ -107,6 +111,8 @@ namespace GLUL {
             thisConstless->text.updatePosition();
 
             thisConstless->setValid();
+
+            return *this;
         }
 
         const glm::vec4& TextField::getColor() const {
@@ -121,23 +127,46 @@ namespace GLUL {
             return text.getText();
         }
 
-        void TextField::setColor(const glm::vec3& color) {
-            setColor(glm::vec4(color, getAlpha()));
+        TextField& TextField::setColor(const glm::vec3& color) {
+            return setColor(glm::vec4(color, getAlpha()));
         }
 
-        void TextField::setColor(const glm::vec4& color) {
+        TextField& TextField::setColor(const glm::vec4& color) {
             _color = color;
 
             setInvalid();
+
+            return *this;
         }
 
-        void TextField::setAlpha(const float alpha) {
-            setColor(glm::vec4(getColor().r, getColor().g, getColor().b, alpha));
+        TextField& TextField::setAlpha(const float alpha) {
+            return setColor(glm::vec4(getColor().r, getColor().g, getColor().b, alpha));
         }
 
-        void TextField::setValue(const std::string& value) {
+        TextField& TextField::setValue(const std::string& value) {
             text.setText(value);
+
+            return *this;
         }
+
+        TextField& TextField::setSize(const glm::vec2& size) {
+            Component::setSize(size);
+
+            return *this;
+        }
+
+        TextField& TextField::setPosition(const glm::vec2& position) {
+            Component::setPosition(position);
+
+            return *this;
+        }
+
+        TextField& TextField::setPosition(const GLUL::Point& position) {
+            Component::setPosition(position);
+
+            return *this;
+        }
+
 
         GL::Program& TextField::getProgram() {
             static GL::Program program(
