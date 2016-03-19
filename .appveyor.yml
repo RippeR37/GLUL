@@ -6,7 +6,7 @@ environment:
   BINTRAY_USER:
     secure: 9iEGe4JL2hgRpnU8mx5QcQ==
   BINTRAY_APIKEY:
-    secure: ES2msT1RuviApoNuuliFo4lr05APq+mG6Rx9XCO5swkUpvyxR2kc7af4WCqfnxmv
+    secure: 9v+GlF4xI6fF8Z7jDlo/18RNstvuAWNC9pu1ORvBARQm+Y0PatY2O3Lsq/tQYnJw
 
 
 init:
