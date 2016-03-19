@@ -5,13 +5,17 @@
 #include <GLUL/GUI/Button.h>
 #include <GLUL/GUI/Checkbox.h>
 #include <GLUL/GUI/Font.h>
+#include <GLUL/GUI/ProgressBar.h>
 #include <GLUL/GUI/Text.h>
 #include <GLUL/GUI/TextField.h>
 #include <GLUL/GUI/Window.h>
 #include <GLUL/GUI/Events/MouseClick.h>
 
-#include <vector>
+#include <cmath>
 #include <iostream>
+#include <string>
+#include <vector>
+
 
 /**
  * Font loading helper function
@@ -112,6 +116,18 @@ void run() {
     checkbox3_on.setMarkColor(vec3(0.8f, 0.8f, 0.8f)).setMarkScale(0.7f);
     checkbox3_on.border.set(1, 0, vec3(0.0f));
 
+    
+    // Progress bar
+    GLUL::GUI::Text progressbar_header(window), progressbar1_text(window);
+    progressbar_header.setFont(fontArial).setColor(vec3(0.3f, 0.7f, 0.7f));
+    progressbar_header.setPosition(vec2(50.0f, 280.0f)).setText("Progress bar");
+    progressbar1_text.setFont(fontArial).setPosition(vec2(210.0f, 310.0f)).setText("0 %");
+
+    GLUL::GUI::ProgressBar progressbar1(window, 0.0f);
+    progressbar1.setSize(vec2(150.0f, 20.0f)).setPosition(vec2(50.0f, 310.0f));
+    progressbar1.setColor(vec3(0.12f, 0.625f, 1.0f)).setBackgroundColor(vec3(0.2f));
+    progressbar1.border.set(1, 0, vec3(0.0f));
+
 
     /*
      * Possible events:
@@ -167,11 +183,25 @@ void run() {
 
     /////////////////////////////////////////////////////////////////
 
+    GLUL::Clock clock;
+
     while(window.isCreated() && window.shouldClose() == false) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);
 
         window.render();
         window.update();
+
+        {
+            const float progressCycleTime = 5.0f; // reaches 100% in 5 seconds
+            float frameTime = clock.getElapsedTime().asSeconds<float>(), progressInt;
+            float progressValue = progressbar1.getProgress();
+
+            progressValue += frameTime / progressCycleTime;
+            progressValue = std::modf(progressValue, &progressInt);
+            
+            progressbar1.setProgress(progressValue);
+            progressbar1_text.setText(std::to_string(static_cast<int>(std::ceil(progressValue * 100.0f))) + " %");
+        }
     }
 }
 

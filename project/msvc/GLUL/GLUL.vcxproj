@@ -216,6 +216,7 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseRelease.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Font.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\InnerText.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\ProgressBar.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\Border.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\HorizontalAlignment.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\VerticalAlignment.h" />
@@ -295,6 +296,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\TextInput.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Font.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\InnerText.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\ProgressBar.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Styles\Border.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Text.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\TextField.cpp" />
