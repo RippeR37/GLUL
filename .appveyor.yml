@@ -155,7 +155,7 @@ deploy_script:
   - cmd: set BINTRAY_PATH_FULL=%BINTRAY_PATH%/windows/%DEPLOY_NAME_FILE%
 
   # Deploy package
-  - cmd: curl -fsS -u "%BINTRAY_USER%:%BINTRAY_APIKEY%" -X PUT "https://api.bintray.com/content/%BINTRAY_PATH_FULL%?override=1&publish=1" --data-binary @%DEPLOY_NAME_FILE%
+  - cmd: curl -fvS -u "%BINTRAY_USER%:%BINTRAY_APIKEY%" -X PUT "https://api.bintray.com/content/%BINTRAY_PATH_FULL%?override=1&publish=1" --data-binary @%DEPLOY_NAME_FILE%
   - cmd: echo "Deployed package!"
 
   # Return to build directory and finish deploying
