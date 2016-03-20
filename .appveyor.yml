@@ -141,11 +141,11 @@ deploy_script:
 
   # Go to deploy directory
   - cmd: cd "%DEPLOY_DIR_2%"
-  - cmd: dir
 
   # Create package to upload
   - cmd: 7z a -t7z -r -m0=LZMA2 -mx=9 "%DEPLOY_NAME_FILE%" ./*
   - cmd: echo "Package %DEPLOY_NAME% created..."
+  - cmd: dir
 
   # Deploy variables
   - cmd: set BINTRAY_REPO=generic
