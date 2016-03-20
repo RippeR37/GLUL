@@ -4,7 +4,6 @@
 #include <GLUL/Logger.h>
 
 #include <algorithm>
-// #include <cctype> ////////////////////////////////////////////////////
 
 
 namespace GLUL {

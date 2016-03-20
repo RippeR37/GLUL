@@ -329,6 +329,9 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\ProgressBar.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Slider.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
@@ -545,6 +548,9 @@
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\ProgressBar.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Slider.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>

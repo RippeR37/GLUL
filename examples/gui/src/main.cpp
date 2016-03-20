@@ -5,6 +5,7 @@
 #include <GLUL/GUI/Button.h>
 #include <GLUL/GUI/Checkbox.h>
 #include <GLUL/GUI/Font.h>
+#include <GLUL/GUI/Slider.h>
 #include <GLUL/GUI/ProgressBar.h>
 #include <GLUL/GUI/Text.h>
 #include <GLUL/GUI/TextField.h>
@@ -127,6 +128,27 @@ void run() {
     progressbar1.setSize(vec2(150.0f, 20.0f)).setPosition(vec2(50.0f, 310.0f));
     progressbar1.setColor(vec3(0.12f, 0.625f, 1.0f)).setBackgroundColor(vec3(0.2f));
     progressbar1.border.set(1, 0, vec3(0.0f));
+
+
+    // Sliders
+    GLUL::GUI::Text slider_header(window);
+    slider_header.setFont(fontArial).setColor(vec3(0.3f, 0.7f, 0.7f));
+    slider_header.setPosition(vec2(50.0f, 350.0f)).setText("Sliders");
+
+    GLUL::GUI::Slider slider1(window, 0.0f, 1.0f, 0.5f);
+    slider1.setSize(vec2(150.0f, 20.0f)).setPosition(vec2(50.0f, 380.0f));
+    slider1.setColor(vec3(0.12f, 0.625f, 1.0f)).setBackgroundColor(vec3(0.2f));
+    slider1.border.set(1, 0, vec3(0.0f));
+
+    GLUL::GUI::Slider slider2(window, -1.5f, 6.5f, 0.0f);
+    slider2.setSize(vec2(150.0f, 20.0f)).setPosition(vec2(250.0f, 380.0f));
+    slider2.setColor(vec3(0.12f, 0.625f, 1.0f)).setBackgroundColor(vec3(0.2f));
+    slider2.border.set(1, 0, vec3(0.0f));
+
+    GLUL::GUI::Slider slider3(window, 0.0f, 5.0f, 0.0f);
+    slider3.setSize(vec2(150.0f, 20.0f)).setPosition(vec2(450.0f, 380.0f));
+    slider3.setColor(vec3(0.12f, 0.625f, 1.0f)).setBackgroundColor(vec3(0.2f));
+    slider3.restrictValuesToIntegers(true).border.set(1, 0, vec3(0.0f));
 
 
     /*
