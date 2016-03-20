@@ -6,7 +6,7 @@ environment:
   BINTRAY_USER:
     secure: 9iEGe4JL2hgRpnU8mx5QcQ==
   BINTRAY_APIKEY:
-    secure: 9v+GlF4xI6fF8Z7jDlo/18RNstvuAWNC9pu1ORvBARQm+Y0PatY2O3Lsq/tQYnJw
+    secure: 0yKkRlEu2OuIJL/qSCNUjXWDN1LY9yBCufFy1X2h8RPv8JEwGOfhoN3rjziYhMFT
 
 
 init:
@@ -155,7 +155,7 @@ deploy_script:
   - cmd: set BINTRAY_PATH_FULL=%BINTRAY_PATH%/windows/%DEPLOY_NAME_FILE%
 
   # Deploy package
-  - cmd: curl -fvS -u "%BINTRAY_USER%:%BINTRAY_APIKEY%" -X PUT "https://api.bintray.com/content/%BINTRAY_PATH_FULL%?override=1&publish=1" --data-binary @%DEPLOY_NAME_FILE%
+  - cmd: curl -fS -u "%BINTRAY_USER%:%BINTRAY_APIKEY%" -T "%DEPLOY_NAME_FILE%" -X PUT "https://api.bintray.com/content/%BINTRAY_PATH_FULL%?override=1&publish=1"
   - cmd: echo "Deployed package!"
 
   # Return to build directory and finish deploying
