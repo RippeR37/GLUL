@@ -11,6 +11,7 @@
 #include <GLUL/GUI/Events/TextInput.h>
 
 #include <glm/vec2.hpp>
+#include <glm/vec4.hpp>
 
 #include <functional>
 #include <vector>
@@ -73,6 +74,9 @@ namespace GLUL {
                 void notifyParentOfDestruction();
 
                 bool isUnderMouse() const;
+
+                static void pushColoredRectangle(std::vector<glm::vec4>& result, 
+                    const glm::vec2& posStart, const glm::vec2& posEnd, const glm::vec4& color);
 
                 bool _isEnabled;
                 bool _isFocused;

@@ -14,10 +14,12 @@ namespace GLUL {
             : Slider(&parent, min, max, value) { }
 
         Slider::Slider(Container* const parent, float min, float max, float value) 
-            : Component(parent), border(*this) 
+            : Component(parent), border(*this), handleBorder(*this)
         {
-            setColor(glm::vec4(glm::vec3(1.0f), 1.0f));
             setBackgroundColor(glm::vec4(glm::vec3(0.0f), 1.0f));
+            setHandleColor(glm::vec4(glm::vec3(1.0f), 1.0f));
+            setLineColor(glm::vec4(0.0f));
+
             restrictValuesToIntegers(false);
             setRange(min, max);
             setValue(value);
@@ -33,7 +35,9 @@ namespace GLUL {
         }
 
         const Slider& Slider::render() const {
-            if(isVisible() && getAlpha() > 0.0f && getBackgroundAlpha() > 0.0f) {
+            if(isVisible() &&
+                (getBackgroundAlpha() > 0.0f || getLineAlpha() > 0.0f || getHandleAlpha() > 0.0f)) 
+            {
                 if(!isValid())
                     validate();
 
@@ -94,20 +98,28 @@ namespace GLUL {
         }
 
 
-        const glm::vec4& Slider::getColor() const {
-            return _color;
-        }
-
         const glm::vec4& Slider::getBackgroundColor() const {
             return _backgroundColor;
         }
 
-        float Slider::getAlpha() const {
-            return getColor().a;
+        const glm::vec4& Slider::getLineColor() const {
+            return _lineColor;
+        }
+
+        const glm::vec4& Slider::getHandleColor() const {
+            return _handleColor;
         }
 
         float Slider::getBackgroundAlpha() const {
             return getBackgroundColor().a;
+        }
+
+        float Slider::getLineAlpha() const {
+            return getLineColor().a;
+        }
+
+        float Slider::getHandleAlpha() const {
+            return getHandleColor().a;
         }
 
         float Slider::getValue() const {
@@ -128,6 +140,14 @@ namespace GLUL {
                 return _possibleValues.back();
         }
 
+        const glm::vec2& Slider::getLineSize() const {
+            return _lineSize;
+        }
+
+        const glm::vec2& Slider::getHandleSize() const {
+            return _handleSize;
+        }
+
 
         float Slider::normalizeValue(float value) const {
             return (value - getMin()) / (getMax() - getMin());
@@ -137,18 +157,6 @@ namespace GLUL {
             return getMin() + (getMax() - getMin()) * normalizedValue;
         }
 
-
-        Slider& Slider::setColor(const glm::vec3& color) {
-            return setColor(glm::vec4(color, getAlpha()));
-        }
-
-        Slider& Slider::setColor(const glm::vec4& color) {
-            _color = color;
-
-            setInvalid();
-
-            return *this;
-        }
 
         Slider& Slider::setBackgroundColor(const glm::vec3& color) {
             return setBackgroundColor(glm::vec4(color, getBackgroundAlpha()));
@@ -162,12 +170,28 @@ namespace GLUL {
             return *this;
         }
 
-        Slider& Slider::setAlpha(float alpha) {
-            glm::vec4 color = getColor();
+        Slider& Slider::setLineColor(const glm::vec3& lineColor) {
+            return setLineColor(glm::vec4(lineColor, getLineAlpha()));
+        }
 
-            color.a = alpha;
+        Slider& Slider::setLineColor(const glm::vec4& lineColor) {
+            _lineColor = lineColor;
 
-            return setColor(color);
+            setInvalid();
+
+            return *this;
+        }
+
+        Slider& Slider::setHandleColor(const glm::vec3& handleColor) {
+            return setHandleColor(glm::vec4(handleColor, getHandleAlpha()));
+        }
+
+        Slider& Slider::setHandleColor(const glm::vec4& handleColor) {
+            _handleColor = handleColor;
+
+            setInvalid();
+
+            return *this;
         }
 
         Slider& Slider::setBackgroundAlpha(float alpha) {
@@ -176,6 +200,22 @@ namespace GLUL {
             backgroundColor.a = alpha;
 
             return setBackgroundColor(backgroundColor);
+        }
+
+        Slider& Slider::setLineAlpha(float alpha) {
+            glm::vec4 color = getLineColor();
+
+            color.a = alpha;
+
+            return setLineColor(color);
+        }
+
+        Slider& Slider::setHandleAlpha(float alpha) {
+            glm::vec4 color = getHandleColor();
+
+            color.a = alpha;
+
+            return setHandleColor(color);
         }
 
         Slider& Slider::setRange(float min, float max) {
@@ -222,6 +262,25 @@ namespace GLUL {
 
         Slider& Slider::setSize(const glm::vec2& size) {
             Component::setSize(size);
+
+            setLineSize(glm::vec2(size.x, size.y / 15.0f));
+            setHandleSize(glm::vec2(size.y / 3.0f, size.y * 1.25f));
+
+            return *this;
+        }
+
+        Slider& Slider::setLineSize(const glm::vec2& lineSize) {
+            _lineSize = lineSize;
+
+            setInvalid();
+
+            return *this;
+        }
+
+        Slider& Slider::setHandleSize(const glm::vec2& handleSize) {
+            _handleSize = handleSize;
+
+            setInvalid();
 
             return *this;
         }
@@ -284,63 +343,72 @@ namespace GLUL {
         std::vector<glm::vec4> Slider::getVertices() const {
             std::vector<glm::vec4> result;
 
-            const float lineHeight = getSize().y / 15.0f;
-            const float handleWidth = getSize().y / 3.0f;
-            const float handleRange = getSize().x - handleWidth;
-
+            // Background position
             glm::vec2 scrPos = getScreenPosition().getPosition();
             glm::vec2 posStart = glm::vec2(scrPos.x, GL::Context::Current->getViewportSize().y - scrPos.y);
-            glm::vec2 posEnd  = posStart + glm::vec2(getSize().x, -getSize().y);
+            glm::vec2 posEnd = posStart + glm::vec2(getSize().x, -getSize().y);
 
-            glm::vec2 posStartLine = glm::vec2(posStart.x, posStart.y - getSize().y * 0.5f - lineHeight * 0.5f);
-            glm::vec2 posEndLine = glm::vec2(posEnd.x, posStartLine.y + lineHeight);
-
-            glm::vec2 posStartHandle = glm::vec2(posStart.x + handleRange * normalizeValue(getValue()), posStart.y);
-            glm::vec2 posEndHandle = glm::vec2(posStartHandle.x + handleWidth, posEnd.y);
-
-            glm::vec2 borStart = posStart - glm::vec2(border.getOffset(), -border.getOffset());
-            glm::vec2 borEnd = posEnd - glm::vec2(-border.getOffset(), border.getOffset());
-            glm::vec2 borWidth = glm::vec2(static_cast<float>(border.getWidth()));
-
-            static auto addRectangleVerticesWithColor =
-                [](
-                std::vector<glm::vec4>& result,
-                const glm::vec2& posStart,
-                const glm::vec2& posEnd,
-                const glm::vec4& color
-                )
-            {
-                // Vertices                                                     // Colors
-                result.emplace_back(posStart.x, posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
-                result.emplace_back(posEnd.x,   posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
-                result.emplace_back(posStart.x, posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
-
-                result.emplace_back(posStart.x, posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
-                result.emplace_back(posEnd.x,   posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
-                result.emplace_back(posEnd.x,   posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
-            };
-
-            // Background
-            if(getBackgroundAlpha() > 0.0f)
-                addRectangleVerticesWithColor(result, posStart, posEnd, getBackgroundColor());
-
-            if(getAlpha() > 0.0f) {
-                // Horizontal line
-                addRectangleVerticesWithColor(result, posStartLine, posEndLine, getColor() * 0.75f);
-
-                // Slider's handle
-                addRectangleVerticesWithColor(result, posStartHandle, posEndHandle, getColor());
-            }
-
-            // Border
-            addRectangleVerticesWithColor(result, glm::vec2(borStart.x, borStart.y), glm::vec2(borEnd.x, borStart.y - borWidth.y), border.getColor()); // top
-            addRectangleVerticesWithColor(result, glm::vec2(borStart.x, borStart.y), glm::vec2(borStart.x + borWidth.x, borEnd.y), border.getColor()); // left
-            addRectangleVerticesWithColor(result, glm::vec2(borEnd.x - borWidth.x, borStart.y), glm::vec2(borEnd.x, borEnd.y), border.getColor()); // right
-            addRectangleVerticesWithColor(result, glm::vec2(borStart.x, borEnd.y + borWidth.y), glm::vec2(borEnd.x, borEnd.y), border.getColor()); // bottom
+            // Push vertices to vector
+            pushBackgroundVertices(result, posStart, posEnd);
+            pushLineVertices(result, posStart, posEnd);
+            pushHandleVertices(result, posStart, posEnd);
 
             return result;
         }
 
+        void Slider::pushBackgroundVertices(std::vector<glm::vec4>& result, const glm::vec2& posStart, const glm::vec2& posEnd) const {
+            // Background border position
+            glm::vec2 borStart = posStart - glm::vec2(border.getOffset(), -border.getOffset());
+            glm::vec2 borEnd = posEnd - glm::vec2(-border.getOffset(), border.getOffset());
+            glm::vec2 borWidth = glm::vec2(static_cast<float>(border.getWidth()));
+
+            // Vertices - background
+            if(getBackgroundAlpha() > 0.0f)
+                pushColoredRectangle(result, posStart, posEnd, getBackgroundColor());
+
+            // Vertices - background's border
+            pushColoredRectangle(result, glm::vec2(borStart.x, borStart.y), glm::vec2(borEnd.x, borStart.y - borWidth.y), border.getColor()); // top
+            pushColoredRectangle(result, glm::vec2(borStart.x, borStart.y), glm::vec2(borStart.x + borWidth.x, borEnd.y), border.getColor()); // left
+            pushColoredRectangle(result, glm::vec2(borEnd.x - borWidth.x, borStart.y), glm::vec2(borEnd.x, borEnd.y), border.getColor()); // right
+            pushColoredRectangle(result, glm::vec2(borStart.x, borEnd.y + borWidth.y), glm::vec2(borEnd.x, borEnd.y), border.getColor()); // bottom
+        }
+
+        void Slider::pushLineVertices(std::vector<glm::vec4>& result, const glm::vec2& posStart, const glm::vec2& posEnd) const {
+            const float lineWidthDiff = getSize().x - getLineSize().x;
+            
+            // Line position
+            glm::vec2 posStartLine = glm::vec2(posStart.x + (lineWidthDiff * 0.5f), posStart.y - (getSize().y - getLineSize().y) * 0.5f);
+            glm::vec2 posEndLine = glm::vec2(posEnd.x - (lineWidthDiff * 0.5f), posStartLine.y - getLineSize().y);
+
+            // Vertices - line
+            if(getLineAlpha() > 0.0f)
+                pushColoredRectangle(result, posStartLine, posEndLine, getLineColor());
+        }
+
+        void Slider::pushHandleVertices(std::vector<glm::vec4>& result, const glm::vec2& posStart, const glm::vec2& posEnd) const {
+            const float handleRange = getSize().x - getHandleSize().x;
+            const float handleHeightDiff = getSize().y - getHandleSize().y;
+            
+            // Handle position
+            glm::vec2 posStartHandle = glm::vec2(posStart.x + handleRange * normalizeValue(getValue()), posStart.y - (handleHeightDiff * 0.5f));
+            glm::vec2 posEndHandle = glm::vec2(posStartHandle.x + getHandleSize().x, posEnd.y + (handleHeightDiff * 0.5f));
+
+            // Handle border position
+            glm::vec2 hBorStart = posStartHandle - glm::vec2(handleBorder.getOffset(), -handleBorder.getOffset());
+            glm::vec2 hBorEnd = posEndHandle - glm::vec2(-handleBorder.getOffset(), handleBorder.getOffset());
+            glm::vec2 hBorWidth = glm::vec2(static_cast<float>(handleBorder.getWidth()));
+
+            // Vertices - handle
+            if(getHandleAlpha() > 0.0f)
+                pushColoredRectangle(result, posStartHandle, posEndHandle, getHandleColor());
+
+            // Vertices - handle's border
+            pushColoredRectangle(result, glm::vec2(hBorStart.x, hBorStart.y), glm::vec2(hBorEnd.x, hBorStart.y - hBorWidth.y), handleBorder.getColor()); // top
+            pushColoredRectangle(result, glm::vec2(hBorStart.x, hBorStart.y), glm::vec2(hBorStart.x + hBorWidth.x, hBorEnd.y), handleBorder.getColor()); // left
+            pushColoredRectangle(result, glm::vec2(hBorEnd.x - hBorWidth.x, hBorStart.y), glm::vec2(hBorEnd.x, hBorEnd.y), handleBorder.getColor()); // right
+            pushColoredRectangle(result, glm::vec2(hBorStart.x, hBorEnd.y + hBorWidth.y), glm::vec2(hBorEnd.x, hBorEnd.y), handleBorder.getColor()); // bottom
+        }
+        
         void Slider::initializeEvents() {
             // Move to point where you clicked
             onMouseClick += GLUL::GUI::Event::MouseClick::Handler(
@@ -406,14 +474,12 @@ namespace GLUL {
         }
 
         void Slider::updateValueFromPosition(const glm::vec2& position) {
-            const float handleWidth = getSize().y / 3.0f;
-            const float sliderWidth = getSize().x - handleWidth;
-            const float normalizedNewValue = (position.x - 0.5f * handleWidth) / sliderWidth;
+            const float handleWidth = getHandleSize().x;
+            const float sliderRange = getSize().x - handleWidth;
+            const float normalizedNewValue = (position.x - 0.5f * handleWidth) / sliderRange;
             const float denormalizedNewValue = denormalizeValue(normalizedNewValue);
 
             setValue(denormalizedNewValue);
-
-            //std::cout << "Aktualizuje wartosc:"
         }
 
     }

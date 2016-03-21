@@ -169,6 +169,22 @@ namespace GLUL {
             return getParent()->isUnderMouse(const_cast<Component*>(this));
         }
 
+        void Component::pushColoredRectangle(
+            std::vector<glm::vec4>& result,
+            const glm::vec2& posStart, 
+            const glm::vec2& posEnd,
+            const glm::vec4& color)
+        {
+            // Vertices                                                     // Colors
+            result.emplace_back(posStart.x, posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
+            result.emplace_back(posEnd.x,   posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
+            result.emplace_back(posStart.x, posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
+
+            result.emplace_back(posStart.x, posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
+            result.emplace_back(posEnd.x,   posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
+            result.emplace_back(posEnd.x,   posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
+        }
+
     }
 
 }
