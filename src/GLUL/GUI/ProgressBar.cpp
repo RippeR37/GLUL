@@ -11,7 +11,7 @@ namespace GLUL {
     namespace GUI {
 
         ProgressBar::ProgressBar(Container& parent, float progress) : ProgressBar(&parent, progress) {
-            
+
         }
 
         ProgressBar::ProgressBar(Container* const parent, float progress) : Component(parent), border(*this) {
@@ -153,6 +153,8 @@ namespace GLUL {
             _progress = progress;
 
             setInvalid();
+
+            onValueChange.call(*this, GLUL::GUI::Event::ValueChange());
 
             return *this;
         }

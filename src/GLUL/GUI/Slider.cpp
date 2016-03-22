@@ -257,6 +257,8 @@ namespace GLUL {
 
             setInvalid();
 
+            onValueChange.call(*this, GLUL::GUI::Event::ValueChange());
+
             return *this;
         }
 

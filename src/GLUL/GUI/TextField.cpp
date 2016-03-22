@@ -146,6 +146,8 @@ namespace GLUL {
         TextField& TextField::setValue(const std::string& value) {
             text.setText(value);
 
+            onValueChange.call(*this, GLUL::GUI::Event::ValueChange());
+
             return *this;
         }
 

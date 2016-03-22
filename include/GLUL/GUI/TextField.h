@@ -5,6 +5,7 @@
 #include <GLUL/GL++/VertexBuffer.h>
 #include <GLUL/GUI/Component.h>
 #include <GLUL/GUI/InnerText.h>
+#include <GLUL/GUI/Events/ValueChange.h>
 #include <GLUL/GUI/Styles/Border.h>
 
 #include <glm/vec2.hpp>
@@ -43,6 +44,9 @@ namespace GLUL {
 
                 InnerText text;
                 Style::Border border;
+
+            public:
+                Event::HandlerAggregator<Event::ValueChange> onValueChange;
 
             private:
                 std::vector<glm::vec4> getVertices() const;

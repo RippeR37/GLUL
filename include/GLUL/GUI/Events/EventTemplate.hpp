@@ -15,9 +15,9 @@ namespace GLUL {
         namespace Event {
 
             template<class EventType>
-            class GLUL_API EventTemplate {
+            class EventTemplate {
                 public:
-                    class GLUL_API Handler {
+                    class Handler {
                         public:
                             typedef std::function<void(Component&, const EventType&)> CallbackType;
 

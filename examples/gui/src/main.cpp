@@ -10,7 +10,6 @@
 #include <GLUL/GUI/Text.h>
 #include <GLUL/GUI/TextField.h>
 #include <GLUL/GUI/Window.h>
-#include <GLUL/GUI/Events/MouseClick.h>
 
 #include <cmath>
 #include <iostream>
@@ -34,17 +33,19 @@ void initFont(GLUL::GUI::Font& font, const std::string& fontName, int size) {
 void run() {
     using namespace glm;
 
+
     GLUL::GUI::Window window(800, 600, "Title"); // Be advised - GUI-supporting Window is GLUL::GUI::Window, not GLUL::Window !
-    
     window.create();
     window.registerEvents();
     window.getContext().setClearColor(vec4(0.1f, 0.1f, 0.1f, 1.0f));
+
 
     // Fonts
     GLUL::GUI::Font fontArial;
     GLUL::GUI::Font fontVerdanaI;
     initFont(fontArial, "arial", 16);
     initFont(fontVerdanaI, "verdanai", 18);
+
 
     // Text
     GLUL::GUI::Text text;
@@ -153,6 +154,10 @@ void run() {
     slider3.handleBorder.set(1, 0, vec3(0.0f));
 
 
+    //
+    // Event handlers
+    //
+
     /*
      * Possible events:
      * 
@@ -203,29 +208,48 @@ void run() {
             button.setColor(vec3(0.12f, 0.625f, 1.0f));
         }
     );
-    
+
+    progressbar1.onValueChange += GLUL::GUI::Event::ValueChange::Handler(
+        "p1:valueChange",
+        [&progressbar1_text](GLUL::GUI::Component& component, const GLUL::GUI::Event::ValueChange& unused) {
+            (void) unused;
+
+            GLUL::GUI::ProgressBar& progressBar = static_cast<GLUL::GUI::ProgressBar&>(component);
+            int progressValue = static_cast<int>(static_cast<int>(std::ceil(progressBar.getProgress() * 100.0f)));
+            std::string valueText = std::to_string(progressValue) + "%";
+
+            progressbar1_text.setText(valueText);
+        }
+    );
+
+
+    //
+    // State update functions
+    //
+    auto progressbar_update = [&] {
+        static GLUL::Clock clock;
+        float progressCycleTime = 5.0f; // reaches 100% in 5 seconds
+        float frameTime = clock.getElapsedTime().asSeconds<float>(), progressInt;
+        float progressValue = progressbar1.getProgress();
+
+        progressValue += frameTime / progressCycleTime;
+        progressValue = std::modf(progressValue, &progressInt);
+
+        progressbar1.setProgress(progressValue);
+    };
+
 
     /////////////////////////////////////////////////////////////////
-
-    GLUL::Clock clock;
+    ///                         MAIN LOOP                         ///
+    /////////////////////////////////////////////////////////////////
 
     while(window.isCreated() && window.shouldClose() == false) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);
 
+        progressbar_update();
+
         window.render();
         window.update();
-
-        {
-            const float progressCycleTime = 5.0f; // reaches 100% in 5 seconds
-            float frameTime = clock.getElapsedTime().asSeconds<float>(), progressInt;
-            float progressValue = progressbar1.getProgress();
-
-            progressValue += frameTime / progressCycleTime;
-            progressValue = std::modf(progressValue, &progressInt);
-            
-            progressbar1.setProgress(progressValue);
-            progressbar1_text.setText(std::to_string(static_cast<int>(std::ceil(progressValue * 100.0f))) + " %");
-        }
     }
 }
 

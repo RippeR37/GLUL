@@ -14,7 +14,7 @@ namespace GLUL {
         namespace Event {
 
             template<class EventType>
-            class GLUL_API HandlerAggregator {
+            class HandlerAggregator {
                 public:
                     HandlerAggregator& operator+=(const typename EventTemplate<EventType>::Handler& handler) {
                         return add(handler);

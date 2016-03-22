@@ -118,11 +118,15 @@
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <ObjectFileName>$(IntDir)\x\x\x\%(RelativeDir)\</ObjectFileName>
       <DisableSpecificWarnings>4290;4996;4018;4611;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\..\..\libs\glfw-3.1\lib-vc2013;..\..\..\libs\glew-1.12.0\lib\Release\Win32;..\..\..\libs\jpeg-9a\lib\Debug;..\..\..\libs\zlib-1.2.8\lib\Debug;..\..\..\libs\libpng-1.6.17\lib\Debug;..\..\..\libs\freetype-2.5.5\objs\vc2010\Win32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib;freetype255d.lib;jpeg.lib;libpng16.lib;zlib.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OptimizeReferences>
+      </OptimizeReferences>
     </Link>
     <BuildLog>
       <Path>$(IntDir)\Logs\$(MSBuildProjectName).log</Path>
@@ -214,6 +218,7 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseLeave.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseMove.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseRelease.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\ValueChange.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Font.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\InnerText.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\ProgressBar.h" />
@@ -295,6 +300,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseMove.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseRelease.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\TextInput.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\ValueChange.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Font.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\InnerText.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\ProgressBar.cpp" />

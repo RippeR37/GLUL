@@ -171,6 +171,8 @@ namespace GLUL {
             setInvalid();
             validate();
 
+            onValueChange.call(*this, GLUL::GUI::Event::ValueChange());
+
             return *this;
         }
 
