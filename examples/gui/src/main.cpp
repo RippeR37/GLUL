@@ -209,13 +209,12 @@ void run() {
         }
     );
 
-    progressbar1.onValueChange += GLUL::GUI::Event::ValueChange::Handler(
+    progressbar1.onValueChange += GLUL::GUI::Event::ValueChange<float>::Handler(
         "p1:valueChange",
-        [&progressbar1_text](GLUL::GUI::Component& component, const GLUL::GUI::Event::ValueChange& unused) {
-            (void) unused;
-
-            GLUL::GUI::ProgressBar& progressBar = static_cast<GLUL::GUI::ProgressBar&>(component);
-            int progressValue = static_cast<int>(static_cast<int>(std::ceil(progressBar.getProgress() * 100.0f)));
+        [&progressbar1_text](GLUL::GUI::Component& component, const GLUL::GUI::Event::ValueChange<float>& valueChangeEvent) {
+            (void) component; // unused
+            
+            int progressValue = static_cast<int>(std::ceil(valueChangeEvent.newValue * 100.0f));
             std::string valueText = std::to_string(progressValue) + "%";
 
             progressbar1_text.setText(valueText);

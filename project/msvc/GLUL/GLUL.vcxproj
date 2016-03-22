@@ -218,7 +218,7 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseLeave.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseMove.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseRelease.h" />
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\ValueChange.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\ValueChange.hpp" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Font.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\InnerText.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\ProgressBar.h" />
@@ -300,7 +300,6 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseMove.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseRelease.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\TextInput.cpp" />
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\ValueChange.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Font.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\InnerText.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\ProgressBar.cpp" />

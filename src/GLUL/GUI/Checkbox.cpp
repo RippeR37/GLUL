@@ -166,12 +166,14 @@ namespace GLUL {
         }
 
         Checkbox& Checkbox::setState(bool state) {
+            bool oldState = getState();
+
             _state = state;
 
             setInvalid();
             validate();
 
-            onValueChange.call(*this, GLUL::GUI::Event::ValueChange());
+            onValueChange.call(*this, GLUL::GUI::Event::ValueChange<bool>(oldState, getState()));
 
             return *this;
         }

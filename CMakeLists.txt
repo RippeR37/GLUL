@@ -71,7 +71,6 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Events/MouseMove.cpp"
     "src/GLUL/GUI/Events/MouseRelease.cpp"
     "src/GLUL/GUI/Events/TextInput.cpp"
-    "src/GLUL/GUI/Events/ValueChange.cpp"
     
     "src/GLUL/GUI/Styles/Border.cpp"
     
@@ -167,7 +166,7 @@ set(GLUL_H
     "include/GLUL/GUI/Events/MouseMove.h"
     "include/GLUL/GUI/Events/MouseRelease.h"
     "include/GLUL/GUI/Events/TextInput.h"
-    "include/GLUL/GUI/Events/ValueChange.h"
+    "include/GLUL/GUI/Events/ValueChange.hpp"
     
     "include/GLUL/GUI/Styles/Border.h"
     "include/GLUL/GUI/Styles/HorizontalAlignment.h"

@@ -4,7 +4,7 @@
 #include <GLUL/GL++/VertexArray.h>
 #include <GLUL/GL++/VertexBuffer.h>
 #include <GLUL/GUI/Component.h>
-#include <GLUL/GUI/Events/ValueChange.h>
+#include <GLUL/GUI/Events/ValueChange.hpp>
 #include <GLUL/GUI/Styles/Border.h>
 
 #include <glm/vec2.hpp>
@@ -54,7 +54,7 @@ namespace GLUL {
                 Style::Border border;
 
             public:
-                Event::HandlerAggregator<Event::ValueChange> onValueChange;
+                Event::HandlerAggregator<Event::ValueChange<float>> onValueChange;
 
             private:
                 std::vector<glm::vec4> getVertices() const;

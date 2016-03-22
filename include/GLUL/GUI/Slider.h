@@ -4,7 +4,7 @@
 #include <GLUL/GL++/VertexArray.h>
 #include <GLUL/GL++/VertexBuffer.h>
 #include <GLUL/GUI/Component.h>
-#include <GLUL/GUI/Events/ValueChange.h>
+#include <GLUL/GUI/Events/ValueChange.hpp>
 #include <GLUL/GUI/Styles/Border.h>
 
 #include <glm/vec2.hpp>
@@ -72,7 +72,7 @@ namespace GLUL {
                 Style::Border handleBorder;
 
             public:
-                Event::HandlerAggregator<Event::ValueChange> onValueChange;
+                Event::HandlerAggregator<Event::ValueChange<float>> onValueChange;
 
             private:
                 void clampValue();

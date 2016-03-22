@@ -332,7 +332,7 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Slider.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\ValueChange.h">
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\ValueChange.hpp">
       <Filter>Header Files\GUI\Events</Filter>
     </ClInclude>
   </ItemGroup>
@@ -555,9 +555,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\Slider.cpp">
       <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Events\ValueChange.cpp">
-      <Filter>Source Files\GUI\Events</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

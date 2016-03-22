@@ -237,6 +237,8 @@ namespace GLUL {
         }
 
         Slider& Slider::setValue(float value) {
+            float oldValue = getValue();
+
             if(_possibleValues.empty()) {
                 _currentValue = value;
                 clampValue();
@@ -257,7 +259,7 @@ namespace GLUL {
 
             setInvalid();
 
-            onValueChange.call(*this, GLUL::GUI::Event::ValueChange());
+            onValueChange.call(*this, GLUL::GUI::Event::ValueChange<float>(oldValue, getValue()));
 
             return *this;
         }

@@ -150,11 +150,13 @@ namespace GLUL {
         }
 
         ProgressBar& ProgressBar::setProgress(float progress) {
+            float oldProgress = getProgress();
+
             _progress = progress;
 
             setInvalid();
 
-            onValueChange.call(*this, GLUL::GUI::Event::ValueChange());
+            onValueChange.call(*this, GLUL::GUI::Event::ValueChange<float>(oldProgress, getProgress()));
 
             return *this;
         }
