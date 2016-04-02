@@ -3,6 +3,8 @@
 #include <GLUL/Config.h>
 #include <GLUL/Image.h>
 
+#include <vector>
+
 
 namespace GLUL {
 
@@ -18,6 +20,8 @@ namespace GLUL {
 
             protected:
                 void setImage(Image& image, unsigned int width, unsigned int height, unsigned int bits, unsigned char* data) const;
+
+                std::vector<unsigned char> getRGBDataOf(const Image& image) const;
         };
 
     }

@@ -26,6 +26,24 @@ namespace GLUL {
             image._size = height * rowStride;
         }
 
+        std::vector<unsigned char> ImageFile::getRGBDataOf(const Image& image) const {
+            std::vector<unsigned char> result;
+
+            result.reserve(image.getWidth() * image.getHeight() * 3);
+
+            for(int row = 0; row < image.getHeight(); ++row) {
+                for(int coll = 0; coll < image.getWidth(); ++coll) {
+                    glm::uvec4 pixel = image.getPixel(coll, row);
+
+                    result.push_back(static_cast<unsigned char>(pixel.r));
+                    result.push_back(static_cast<unsigned char>(pixel.g));
+                    result.push_back(static_cast<unsigned char>(pixel.b));
+                }
+            }
+
+            return result;
+        }
+
     }
 
 }
