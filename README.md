@@ -17,8 +17,8 @@
     - **low-level access to OpenGL functionality**
     - **high-level abstractions to common usage patterns**
 - Window creation and management
-    - multiple window support (through _GLFW3_) with windows manager
-- Input management
+    - multiple window support (through _GLFW3_)
+- **Input management**
     - direct access to state of IO devices (Keyboard, Mouse, etc.)
     - event based abstractions
         - event aggregators, handlers and triggers
@@ -32,7 +32,7 @@
         - both read and write for most popular formats
     - operations on strings, files, timers, time loops, etc.
     - and others...
-- GUI module (\* in progress)
+- **GUI module** (\* in progress)
     - component/container architecture
     - easly extendable
     - support for text rendering with custon fonts (through FreeType2)
@@ -59,7 +59,7 @@ Library strongly uses C++11 features like move constructors/assignment operators
 
 * Clone this repository
 * Download and configure all neccesary [dependencies](https://github.com/RippeR37/GLUL/#dependencies)
-* Build library using provided CMake script
+* Build library (and examples/tests) using provided CMake script
 
 
 ### Requirements
@@ -71,10 +71,12 @@ Library strongly uses C++11 features like move constructors/assignment operators
 - Linux (tested on Ubuntu 14.04)
 - Mac OS (tested by user(s))
 
+
 ### Compilers tested
 - MSVC (tested on Visual Studio 2013)
 - GCC (tested on 5.1.0)
 - Clang 3.6
+
 
 ### Dependencies
 - [GLFW](http://www.glfw.org/) (tested on 3.1)
@@ -87,7 +89,8 @@ Library strongly uses C++11 features like move constructors/assignment operators
 
 
 ## Examples of usage
-You can find examples of this library's usage in `example` directory or [here](https://github.com/RippeR37/GLUL/wiki/ExampleProjects).
+You can find provided example projects showcasing library's usage in `example` directory or you can check out [other projects which uses this library](https://github.com/RippeR37/GLUL/wiki/ExampleProjects).
+
 Provided examples:
 
 * Basic example (window creation and basic OpenGL usage)
