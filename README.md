@@ -5,115 +5,66 @@
 | Master | [![Build Status](https://travis-ci.org/RippeR37/GLUL.svg?branch=master)](https://travis-ci.org/RippeR37/GLUL) | [![Build status](https://ci.appveyor.com/api/projects/status/950gw1wrdvxgx1j1/branch/master?svg=true)](https://ci.appveyor.com/project/RippeR37/glul/branch/master) | [![Coverage Status](https://coveralls.io/repos/RippeR37/GLUL/badge.svg?branch=master)](https://coveralls.io/github/RippeR37/GLUL?branch=master) | [ ![Download](https://api.bintray.com/packages/ripper37/generic/GLUL/images/download.svg) ](https://bintray.com/ripper37/generic/GLUL/_latestVersion#files) |
 | Develop | [![Build Status](https://travis-ci.org/RippeR37/GLUL.svg?branch=develop)](https://travis-ci.org/RippeR37/GLUL) | [![Build status](https://ci.appveyor.com/api/projects/status/950gw1wrdvxgx1j1/branch/develop?svg=true)](https://ci.appveyor.com/project/RippeR37/glul/branch/develop) | [![Coverage Status](https://coveralls.io/repos/RippeR37/GLUL/badge.svg?branch=develop)](https://coveralls.io/github/RippeR37/GLUL?branch=develop) | [ ![Download](https://api.bintray.com/packages/ripper37/generic/GLUL/images/download.svg) ](https://bintray.com/ripper37/generic/GLUL/_latestVersion#files) |
 
+<br>
+**Modern C++ library** to speed-up working on **OpenGL** based applications and games.
+
 
 ### Main features
-- Object-oriented wrapper for OpenGL functionality
-    - provides type-safety using strongly typed enumerations
+- **Modern OpenGL object-oriented wrapper**
+    - type safety with strongly typed enumerations
+    - no more resource leaks thanks to RAII
+    - grouped functionality for ease of use
+    - **low-level access to OpenGL functionality**
+    - **high-level abstractions to common usage patterns**
 - Window creation and management
+    - multiple window support (through _GLFW3_) with windows manager
 - Input management
-    - Event based (with aggregators, handlers and triggers)
-    - Keyboard support
-    - Mouse support
-- Interfaces to recurring elements to encourage using polymorphism, like:
-    - cameras
-    - states
-    - models (i.e. 2D/3D models used by games/visualizations)
+    - direct access to state of IO devices (Keyboard, Mouse, etc.)
+    - event based abstractions
+        - event aggregators, handlers and triggers
 - Framework(s) to speed-up building small-to-medium applications and games
-- Model loaders (i.e. OBJ model loader with full integration to library)
-- Many usefull modules (e.g. timing, clocks, window managers) and algorithms, like:
-    - logging module
-    - operations on strings, files, etc.
-    - collision detection
+- Model loaders (e.g. OBJ model loader with full integration to library)
+- Many small usefull modules like:
+    - clock module to measure performance/time
+    - logging module (with custom streams)
+    - image module
+        - support for BMP, TGA, JPEG and PNG images
+        - both read and write for most popular formats
+    - operations on strings, files, timers, time loops, etc.
     - and others...
-- GUI module
-    - Component/container based
-    - Extendable
-    - Many handy events like onMouseEnter
-    - Still work in progress
+- GUI module (\* in progress)
+    - component/container architecture
+    - easly extendable
+    - support for text rendering with custon fonts (through FreeType2)
+    - many built-in widgets
+        - buttons, checkboxes, input fields, sliders, progress bars etc.
+        - more on its way, and it's very easy to write new ones
+    - many handy events like onMouseEnter, onMouseClick, onValueChange etc.
 - Multiplatform support (tested on Windows, Linux and Mac OS)
 
 Library strongly uses C++11 features like move constructors/assignment operators, lambdas, range-based loops, strongly typed pointers (with nullptr), strongly typed enumerations (_enum class_), hash maps etc. when it's clear much would be gained by it.
 
-### Modules
-- OpenGL Wrapper
-    - Buffers
-        - VertexBuffers
-    - Contexts
-    - Matrix stacks
-    - Model storage and manipulation
-        - Materials
-        - Meshes
-        - OBJ loader
-    - Pipelines
-    - Programs
-        - Shaders
-    - Textures
-    - Uniforms
-    - Vertex arrays
-        - Vertex attributes
-- GUI Module
-    - Components
-        - Text/label
-    - Containers
-    - Font loader (TrueType)
-- Exceptions
-    - FatalError
-    - InitializationFailed
-    - InvalidArgument
-- Frameworks
-    - State flow application framework
-    - _Interfaces for MVC framework elements_
-- Helpers
-    - HashEnum
-- Input
-    - Event
-        - KeyEvent
-        - MouseButtonEvent
-        - MouseMovementEvent
-        - MouseScrollEvent
-    - EventAggregator
-    - EventHandler
-    - EventTrigger
-    - Keyboard (direct queries)
-    - Mouse (direct queries)
-    - Types (types definitions)
-- Interfaces
-    - Cameras
-    - Models (2D/3D models)
-    - States
-    - ImageFile (r/w interface on files for Image class)
-- AABB
-- Time
-    - Clocks
-    - Timed events
-    - Time loops
-        - fixed
-        - semi-fixed
-        - variable
-    - Timers
-- Exceptions
-- Files
-- Images
-    - BMP (read & write)
-    - TGA (read & write)
-    - JPEG (read)
-    - PNG (read)
-- Data types
-    - Lines
-    - Points
-    - Rectangles
-    - Boxes (through AABB)
-- String manipulation
-- Window management
-    - Window
-    - GUI Window
-    - Windows (window registering, retrieving and management)
 
+## Building
 
-Documentation for each module should be created soon.
+### Windows
+
+* Clone this repository
+* Download and configure all neccesary [dependencies](https://github.com/RippeR37/GLUL/#dependencies)
+* Build library (and examples/tests) using provided:
+    * Visual Studio 2013 project
+    * CMake script
+
+### Linux
+
+* Clone this repository
+* Download and configure all neccesary [dependencies](https://github.com/RippeR37/GLUL/#dependencies)
+* Build library using provided CMake script
+
 
 ### Requirements
 - C++11 supporting compiler (project for Visual Studio 2013 provided)
+
 
 ### Platforms tested
 - Windows (tested on Windows 7 x64)
@@ -134,14 +85,23 @@ Documentation for each module should be created soon.
 - [libPNG](http://www.libpng.org/pub/png/libpng.html) (tested on 1.6.17)
 - [zlib](http://www.zlib.net/) (tested on 1.2.8, libPNG's dependency)
 
-### License
-See [LICENSE](LICENSE) file.
 
-### Examples of usage
+## Examples of usage
 You can find examples of this library's usage in `example` directory or [here](https://github.com/RippeR37/GLUL/wiki/ExampleProjects).
+Provided examples:
 
-### Author
-Most of the code is written completly by me. Some parts may be inspired by publicly shared code on websites like Stack Overflow. Unfortunatly that code traveled with me between projects for so long that i cannot remember every detail. I would happily mention you here though, so please inform me of any usage of your work.
+* Basic example (window creation and basic OpenGL usage)
+* Font example (basic text rendering and internal font processing demo)
+* Framework example (simple demo showing off basic framework for simple applications)
+* **GUI example** (showcase of GUI module - built in widgets, events etc.)
+* Image example (loading and saving of images, taking whole-window screenshots etc.)
+* Input demo (showing IO module - how to use it in many different ways)
+* Models demo (OBJ model loader with Phong shaders)
 
-## Help with library
-Feel free to fork library (leaving details about author) and work on it with me. Issue list should be up to date on what is to do and what is to fix. If you'd like to see new features or functionality please contact me and i'll do my best.
+
+## License
+This project is licensed under the [MIT License](LICENSE).
+
+
+## Contributions
+Feel free to fork library (leaving details about author) and work on it with me. Issue list should be up to date on what is to do and what is to fix. If you'd like to see new features or functionality please contact me or add new issue and i'll do my best.
