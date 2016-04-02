@@ -31,8 +31,8 @@ namespace GLUL {
 
             result.reserve(image.getWidth() * image.getHeight() * 3);
 
-            for(int row = 0; row < image.getHeight(); ++row) {
-                for(int coll = 0; coll < image.getWidth(); ++coll) {
+            for(unsigned int row = 0; row < image.getHeight(); ++row) {
+                for(unsigned int coll = 0; coll < image.getWidth(); ++coll) {
                     glm::uvec4 pixel = image.getPixel(coll, row);
 
                     result.push_back(static_cast<unsigned char>(pixel.r));
