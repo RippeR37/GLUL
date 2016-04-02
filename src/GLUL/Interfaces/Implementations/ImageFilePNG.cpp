@@ -113,22 +113,110 @@ namespace GLUL {
 
             png_read_image(png_ptr, rowPointers);
 
-            /// Cleaning up
+            // Cleaning up
             png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
             fclose(fp);
             delete[] rowPointers;
 
-            // set image's member variables
+            // Set image's member variables
             setImage(image, static_cast<unsigned int>(width), static_cast<unsigned int>(height), bits, data);
 
             return image;
         }
 
         void ImageFilePNG::save(const Image& image, const std::string& path) const throw(GLUL::Exception::InitializationFailed) {
-            (void) image;
-            (void) path;
+            png_structp png_ptr;
+            png_infop info_ptr;
+            png_byte colorType;
+            png_uint_32 width = image.getWidth();
+            png_uint_32 height = image.getHeight();
+            png_byte bitDepth = 8;
+            unsigned int bits = image.getBits();
+            unsigned char* data = image.getData();
+            int rowStride = Image::getAlignedRowSize(image.getWidth(), bits);
+            unsigned char** rowPointers;
 
-            throw GLUL::Exception("ImageFilePNG::save(...) not yet implemented");
+            switch(bits) {
+                case 24: colorType = PNG_COLOR_TYPE_RGB; break;
+                case 32: colorType = PNG_COLOR_TYPE_RGBA; break;
+
+                default:
+                    GLUL::Log::LibraryStream().logError(
+                        "Failed to save PNG image file: '" + path + "'."
+                        "Unsupported BPP value: " + std::to_string(bits) + "!");
+                    return;
+            }
+
+            FILE *fp = fopen(path.c_str(), "wb");
+            if(fp == nullptr)
+                GLUL::Log::LibraryStream().logError("Failed to save PNG image file: '" + path + "'. Can't open file!");
+
+
+            png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, nullptr, nullptr, nullptr);
+
+            if(!png_ptr) {
+                fclose(fp);
+                GLUL::Log::LibraryStream().logError("Failed to save PNG image file: '" + path + "'. Can't create png write structure!");
+                return;
+            }
+
+            info_ptr = png_create_info_struct(png_ptr);
+            if(!info_ptr) {
+                fclose(fp);
+                png_destroy_write_struct(&png_ptr, nullptr);
+                GLUL::Log::LibraryStream().logError("Failed to save PNG image file: '" + path + "'. Can't create png info structure!");
+                return;
+            }
+
+            if(setjmp(png_jmpbuf(png_ptr))) {
+                fclose(fp);
+                png_destroy_write_struct(&png_ptr, &info_ptr);
+                GLUL::Log::LibraryStream().logError("Failed to save PNG image file: '" + path + "'. IO initialization failed!");
+                return;
+            }
+            png_init_io(png_ptr, fp);
+
+
+            if(setjmp(png_jmpbuf(png_ptr))) {
+                fclose(fp);
+                png_destroy_write_struct(&png_ptr, &info_ptr);
+                GLUL::Log::LibraryStream().logError("Failed to save PNG image file: '" + path + "'. Can't write headers!");
+                return;
+            }
+            png_set_IHDR(png_ptr, info_ptr, width, height, bitDepth, colorType, 
+                PNG_INTERLACE_NONE, PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
+            png_write_info(png_ptr, info_ptr);
+
+
+            // Prepare row pointers
+            rowPointers = new unsigned char*[height];
+            for(unsigned int row = 0; row < height; ++row)
+                rowPointers[height - 1 - row] = data + row * rowStride;
+
+
+            // Write image data
+            if(setjmp(png_jmpbuf(png_ptr))) {
+                fclose(fp);
+                png_destroy_write_struct(&png_ptr, &info_ptr);
+                GLUL::Log::LibraryStream().logError("Failed to save PNG image file: '" + path + "'. Can't write image data!");
+                return;
+            }
+            png_write_image(png_ptr, rowPointers);
+
+
+            if(setjmp(png_jmpbuf(png_ptr))) {
+                fclose(fp);
+                png_destroy_write_struct(&png_ptr, &info_ptr);
+                GLUL::Log::LibraryStream().logError("Failed to save PNG image file: '" + path + "'. Can't write end of image!");
+                return;
+            }
+            png_write_end(png_ptr, nullptr);
+
+
+            // Cleaning up
+            png_destroy_write_struct(&png_ptr, &info_ptr);
+            fclose(fp);
+            delete[] rowPointers;
         }
 
     }
