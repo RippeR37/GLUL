@@ -2,6 +2,7 @@
 #include <GLUL/Interfaces/Implementations/ImageFileTGA.h>
 
 #include <cstring>
+#include <vector>
 
 
 namespace GLUL {
@@ -92,7 +93,7 @@ namespace GLUL {
             unsigned char b = static_cast<unsigned char>(image.getBits());
             unsigned char d; // image descriptor
             unsigned char c;
-            unsigned char* BGRdata;
+            std::vector<unsigned char> BGRdata(image.getData(), image.getData() + image.getSize());
 
             union unionCharShort {
                 unsigned char c[2];
@@ -102,11 +103,8 @@ namespace GLUL {
             rowStride = Image::getAlignedRowSize(image.getWidth(), image.getBits());
             d = (image.getBits() == 32 ? 8 : 0);
 
-            BGRdata = new unsigned char[image.getSize()];
-            std::memcpy(BGRdata, image.getData(), image.getSize());
-        
             try {
-                Image::swapComponents(image.getWidth(), image.getHeight(), image.getBits(), BGRdata);
+                Image::swapComponents(image.getWidth(), image.getHeight(), image.getBits(), BGRdata.data());
             } catch(const GLUL::Exception::InvalidArgument& exception) {
                 GLUL::Log::LibraryStream().logWarning(exception.what() + std::string(" for image '" + path + "'"));
             }
@@ -134,7 +132,7 @@ namespace GLUL {
 
             // Writing data without 4byte alignment
             for(unsigned int rowPtr = 0; rowPtr < image.getSize(); rowPtr += rowStride)
-                fileStream.write(reinterpret_cast<char*>(BGRdata + rowPtr), image.getWidth() * (image.getBits() / 8));
+                fileStream.write(reinterpret_cast<char*>(BGRdata.data() + rowPtr), image.getWidth() * (image.getBits() / 8));
 
             // Writing footera data
             int zeroInt = 0;

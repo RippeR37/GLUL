@@ -3,6 +3,7 @@
 
 #include <climits>
 #include <cstring>
+#include <vector>
 
 
 namespace GLUL {
@@ -73,6 +74,7 @@ namespace GLUL {
             data = new unsigned char[size];
 
             if(fread(data, 1, size, file) != size) {
+                delete[] data;
                 image.reset();
                 fclose(file);
                 GLUL::Log::LibraryStream().logError("Failed to read whole BMP image file: '" + path + "'");
@@ -98,7 +100,8 @@ namespace GLUL {
                 unsigned char headerData[56];
                 BMPheader header;
             };
-            unsigned char* BGRdata;
+
+            std::vector<unsigned char> BGRdata(image.getData(), image.getData() + image.getSize());
 
             header.bmpID[0] = 0; // not used, dummy byte due to struct alignment
             header.bmpID[1] = 0; // not used, dummy byte due to struct alignment
@@ -120,38 +123,31 @@ namespace GLUL {
             header.clrUsed = 0;
             header.clrImportantRotateAndReserved = 0;
         
-            BGRdata = new unsigned char[image.getSize()];
-            std::memcpy(BGRdata, image.getData(), image.getSize());
-        
             try {
-                Image::swapComponents(image.getWidth(), image.getHeight(), image.getBits(), BGRdata);
+                Image::swapComponents(image.getWidth(), image.getHeight(), image.getBits(), BGRdata.data());
             } catch(const GLUL::Exception::InvalidArgument& exception) {
                 GLUL::Log::LibraryStream().logWarning(exception.what() + std::string(" for image '" + path + "'"));
             }
 
             FILE *file = fopen(path.c_str(), "wb");
             if(!file) {
-                delete[] BGRdata;
                 GLUL::Log::LibraryStream().logError("Failed to open file: '" + path + "'");
                 throw Exception::InitializationFailed("Failed to open file: '" + path + "'");
             }
 
             if(fwrite(&headerData[2], 1, 54, file) != 54) {
                 fclose(file);
-                delete[] BGRdata;
                 GLUL::Log::LibraryStream().logError("Failed to write header of BMP image file: '" + path + "'");
                 throw Exception::InitializationFailed("Failed to write header of BMP image file: '" + path + "'");
             }
 
-            if(fwrite(BGRdata, 1, image.getSize(), file) != image.getSize()) {
+            if(fwrite(BGRdata.data(), 1, image.getSize(), file) != image.getSize()) {
                 fclose(file);
-                delete[] BGRdata;
                 GLUL::Log::LibraryStream().logError("Failed to write BMP image's data to file: '" + path + "'");
                 throw Exception::InitializationFailed("Failed to write BMP image's data to file: '" + path + "'");
             }
 
             fclose(file);
-            delete[] BGRdata;
         }
 
     }
