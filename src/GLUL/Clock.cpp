@@ -17,7 +17,7 @@ namespace GLUL {
     }
 
     Clock::TimePoint Clock::now() {
-        return std::chrono::high_resolution_clock::now();
+        return _NativeClock::now();
     }
 
     Clock::Duration Clock::getElapsedTime() {
