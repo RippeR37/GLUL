@@ -65,48 +65,11 @@ install:
   # INSTALL DEPENDENCIES
   ######################
   
-  - DEPENDENCY_GLM_BRANCH="0.9.5"
-  - DEPENDENCY_GLEW_VERSION="1.13.0"
-  - DEPENDENCY_FT2_VERSION="2.6"
-  - DEPENDENCY_FT2_VERSION_FILE="26"
-
-  # CREATE DIRECTORY FOR EXTERNAL LIBS
-  - mkdir external
-  - cd external
-
-  # DOWNLOAD & INSTALL GLM LIBRARY
-  - git clone -b $DEPENDENCY_GLM_BRANCH https://github.com/g-truc/glm.git glm
-  - cd glm
-  - cmake .
-  - sudo make install
-  - cd ..
-
-  # DOWNLOAD & INSTALL GLEW LIBRARY
-  - wget -O glew-${DEPENDENCY_GLEW_VERSION}.zip https://sourceforge.net/projects/glew/files/glew/${DEPENDENCY_GLEW_VERSION}/glew-${DEPENDENCY_GLEW_VERSION}.zip/download
-  - unzip glew-${DEPENDENCY_GLEW_VERSION}.zip
-  - cd glew-${DEPENDENCY_GLEW_VERSION}
-  - make
-  - sudo make install
-  - cd ..
-
-  # DOWNLOAD & INSTALL GLFW3 LIBRARY
-  - git clone https://github.com/glfw/glfw.git glfw
-  - cd glfw
-  - cmake -DBUILD_SHARED_LIBS=ON .
-  - sudo make install
-  - cd ..
-
-  # DOWNLOAD & INSTALL FREETYPE2 LIBRARY
-  - wget -O ft${DEPENDENCY_FT2_VERSION_FILE}.zip http://sourceforge.net/projects/freetype/files/freetype2/${DEPENDENCY_FT2_VERSION}/ft${DEPENDENCY_FT2_VERSION_FILE}.zip/download
-  - unzip ft${DEPENDENCY_FT2_VERSION_FILE}.zip
-  - cd freetype-${DEPENDENCY_FT2_VERSION}
-  - cmake .
-  - sudo make install
-  - cd ..
-
-  # LEAVE EXTERNAL LIB DIRECTORY
-  - cd ..
-
+  # INSTALLING DEPENDENCIES
+  - cd scripts/linux/
+  - sudo ./install_dependencies.sh
+  - cd ../..
+  
   # CONFIGURE INSTALLED DEPENDENCIES
   - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
   - sudo ldconfig
