@@ -51,6 +51,7 @@ Library strongly uses C++11 features like move constructors/assignment operators
 
 * Clone this repository
 * Download and configure all neccesary [dependencies](https://github.com/RippeR37/GLUL/#dependencies)
+    * Script provided in `scripts\windows\install_msvc_dependencies.bat`
 * Build library (and examples/tests) using provided:
     * Visual Studio 2013 project
     * CMake script
@@ -59,6 +60,7 @@ Library strongly uses C++11 features like move constructors/assignment operators
 
 * Clone this repository
 * Download and configure all neccesary [dependencies](https://github.com/RippeR37/GLUL/#dependencies)
+    * Script provided in `scripts\linux\install_dependencies.sh`
 * Build library (and examples/tests) using provided CMake script
 
 
