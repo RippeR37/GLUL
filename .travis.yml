@@ -67,6 +67,7 @@ install:
   
   # INSTALLING DEPENDENCIES
   - cd scripts/linux/
+  - sudo chmod +x install_dependencies.sh
   - sudo ./install_dependencies.sh
   - cd ../..
   
