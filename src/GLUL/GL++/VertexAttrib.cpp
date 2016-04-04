@@ -3,13 +3,10 @@
 
 namespace GL {
     
-    VertexAttrib::VertexAttrib() {
-        index = 0;
-        size = 0;
-        type = GL_FLOAT;
+    VertexAttrib::VertexAttrib()
+        : VertexAttrib(0, 0, GL_FLOAT, 0, nullptr)
+    {
         normalized = GL_FALSE;
-        stride = 0;
-        offset = nullptr;
     }
 
     VertexAttrib::VertexAttrib(GLuint index_, GLint size_, GLenum type_, GLsizei stride_, GLvoid* offset_) {
@@ -20,6 +17,9 @@ namespace GL {
         stride = stride_;
         offset = offset_;
     }
+
+    VertexAttrib::VertexAttrib(GLuint index_, GLint size_, GLenum type_, GLsizei stride_, std::size_t offset_)
+        : VertexAttrib(index_, size_, type_, stride_, reinterpret_cast<GLvoid*>(offset_)) { }
 
     VertexAttrib::~VertexAttrib() {
 

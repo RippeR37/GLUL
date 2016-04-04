@@ -4,6 +4,8 @@
 
 #include <GL/glew.h>
 
+#include <cstddef>
+
 
 namespace GL {
 
@@ -11,6 +13,7 @@ namespace GL {
         public:
             VertexAttrib();
             VertexAttrib(GLuint index_, GLint size_, GLenum type_, GLsizei stride_, GLvoid* offset_);
+            VertexAttrib(GLuint index_, GLint size_, GLenum type_, GLsizei stride_, std::size_t offset_);
             ~VertexAttrib();
 
             void set();
