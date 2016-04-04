@@ -79,12 +79,12 @@ namespace GLUL {
                 vertexData.size = vertices.size() * sizeof(glm::vec4);
                 vertexData.pointers.push_back(GL::VertexAttrib(0, 4, GL_FLOAT, 0, nullptr));
 
-
                 _vbo.bind();
                     thisConstless->_vbo.setUsage(GL::VertexBuffer::Usage::DynamicDraw);
                     thisConstless->_vbo.setData(vertexData);
                 _vbo.unbind();
-                
+
+                // Set vertices draw count
                 thisConstless->_vao.setDrawCount(vertices.size());
 
                 // Initialize VAO
@@ -97,10 +97,6 @@ namespace GLUL {
                     _vao.unbind();
 
                     thisConstless->_glInitialized = true;
-                } else {
-                    _vao.bind();
-                        thisConstless->_vao.setAttribPointers();
-                    _vao.unbind();
                 }
             }
 

@@ -71,22 +71,24 @@ namespace GLUL {
 
             vertexData.data = vertices.data();
             vertexData.size = vertices.size() * sizeof(glm::vec4);
-            vertexData.pointers.push_back(GL::VertexAttrib(0, 4, GL_FLOAT, sizeof(glm::vec4) + sizeof(glm::vec4), nullptr));
-            vertexData.pointers.push_back(GL::VertexAttrib(1, 4, GL_FLOAT, sizeof(glm::vec4) + sizeof(glm::vec4), (GLvoid*)sizeof(glm::vec4)));
+            vertexData.pointers.push_back(GL::VertexAttrib(0, 4, GL_FLOAT, sizeof(glm::vec4) * 2, nullptr));
+            vertexData.pointers.push_back(GL::VertexAttrib(1, 4, GL_FLOAT, sizeof(glm::vec4) * 2, sizeof(glm::vec4)));
 
             _vbo.bind();
-            thisConstless->_vbo.setUsage(GL::VertexBuffer::Usage::DynamicDraw);
-            thisConstless->_vbo.setData(vertexData);
+                thisConstless->_vbo.setUsage(GL::VertexBuffer::Usage::DynamicDraw);
+                thisConstless->_vbo.setData(vertexData);
             _vbo.unbind();
+
+            // Set vertices draw count
+            thisConstless->_vao.setDrawCount(vertices.size() / 2);
 
             // Initialize VAO
             if(_glInitialized == false) {
-                thisConstless->_vao.setDrawCount(vertices.size());
                 thisConstless->_vao.setDrawTarget(GL::VertexArray::DrawTarget::Triangles);
 
                 _vao.bind();
-                thisConstless->_vao.attachVBO(&_vbo);
-                thisConstless->_vao.setAttribPointers();
+                    thisConstless->_vao.attachVBO(&_vbo);
+                    thisConstless->_vao.setAttribPointers();
                 _vao.unbind();
 
                 thisConstless->_glInitialized = true;
@@ -339,7 +341,7 @@ namespace GLUL {
             static GL::Program program(
                 GL::Shader("assets/shaders/GLUL/GUI/Button.vp", GL::Shader::Type::VertexShader),
                 GL::Shader("assets/shaders/GLUL/GUI/Button.fp", GL::Shader::Type::FragmentShader)
-                );
+            );
 
             return program;
         }
