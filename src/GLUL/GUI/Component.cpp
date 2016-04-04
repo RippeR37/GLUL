@@ -1,6 +1,8 @@
 #include <GLUL/GUI/Component.h>
 #include <GLUL/GUI/Container.h>
 
+#include <cmath>
+
 
 namespace GLUL {
 
@@ -183,6 +185,48 @@ namespace GLUL {
             result.emplace_back(posStart.x, posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
             result.emplace_back(posEnd.x,   posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
             result.emplace_back(posEnd.x,   posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
+        }
+
+        void Component::pushColoredDisk(
+            std::vector<glm::vec4>&result,
+            const glm::vec2& posCenter,
+            float radius,
+            const glm::vec4& color)
+        {
+            const unsigned int steps = 32;
+            const float pi = 3.14159265358979323846f;
+            const float pi2 = pi * 2.0f;
+
+            for(unsigned int i = 0, j = i + 1; i < steps; ++i, j = (i+1) % steps) {
+                float steps_div = static_cast<float>(steps);
+
+                glm::vec2 offset1 = glm::vec2(std::cos(pi2 * (i / steps_div)), std::sin(pi2 * (i / steps_div)));
+                glm::vec2 offset2 = glm::vec2(std::cos(pi2 * (j / steps_div)), std::sin(pi2 * (j / steps_div)));
+
+                glm::vec2 p1 = posCenter;
+                glm::vec2 p2 = posCenter + radius * offset1;
+                glm::vec2 p3 = posCenter + radius * offset2;
+
+                result.emplace_back(p1.x, p1.y, 0.0f, 1.0f);    result.emplace_back(color);
+                result.emplace_back(p2.x, p2.y, 0.0f, 1.0f);    result.emplace_back(color);
+                result.emplace_back(p3.x, p3.y, 0.0f, 1.0f);    result.emplace_back(color);
+            }
+        }
+
+        void Component::pushColoredCircle(
+            std::vector<glm::vec4>&result,
+            const glm::vec2& posCenter,
+            float radius,
+            unsigned int width,
+            const glm::vec4& color)
+        {
+            (void) result;
+            (void) posCenter;
+            (void) radius;
+            (void) width;
+            (void) color;
+
+            // TODO: implement this with GL_LINES in mind
         }
 
     }

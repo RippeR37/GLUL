@@ -335,6 +335,12 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\ValueChange.hpp">
       <Filter>Header Files\GUI\Events</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\RadioButtonGroup.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\RadioButton.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
@@ -554,6 +560,12 @@
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\Slider.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\RadioButtonGroup.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\RadioButton.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>

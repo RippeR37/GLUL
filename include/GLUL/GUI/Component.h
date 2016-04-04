@@ -78,6 +78,12 @@ namespace GLUL {
                 static void pushColoredRectangle(std::vector<glm::vec4>& result, 
                     const glm::vec2& posStart, const glm::vec2& posEnd, const glm::vec4& color);
 
+                static void pushColoredDisk(std::vector<glm::vec4>&result,
+                    const glm::vec2& posCenter, float radius, const glm::vec4& color);
+
+                static void pushColoredCircle(std::vector<glm::vec4>&result,
+                    const glm::vec2& posCenter, float radius, unsigned int width, const glm::vec4& color);
+
                 bool _isEnabled;
                 bool _isFocused;
                 bool _isVisible;

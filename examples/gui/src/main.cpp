@@ -7,6 +7,8 @@
 #include <GLUL/GUI/Font.h>
 #include <GLUL/GUI/Slider.h>
 #include <GLUL/GUI/ProgressBar.h>
+#include <GLUL/GUI/RadioButton.h>
+#include <GLUL/GUI/RadioButtonGroup.h>
 #include <GLUL/GUI/Text.h>
 #include <GLUL/GUI/TextField.h>
 #include <GLUL/GUI/Window.h>
@@ -55,7 +57,7 @@ void run() {
 
     GLUL::GUI::Text text2(window);
     text2.setFont(fontArial).setColor(vec3(0.3f, 0.7f, 0.7f)).setPosition(vec2(50.0f, 110.0f));
-    text2.setText("Buttons\t\t\t\t\t\t\t\t\t Text fields\t\t\t\t\t\t\t\tCheckboxes");
+    text2.setText("Buttons\t\t\t\t\t\t\t\t\t Text fields\t\t\t\t\t\t\t\tCheckboxes\t\t\tRadio buttons");
 
 
     // Buttons
@@ -105,7 +107,6 @@ void run() {
     checkbox3_off.setMarkColor(vec3(0.8f, 0.8f, 0.8f)).setMarkScale(0.7f);
     checkbox3_off.border.set(1, 0, vec3(0.0f));
 
-
     GLUL::GUI::Checkbox checkbox1_on(window);
     checkbox1_on.setSize(vec2(20.0f)).setPosition(vec2(450.0f, 170.0f)).setState(true);
 
@@ -117,6 +118,25 @@ void run() {
     checkbox3_on.setSize(vec2(20.0f)).setColor(vec3(0.2f, 0.2f, 0.2f)).setPosition(vec2(510.0f, 170.0f));
     checkbox3_on.setMarkColor(vec3(0.8f, 0.8f, 0.8f)).setMarkScale(0.7f);
     checkbox3_on.border.set(1, 0, vec3(0.0f));
+
+
+    // Radio buttons
+    GLUL::GUI::Text rbLabels(window);
+    GLUL::GUI::RadioButtonGroup rbGroup(window);                // RadioButtonGroup creates (and manages lifetime) radio buttons
+    GLUL::GUI::RadioButton& rbutton1 = rbGroup.create();        // When it's destroyed, it removes all created (and not yet removed) radio buttons
+    GLUL::GUI::RadioButton& rbutton2 = rbGroup.create().set();  // Only one radio button can be selected at any time
+    GLUL::GUI::RadioButton& rbutton3 = rbGroup.create();        // And if there is at least one, then one is always selected
+
+    rbutton1.setSize(vec2(20.0f, 20.0f)).setPosition(vec2(585.0f, 140.0f)).setColor(vec3(0.12f, 0.625f, 1.0f));
+    rbutton2.setSize(vec2(20.0f, 20.0f)).setPosition(vec2(585.0f, 177.0f)).setColor(vec3(0.12f, 0.625f, 1.0f));
+    rbutton3.setSize(vec2(20.0f, 20.0f)).setPosition(vec2(585.0f, 212.0f)).setColor(vec3(0.12f, 0.625f, 1.0f));
+
+    // To remove (and destroy) radio button, use
+    // rbGroup.remove(rbuttonX); if it's currently selected, another one ('oldest') will be set instead
+
+    rbLabels
+        .setFont(fontArial).setColor(vec3(0.7f)).setPosition(vec2(615.0f, 142.0f))
+        .setText("only \n\none \n\nchecked");
 
     
     // Progress bar
@@ -236,7 +256,6 @@ void run() {
 
         progressbar1.setProgress(progressValue);
     };
-
 
     /////////////////////////////////////////////////////////////////
     ///                         MAIN LOOP                         ///
