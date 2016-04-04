@@ -1,8 +1,8 @@
 {
     "package": {
-        "name": "GLUL",         // Bintray package name 
-        "repo": "generic",      // Bintray repository name
-        "subject": "ripper37",  // Bintray subject
+        "name": "GLUL",
+        "repo": "generic",
+        "subject": "ripper37",
         "desc": "GLUL - OpenGL Utility Library",
         "website_url": "https://github.com/RippeR37/GLUL",
         "issue_tracker_url": "https://github.com/RippeR37/GLUL/issues",
