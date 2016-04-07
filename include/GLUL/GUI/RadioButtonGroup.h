@@ -4,6 +4,7 @@
 #include <GLUL/GUI/Component.h>
 #include <GLUL/GUI/Events/ValueChange.hpp>
 
+#include <memory>
 #include <vector>
 
 
@@ -17,7 +18,9 @@ namespace GLUL {
             public:
                 RadioButtonGroup(Container& parent);
                 RadioButtonGroup(Container* const parent = nullptr);
-                ~RadioButtonGroup();
+
+                RadioButtonGroup(const RadioButtonGroup&) = delete;
+                RadioButtonGroup& operator=(const RadioButtonGroup&) = delete;
 
                 RadioButton& create();
                 void remove(RadioButton& radioButton);
@@ -28,9 +31,12 @@ namespace GLUL {
                 Event::HandlerAggregator<Event::ValueChange<RadioButton&>> onValueChange;
 
             private:
+                bool _isInGroup(RadioButton& radioButton);
+                bool _setDifferentThanCurrent();
+
                 Container* _parent;
                 RadioButton* _setButton;
-                std::vector<RadioButton*> _buttons;
+                std::vector<std::unique_ptr<RadioButton>> _buttons;
         };
 
     }

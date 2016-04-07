@@ -14,53 +14,42 @@ namespace GLUL {
         RadioButtonGroup::RadioButtonGroup(Container* const parent) 
             : _parent(parent), _setButton(nullptr) { }
 
-        RadioButtonGroup::~RadioButtonGroup() {
-            for(RadioButton* radioButtonPtr : _buttons)
-                delete radioButtonPtr;
-        }
-
 
         RadioButton& RadioButtonGroup::create() {
-            bool state = _buttons.empty();
-            RadioButton* radioButtonPtr = new RadioButton(*this, _parent, state);
+            bool isFirst = _buttons.empty();
+            std::unique_ptr<RadioButton> radioButtonPtr { new RadioButton(*this, _parent, isFirst) };
+            RadioButton& result = *radioButtonPtr;
 
-            _buttons.push_back(radioButtonPtr);
+            _buttons.push_back(std::move(radioButtonPtr));
 
-            if(state)
-                _setButton = radioButtonPtr;
+            if(isFirst)
+                _setButton = &result;
 
-            return *radioButtonPtr;
+            return result;
         }
 
         void RadioButtonGroup::remove(RadioButton& radioButton) {
             RadioButton* radioButtonPtr = &radioButton;
 
-            if(!_buttons.empty() && std::find(_buttons.begin(), _buttons.end(), radioButtonPtr) != _buttons.end()) {
-                // Deal with buttons that are currently set
-                if(_setButton == radioButtonPtr) {
-                    bool fixed = false;
+            if(_isInGroup(radioButton)) {
+                // If radioButton is currently set, set another one before removing this one
+                if(_setButton == radioButtonPtr)
+                    _setDifferentThanCurrent();
 
-                    // Try to set another
-                    for(RadioButton* otherRadioButton : _buttons) {
-                        if(otherRadioButton != _setButton) {
-                            set(*otherRadioButton);
-                            fixed = true;
-                            break;
+                // Remove button from vector
+                _buttons.erase(
+                    std::remove_if(_buttons.begin(), _buttons.end(),
+                        [radioButtonPtr](const std::unique_ptr<RadioButton>& rbPtr) {
+                            return rbPtr.get() == radioButtonPtr;
                         }
-                    }
-
-                    if(!fixed)
-                        _setButton = nullptr; // can't be fixed, it's the only button
-                }
-
-                // Remove button from vector and delete it's memory
-                _buttons.erase(std::remove(_buttons.begin(), _buttons.end(), radioButtonPtr), _buttons.end());
-                delete &radioButton;
+                    ),
+                    _buttons.end()
+                );
             }
         }
 
         void RadioButtonGroup::set(RadioButton& radioButton) {
-            if(!_buttons.empty() && std::find(_buttons.begin(), _buttons.end(), &radioButton) != _buttons.end()) {
+            if(_isInGroup(radioButton)) {
                 RadioButton& oldRef = *_setButton;
                 RadioButton& newRef = radioButton;
 
@@ -71,6 +60,37 @@ namespace GLUL {
 
                 onValueChange.call(radioButton, GLUL::GUI::Event::ValueChange<RadioButton&>(oldRef, newRef));
             }
+        }
+
+
+        bool RadioButtonGroup::_isInGroup(RadioButton& radioButton) {
+            RadioButton* radioButtonPtr = &radioButton;
+
+            auto find_result = std::find_if(_buttons.begin(), _buttons.end(),
+                [radioButtonPtr](std::unique_ptr<RadioButton>& rbPtr) {
+                    return rbPtr.get() == radioButtonPtr;
+                }
+            );
+
+            return find_result != _buttons.end();
+        }
+
+        bool RadioButtonGroup::_setDifferentThanCurrent() {
+            bool setExisting = false;
+
+            // Try to set another
+            for(auto& otherRadioButton : _buttons) {
+                if(otherRadioButton.get() != _setButton) {
+                    set(*otherRadioButton);
+                    setExisting = true;
+                    break;
+                }
+            }
+
+            if(!setExisting)
+                _setButton = nullptr; // can't be fixed, it's the only button
+
+            return setExisting;
         }
 
     }

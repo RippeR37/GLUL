@@ -49,7 +49,6 @@ namespace GLUL {
             private:
                 RadioButton(RadioButtonGroup& group, Container& parent, bool state = false);
                 RadioButton(RadioButtonGroup& group, Container* const parent = nullptr, bool state = false);
-                ~RadioButton();
 
                 RadioButton& setState(bool state);
 

@@ -33,10 +33,6 @@ namespace GLUL {
             );
         }
 
-        RadioButton::~RadioButton() {
-
-        }
-
         RadioButton::operator bool() const {
             return getState();
         }
