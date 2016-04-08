@@ -46,7 +46,6 @@ namespace GLUL {
                 Checkbox& setState(bool state);
                 Checkbox& setSize(const glm::vec2& size);
                 Checkbox& setPosition(const glm::vec2& position);
-                Checkbox& setPosition(const GLUL::Point& position);
 
                 bool switchState();
 

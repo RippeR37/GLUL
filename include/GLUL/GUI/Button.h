@@ -37,7 +37,6 @@ namespace GLUL {
                 Button& setAlpha(float alpha);
                 Button& setSize(const glm::vec2& size);
                 Button& setPosition(const glm::vec2& position);
-                Button& setPosition(const GLUL::Point& position);
 
                 InnerText text;
                 Style::Border border;

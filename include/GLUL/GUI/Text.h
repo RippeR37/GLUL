@@ -48,7 +48,6 @@ namespace GLUL {
                 Text& setColor(const glm::vec4& color);
                 Text& setAlpha(float alpha);
                 Text& setPosition(const glm::vec2& position);
-                Text& setPosition(const GLUL::Point& position);
                 
 
             private:

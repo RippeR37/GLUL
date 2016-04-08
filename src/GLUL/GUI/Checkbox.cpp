@@ -192,12 +192,6 @@ namespace GLUL {
             return *this;
         }
 
-        Checkbox& Checkbox::setPosition(const GLUL::Point& position) {
-            Component::setPosition(position);
-
-            return *this;
-        }
-
 
         bool Checkbox::switchState() {
             setState(!getState());
@@ -217,7 +211,7 @@ namespace GLUL {
         std::vector<glm::vec4> Checkbox::getVertices() const {
             std::vector<glm::vec4> result;
 
-            glm::vec2 scrPos = getScreenPosition().getPosition();
+            glm::vec2 scrPos = getScreenPosition();
             glm::vec2 posStart = glm::vec2(scrPos.x, GL::Context::Current->getViewportSize().y - scrPos.y);
             glm::vec2 posEnd = posStart + glm::vec2(getSize().x, -getSize().y);
 

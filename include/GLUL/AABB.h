@@ -1,7 +1,6 @@
 #pragma once
 
 #include <GLUL/Config.h>
-#include <GLUL/Point.h>
 #include <GLUL/GL++/Pipeline.h>
 
 #include <glm/vec3.hpp>

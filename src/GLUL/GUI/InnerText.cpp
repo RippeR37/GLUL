@@ -146,7 +146,7 @@ namespace GLUL {
                  factorY * (_component.getSize().y - textBounds.getHeight())
             );
 
-            _text.setPosition(_component.getScreenPosition().getPosition() + padding);
+            _text.setPosition(_component.getScreenPosition() + padding);
         }
 
     }

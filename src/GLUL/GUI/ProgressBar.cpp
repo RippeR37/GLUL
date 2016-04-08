@@ -175,12 +175,6 @@ namespace GLUL {
             return *this;
         }
 
-        ProgressBar& ProgressBar::setPosition(const GLUL::Point& position) {
-            Component::setPosition(position);
-
-            return *this;
-        }
-
 
         ProgressBar& ProgressBar::increaseProgress(float value) {
             return setProgress(std::min(getProgress() + value, 1.0f));
@@ -203,7 +197,7 @@ namespace GLUL {
         std::vector<glm::vec4> ProgressBar::getVertices() const {
             std::vector<glm::vec4> result;
 
-            glm::vec2 scrPos = getScreenPosition().getPosition();
+            glm::vec2 scrPos = getScreenPosition();
             glm::vec2 posStart = glm::vec2(scrPos.x, GL::Context::Current->getViewportSize().y - scrPos.y);
             glm::vec2 posEnd = posStart + glm::vec2(getSize().x, -getSize().y);
             glm::vec2 posEndBar = posStart + glm::vec2(getSize().x * getProgress(), -getSize().y);

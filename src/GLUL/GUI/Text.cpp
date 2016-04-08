@@ -219,12 +219,6 @@ namespace GLUL {
             return *this;
         }
 
-        Text& Text::setPosition(const GLUL::Point& position) {
-            Component::setPosition(position);
-
-            return *this;
-        }
-
 
         GL::Program& Text::getProgram() {
             static GL::Program program(
@@ -247,8 +241,8 @@ namespace GLUL {
             bool isDrawn;
 
             baseLine = glm::vec2(
-                getScreenPosition().getPosition().x,
-                GL::Context::Current->getViewportSize().y - getScreenPosition().getPosition().y - getScale() * getFont()->getAscender()
+                getScreenPosition().x,
+                GL::Context::Current->getViewportSize().y - getScreenPosition().y - getScale() * getFont()->getAscender()
             );
 
             posCursor = bbTopRight = bbBottomLeft = baseLine;

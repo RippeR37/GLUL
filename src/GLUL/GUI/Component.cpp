@@ -67,13 +67,13 @@ namespace GLUL {
             return _size;
         }
 
-        const GLUL::Point& Component::getPosition() const {
+        const glm::vec2& Component::getPosition() const {
             return _position;
         }
 
-        const GLUL::Point Component::getScreenPosition() const {
+        const glm::vec2 Component::getScreenPosition() const {
             if(getParent())
-                return GLUL::Point(getParent()->getScreenPosition().getPosition() + getPosition().getPosition());
+                return getParent()->getScreenPosition() + getPosition();
             else
                 return getPosition();
         }
@@ -133,16 +133,10 @@ namespace GLUL {
         }
         
         Component& Component::setPosition(const glm::vec2& position) {
-            _position.setPoint(position);
+            _position = position;
 
             setInvalid();
             validate();
-
-            return *this;
-        }
-
-        Component& Component::setPosition(const GLUL::Point& position) {
-            setPosition(position.getPosition());
 
             return *this;
         }

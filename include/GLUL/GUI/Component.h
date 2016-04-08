@@ -43,11 +43,11 @@ namespace GLUL {
                 bool isValid() const;
 
                 const glm::vec2& getSize() const;
-                const GLUL::Point& getPosition() const;
+                const glm::vec2& getPosition() const;
                 const Container* getParent() const;
                 Container* getParent();
                 
-                const GLUL::Point getScreenPosition() const;
+                const glm::vec2 getScreenPosition() const;
                 const GLUL::Rectangle getBounds() const;
 
                 virtual Component& setEnabled(bool flag);
@@ -57,7 +57,6 @@ namespace GLUL {
                 
                 virtual Component& setSize(const glm::vec2& size);
                 virtual Component& setPosition(const glm::vec2& position);
-                virtual Component& setPosition(const GLUL::Point& position);
 
             public:
                 Event::HandlerAggregator<Event::KeyStroke> onKeyStroke;
@@ -90,7 +89,7 @@ namespace GLUL {
                 bool _isValid;
 
                 glm::vec2 _size;
-                GLUL::Point _position;
+                glm::vec2 _position;
                 Container* _parent;
 
             public:

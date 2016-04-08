@@ -46,7 +46,6 @@ namespace GLUL {
                 ProgressBar& setProgress(float progress);
                 ProgressBar& setSize(const glm::vec2& size);
                 ProgressBar& setPosition(const glm::vec2& position);
-                ProgressBar& setPosition(const GLUL::Point& position);
 
                 ProgressBar& increaseProgress(float value);
                 ProgressBar& decreaseProgress(float value);

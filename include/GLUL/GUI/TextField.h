@@ -40,7 +40,6 @@ namespace GLUL {
                 TextField& setValue(const std::string& value);
                 TextField& setSize(const glm::vec2& size);
                 TextField& setPosition(const glm::vec2& position);
-                TextField& setPosition(const GLUL::Point& position);
 
                 InnerText text;
                 Style::Border border;

@@ -297,12 +297,6 @@ namespace GLUL {
             return *this;
         }
 
-        Slider& Slider::setPosition(const GLUL::Point& position) {
-            Component::setPosition(position);
-
-            return *this;
-        }
-
 
         Slider& Slider::restrictValuesToIntegers(bool value) {
             _integerRestriction = value;
@@ -350,7 +344,7 @@ namespace GLUL {
             std::vector<glm::vec4> result;
 
             // Background position
-            glm::vec2 scrPos = getScreenPosition().getPosition();
+            glm::vec2 scrPos = getScreenPosition();
             glm::vec2 posStart = glm::vec2(scrPos.x, GL::Context::Current->getViewportSize().y - scrPos.y);
             glm::vec2 posEnd = posStart + glm::vec2(getSize().x, -getSize().y);
 

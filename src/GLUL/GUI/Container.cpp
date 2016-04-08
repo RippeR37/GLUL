@@ -128,7 +128,7 @@ namespace GLUL {
 
                     for(Component* componentPtr : _components) {
                         Component& component = *componentPtr;
-                        glm::vec2 newPosition = onMouseClickEvent.position - component.getPosition().getPosition();
+                        glm::vec2 newPosition = onMouseClickEvent.position - component.getPosition();
 
                         if(newPosition.x >= 0 && newPosition.x < component.getSize().x && 
                            newPosition.y >= 0 && newPosition.y < component.getSize().y)
@@ -149,7 +149,7 @@ namespace GLUL {
 
                     for(Component* componentPtr : _components) {
                         Component& component = *componentPtr;
-                        glm::vec2 newPosition = onMouseReleaseEvent.position - component.getPosition().getPosition();
+                        glm::vec2 newPosition = onMouseReleaseEvent.position - component.getPosition();
 
                         if(newPosition.x >= 0 && newPosition.x < component.getSize().x && 
                            newPosition.y >= 0 && newPosition.y < component.getSize().y)
@@ -197,7 +197,7 @@ namespace GLUL {
 
                     for(Component* componentPtr : _components) {
                         Component& component = *componentPtr;
-                        glm::vec2 newPosition = onMouseEnterEvent.position - component.getPosition().getPosition();
+                        glm::vec2 newPosition = onMouseEnterEvent.position - component.getPosition();
 
                         if(newPosition.x >= 0 && newPosition.x < component.getSize().x && 
                            newPosition.y >= 0 && newPosition.y < component.getSize().y)
@@ -217,7 +217,7 @@ namespace GLUL {
 
                     for(Component* componentPtr : _components) {
                         Component& component = *componentPtr;
-                        glm::vec2 newPosition = onMouseMoveEvent.position - component.getPosition().getPosition();
+                        glm::vec2 newPosition = onMouseMoveEvent.position - component.getPosition();
 
                         bool isUnderMouseNow = (newPosition.x >= 0 && newPosition.x < component.getSize().x && 
                                                 newPosition.y >= 0 && newPosition.y < component.getSize().y);

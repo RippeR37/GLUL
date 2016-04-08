@@ -63,7 +63,6 @@ namespace GLUL {
                 Slider& setLineSize(const glm::vec2& lineSize);
                 Slider& setHandleSize(const glm::vec2& handleSize);
                 Slider& setPosition(const glm::vec2& position);
-                Slider& setPosition(const GLUL::Point& position);
 
                 Slider& restrictValuesToIntegers(bool value);
                 Slider& restrictValuesTo(std::initializer_list<float> values);

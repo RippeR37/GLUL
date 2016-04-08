@@ -39,7 +39,6 @@ namespace GLUL {
                 RadioButton& setAlpha(float alpha);
                 RadioButton& setSize(const glm::vec2& size);
                 RadioButton& setPosition(const glm::vec2& position);
-                RadioButton& setPosition(const GLUL::Point& position);
                 
                 Style::Border border;
 
