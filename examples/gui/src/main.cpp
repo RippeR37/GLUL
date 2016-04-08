@@ -154,23 +154,28 @@ void run() {
     slider_header.setFont(fontArial).setColor({ 0.3f, 0.7f, 0.7f });
     slider_header.setPosition({ 50.0f, 350.0f }).setText("Sliders");
 
-    GLUL::GUI::Slider slider1(window, 0.0f, 1.0f, 0.5f);
+    GLUL::GUI::Slider slider1(window, GLUL::GUI::Style::Orientation::Horizontal, 0.0f, 1.0f, 0.5f);
     slider1.setSize({ 150.0f, 20.0f }).setPosition({ 50.0f, 380.0f });
     slider1.setHandleColor({ 0.12f, 0.625f, 1.0f }).setBackgroundColor({ 0.2f, 0.2f, 0.2f });
     slider1.border.set(1, 0, { 0.0f, 0.0f, 0.0f });
     slider1.handleBorder.set(1, 0, { 0.0f, 0.0f, 0.0f });
 
-    GLUL::GUI::Slider slider2(window, -1.5f, 6.5f, 0.0f);
-    slider2.setSize({ 150.0f, 20.0f }).setPosition({ 250.0f, 380.0f });
+    GLUL::GUI::Slider slider2(window, GLUL::GUI::Style::Orientation::Horizontal, -1.5f, 6.5f, 0.0f);
+    slider2.setSize({ 150.0f, 20.0f }).setPosition({ 215.0f, 380.0f });
     slider2.setHandleSize({ slider2.getHandleSize().x, slider2.getSize().y });
     slider2.setHandleColor({ 0.12f, 0.625f, 1.0f }).setBackgroundColor({ 0.0f, 0.0f, 0.0f, 0.0f });
     slider2.setLineColor({ 0.2f, 0.2f, 0.2f, 1.0f }).handleBorder.set(1, 0, { 0.0f, 0.0f, 0.0f });
 
-    GLUL::GUI::Slider slider3(window, 0.0f, 5.0f, 0.0f);
-    slider3.setSize({ 150.0f, 20.0f }).setPosition({ 450.0f, 380.0f });
+    GLUL::GUI::Slider slider3(window, GLUL::GUI::Style::Orientation::Horizontal, 0.0f, 5.0f, 0.0f);
+    slider3.setSize({ 150.0f, 20.0f }).setPosition({ 380.0f, 380.0f });
     slider3.setHandleColor({ 0.12f, 0.625f, 1.0f }).setBackgroundColor({ 0.2f, 0.2f, 0.2f });
     slider3.restrictValuesToIntegers(true).border.set(1, 0, { 0.0f, 0.0f, 0.0f });
     slider3.handleBorder.set(1, 0, { 0.0f, 0.0f, 0.0f });
+
+    GLUL::GUI::Slider slider4(window, GLUL::GUI::Style::Orientation::Vertical);
+    slider4.setSize({ 20.0f, 150.0f }).setPosition({ 545.0f, 250.0f }).border.set(1, 0, { 0.0f, 0.0f, 0.0f });
+    slider4.setHandleColor({ 0.12f, 0.625f, 1.0f }).setBackgroundColor({ 0.2f, 0.2f, 0.2f });
+    slider4.handleBorder.set(1, 0, { 0.0f, 0.0f, 0.0f });
 
 
     //

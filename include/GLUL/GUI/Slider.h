@@ -6,6 +6,7 @@
 #include <GLUL/GUI/Component.h>
 #include <GLUL/GUI/Events/ValueChange.hpp>
 #include <GLUL/GUI/Styles/Border.h>
+#include <GLUL/GUI/Styles/Orientation.h>
 
 #include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
@@ -20,9 +21,10 @@ namespace GLUL {
 
         class GLUL_API Slider : public Component {
             public:
-                Slider(Container& parent, float min = 0.0f, float max = 1.0f, float value = 0.0f);
-                Slider(Container* const parent = nullptr, float min = 0.0f, float max = 1.0f, float value = 0.0f);
-                ~Slider();
+                Slider(Container& parent, Style::Orientation orientation = Style::Orientation::Horizontal,
+                    float min = 0.0f, float max = 1.0f, float value = 0.0f);
+                Slider(Container* const parent = nullptr, Style::Orientation orientation = Style::Orientation::Horizontal,
+                    float min = 0.0f, float max = 1.0f, float value = 0.0f);
 
                 operator float() const;
 
@@ -42,6 +44,7 @@ namespace GLUL {
                 float getMax() const;
                 const glm::vec2& getLineSize() const;
                 const glm::vec2& getHandleSize() const;
+                Style::Orientation getOrientation() const;
 
                 float normalizeValue(float value) const;
                 float denormalizeValue(float normalizedValue) const;
@@ -63,6 +66,7 @@ namespace GLUL {
                 Slider& setLineSize(const glm::vec2& lineSize);
                 Slider& setHandleSize(const glm::vec2& handleSize);
                 Slider& setPosition(const glm::vec2& position);
+                Slider& setOrientation(Style::Orientation orientation);
 
                 Slider& restrictValuesToIntegers(bool value);
                 Slider& restrictValuesTo(std::initializer_list<float> values);
@@ -102,6 +106,7 @@ namespace GLUL {
                 glm::vec2 _lineSize;
                 GL::VertexArray _vao;
                 GL::VertexBuffer _vbo;
+                Style::Orientation _orientation;
 
             private:
                 static GL::Program& getProgram();

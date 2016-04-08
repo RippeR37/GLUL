@@ -10,15 +10,16 @@ namespace GLUL {
 
     namespace GUI {
 
-        Slider::Slider(Container& parent, float min, float max, float value) 
-            : Slider(&parent, min, max, value) { }
+        Slider::Slider(Container& parent, Style::Orientation orientation, float min, float max, float value)
+            : Slider(&parent, orientation, min, max, value) { }
 
-        Slider::Slider(Container* const parent, float min, float max, float value) 
+        Slider::Slider(Container* const parent, Style::Orientation orientation, float min, float max, float value)
             : Component(parent), border(*this), handleBorder(*this)
         {
             setBackgroundColor(glm::vec4(glm::vec3(0.0f), 1.0f));
             setHandleColor(glm::vec4(glm::vec3(1.0f), 1.0f));
             setLineColor(glm::vec4(0.0f));
+            setOrientation(orientation);
 
             restrictValuesToIntegers(false);
             setRange(min, max);
@@ -30,9 +31,6 @@ namespace GLUL {
             _glInitialized = false;
         }
 
-        Slider::~Slider() {
-
-        }
 
         const Slider& Slider::render() const {
             if(isVisible() &&
@@ -148,6 +146,10 @@ namespace GLUL {
 
         const glm::vec2& Slider::getHandleSize() const {
             return _handleSize;
+        }
+
+        Style::Orientation Slider::getOrientation() const {
+            return _orientation;
         }
 
 
@@ -269,8 +271,13 @@ namespace GLUL {
         Slider& Slider::setSize(const glm::vec2& size) {
             Component::setSize(size);
 
-            setLineSize(glm::vec2(size.x, size.y / 15.0f));
-            setHandleSize(glm::vec2(size.y / 3.0f, size.y * 1.25f));
+            if(getOrientation() == Style::Orientation::Horizontal) {
+                setLineSize(glm::vec2(size.x, size.y / 15.0f));
+                setHandleSize(glm::vec2(size.y / 3.0f, size.y * 1.2f));
+            } else {
+                setLineSize(glm::vec2(size.x / 15.0f, size.y));
+                setHandleSize(glm::vec2(size.x * 1.2f, size.x / 3.0f));
+            }
 
             return *this;
         }
@@ -293,6 +300,15 @@ namespace GLUL {
 
         Slider& Slider::setPosition(const glm::vec2& position) {
             Component::setPosition(position);
+
+            return *this;
+        }
+
+        Slider& Slider::setOrientation(Style::Orientation orientation) {
+            _orientation = orientation;
+
+            setInvalid();
+            validate();
 
             return *this;
         }
@@ -375,10 +391,18 @@ namespace GLUL {
 
         void Slider::pushLineVertices(std::vector<glm::vec4>& result, const glm::vec2& posStart, const glm::vec2& posEnd) const {
             const float lineWidthDiff = getSize().x - getLineSize().x;
-            
+            const float lineHeightDiff = getSize().y - getLineSize().y;
+
+            glm::vec2 posStartLine, posEndLine;
+
             // Line position
-            glm::vec2 posStartLine = glm::vec2(posStart.x + (lineWidthDiff * 0.5f), posStart.y - (getSize().y - getLineSize().y) * 0.5f);
-            glm::vec2 posEndLine = glm::vec2(posEnd.x - (lineWidthDiff * 0.5f), posStartLine.y - getLineSize().y);
+            if(getOrientation() == Style::Orientation::Horizontal) {
+                posStartLine = glm::vec2(posStart.x + (lineWidthDiff * 0.5f), posStart.y - (getSize().y - getLineSize().y) * 0.5f);
+                posEndLine = glm::vec2(posEnd.x - (lineWidthDiff * 0.5f), posStartLine.y - getLineSize().y);
+            } else {
+                posStartLine = glm::vec2(posStart.x + (getSize().x - getLineSize().x) * 0.5f, posStart.y + lineHeightDiff * 0.5f);
+                posEndLine = glm::vec2(posStartLine.x + getLineSize().x, posStartLine.y + getLineSize().y);
+            }
 
             // Vertices - line
             if(getLineAlpha() > 0.0f)
@@ -386,12 +410,22 @@ namespace GLUL {
         }
 
         void Slider::pushHandleVertices(std::vector<glm::vec4>& result, const glm::vec2& posStart, const glm::vec2& posEnd) const {
-            const float handleRange = getSize().x - getHandleSize().x;
-            const float handleHeightDiff = getSize().y - getHandleSize().y;
-            
-            // Handle position
-            glm::vec2 posStartHandle = glm::vec2(posStart.x + handleRange * normalizeValue(getValue()), posStart.y - (handleHeightDiff * 0.5f));
-            glm::vec2 posEndHandle = glm::vec2(posStartHandle.x + getHandleSize().x, posEnd.y + (handleHeightDiff * 0.5f));
+            glm::vec2 posStartHandle, posEndHandle;
+
+            // Handle position (depending on orientation)
+            if(getOrientation() == Style::Orientation::Horizontal) {
+                const float handleRange = getSize().x - getHandleSize().x;
+                const float handleHeightDiff = getSize().y - getHandleSize().y;
+
+                posStartHandle = glm::vec2(posStart.x + handleRange * normalizeValue(getValue()), posStart.y - (handleHeightDiff * 0.5f));
+                posEndHandle = glm::vec2(posStartHandle.x + getHandleSize().x, posEnd.y + (handleHeightDiff * 0.5f));
+            } else {
+                const float handleRange = getSize().y -getHandleSize().y;
+                const float handleWidthDiff = getSize().x - getHandleSize().x;
+
+                posStartHandle = glm::vec2(posStart.x + handleWidthDiff * 0.5f, posEnd.y + handleRange * normalizeValue(getValue()));
+                posEndHandle = glm::vec2(posEnd.x - handleWidthDiff * 0.5f, posStartHandle.y + getHandleSize().y);
+            }
 
             // Handle border position
             glm::vec2 hBorStart = posStartHandle - glm::vec2(handleBorder.getOffset(), -handleBorder.getOffset());
@@ -408,7 +442,7 @@ namespace GLUL {
             pushColoredRectangle(result, glm::vec2(hBorEnd.x - hBorWidth.x, hBorStart.y), glm::vec2(hBorEnd.x, hBorEnd.y), handleBorder.getColor()); // right
             pushColoredRectangle(result, glm::vec2(hBorStart.x, hBorEnd.y + hBorWidth.y), glm::vec2(hBorEnd.x, hBorEnd.y), handleBorder.getColor()); // bottom
         }
-        
+
         void Slider::initializeEvents() {
             // Move to point where you clicked
             onMouseClick += GLUL::GUI::Event::MouseClick::Handler(
@@ -474,12 +508,20 @@ namespace GLUL {
         }
 
         void Slider::updateValueFromPosition(const glm::vec2& position) {
-            const float handleWidth = getHandleSize().x;
-            const float sliderRange = getSize().x - handleWidth;
-            const float normalizedNewValue = (position.x - 0.5f * handleWidth) / sliderRange;
-            const float denormalizedNewValue = denormalizeValue(normalizedNewValue);
+            float normalizedNewValue;
 
-            setValue(denormalizedNewValue);
+            if(getOrientation() == Style::Orientation::Horizontal) {
+                float handleWidth = getHandleSize().x;
+                float sliderRange = getSize().x - handleWidth;
+                normalizedNewValue = (position.x - 0.5f * handleWidth) / sliderRange;
+
+            } else {
+                float handleHeight = getHandleSize().y;
+                float sliderRange = getSize().y - handleHeight;
+                normalizedNewValue = 1.0f - ((position.y - 0.5f * handleHeight) / sliderRange); // inverted (bottom is min, top is max)
+            }
+
+            setValue(denormalizeValue(normalizedNewValue));
         }
 
     }

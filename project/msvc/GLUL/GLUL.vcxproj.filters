@@ -341,6 +341,9 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\RadioButton.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\Orientation.h">
+      <Filter>Header Files\GUI\Styles</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">

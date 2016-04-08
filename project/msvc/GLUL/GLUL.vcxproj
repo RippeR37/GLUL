@@ -227,6 +227,7 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Slider.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\Border.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\HorizontalAlignment.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\Orientation.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\VerticalAlignment.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Text.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\TextField.h" />

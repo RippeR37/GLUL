@@ -172,6 +172,7 @@ set(GLUL_H
     
     "include/GLUL/GUI/Styles/Border.h"
     "include/GLUL/GUI/Styles/HorizontalAlignment.h"
+    "include/GLUL/GUI/Styles/Orientation.h"
     "include/GLUL/GUI/Styles/VerticalAlignment.h"
     
     "include/GLUL/GUI/Button.h"
