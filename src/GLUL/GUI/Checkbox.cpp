@@ -25,10 +25,10 @@ namespace GLUL {
             onMouseClick += Event::MouseClick::Handler(
                 "__GLUL::GUI::Checkbox::MouseClick",
                 [&](Component& component, const Event::MouseClick& onMouseClickEvent) {
-                    (void) onMouseClickEvent;
                     Checkbox& checkbox = *static_cast<Checkbox*>(&component);
 
-                    checkbox.switchState();
+                    if(onMouseClickEvent.button == Input::MouseButton::Left)
+                        checkbox.switchState();
                 }
             );
         }
