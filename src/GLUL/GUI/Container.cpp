@@ -1,3 +1,4 @@
+#include <GLUL/GL++/Context.h>
 #include <GLUL/GUI/Container.h>
 
 
@@ -25,9 +26,16 @@ namespace GLUL {
             if(!isValid())
                 validate();
 
-            for(auto component : _components)
-                if(component)
+            setupClipping();
+
+            for(auto component : _components) {
+                if(component) {
+                    enableClipping();
                     component->render();
+                }
+            }
+
+            revertClipping();
 
             return *this;
         }
@@ -264,6 +272,34 @@ namespace GLUL {
         
         bool Container::isUnderMouse(Component* component) const {
             return (_componentsUnderMouse.count(component) > 0);
+        }
+
+        void Container::setupClipping() const {
+            Container& thisConstless = const_cast<Container&>(*this);
+
+            thisConstless._wasScissorTestActive = GL::Context::Current->isScissorTestEnabled();
+
+            if(_wasScissorTestActive)
+                thisConstless._scissorTestBox = GL::Context::Current->getScissorBox();
+        }
+
+        void Container::enableClipping() const {
+            glm::vec2 windowSize = GL::Context::Current->getViewportSize();
+            GLUL::Rectangle containerBounds = getBounds();
+
+            containerBounds.setPoint({
+                containerBounds.getPosition().x,
+                windowSize.y - containerBounds.getPosition().y - getSize().y
+            });
+
+            GL::Context::Current->setScissorBox(containerBounds);
+        }
+
+        void Container::revertClipping() const {
+            if(_wasScissorTestActive)
+                GL::Context::Current->setScissorBox(_scissorTestBox);
+            else
+                GL::Context::Current->disableScissorTest();
         }
 
     }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <GLUL/Rectangle.h>
 #include <GLUL/GUI/Component.h>
 
 #include <list>
@@ -35,6 +36,13 @@ namespace GLUL {
 
                 bool isUnderMouse(Component* component) const;
 
+                void setupClipping() const;
+                void enableClipping() const;
+                void revertClipping() const;
+
+
+                bool _wasScissorTestActive;
+                GLUL::Rectangle _scissorTestBox;
                 std::list<Component*> _components;
                 std::set<Component*> _componentsUnderMouse;
 
