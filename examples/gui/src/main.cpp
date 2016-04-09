@@ -6,6 +6,7 @@
 #include <GLUL/GUI/Checkbox.h>
 #include <GLUL/GUI/Font.h>
 #include <GLUL/GUI/Slider.h>
+#include <GLUL/GUI/Panel.h>
 #include <GLUL/GUI/ProgressBar.h>
 #include <GLUL/GUI/RadioButton.h>
 #include <GLUL/GUI/RadioButtonGroup.h>
@@ -176,6 +177,15 @@ void run() {
     slider4.setSize({ 20.0f, 150.0f }).setPosition({ 545.0f, 250.0f }).border.set(1, 0, { 0.0f, 0.0f, 0.0f });
     slider4.setHandleColor({ 0.12f, 0.625f, 1.0f }).setBackgroundColor({ 0.2f, 0.2f, 0.2f });
     slider4.handleBorder.set(1, 0, { 0.0f, 0.0f, 0.0f });
+
+
+
+    // Panels
+    GLUL::GUI::Panel panel(window, { 100.0f, 450.0f }, { 600.0f, 100.0f }, { 900.0f, 400.0f });
+    GLUL::GUI::Button panelButton(panel);
+    panelButton.setSize({ 150.0f, 30.0f }).setPosition({ 250.0f, 30.0f }).setColor({ 0.3f, 0.3f, 0.3f });
+    panelButton.text.setFont(fontArial).setText("Press me").setColor({ 1.0f, 1.0f, 1.0f });
+    panelButton.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Center, GLUL::GUI::Style::VerticalAlignment::Center);
 
 
     //

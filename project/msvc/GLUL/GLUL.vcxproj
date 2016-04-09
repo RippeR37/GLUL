@@ -221,6 +221,7 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\ValueChange.hpp" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Font.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\InnerText.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Panel.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\ProgressBar.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\RadioButton.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\RadioButtonGroup.h" />
@@ -305,6 +306,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\TextInput.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Font.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\InnerText.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Panel.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\ProgressBar.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\RadioButton.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\RadioButtonGroup.cpp" />

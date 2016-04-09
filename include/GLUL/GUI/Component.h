@@ -29,8 +29,8 @@ namespace GLUL {
                 Component(Container* const parent = nullptr);
                 virtual ~Component();
                 
-                void bindTo(Container& container);
-                void bindTo(Container* container);
+                virtual void bindTo(Container& container);
+                virtual void bindTo(Container* container);
 
                 virtual const Component& render() const = 0;
                 virtual Component& update(double deltaTime) = 0;
