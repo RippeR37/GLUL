@@ -79,7 +79,7 @@ namespace GLUL {
         }
 
         const GLUL::Rectangle Component::getBounds() const {
-            return GLUL::Rectangle(getPosition(), getSize().x, getSize().y);
+            return GLUL::Rectangle(Component::getScreenPosition(), getSize().x, getSize().y);
         }
         
         const Container* Component::getParent() const {
