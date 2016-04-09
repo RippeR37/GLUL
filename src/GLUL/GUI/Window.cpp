@@ -58,6 +58,10 @@ namespace GLUL {
 
             Container::update(getFrameTime());
         }
+
+        const glm::vec2& Window::getSize() const {
+            return GLUL::Window::getSize();
+        }
         
         Window& Window::setSize(unsigned int width, unsigned int height) {
             GLUL::Window::setSize(width, height);

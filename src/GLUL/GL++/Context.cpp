@@ -14,6 +14,7 @@ namespace GL {
         _clearDepth = 0.0f;
         _clearColor = glm::vec4(0.0f);
         _clearStencil = 0;
+        _isScissorTestEnabled = false;
 
         _viewportSize = glm::ivec2(0, 0);
         _viewportPosition = glm::ivec2(0, 0);
@@ -103,6 +104,20 @@ namespace GL {
     }
 
 
+    void Context::enableScissorTest() {
+        if(isActive()) {
+            glEnable(GL_SCISSOR_TEST);
+            _isScissorTestEnabled = true;
+        }
+    }
+
+    void Context::disableScissorTest() {
+        if(isActive()) {
+            glDisable(GL_SCISSOR_TEST);
+            _isScissorTestEnabled = false;
+        }
+    }
+
 
     void Context::setClearColor(const glm::vec4& data) {
         _clearColor = data;
@@ -130,12 +145,43 @@ namespace GL {
     }
 
     void Context::setViewport(const glm::ivec2& position, const glm::ivec2& size) {
-        _viewportSize = size;
-        _viewportPosition = position;
+        if(isActive()) {
+            _viewportSize = size;
+            _viewportPosition = position;
 
-        glViewport(position.x, position.y, size.x, size.y);
+            glViewport(position.x, position.y, size.x, size.y);
+        }
     }
 
+
+    void Context::setScissorBox(GLint x, GLint y, GLsizei width, GLsizei height) {
+        setScissorBox(GLUL::Rectangle(
+            static_cast<float>(x),
+            static_cast<float>(y),
+            static_cast<float>(width),
+            static_cast<float>(height)
+        ));
+    }
+
+    void Context::setScissorBox(const GLUL::Rectangle& scissorBox) {
+        if(isActive()) {
+            if(isScissorTestEnabled() == false)
+                enableScissorTest();
+
+            glScissor(
+                static_cast<GLint>(scissorBox.getPosition().x),
+                static_cast<GLint>(scissorBox.getPosition().y),
+                static_cast<GLsizei>(scissorBox.getSize().x),
+                static_cast<GLsizei>(scissorBox.getSize().y)
+                );
+
+            _scissorBox = scissorBox;
+        }
+    }
+
+    bool Context::isScissorTestEnabled() const {
+        return _isScissorTestEnabled;
+    }
 
 
     const glm::vec4& Context::getClearColor() const {
@@ -156,6 +202,10 @@ namespace GL {
 
     const glm::ivec2& Context::getViewportPosition() const {
         return _viewportPosition;
+    }
+
+    const GLUL::Rectangle& Context::getScissorBox() const {
+        return _scissorBox;
     }
 
 
