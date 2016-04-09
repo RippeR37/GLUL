@@ -42,13 +42,13 @@ namespace GLUL {
                 bool isVisible() const;
                 bool isValid() const;
 
-                const glm::vec2& getSize() const;
-                const glm::vec2& getPosition() const;
+                virtual const glm::vec2& getSize() const;
+                virtual const glm::vec2& getPosition() const;
                 const Container* getParent() const;
                 Container* getParent();
                 
-                const glm::vec2 getScreenPosition() const;
-                const GLUL::Rectangle getBounds() const;
+                virtual const glm::vec2 getScreenPosition() const;
+                virtual const GLUL::Rectangle getBounds() const;
 
                 virtual Component& setEnabled(bool flag);
                 virtual Component& setFocused(bool flag);

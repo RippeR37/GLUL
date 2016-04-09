@@ -33,14 +33,19 @@ namespace GLUL {
                 Panel& update(double deltaTime);
                 const Panel& validate() const;
 
-
+                const glm::vec2 getScreenPosition() const;
+                const glm::vec2 getOffset() const;
                 const glm::vec2& getTotalSize() const;
+                const glm::vec4& getBackgroundColor() const;
+                float getBackgroundAlpha() const;
                 bool isHorizontalScrollbarVisible() const;
                 bool isVerticalScrollbarVisible() const;
 
                 Panel& setSize(const glm::vec2& size);
                 Panel& setTotalSize(const glm::vec2& totalSize);
                 Panel& setPosition(const glm::vec2& position);
+                Panel& setBackgroundColor(const glm::vec3& backgroundColor);
+                Panel& setBackgroundColor(const glm::vec4& backgroundColor);
 
 
             public:

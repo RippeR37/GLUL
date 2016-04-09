@@ -19,16 +19,15 @@ namespace GLUL {
             : Panel(parent, position, size, size) { }
 
         Panel::Panel(Container* const parent, const glm::vec2& position, const glm::vec2& size, const glm::vec2& totalSize)
-            : Container(nullptr)
+            : Container(nullptr), _glInitialized(false)
         {
-            _backgroundColor = { 0.0f, 0.0f, 0.0f, 0.1f }; // TODO: 
-            _glInitialized = false;
             _initializeScrollbars();
 
             bindTo(parent);
             setSize(size);
             setPosition(position);
             setTotalSize(totalSize);
+            setBackgroundColor({ 0.0f, 0.0f, 0.0f, 0.1f });
         }
 
         Panel::~Panel() {
@@ -113,9 +112,29 @@ namespace GLUL {
             return *this;
         }
 
+        const glm::vec2 Panel::getScreenPosition() const {
+            glm::vec2 scrPos = Container::getScreenPosition();
+            glm::vec2 offset = getOffset();
+
+            return {
+                scrPos.x - offset.x,
+                scrPos.y + offset.y + getSize().y - getTotalSize().y
+            };
+        }
+
+        const glm::vec2 Panel::getOffset() const {
+            return {
+                scrollbarHorizontal.getValue(),
+                scrollbarVertical.getValue()
+            };
+        }
 
         const glm::vec2& Panel::getTotalSize() const {
             return _totalSize;
+        }
+
+        const glm::vec4& Panel::getBackgroundColor() const {
+            return _backgroundColor;
         }
 
         bool Panel::isHorizontalScrollbarVisible() const {
@@ -152,10 +171,42 @@ namespace GLUL {
             return *this;
         }
 
+        Panel& Panel::setBackgroundColor(const glm::vec3& backgroundColor) {
+            return setBackgroundColor(glm::vec4(backgroundColor, 1.0f));
+        }
+
+        Panel& Panel::setBackgroundColor(const glm::vec4& backgroundColor) {
+            _backgroundColor = backgroundColor;
+
+            setInvalid();
+
+            return *this;
+        }
+
 
         void Panel::_initializeScrollbars() {
             scrollbarHorizontal.setOrientation(Style::Orientation::Horizontal);
             scrollbarVertical.setOrientation(Style::Orientation::Vertical);
+
+            scrollbarHorizontal.onValueChange += Event::ValueChange<float>::Handler(
+                "__GLUL::GUI::Panel::HorizontalScrollbar::ValueChange",
+                [&](Component& component, const Event::ValueChange<float>& onValueChangeEvent) {
+                    (void) component;
+                    (void) onValueChangeEvent;
+
+                    this->setInvalid();
+                }
+            );
+
+            scrollbarVertical.onValueChange += Event::ValueChange<float>::Handler(
+                "__GLUL::GUI::Panel::VerticalScrollbar::ValueChange",
+                [&](Component& component, const Event::ValueChange<float>& onValueChangeEvent) {
+                    (void) component;
+                    (void) onValueChangeEvent;
+
+                    this->setInvalid();
+                }
+            );
         }
 
         void Panel::_updateScrollbarLogic() {
@@ -168,12 +219,15 @@ namespace GLUL {
 
             // Horizontal scrollbar
             if(isHorizontalScrollbarVisible()) {
+                scrollbarHorizontal.setRange(0.0f, getTotalSize().x - getSize().x);
                 scrollbarHorizontal.setSize({ getSize().x - 10.0f, 10.0f });
                 scrollbarHorizontal.setPosition(pos + glm::vec2(0.0f, getSize().y - 10.0f));
             }
 
             // Vertical scrollbar
             if(isVerticalScrollbarVisible()) {
+                scrollbarVertical.setRange(0.0f, getTotalSize().y - getSize().y);
+                scrollbarVertical.setValue(scrollbarVertical.getMax());
                 scrollbarVertical.setSize({ 10.0f, getSize().y - 10.0f });
                 scrollbarVertical.setPosition(pos + glm::vec2(getSize().x - 10.0f, 0.0f));
             }
@@ -183,7 +237,7 @@ namespace GLUL {
             static GL::Program program(
                 GL::Shader("assets/shaders/GLUL/GUI/Button.vp", GL::Shader::Type::VertexShader),
                 GL::Shader("assets/shaders/GLUL/GUI/Button.fp", GL::Shader::Type::FragmentShader)
-                );
+            );
 
             return program;
         }
@@ -192,7 +246,7 @@ namespace GLUL {
             std::vector<glm::vec4> result;
 
             // Background position
-            glm::vec2 scrPos = getScreenPosition();
+            glm::vec2 scrPos = Container::getScreenPosition();
             glm::vec2 posStart = glm::vec2(scrPos.x, GL::Context::Current->getViewportSize().y - scrPos.y);
             glm::vec2 posEnd = posStart + glm::vec2(getSize().x, -getSize().y);
 
