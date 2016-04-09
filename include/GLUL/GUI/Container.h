@@ -23,6 +23,8 @@ namespace GLUL {
                 virtual Container& add(Component& component);
                 virtual Container& add(Component* const component);
 
+                virtual const glm::vec2 getOffset() const;
+
                 virtual Container& setInvalid();
                 virtual Container& setFocused(bool flag);
 

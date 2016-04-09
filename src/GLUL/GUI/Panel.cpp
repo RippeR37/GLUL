@@ -116,16 +116,13 @@ namespace GLUL {
             glm::vec2 scrPos = Container::getScreenPosition();
             glm::vec2 offset = getOffset();
 
-            return {
-                scrPos.x - offset.x,
-                scrPos.y + offset.y + getSize().y - getTotalSize().y
-            };
+            return scrPos - offset;
         }
 
         const glm::vec2 Panel::getOffset() const {
             return {
                 scrollbarHorizontal.getValue(),
-                scrollbarVertical.getValue()
+                scrollbarVertical.getMax() - scrollbarVertical.getValue()
             };
         }
 
