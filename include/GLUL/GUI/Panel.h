@@ -41,16 +41,34 @@ namespace GLUL {
                 bool isHorizontalScrollbarVisible() const;
                 bool isVerticalScrollbarVisible() const;
 
+                const glm::vec2& getScrollbarsSize() const;
+                const glm::vec2  getScrollbarsHandleSize() const;
+                const glm::vec2  getScrollbarsLineSize() const;
+                const glm::vec4  getScrollbarsBackgroundColor() const;
+                const glm::vec4  getScrollbarsHandleColor() const;
+                const glm::vec4  getScrollbarsLineColor() const;
+
+
                 Panel& setSize(const glm::vec2& size);
                 Panel& setTotalSize(const glm::vec2& totalSize);
                 Panel& setPosition(const glm::vec2& position);
                 Panel& setBackgroundColor(const glm::vec3& backgroundColor);
                 Panel& setBackgroundColor(const glm::vec4& backgroundColor);
 
-
-            public:
-                Slider scrollbarHorizontal;
-                Slider scrollbarVertical;
+                Panel& setScrollbarsSize(float scrollbarsSize);
+                Panel& setScrollbarsSize(const glm::vec2& scrollbarsSize);
+                Panel& setScrollbarsHandleSize(const glm::vec2& scrollbarsHandleSize);
+                Panel& setScrollbarsLineSize(const glm::vec2& scrollbarsLineSize);
+                Panel& setScrollbarsBackgroundColor(const glm::vec3& scrollbarsBackgroundColor);
+                Panel& setScrollbarsBackgroundColor(const glm::vec4& scrollbarsBackgroundColor);
+                Panel& setScrollbarsHandleColor(const glm::vec3& scrollbarsHandleColor);
+                Panel& setScrollbarsHandleColor(const glm::vec4& scrollbarsHandleColor);
+                Panel& setScrollbarsLineColor(const glm::vec3& scrollbarsLineColor);
+                Panel& setScrollbarsLineColor(const glm::vec4& scrollbarsLineColor);
+                Panel& setScrollbarsBorder(int width, int offset, const glm::vec3& color);
+                Panel& setScrollbarsBorder(int width, int offset, const glm::vec4& color);
+                Panel& setScrollbarsHandleBorder(int width, int offset, const glm::vec3& color);
+                Panel& setScrollbarsHandleBorder(int width, int offset, const glm::vec4& color);
 
 
             protected:
@@ -64,10 +82,12 @@ namespace GLUL {
             protected:
                 bool _glInitialized;
                 glm::vec2 _totalSize;
+                glm::vec2 _scrollbarsSize;
                 glm::vec4 _backgroundColor;
                 GL::VertexArray _vao;
                 GL::VertexBuffer _vbo;
-
+                Slider _scrollbarHorizontal;
+                Slider _scrollbarVertical;
         };
 
     }
