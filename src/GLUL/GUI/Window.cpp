@@ -18,6 +18,8 @@ namespace GLUL {
         }
 
         Window::Window(unsigned int width, unsigned int height, const std::string& title) : GLUL::Window(width, height, title), Container(nullptr) {
+            GLUL::GUI::Container::setSize(glm::vec2(width, height));
+
             this->eventAggregator.registerHandler(
                 {
                     GLUL::Input::Event::Type::Character,
@@ -30,6 +32,8 @@ namespace GLUL {
         }
 
         Window::Window(const glm::uvec2& size, const std::string& title) : GLUL::Window(size, title), Container(nullptr) {
+            GLUL::GUI::Container::setSize(glm::vec2(size));
+
             this->eventAggregator.registerHandler(
                 {
                     GLUL::Input::Event::Type::Character,
@@ -60,23 +64,26 @@ namespace GLUL {
         }
 
         const glm::vec2& Window::getSize() const {
-            return GLUL::Window::getSize();
+            return GLUL::GUI::Container::getSize();
         }
         
         Window& Window::setSize(unsigned int width, unsigned int height) {
             GLUL::Window::setSize(width, height);
+            GLUL::GUI::Container::setSize(glm::vec2(width, height));
 
             return *this;
         }
 
         Window& Window::setSize(const glm::vec2& size) {
             GLUL::Window::setSize(glm::uvec2(size));
+            GLUL::GUI::Container::setSize(size);
 
             return *this;
         }
 
         Window& Window::setSize(const glm::uvec2& size) {
             GLUL::Window::setSize(size);
+            GLUL::GUI::Container::setSize(glm::vec2(size));
 
             return *this;
         }
