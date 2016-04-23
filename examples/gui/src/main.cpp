@@ -91,7 +91,7 @@ void run() {
     textField2.border.set(1, 0, { 0.0f, 0.0f, 0.0f });
     textField2.text.setFont(fontArial).setText("Right alignment").setColor({ 0.0f, 0.0f, 0.0f });
     textField2.text.setAlignment(GLUL::GUI::Style::HorizontalAlignment::Right, GLUL::GUI::Style::VerticalAlignment::Center);
-    
+
 
     // Checkboxes
     GLUL::GUI::Checkbox checkbox1_off(window);
@@ -137,7 +137,7 @@ void run() {
         .setFont(fontArial).setColor({ 0.7f, 0.7f, 0.7f }).setPosition({ 615.0f, 142.0f })
         .setText("only \n\none \n\nchecked");
 
-    
+
     // Progress bar
     GLUL::GUI::Text progressbar_header(window), progressbar1_text(window);
     progressbar_header.setFont(fontArial).setColor({ 0.3f, 0.7f, 0.7f });
@@ -194,17 +194,17 @@ void run() {
 
     /*
      * Possible events:
-     * 
+     *
      * onMouseClick     click (mouse button down) happens over element
      * onMouseRelease   click (mouse button up) happens over element
      * onMouseEnter     mouse cursor enters element's space on screen (it wasn't last time over it)
      * onMouseLeave     mouse cursor leaves element's space on screen (it was last time but it's not anymore)
      * onMouseMove      mouse cursor moves over element's space on screen (it was and still is over it)
      */
-    
+
     // Add anonymouse custom handler
     button.onMouseRelease += GLUL::GUI::Event::MouseRelease::Handler(
-        "b:release", 
+        "b:release",
         [](GLUL::GUI::Component& component, const GLUL::GUI::Event::MouseRelease& mouseReleaseEvent) {
             (void) mouseReleaseEvent;
             GLUL::GUI::Button& button = static_cast<GLUL::GUI::Button&>(component);
@@ -214,7 +214,7 @@ void run() {
 
     // Create custom onMouseClick handler that can be added to multiple components
     GLUL::GUI::Event::MouseClick::Handler myButtonClickHandler(
-        "b:click", 
+        "b:click",
         [](GLUL::GUI::Component& component, const GLUL::GUI::Event::MouseClick& mouseClickEvent) {
             (void) mouseClickEvent;
             GLUL::GUI::Button& button = static_cast<GLUL::GUI::Button&>(component);
@@ -227,7 +227,7 @@ void run() {
 
     // Mouse enter/leaves
     button2.onMouseEnter += GLUL::GUI::Event::MouseEnter::Handler(
-        "b:enter", 
+        "b:enter",
         [](GLUL::GUI::Component& component, const GLUL::GUI::Event::MouseEnter& mouseEnterEvent) {
             (void) mouseEnterEvent;
             GLUL::GUI::Button& button = static_cast<GLUL::GUI::Button&>(component);
@@ -235,7 +235,7 @@ void run() {
         }
     );
     button2.onMouseLeave += GLUL::GUI::Event::MouseLeave::Handler(
-        "b:leave", 
+        "b:leave",
         [](GLUL::GUI::Component& component, const GLUL::GUI::Event::MouseLeave& mouseEnterLeave) {
             (void) mouseEnterLeave;
             GLUL::GUI::Button& button = static_cast<GLUL::GUI::Button&>(component);
@@ -247,7 +247,7 @@ void run() {
         "p1:valueChange",
         [&progressbar1_text](GLUL::GUI::Component& component, const GLUL::GUI::Event::ValueChange<float>& valueChangeEvent) {
             (void) component; // unused
-            
+
             int progressValue = static_cast<int>(std::ceil(valueChangeEvent.newValue * 100.0f));
             std::string valueText = std::to_string(progressValue) + "%";
 

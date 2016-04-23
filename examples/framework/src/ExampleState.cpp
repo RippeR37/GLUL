@@ -3,37 +3,25 @@
 #include <GLUL/Frameworks/Application.h>
 #include <GLUL/TimeLoop.h>
 
-ExampleState::ExampleState(FW::Application& application) : Application(application) {
+ExampleState::ExampleState(FW::Application& application) : Application(application) { }
 
-}
-
-ExampleState::~ExampleState() {
-
-}
+ExampleState::~ExampleState() {}
 
 void ExampleState::update(const double frameTime) {
-    GLUL::TimeLoop::semiFixed(frameTime, 1.0f / 120.0f, [](double deltaTime) {
-        (void) deltaTime;
-
-        // update here
-    });
+    GLUL::TimeLoop::semiFixed(frameTime, 1.0f / 120.0f, [](double deltaTime) {(void)deltaTime; });
 }
 
 void ExampleState::render() {
     GL::Context::Current->clearBuffers(GL::Context::BufferMask::Color);
-
-    // render here
 }
 
 void ExampleState::onLoad() {
-    // Window 
+    // Window
     Application.Window.setSize(800u, 600u);
     Application.Window.setTitle("Title");
     Application.Window.create();
     Application.Window.registerEvents();
-    Application.Window.setDestroyCallback([&]() {
-        Application.signalExit();
-    });
+    Application.Window.setDestroyCallback([&]() { Application.signalExit(); });
 
     // OpenGL context settings
     GL::Context::Current->setClearColor(glm::vec4(0.1f, 0.1f, 0.1f, 1.0f));
@@ -60,8 +48,7 @@ void ExampleState::handleInputEvent(const GLUL::Input::Event& inputEvent) {
         if(keyEvent.getAction() == GLUL::Input::Action::Press) {
             switch(keyEvent.getKey()) {
                 case GLUL::Input::Key::Escacpe:
-                    signalExit();
-                    break;
+                    signalExit(); break;
 
                 default:
                     break;

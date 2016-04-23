@@ -18,7 +18,7 @@ namespace GLUL {
             setFocused(false);
             setSize(glm::vec2(0.0f));
             setPosition(glm::vec2(0.0f));
-            
+
             setInvalid();
 
             bindTo(parent);
@@ -46,7 +46,7 @@ namespace GLUL {
 
             return *this;
         }
-        
+
         bool Component::isEnabled() const {
             return _isEnabled;
         }
@@ -81,11 +81,11 @@ namespace GLUL {
         const GLUL::Rectangle Component::getBounds() const {
             return GLUL::Rectangle(Component::getScreenPosition(), getSize().x, getSize().y);
         }
-        
+
         const Container* Component::getParent() const {
             return _parent;
         }
-        
+
         Container* Component::getParent() {
             return _parent;
         }
@@ -98,12 +98,19 @@ namespace GLUL {
 
             return *this;
         }
-        
+
         Component& Component::setFocused(bool flag) {
+            bool wasFocused = isFocused();
+
             _isFocused = flag;
 
             setInvalid();
             validate();
+
+            if(!wasFocused && isFocused())
+                onFocus.call(*this, {});
+            else if(wasFocused && !isFocused())
+                onFocusLoss.call(*this, {});
 
             return *this;
         }
@@ -131,7 +138,7 @@ namespace GLUL {
 
             return *this;
         }
-        
+
         Component& Component::setPosition(const glm::vec2& position) {
             _position = position;
 
@@ -146,7 +153,7 @@ namespace GLUL {
 
             return *this;
         }
-        
+
         Component& Component::setParent(Container* const parent) {
             _parent = parent;
 
@@ -157,7 +164,7 @@ namespace GLUL {
             if(getParent())
                 getParent()->handleChildDestruction(this);
         }
-        
+
         bool Component::isUnderMouse() const {
             if(getParent() == nullptr)
                 return false;
@@ -167,7 +174,7 @@ namespace GLUL {
 
         void Component::pushColoredRectangle(
             std::vector<glm::vec4>& result,
-            const glm::vec2& posStart, 
+            const glm::vec2& posStart,
             const glm::vec2& posEnd,
             const glm::vec4& color)
         {

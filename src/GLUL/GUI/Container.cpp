@@ -94,7 +94,7 @@ namespace GLUL {
 
             return *this;
         }
-        
+
         Container& Container::setFocused(bool flag) {
             Component::setFocused(flag);
 
@@ -114,11 +114,11 @@ namespace GLUL {
         void Container::handleChildDestruction(Component* component) {
             _components.remove(component);
         }
-        
+
         void Container::initializeEventForwarding() {
             // KeyStroke
             onKeyStroke += Event::KeyStroke::Handler(
-                "__GLUL::GUI::Event::KeyStroke::Forwarding", 
+                "__GLUL::GUI::Event::KeyStroke::Forwarding",
                 [&](Component& container, const Event::KeyStroke& onKeyStrokeEvent) {
                     (void) container; // skip it
 
@@ -134,7 +134,7 @@ namespace GLUL {
 
             // MouseClick
             onMouseClick += Event::MouseClick::Handler(
-                "__GLUL::GUI::Event::MouseClick::Forwarding", 
+                "__GLUL::GUI::Event::MouseClick::Forwarding",
                 [&](Component& container, const Event::MouseClick& onMouseClickEvent) {
                     (void) container; // skip it
 
@@ -142,7 +142,7 @@ namespace GLUL {
                         Component& component = *componentPtr;
                         glm::vec2 newPosition = onMouseClickEvent.position - component.getPosition() + getOffset();
 
-                        if(newPosition.x >= 0 && newPosition.x < component.getSize().x && 
+                        if(newPosition.x >= 0 && newPosition.x < component.getSize().x &&
                            newPosition.y >= 0 && newPosition.y < component.getSize().y)
                         {
                             if(component.isEnabled() && component.isVisible()) {
@@ -155,7 +155,7 @@ namespace GLUL {
 
             // MouseRelease
             onMouseRelease += Event::MouseRelease::Handler(
-                "__GLUL::GUI::Event::MouseRelease::Forwarding", 
+                "__GLUL::GUI::Event::MouseRelease::Forwarding",
                 [&](Component& container, const Event::MouseRelease& onMouseReleaseEvent) {
                     (void) container; // skip it
 
@@ -163,7 +163,7 @@ namespace GLUL {
                         Component& component = *componentPtr;
                         glm::vec2 newPosition = onMouseReleaseEvent.position - component.getPosition() + getOffset();
 
-                        if(newPosition.x >= 0 && newPosition.x < component.getSize().x && 
+                        if(newPosition.x >= 0 && newPosition.x < component.getSize().x &&
                            newPosition.y >= 0 && newPosition.y < component.getSize().y)
                         {
                             if(component.isEnabled() && component.isVisible()) {
@@ -184,7 +184,7 @@ namespace GLUL {
 
             // MouseLeave
             onMouseLeave += Event::MouseLeave::Handler(
-                "__GLUL::GUI::Event::MouseLeave::Forwarding", 
+                "__GLUL::GUI::Event::MouseLeave::Forwarding",
                 [&](Component& container, const Event::MouseLeave& onMouseLeaveEvent) {
                     (void) container; // skip it
                     (void) onMouseLeaveEvent; // skip it
@@ -203,7 +203,7 @@ namespace GLUL {
 
             // MouseEnter
             onMouseEnter += Event::MouseEnter::Handler(
-                "__GLUL::GUI::Event::MouseEnter::Forwarding", 
+                "__GLUL::GUI::Event::MouseEnter::Forwarding",
                 [&](Component& container, const Event::MouseEnter& onMouseEnterEvent) {
                     (void) container; // skip it
 
@@ -211,7 +211,7 @@ namespace GLUL {
                         Component& component = *componentPtr;
                         glm::vec2 newPosition = onMouseEnterEvent.position - component.getPosition() + getOffset();
 
-                        if(newPosition.x >= 0 && newPosition.x < component.getSize().x && 
+                        if(newPosition.x >= 0 && newPosition.x < component.getSize().x &&
                            newPosition.y >= 0 && newPosition.y < component.getSize().y)
                         {
                             _componentsUnderMouse.insert(componentPtr);
@@ -223,7 +223,7 @@ namespace GLUL {
 
             // MouseMove
             onMouseMove += Event::MouseMove::Handler(
-                "__GLUL::GUI::Event::MouseLeave::Forwarding", 
+                "__GLUL::GUI::Event::MouseLeave::Forwarding",
                 [&](Component& container, const Event::MouseMove& onMouseMoveEvent) {
                     (void) container; // skip it
 
@@ -231,7 +231,7 @@ namespace GLUL {
                         Component& component = *componentPtr;
                         glm::vec2 newPosition = onMouseMoveEvent.position - component.getPosition() + getOffset();
 
-                        bool isUnderMouseNow = (newPosition.x >= 0 && newPosition.x < component.getSize().x && 
+                        bool isUnderMouseNow = (newPosition.x >= 0 && newPosition.x < component.getSize().x &&
                                                 newPosition.y >= 0 && newPosition.y < component.getSize().y);
 
                         bool wasUnderMouseBefore = isUnderMouse(componentPtr); // returns result from previous frame !
@@ -247,7 +247,7 @@ namespace GLUL {
                             if(wasUnderMouseBefore) {
                                 _componentsUnderMouse.erase(componentPtr);
                                 component.onMouseLeave(component, Event::MouseLeave());
-                            } 
+                            }
                         }
                     }
                 }
@@ -255,7 +255,7 @@ namespace GLUL {
 
             // TextInput
             onTextInput += Event::TextInput::Handler(
-                "__GLUL::GUI::Event::TextInput::Forwarding", 
+                "__GLUL::GUI::Event::TextInput::Forwarding",
                 [&](Component& container, const Event::TextInput& onTextInputEvent) {
                     (void) container; // skip it
 
@@ -269,7 +269,7 @@ namespace GLUL {
                 }
             );
         }
-        
+
         bool Container::isUnderMouse(Component* component) const {
             return (_componentsUnderMouse.count(component) > 0);
         }

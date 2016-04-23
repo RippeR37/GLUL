@@ -347,6 +347,12 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Panel.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\Focus.h">
+      <Filter>Header Files\GUI\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\FocusLoss.h">
+      <Filter>Header Files\GUI\Events</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">

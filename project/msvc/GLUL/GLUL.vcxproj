@@ -209,6 +209,8 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Checkbox.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Component.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Container.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\Focus.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Events\FocusLoss.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\TextInput.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\EventTemplate.hpp" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\HandlerAggregator.hpp" />

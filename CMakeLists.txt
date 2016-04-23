@@ -43,13 +43,13 @@ set(GLUL_SRCS
     "src/GLUL/Exceptions/FatalError.cpp"
     "src/GLUL/Exceptions/InitializationFailed.cpp"
     "src/GLUL/Exceptions/InvalidArgument.cpp"
-    
+
     "src/GLUL/Frameworks/Application.cpp"
-    
+
     "src/GLUL/GL++/Models/Material.cpp"
     "src/GLUL/GL++/Models/Mesh.cpp"
     "src/GLUL/GL++/Models/OBJ.cpp"
-    
+
     "src/GLUL/GL++/Buffer.cpp"
     "src/GLUL/GL++/Context.cpp"
     "src/GLUL/GL++/Framebuffer.cpp"
@@ -63,7 +63,7 @@ set(GLUL_SRCS
     "src/GLUL/GL++/VertexArray.cpp"
     "src/GLUL/GL++/VertexAttrib.cpp"
     "src/GLUL/GL++/VertexBuffer.cpp"
-    
+
     "src/GLUL/GUI/Events/KeyStroke.cpp"
     "src/GLUL/GUI/Events/MouseClick.cpp"
     "src/GLUL/GUI/Events/MouseEnter.cpp"
@@ -71,9 +71,9 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Events/MouseMove.cpp"
     "src/GLUL/GUI/Events/MouseRelease.cpp"
     "src/GLUL/GUI/Events/TextInput.cpp"
-    
+
     "src/GLUL/GUI/Styles/Border.cpp"
-    
+
     "src/GLUL/GUI/Button.cpp"
     "src/GLUL/GUI/Checkbox.cpp"
     "src/GLUL/GUI/Component.cpp"
@@ -88,30 +88,30 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Text.cpp"
     "src/GLUL/GUI/TextField.cpp"
     "src/GLUL/GUI/Window.cpp"
-    
+
     "src/GLUL/Input/EventTypes/CharacterEvent.cpp"
     "src/GLUL/Input/EventTypes/KeyEvent.cpp"
     "src/GLUL/Input/EventTypes/MouseButtonEvent.cpp"
     "src/GLUL/Input/EventTypes/MouseMovementEvent.cpp"
     "src/GLUL/Input/EventTypes/MouseScrollEvent.cpp"
-    
+
     "src/GLUL/Input/Event.cpp"
     "src/GLUL/Input/EventAggregator.cpp"
     "src/GLUL/Input/EventHandler.cpp"
     "src/GLUL/Input/EventTrigger.cpp"
     "src/GLUL/Input/Keyboard.cpp"
     "src/GLUL/Input/Mouse.cpp"
-    
+
     "src/GLUL/Interfaces/Implementations/ImageFileBMP.cpp"
     "src/GLUL/Interfaces/Implementations/ImageFileJPG.cpp"
     "src/GLUL/Interfaces/Implementations/ImageFilePNG.cpp"
     "src/GLUL/Interfaces/Implementations/ImageFileTGA.cpp"
-    
+
     "src/GLUL/Interfaces/Camera.cpp"
     "src/GLUL/Interfaces/ImageFile.cpp"
     "src/GLUL/Interfaces/Model.cpp"
     "src/GLUL/Interfaces/State.cpp"
-    
+
     "src/GLUL/AABB.cpp"
     "src/GLUL/Clock.cpp"
     "src/GLUL/Exception.cpp"
@@ -138,13 +138,13 @@ set(GLUL_H
     "include/GLUL/Exceptions/FatalError.h"
     "include/GLUL/Exceptions/InitializationFailed.h"
     "include/GLUL/Exceptions/InvalidArgument.h"
-    
+
     "include/GLUL/Frameworks/Application.h"
-    
+
     "include/GLUL/GL++/Models/Material.h"
     "include/GLUL/GL++/Models/Mesh.h"
     "include/GLUL/GL++/Models/OBJ.h"
-    
+
     "include/GLUL/GL++/Buffer.h"
     "include/GLUL/GL++/Buffer.hpp"
     "include/GLUL/GL++/Context.h"
@@ -159,8 +159,10 @@ set(GLUL_H
     "include/GLUL/GL++/VertexArray.h"
     "include/GLUL/GL++/VertexAttrib.h"
     "include/GLUL/GL++/VertexBuffer.h"
-    
+
     "include/GLUL/GUI/Events/EventTemplate.hpp"
+    "include/GLUL/GUI/Events/Focus.h"
+    "include/GLUL/GUI/Events/FocusLoss.h"
     "include/GLUL/GUI/Events/HandlerAggregator.hpp"
     "include/GLUL/GUI/Events/KeyStroke.h"
     "include/GLUL/GUI/Events/MouseClick.h"
@@ -170,12 +172,12 @@ set(GLUL_H
     "include/GLUL/GUI/Events/MouseRelease.h"
     "include/GLUL/GUI/Events/TextInput.h"
     "include/GLUL/GUI/Events/ValueChange.hpp"
-    
+
     "include/GLUL/GUI/Styles/Border.h"
     "include/GLUL/GUI/Styles/HorizontalAlignment.h"
     "include/GLUL/GUI/Styles/Orientation.h"
     "include/GLUL/GUI/Styles/VerticalAlignment.h"
-    
+
     "include/GLUL/GUI/Button.h"
     "include/GLUL/GUI/Checkbox.h"
     "include/GLUL/GUI/Component.h"
@@ -190,15 +192,15 @@ set(GLUL_H
     "include/GLUL/GUI/Text.h"
     "include/GLUL/GUI/TextField.h"
     "include/GLUL/GUI/Window.h"
-    
+
     "include/GLUL/Helpers/HashEnum.h"
-    
+
     "include/GLUL/Input/EventTypes/CharacterEvent.h"
     "include/GLUL/Input/EventTypes/KeyEvent.h"
     "include/GLUL/Input/EventTypes/MouseButtonEvent.h"
     "include/GLUL/Input/EventTypes/MouseMovementEvent.h"
     "include/GLUL/Input/EventTypes/MouseScrollEvent.h"
-    
+
     "include/GLUL/Input/Event.h"
     "include/GLUL/Input/EventAggregator.h"
     "include/GLUL/Input/EventHandler.h"
@@ -206,20 +208,20 @@ set(GLUL_H
     "include/GLUL/Input/Keyboard.h"
     "include/GLUL/Input/Mouse.h"
     "include/GLUL/Input/Types.h"
-    
+
     "include/GLUL/Interfaces/Implementations/ImageFileBMP.h"
     "include/GLUL/Interfaces/Implementations/ImageFileJPG.h"
     "include/GLUL/Interfaces/Implementations/ImageFilePNG.h"
     "include/GLUL/Interfaces/Implementations/ImageFileTGA.h"
-    
+
     "include/GLUL/Interfaces/MVC/View.h"
     "include/GLUL/Interfaces/MVC/ExtendedView.h"
-    
+
     "include/GLUL/Interfaces/Camera.h"
     "include/GLUL/Interfaces/ImageFile.h"
     "include/GLUL/Interfaces/Model.h"
     "include/GLUL/Interfaces/State.h"
-    
+
     "include/GLUL/AABB.h"
     "include/GLUL/Clock.h"
     "include/GLUL/Exception.h"
@@ -265,8 +267,8 @@ include_directories(${LIBRARY_INCLUDE_DIR_FREETYPE2})
 include_directories(${LIBRARY_INCLUDE_DIR_LIBJPEG})
 include_directories(${LIBRARY_INCLUDE_DIR_LIBPNG})
 
-add_library(GLUL_SHARED SHARED 
-    ${GLUL_SRCS} 
+add_library(GLUL_SHARED SHARED
+    ${GLUL_SRCS}
     ${GLUL_H}
 )
 
@@ -280,7 +282,7 @@ target_link_libraries(GLUL_SHARED
     z               # zlib
 )
 
-set_target_properties(GLUL_SHARED PROPERTIES 
+set_target_properties(GLUL_SHARED PROPERTIES
     OUTPUT_NAME GLUL
 )
 
@@ -299,12 +301,12 @@ include_directories(${LIBRARY_INCLUDE_DIR_FREETYPE2})
 include_directories(${LIBRARY_INCLUDE_DIR_LIBJPEG})
 include_directories(${LIBRARY_INCLUDE_DIR_LIBPNG})
 
-add_library(GLUL_Static STATIC 
-    ${GLUL_SRCS} 
+add_library(GLUL_Static STATIC
+    ${GLUL_SRCS}
     ${GLUL_H}
 )
 
-set_target_properties(GLUL_Static PROPERTIES 
+set_target_properties(GLUL_Static PROPERTIES
     OUTPUT_NAME GLUL
 )
 
@@ -318,7 +320,7 @@ if(BUILD_TESTS)
 
     set(GLUL_Unit_Tests_SRCS
         "tests/src/main.cpp"
-        
+
         "tests/src/GLUL/Clock.cpp"
         "tests/src/GLUL/File.cpp"
         "tests/src/GLUL/Image.cpp"
@@ -328,15 +330,15 @@ if(BUILD_TESTS)
     )
 
     set(GLUL_Unit_Tests_H
-        
+
     )
 
-    add_executable(GLUL_Unit_Tests 
+    add_executable(GLUL_Unit_Tests
         ${GLUL_Unit_Tests_SRCS}
         ${GLUL_Unit_Tests_H}
     )
 
-    target_link_libraries(GLUL_Unit_Tests 
+    target_link_libraries(GLUL_Unit_Tests
         gtest
         gtest_main
     )
@@ -346,7 +348,7 @@ if(BUILD_TESTS)
     )
 
     add_test(
-        NAME GLUL_UnitTests 
+        NAME GLUL_UnitTests
         COMMAND GLUL_Unit_Tests
     )
 
@@ -372,10 +374,10 @@ set(GLUL_Example_Basic_SRCS
 )
 
 set(GLUL_Example_Basic_H
-    
+
 )
 
-add_executable(GLUL_Example_Basic 
+add_executable(GLUL_Example_Basic
     ${GLUL_Example_Basic_SRCS}
     ${GLUL_Example_Basic_H}
 )
@@ -404,10 +406,10 @@ set(GLUL_Example_Font_SRCS
 )
 
 set(GLUL_Example_Font_H
-    
+
 )
 
-add_executable(GLUL_Example_Font 
+add_executable(GLUL_Example_Font
     ${GLUL_Example_Font_SRCS}
     ${GLUL_Example_Font_H}
 )
@@ -440,7 +442,7 @@ set(GLUL_Example_Framework_H
     "examples/framework/src/ExampleState.h"
 )
 
-add_executable(GLUL_Example_Framework 
+add_executable(GLUL_Example_Framework
     ${GLUL_Example_Framework_SRCS}
     ${GLUL_Example_Framework_H}
 )
@@ -473,7 +475,7 @@ set(GLUL_Example_Image_H
     "examples/models/src/WorkState.h"
 )
 
-add_executable(GLUL_Example_Image 
+add_executable(GLUL_Example_Image
     ${GLUL_Example_Image_SRCS}
     ${GLUL_Example_Image_H}
 )
@@ -502,10 +504,10 @@ set(GLUL_Example_Input_SRCS
 )
 
 set(GLUL_Example_Input_H
-    
+
 )
 
-add_executable(GLUL_Example_Input 
+add_executable(GLUL_Example_Input
     ${GLUL_Example_Input_SRCS}
     ${GLUL_Example_Input_H}
 )
@@ -540,7 +542,7 @@ set(GLUL_Example_Models_H
     "examples/models/src/WorkState.h"
 )
 
-add_executable(GLUL_Example_Models 
+add_executable(GLUL_Example_Models
     ${GLUL_Example_Models_SRCS}
     ${GLUL_Example_Models_H}
 )
@@ -569,10 +571,10 @@ set(GLUL_Example_GUI_SRCS
 )
 
 set(GLUL_Example_GUI_H
-    
+
 )
 
-add_executable(GLUL_Example_GUI 
+add_executable(GLUL_Example_GUI
     ${GLUL_Example_GUI_SRCS}
     ${GLUL_Example_GUI_H}
 )
