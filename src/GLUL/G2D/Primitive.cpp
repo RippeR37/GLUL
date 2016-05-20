@@ -5,6 +5,19 @@ namespace GLUL {
 
     namespace G2D {
 
+        void Primitive::render() const {
+            render(GeometryBatch::getDefaultProgram());
+        }
+
+        void Primitive::render(const GL::Program& program) const {
+            static GeometryBatch geometry;
+
+            geometry.addPrimitive(*this);
+            geometry.compute();
+            geometry.render(program);
+            geometry.clear();
+        }
+
         void Primitive::setColor(const glm::vec3& color) {
             setColor(glm::vec4 { color, getColor().a });
         }

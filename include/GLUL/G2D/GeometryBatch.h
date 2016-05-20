@@ -49,7 +49,7 @@ namespace GLUL {
                 void _pushCall(GL::VertexArray::DrawTarget drawTarget,
                     const std::vector<glm::vec4>& vertexData, const std::vector<glm::vec4>& colorData);
 
-                GL::Program& getDefaultProgram() const;
+                static GL::Program& getDefaultProgram();
 
 
                 std::vector<DrawCall> _drawCalls;

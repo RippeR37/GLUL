@@ -151,7 +151,7 @@ namespace GLUL {
             _colorData.insert(_colorData.begin(), colorData.begin(), colorData.end());
         }
 
-        GL::Program& GeometryBatch::getDefaultProgram() const {
+        GL::Program& GeometryBatch::getDefaultProgram() {
             static GL::Program program(
                 GL::Shader("assets/shaders/GLUL/G2D/Default.vp", GL::Shader::Type::VertexShader),
                 GL::Shader("assets/shaders/GLUL/G2D/Default.fp", GL::Shader::Type::FragmentShader)

@@ -13,6 +13,9 @@ namespace GLUL {
 
         class GLUL_API Primitive {
             public:
+                void render() const;
+                void render(const GL::Program& program) const;
+
                 void setColor(const glm::vec3& color);
                 virtual void setColor(const glm::vec4& color) = 0;
                 virtual const glm::vec4& getColor() const = 0;

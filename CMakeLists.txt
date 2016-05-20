@@ -629,15 +629,15 @@ set(GLUL_Example_2D_H
 
 )
 
-add_executable(GLUL_Example_GUI
+add_executable(GLUL_Example_2D
     ${GLUL_Example_2D_SRCS}
     ${GLUL_Example_2D_H}
 )
 
-target_link_libraries(GLUL_Example_GUI
+target_link_libraries(GLUL_Example_2D
     GLUL_SHARED
 )
 
-set_target_properties(GLUL_Example_GUI PROPERTIES
+set_target_properties(GLUL_Example_2D PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/2d/bin/"
 )

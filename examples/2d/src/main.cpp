@@ -5,6 +5,7 @@
 #include <GLUL/G2D/Point.h>
 #include <GLUL/G2D/Triangle.h>
 #include <GLUL/G2D/TriangleStrip.h>
+#include <GLUL/G2D/Quad.h>
 
 
 void test_point() {
@@ -61,6 +62,27 @@ void test_triangle_strips() {
     batch.render();
 }
 
+void test_no_batch() {
+    static GLUL::G2D::Triangle triangle {
+        glm::vec2 {  40.0f, 400.0f },
+        glm::vec2 {  70.0f, 460.0f },
+        glm::vec2 { 100.0f, 400.0f }
+    };
+
+    static GLUL::G2D::Quad quad {
+        glm::vec2 { 170.0f, 460.0f },
+        glm::vec2 { 250.0f, 460.0f },
+        glm::vec2 { 225.0f, 400.0f },
+        glm::vec2 { 145.0f, 400.0f }
+    };
+
+    triangle.setColor({ 0.3f, 0.8f, 0.5f, 1.0f });
+    triangle.render();
+
+    quad.setColor({ 0.5f, 0.3f, 0.8f, 1.0f });
+    quad.render();
+}
+
 void run() {
     GLUL::GUI::Window window { 800, 600, "2D example" };
 
@@ -77,6 +99,7 @@ void run() {
         test_triangles();
         test_line_loops();
         test_triangle_strips();
+        test_no_batch();
 
         window.render();
         window.update();
