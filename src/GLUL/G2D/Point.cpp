@@ -6,7 +6,7 @@ namespace GLUL {
 
     namespace G2D {
 
-        Point::Point(unsigned int size) : _color(glm::vec4 { 1.0f }), size(size) { }
+        Point::Point(unsigned int size) : size(size), _color({ 1.0f })  { }
 
         Point::Point(const glm::vec2& position, unsigned int size) : Point(size) {
             setPosition(position);
