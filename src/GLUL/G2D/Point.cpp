@@ -1,14 +1,15 @@
 #include <GLUL/G2D/Point.h>
+#include <GLUL/G2D/Quad.h>
 
 
 namespace GLUL {
 
     namespace G2D {
 
-        Point::Point() : _color(glm::vec4 { 1.0f }) { }
+        Point::Point(unsigned int size) : _color(glm::vec4 { 1.0f }), size(size) { }
 
-        Point::Point(const glm::vec2& position) : Point() {
-            *this = position;
+        Point::Point(const glm::vec2& position, unsigned int size) : Point(size) {
+            setPosition(position);
         }
 
         Point& Point::operator=(const glm::vec2& position) {
@@ -38,10 +39,13 @@ namespace GLUL {
         }
 
         void Point::_pushToBatch(GeometryBatch& geometryBatch) const {
-            std::vector<glm::vec4> vertexData = { glm::vec4 { _position, 0.0f, 1.0f, } };
-            std::vector<glm::vec4> colorData = { getColor() };
+            Quad quad;
+            Point bottomLeftPoint = *this;
 
-            _pushDrawCall(geometryBatch, GL::VertexArray::DrawTarget::Points, vertexData, colorData);
+            bottomLeftPoint.setPosition(getPosition() - glm::vec2 { static_cast<float>((size / 2)) });
+            quad.setSquare(bottomLeftPoint, static_cast<float>(size));
+
+            geometryBatch.addPrimitive(quad);
         }
 
     }

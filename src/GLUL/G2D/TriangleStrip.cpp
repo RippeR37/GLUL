@@ -1,3 +1,4 @@
+#include <GLUL/G2D/Triangle.h>
 #include <GLUL/G2D/TriangleStrip.h>
 
 
@@ -47,33 +48,16 @@ namespace GLUL {
         }
 
         void TriangleStrip::_pushToBatch(GeometryBatch& geometryBatch) const {
-            std::vector<glm::vec4> vertexData;
-            std::vector<glm::vec4> colorData;
-
             for(std::size_t i = 0; i < points.size() - 2; ++i) {
                 if(i % 2 == 0) {
-                    // Normal order
-                    vertexData.push_back(glm::vec4 { points[  i  ].getPosition(), 0.0f, 1.0f });
-                    vertexData.push_back(glm::vec4 { points[i + 1].getPosition(), 0.0f, 1.0f });
-                    vertexData.push_back(glm::vec4 { points[i + 2].getPosition(), 0.0f, 1.0f });
+                    geometryBatch.addPrimitive(Triangle { points[i], points[i + 1], points[i + 2] });
 
-                    colorData.push_back(points[  i  ].getColor());
-                    colorData.push_back(points[i + 1].getColor());
-                    colorData.push_back(points[i + 2].getColor());
                 } else {
                     // Inverted order
                     // This is to ensure each triangle has same orientation (CW/CCW)
-                    vertexData.push_back(glm::vec4 { points[  i  ].getPosition(), 0.0f, 1.0f });
-                    vertexData.push_back(glm::vec4 { points[i + 2].getPosition(), 0.0f, 1.0f });
-                    vertexData.push_back(glm::vec4 { points[i + 1].getPosition(), 0.0f, 1.0f });
-
-                    colorData.push_back(points[  i  ].getColor());
-                    colorData.push_back(points[i + 2].getColor());
-                    colorData.push_back(points[i + 1].getColor());
+                    geometryBatch.addPrimitive(Triangle { points[i], points[i + 2], points[i + 1] });
                 }
             }
-
-            _pushDrawCall(geometryBatch, GL::VertexArray::DrawTarget::Triangles, vertexData, colorData);
         }
 
     }

@@ -1,3 +1,4 @@
+#include <GLUL/G2D/Triangle.h>
 #include <GLUL/G2D/TriangleFan.h>
 
 
@@ -47,20 +48,8 @@ namespace GLUL {
         }
 
         void TriangleFan::_pushToBatch(GeometryBatch& geometryBatch) const {
-            std::vector<glm::vec4> vertexData;
-            std::vector<glm::vec4> colorData;
-
-            for(std::size_t i = 1; i < points.size() - 1; ++i) {
-                vertexData.push_back(glm::vec4 { points[  0  ].getPosition(), 0.0f, 1.0f });
-                vertexData.push_back(glm::vec4 { points[  i  ].getPosition(), 0.0f, 1.0f });
-                vertexData.push_back(glm::vec4 { points[i + 1].getPosition(), 0.0f, 1.0f });
-
-                colorData.push_back(points[  0  ].getColor());
-                colorData.push_back(points[  i  ].getColor());
-                colorData.push_back(points[i + 1].getColor());
-            }
-
-            _pushDrawCall(geometryBatch, GL::VertexArray::DrawTarget::Triangles, vertexData, colorData);
+            for(std::size_t i = 1; i < points.size() - 1; ++i)
+                geometryBatch.addPrimitive(Triangle { points[0], points[i], points[i + 1] });
         }
 
     }

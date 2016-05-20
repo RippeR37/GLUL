@@ -1,3 +1,4 @@
+#include <GLUL/G2D/Triangle.h>
 #include <GLUL/G2D/Quad.h>
 
 
@@ -62,27 +63,8 @@ namespace GLUL {
         }
 
         void Quad::_pushToBatch(GeometryBatch& geometryBatch) const {
-            std::vector<glm::vec4> vertexData {
-                glm::vec4(points[0].getPosition(), 0.0f, 1.0f),
-                glm::vec4(points[1].getPosition(), 0.0f, 1.0f),
-                glm::vec4(points[2].getPosition(), 0.0f, 1.0f),
-
-                glm::vec4(points[0].getPosition(), 0.0f, 1.0f),
-                glm::vec4(points[2].getPosition(), 0.0f, 1.0f),
-                glm::vec4(points[3].getPosition(), 0.0f, 1.0f),
-            };
-
-            std::vector<glm::vec4> colorData {
-                points[0].getColor(),
-                points[1].getColor(),
-                points[2].getColor(),
-
-                points[0].getColor(),
-                points[2].getColor(),
-                points[3].getColor()
-            };
-
-            _pushDrawCall(geometryBatch, GL::VertexArray::DrawTarget::Triangles, vertexData, colorData);
+            geometryBatch.addPrimitive(Triangle { points[0], points[1], points[2] });
+            geometryBatch.addPrimitive(Triangle { points[0], points[2], points[3] });
         }
 
     }

@@ -11,8 +11,8 @@ namespace GLUL {
 
         class GLUL_API Point : public Primitive {
             public:
-                Point();
-                Point(const glm::vec2& position);
+                Point(unsigned int size = 1u);
+                Point(const glm::vec2& position, unsigned int size = 1u);
 
                 Point& operator=(const glm::vec2& position);
 
@@ -22,6 +22,8 @@ namespace GLUL {
 
                 void setColor(const glm::vec4& color);
                 const glm::vec4& getColor() const;
+
+                unsigned int size;
 
             protected:
                 void _pushToBatch(GeometryBatch& geometryBatch) const;

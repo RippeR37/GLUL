@@ -1,3 +1,4 @@
+#include <GLUL/G2D/Line.h>
 #include <GLUL/G2D/LineLoop.h>
 
 
@@ -47,26 +48,12 @@ namespace GLUL {
         }
 
         void LineLoop::_pushToBatch(GeometryBatch& geometryBatch) const {
-            std::vector<glm::vec4> vertexData;
-            std::vector<glm::vec4> colorData;
+            // Normal lines
+            for(std::size_t i = 0; i < points.size() - 1; ++i)
+                geometryBatch.addPrimitive(Line { points[i], points[i + 1] });
 
-            // Add normal lines
-            for(std::size_t i = 0; i < points.size() - 1; ++i) {
-                vertexData.push_back(glm::vec4 { points[  i  ].getPosition(), 0.0f, 1.0f });
-                vertexData.push_back(glm::vec4 { points[i + 1].getPosition(), 0.0f, 1.0f });
-
-                colorData.push_back(points[  i  ].getColor());
-                colorData.push_back(points[i + 1].getColor());
-            }
-
-            // Add loop's line
-            vertexData.push_back(glm::vec4 { points.back().getPosition(),  0.0f, 1.0f });
-            vertexData.push_back(glm::vec4 { points.front().getPosition(), 0.0f, 1.0f });
-
-            colorData.push_back(points.back().getColor());
-            colorData.push_back(points.front().getColor());
-
-            _pushDrawCall(geometryBatch, GL::VertexArray::DrawTarget::Lines, vertexData, colorData);
+            // Loop's line
+            geometryBatch.addPrimitive(Line { points.back(), points.front() });
         }
 
     }

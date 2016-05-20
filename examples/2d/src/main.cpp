@@ -10,9 +10,9 @@
 
 
 void test_point() {
-    static GLUL::G2D::Point p1 { {  40.0f, 500.0f } };
-    static GLUL::G2D::Point p2 { {  70.0f, 550.0f } };
-    static GLUL::G2D::Point p3 { { 100.0f, 500.0f } };
+    static GLUL::G2D::Point p1 { {  40.0f, 500.0f },  5 };
+    static GLUL::G2D::Point p2 { {  70.0f, 550.0f }, 10 };
+    static GLUL::G2D::Point p3 { { 100.0f, 500.0f },  5 };
     static GLUL::G2D::GeometryBatch batch { p1, p2, p3 };
 
     batch.render();
@@ -20,10 +20,11 @@ void test_point() {
 
 void test_lines() {
     static GLUL::G2D::Line l1 { { 150.0f, 500.0f }, { 150.0f, 560.0f } };
-    static GLUL::G2D::Line l2 { { 170.0f, 480.0f }, { 250.0f, 480.0f } };
-    static GLUL::G2D::Line l3 { { 170.0f, 580.0f }, { 250.0f, 580.0f } };
-    static GLUL::G2D::Line l4 { { 270.0f, 560.0f }, { 270.0f, 500.0f } };
-    static GLUL::G2D::GeometryBatch batch { l1, l2, l3, l4 };
+    static GLUL::G2D::Line l2 { { 170.0f, 480.0f }, { 250.0f, 480.0f }, 2u };
+    static GLUL::G2D::Line l3 { { 170.0f, 580.0f }, { 250.0f, 580.0f }, 3u };
+    static GLUL::G2D::Line l4 { { 270.0f, 560.0f }, { 270.0f, 500.0f }, 4u };
+    static GLUL::G2D::Line l5 { { 170.0f, 560.0f }, { 250.0f, 500.0f }, 5u };
+    static GLUL::G2D::GeometryBatch batch { l1, l2, l3, l4, l5 };
 
     batch.render();
 }
@@ -98,8 +99,6 @@ void run() {
 
     window.create();
     window.getContext().setClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
-
-    glPointSize(5.0f);
 
     while(window.isCreated() && !window.shouldClose()) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);

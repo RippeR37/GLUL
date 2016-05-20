@@ -1,3 +1,4 @@
+#include <GLUL/G2D/Line.h>
 #include <GLUL/G2D/LineStrip.h>
 
 
@@ -47,18 +48,8 @@ namespace GLUL {
         }
 
         void LineStrip::_pushToBatch(GeometryBatch& geometryBatch) const {
-            std::vector<glm::vec4> vertexData;
-            std::vector<glm::vec4> colorData;
-
-            for(std::size_t i = 0; i < points.size() - 1; ++i) {
-                vertexData.push_back(glm::vec4 { points[  i  ].getPosition(), 0.0f, 1.0f });
-                vertexData.push_back(glm::vec4 { points[i + 1].getPosition(), 0.0f, 1.0f });
-
-                colorData.push_back(points[  i  ].getColor());
-                colorData.push_back(points[i + 1].getColor());
-            }
-
-            _pushDrawCall(geometryBatch, GL::VertexArray::DrawTarget::Lines, vertexData, colorData);
+            for(std::size_t i = 0; i < points.size() - 1; ++i)
+                geometryBatch.addPrimitive(Line { points[i], points[i + 1] });
         }
 
     }
