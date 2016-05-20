@@ -64,6 +64,7 @@ set(GLUL_SRCS
     "src/GLUL/GL++/VertexAttrib.cpp"
     "src/GLUL/GL++/VertexBuffer.cpp"
 
+    "src/GLUL/G2D/Circle.cpp"
     "src/GLUL/G2D/GeometryBatch.cpp"
     "src/GLUL/G2D/Line.cpp"
     "src/GLUL/G2D/LineLoop.cpp"
@@ -171,6 +172,7 @@ set(GLUL_H
     "include/GLUL/GL++/VertexAttrib.h"
     "include/GLUL/GL++/VertexBuffer.h"
 
+    "include/GLUL/G2D/Circle.h"
     "include/GLUL/G2D/GeometryBatch.h"
     "include/GLUL/G2D/Line.h"
     "include/GLUL/G2D/LineLoop.h"

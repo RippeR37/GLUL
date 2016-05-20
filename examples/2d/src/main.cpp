@@ -1,5 +1,6 @@
 #include <GLUL/Logger.h>
 #include <GLUL/GUI/Window.h>
+#include <GLUL/G2D/Circle.h>
 #include <GLUL/G2D/Line.h>
 #include <GLUL/G2D/LineLoop.h>
 #include <GLUL/G2D/Point.h>
@@ -83,6 +84,15 @@ void test_no_batch() {
     quad.render();
 }
 
+void test_circles(){
+    static GLUL::G2D::Circle c1 { glm::vec2 { 525.0f, 430.0f }, 50.0f }; c1.setColor({ 0.7f, 0.2f, 0.7f, 1.0f });
+    static GLUL::G2D::Circle c2 { glm::vec2 { 610.0f, 450.0f }, 20.0f }; c2.setColor({ 0.2f, 0.5f, 0.9f, 1.0f });
+    static GLUL::G2D::Circle c3 { glm::vec2 { 700.0f, 400.0f }, 70.0f }; c3.setColor({ 1.0f, 0.7f, 0.0f, 1.0f });
+    static GLUL::G2D::GeometryBatch batch { c1, c2, c3 };
+
+    batch.render();
+}
+
 void run() {
     GLUL::GUI::Window window { 800, 600, "2D example" };
 
@@ -100,6 +110,7 @@ void run() {
         test_line_loops();
         test_triangle_strips();
         test_no_batch();
+        test_circles();
 
         window.render();
         window.update();

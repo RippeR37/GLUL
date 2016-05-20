@@ -27,7 +27,7 @@ namespace GLUL {
         setLine(line.getPoint1(), line.getPoint2());
         return *this;
     }
-    
+
     void Line::setLine(const Line& line) {
         setLine(line.getPoint1(), line.getPoint2());
     }
@@ -79,7 +79,7 @@ namespace GLUL {
 
         return glm::normalize(glm::vec2(-dy, dx));
     }
-    
+
     glm::vec2 Line::getReflectedVector(const glm::vec2& inputVector) const {
         return Line::getReflectedVector(inputVector, getNormal());
     }

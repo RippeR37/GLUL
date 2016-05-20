@@ -392,6 +392,9 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\GeometryBatch.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Circle.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
@@ -650,6 +653,9 @@
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\GeometryBatch.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Circle.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
   </ItemGroup>

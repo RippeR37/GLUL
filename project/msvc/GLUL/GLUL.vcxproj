@@ -188,6 +188,7 @@
     <ClInclude Include="..\..\..\include\GLUL\Exceptions\InvalidArgument.h" />
     <ClInclude Include="..\..\..\include\GLUL\File.h" />
     <ClInclude Include="..\..\..\include\GLUL\Frameworks\Application.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Circle.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Line.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\LineLoop.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\LineStrip.h" />
@@ -290,6 +291,7 @@
     <ClCompile Include="..\..\..\src\GLUL\Exceptions\InvalidArgument.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\File.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Frameworks\Application.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Circle.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Line.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\LineLoop.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\LineStrip.cpp" />
