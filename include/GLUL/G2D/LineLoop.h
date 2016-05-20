@@ -26,6 +26,8 @@ namespace GLUL {
 
             protected:
                 void _pushToBatch(GeometryBatch& geometryBatch) const;
+
+                using Primitive::setColor;
         };
 
     }

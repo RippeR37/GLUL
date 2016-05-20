@@ -30,6 +30,8 @@ namespace GLUL {
 
                 glm::vec2 _position;
                 glm::vec4 _color;
+
+                using Primitive::setColor;
         };
 
     }
