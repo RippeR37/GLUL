@@ -50,7 +50,7 @@ namespace GLUL {
                     std::swap(point1, point2);
             }
 
-            std::array<Point, 4> qPoints = { point1, point2, point2, point1 };
+            std::array<Point, 4> qPoints { { point1, point2, point2, point1 } };
             glm::vec2 lineVector = glm::normalize(point2.getPosition() - point1.getPosition());
             glm::vec2 perpendicularLineVector = { -lineVector.y, lineVector.x };
 
