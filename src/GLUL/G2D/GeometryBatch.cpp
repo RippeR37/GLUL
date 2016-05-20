@@ -146,9 +146,9 @@ namespace GLUL {
 
             // Push vertex and color data
             _vertexData.reserve(_vertexData.size() + vertexData.size());
-            _vertexData.insert(_vertexData.begin(), vertexData.begin(), vertexData.end());
             _colorData.reserve(_colorData.size() + colorData.size());
-            _colorData.insert(_colorData.begin(), colorData.begin(), colorData.end());
+            _vertexData.insert(_vertexData.end(), vertexData.begin(), vertexData.end());
+            _colorData.insert(_colorData.end(), colorData.begin(), colorData.end());
         }
 
         GL::Program& GeometryBatch::getDefaultProgram() {
