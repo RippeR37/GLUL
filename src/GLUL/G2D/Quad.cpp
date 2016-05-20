@@ -6,7 +6,7 @@ namespace GLUL {
 
     namespace G2D {
 
-        Quad::Quad() { }
+        Quad::Quad() : points({}) {}
 
         Quad::Quad(const Point& point1, const Point& point2, const Point& point3, const Point& point4) {
             points[0] = point1;

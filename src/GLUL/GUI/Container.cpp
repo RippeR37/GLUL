@@ -10,6 +10,8 @@ namespace GLUL {
 
         Container::Container(Container* const parent) : Component(parent) {
             initializeEventForwarding();
+
+            _wasScissorTestActive = false;
         }
 
         Container::~Container() {

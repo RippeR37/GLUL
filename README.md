@@ -32,17 +32,17 @@
         - both read and write for most popular formats
     - operations on strings, files, timers, time loops, etc.
     - and others...
-- **2D graphics module** (\* in progress)
+- **2D graphics module** (in progress)
     - most popular primitives and shapes
         - Points, Lines, Triangles, Quads, Circles, Rings, and so on...
         - Sprites
         - Text rendering
             - dynamic fonts (through FreeType2)
-    - easly extendible
-    - very good performance
+    - easily extendable
+    - very fast, uses:
         - modern OpenGL (VAOs, VBOs etc.)
-        - geometry batching (all geometry drawn in one call\*)
-- **GUI module** (\* in progress)
+        - geometry batching (all geometry can be drawn in one call\*)
+- **GUI module** (in progress)
     - component/container architecture
     - easly extendable
     - many built-in widgets

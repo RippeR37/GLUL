@@ -9,7 +9,7 @@ namespace GLUL {
 
     namespace G2D {
 
-        Ring::Ring() { }
+        Ring::Ring() : innerRadius(0.0f), outerRadius(0.0f), pointCount(0u) { }
 
         Ring::Ring(const Point& center, float innerRadius, float outerRadius)
             : center(center), innerRadius(innerRadius), outerRadius(outerRadius), pointCount(defaultPointCount(outerRadius)) { }

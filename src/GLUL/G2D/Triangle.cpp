@@ -5,7 +5,7 @@ namespace GLUL {
 
     namespace G2D {
 
-        Triangle::Triangle() { }
+        Triangle::Triangle() : points({}) { }
 
         Triangle::Triangle(const Point& point1, const Point& point2, const Point& point3) {
             points[0] = point1;

@@ -52,7 +52,7 @@ namespace GLUL {
             _scrollbarVertical.bindTo(container);
         }
 
-        
+
         const Panel& Panel::render() const {
             if(isVisible()) {
                 if(!isValid())
@@ -360,7 +360,7 @@ namespace GLUL {
             glm::vec2 posEnd = posStart + glm::vec2(getSize().x, -getSize().y);
 
             // Cube between scrollbars position
-            glm::vec2 posCubeStart = posStart + glm::vec2(getSize().x, - getSize().y);
+            glm::vec2 posCubeStart = posEnd;
             glm::vec2 posCubeEnd = posCubeStart - glm::vec2(getScrollbarsSize().x, -getScrollbarsSize().y);
 
             // Background vertices

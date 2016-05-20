@@ -8,7 +8,7 @@ namespace GLUL {
 
     namespace G2D {
 
-        Line::Line(unsigned int thickness) {
+        Line::Line(unsigned int thickness) : points({}) {
             setThickness(thickness);
         }
 

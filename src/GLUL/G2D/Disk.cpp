@@ -10,7 +10,7 @@ namespace GLUL {
 
     namespace G2D {
 
-        Disk::Disk() { }
+        Disk::Disk() : innerRadius(0.0f), outerRadius(0.0f), pointCount(0u) { }
 
         Disk::Disk(const Point& center, float innerRadius, float outerRadius)
             : center(center), innerRadius(innerRadius), outerRadius(outerRadius), pointCount(defaultPointCount(outerRadius)) { }
@@ -23,7 +23,7 @@ namespace GLUL {
         }
 
         const glm::vec4& Disk::getColor() const {
-            return center.getColor();
+            return getInnerColor();
         }
 
         void Disk::setInnerColor(const glm::vec3& innerColor) {

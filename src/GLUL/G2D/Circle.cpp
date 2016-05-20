@@ -8,7 +8,7 @@ namespace GLUL {
 
     namespace G2D {
 
-        Circle::Circle() { }
+        Circle::Circle() : radius(0.0f), pointCount(0u) { }
 
         Circle::Circle(const Point& center, float radius)
             : center(center), radius(radius), pointCount(defaultPointCount(radius)) { }
