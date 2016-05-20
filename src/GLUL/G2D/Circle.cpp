@@ -35,6 +35,9 @@ namespace GLUL {
             TriangleFan triangleFan;
             Point currentPoint = center;
 
+            // Reserve memory
+            triangleFan.points.reserve(2u + pointCount);
+
             // Center point
             triangleFan.points.push_back(center);
 

@@ -189,6 +189,7 @@
     <ClInclude Include="..\..\..\include\GLUL\File.h" />
     <ClInclude Include="..\..\..\include\GLUL\Frameworks\Application.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Circle.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Disk.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Line.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\LineLoop.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\LineStrip.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\Primitive.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Quad.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\GeometryBatch.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Ring.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Shape.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Triangle.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\TriangleFan.h" />
@@ -292,6 +294,7 @@
     <ClCompile Include="..\..\..\src\GLUL\File.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Frameworks\Application.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Circle.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Disk.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Line.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\LineLoop.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\LineStrip.cpp" />
@@ -299,6 +302,7 @@
     <ClCompile Include="..\..\..\src\GLUL\G2D\Primitive.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Quad.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\GeometryBatch.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Ring.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Triangle.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\TriangleFan.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\TriangleStrip.cpp" />

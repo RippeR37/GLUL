@@ -395,6 +395,12 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\Circle.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Ring.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Disk.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
@@ -656,6 +662,12 @@
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\Circle.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Ring.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Disk.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
   </ItemGroup>
