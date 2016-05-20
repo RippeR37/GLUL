@@ -5,7 +5,7 @@
 
 
 namespace GLUL {
-    
+
     class Line;
 
     class GLUL_API Point {

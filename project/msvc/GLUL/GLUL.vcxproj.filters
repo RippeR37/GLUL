@@ -81,6 +81,12 @@
     <Filter Include="Source Files\GUI\Styles">
       <UniqueIdentifier>{13f59ee7-c625-4dbb-b4db-9d3ba4778b43}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\G2D">
+      <UniqueIdentifier>{b6ff2566-416b-4158-8c70-a9496036c9d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\G2D">
+      <UniqueIdentifier>{81bf0e55-f9ed-4d0a-b0c0-4cded687e58c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\GLUL\AABB.h">
@@ -353,6 +359,39 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\FocusLoss.h">
       <Filter>Header Files\GUI\Events</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Primitive.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Shape.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Point.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Line.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\LineStrip.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\LineLoop.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Triangle.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TriangleFan.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TriangleStrip.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Quad.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\GeometryBatch.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
@@ -582,6 +621,36 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\Panel.cpp">
       <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Point.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Primitive.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Line.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Triangle.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\LineLoop.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\LineStrip.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Quad.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TriangleFan.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TriangleStrip.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\GeometryBatch.cpp">
+      <Filter>Source Files\G2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

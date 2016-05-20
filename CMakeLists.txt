@@ -64,6 +64,17 @@ set(GLUL_SRCS
     "src/GLUL/GL++/VertexAttrib.cpp"
     "src/GLUL/GL++/VertexBuffer.cpp"
 
+    "src/GLUL/G2D/GeometryBatch.cpp"
+    "src/GLUL/G2D/Line.cpp"
+    "src/GLUL/G2D/LineLoop.cpp"
+    "src/GLUL/G2D/LineStrip.cpp"
+    "src/GLUL/G2D/Point.cpp"
+    "src/GLUL/G2D/Primitive.cpp"
+    "src/GLUL/G2D/Quad.cpp"
+    "src/GLUL/G2D/Triangle.cpp"
+    "src/GLUL/G2D/TriangleFan.cpp"
+    "src/GLUL/G2D/TriangleStrip.cpp"
+
     "src/GLUL/GUI/Events/KeyStroke.cpp"
     "src/GLUL/GUI/Events/MouseClick.cpp"
     "src/GLUL/GUI/Events/MouseEnter.cpp"
@@ -159,6 +170,18 @@ set(GLUL_H
     "include/GLUL/GL++/VertexArray.h"
     "include/GLUL/GL++/VertexAttrib.h"
     "include/GLUL/GL++/VertexBuffer.h"
+
+    "include/GLUL/G2D/GeometryBatch.h"
+    "include/GLUL/G2D/Line.h"
+    "include/GLUL/G2D/LineLoop.h"
+    "include/GLUL/G2D/LineStrip.h"
+    "include/GLUL/G2D/Point.h"
+    "include/GLUL/G2D/Primitive.h"
+    "include/GLUL/G2D/Quad.h"
+    "include/GLUL/G2D/Shape.h"
+    "include/GLUL/G2D/Triangle.h"
+    "include/GLUL/G2D/TriangleFan.h"
+    "include/GLUL/G2D/TriangleStrip.h"
 
     "include/GLUL/GUI/Events/EventTemplate.hpp"
     "include/GLUL/GUI/Events/Focus.h"
@@ -400,7 +423,7 @@ project (GLUL_Example_Font CXX)
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# These files are to build basic example
+# These files are to build font example
 set(GLUL_Example_Font_SRCS
     "examples/font/src/main.cpp"
 )
@@ -432,7 +455,7 @@ project (GLUL_Example_Framework CXX)
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# These files are to build basic example
+# These files are to build framework example
 set(GLUL_Example_Framework_SRCS
     "examples/framework/src/main.cpp"
     "examples/framework/src/ExampleState.cpp"
@@ -465,7 +488,7 @@ project (GLUL_Example_Image CXX)
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# These files are to build basic example
+# These files are to build image example
 set(GLUL_Example_Image_SRCS
     "examples/image/src/main.cpp"
 )
@@ -530,7 +553,7 @@ project (GLUL_Example_Models CXX)
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# These files are to build basic example
+# These files are to build models example
 set(GLUL_Example_Models_SRCS
     "examples/models/src/main.cpp"
     "examples/models/src/InitializationState.cpp"
@@ -565,7 +588,7 @@ project (GLUL_Example_GUI CXX)
 # Include directories paths
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-# These files are to build basic example
+# These files are to build gui example
 set(GLUL_Example_GUI_SRCS
     "examples/gui/src/main.cpp"
 )
@@ -585,4 +608,36 @@ target_link_libraries(GLUL_Example_GUI
 
 set_target_properties(GLUL_Example_GUI PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/gui/bin/"
+)
+
+
+###############################################
+# 2D example project
+###############################################
+
+project (GLUL_Example_2D CXX)
+
+# Include directories paths
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+# These files are to build 2d example
+set(GLUL_Example_2D_SRCS
+    "examples/gui/src/main.cpp"
+)
+
+set(GLUL_Example_2D_H
+
+)
+
+add_executable(GLUL_Example_GUI
+    ${GLUL_Example_2D_SRCS}
+    ${GLUL_Example_2D_H}
+)
+
+target_link_libraries(GLUL_Example_GUI
+    GLUL_SHARED
+)
+
+set_target_properties(GLUL_Example_GUI PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "examples/2d/bin/"
 )
