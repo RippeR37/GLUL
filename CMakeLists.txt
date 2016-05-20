@@ -65,6 +65,7 @@ set(GLUL_SRCS
     "src/GLUL/GL++/VertexBuffer.cpp"
 
     "src/GLUL/G2D/Circle.cpp"
+    "src/GLUL/G2D/Disk.cpp"
     "src/GLUL/G2D/GeometryBatch.cpp"
     "src/GLUL/G2D/Line.cpp"
     "src/GLUL/G2D/LineLoop.cpp"
@@ -72,6 +73,7 @@ set(GLUL_SRCS
     "src/GLUL/G2D/Point.cpp"
     "src/GLUL/G2D/Primitive.cpp"
     "src/GLUL/G2D/Quad.cpp"
+    "src/GLUL/G2D/Ring.cpp"
     "src/GLUL/G2D/Triangle.cpp"
     "src/GLUL/G2D/TriangleFan.cpp"
     "src/GLUL/G2D/TriangleStrip.cpp"
@@ -173,6 +175,7 @@ set(GLUL_H
     "include/GLUL/GL++/VertexBuffer.h"
 
     "include/GLUL/G2D/Circle.h"
+    "include/GLUL/G2D/Disk.h"
     "include/GLUL/G2D/GeometryBatch.h"
     "include/GLUL/G2D/Line.h"
     "include/GLUL/G2D/LineLoop.h"
@@ -180,6 +183,7 @@ set(GLUL_H
     "include/GLUL/G2D/Point.h"
     "include/GLUL/G2D/Primitive.h"
     "include/GLUL/G2D/Quad.h"
+    "include/GLUL/G2D/Ring.h"
     "include/GLUL/G2D/Shape.h"
     "include/GLUL/G2D/Triangle.h"
     "include/GLUL/G2D/TriangleFan.h"
