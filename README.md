@@ -32,15 +32,28 @@
         - both read and write for most popular formats
     - operations on strings, files, timers, time loops, etc.
     - and others...
+- **2D graphics module** (\* in progress)
+    - most popular primitives and shapes
+        - Points, Lines, Triangles, Quads, Circles, Rings, and so on...
+        - Sprites
+        - Text rendering
+            - dynamic fonts (through FreeType2)
+    - easly extendible
+    - very good performance
+        - modern OpenGL (VAOs, VBOs etc.)
+        - geometry batching (all geometry drawn in one call\*)
 - **GUI module** (\* in progress)
     - component/container architecture
     - easly extendable
-    - support for text rendering with custon fonts (through FreeType2)
     - many built-in widgets
         - buttons, checkboxes, input fields, sliders, progress bars etc.
         - more on its way, and it's very easy to write new ones
     - many handy events like onMouseEnter, onMouseClick, onValueChange etc.
-- Multiplatform support (tested on Windows, Linux and Mac OS)
+- **Cross-platform support**
+    - Windows
+    - Linux
+    - Mac OS
+
 
 Library strongly uses C++11 features like move constructors/assignment operators, lambdas, range-based loops, strongly typed pointers (with nullptr), strongly typed enumerations (_enum class_), hash maps etc. when it's clear much would be gained by it.
 
