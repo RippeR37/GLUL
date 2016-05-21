@@ -135,7 +135,8 @@ namespace GLUL {
         void Font::_logBrokenGlyph(unsigned int glyphCode) {
             std::string warningMessage;
             warningMessage = "[FreeType2] Unable to load glyph of '";
-            warningMessage += static_cast<char>(glyphCode)+"' (" + std::to_string(glyphCode) + ")";
+            warningMessage.push_back(static_cast<char>(glyphCode));
+            warningMessage += std::string("' (") + std::to_string(glyphCode) + std::string(")");
 
             GLUL::Log::LibraryStream().logWarning(warningMessage);
         }
