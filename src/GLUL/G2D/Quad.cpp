@@ -15,12 +15,12 @@ namespace GLUL {
             points[3] = point4;
         }
 
-        Quad::Quad(const Point& bottomLeftPosition, float size) {
-            setSquare(bottomLeftPosition, size);
+        Quad::Quad(const Point& bottomLeftPoint, float size) {
+            setSquare(bottomLeftPoint, size);
         }
 
-        Quad::Quad(const Point& bottomLeftPosition, const glm::vec2& size) {
-            setRectangle(bottomLeftPosition, size);
+        Quad::Quad(const Point& bottomLeftPoint, const glm::vec2& size) {
+            setRectangle(bottomLeftPoint, size);
         }
 
         Quad::Quad(const glm::vec2& position1, const glm::vec2& position2, const glm::vec2& position3, const glm::vec2& position4)
@@ -32,6 +32,25 @@ namespace GLUL {
         Quad::Quad(const glm::vec2& bottomLeftPosition, const glm::vec2& size)
             : Quad(Point { bottomLeftPosition }, size) { }
 
+        void Quad::setSquare(const Point& bottomLeftPoint, float size) {
+            setRectangle(bottomLeftPoint, { size, size });
+        }
+
+        void Quad::setRectangle(const Point& bottomLeftPoint, const glm::vec2& size) {
+            Point currentPoint = bottomLeftPoint;
+
+            points[0] = currentPoint;
+
+            currentPoint.setPosition(bottomLeftPoint.getPosition() + glm::vec2 { size.x, 0.0f   });
+            points[1] = currentPoint;
+
+            currentPoint.setPosition(bottomLeftPoint.getPosition() + glm::vec2 { size.x, size.y });
+            points[2] = currentPoint;
+
+            currentPoint.setPosition(bottomLeftPoint.getPosition() + glm::vec2 { 0.0f,   size.y });
+            points[3] = currentPoint;
+        }
+
         void Quad::setColor(const glm::vec4& color) {
             for(auto& point : points)
                 point.setColor(color);
@@ -39,27 +58,6 @@ namespace GLUL {
 
         const glm::vec4& Quad::getColor() const {
             return points[0].getColor();
-        }
-
-        void Quad::setSquare(const Point& bottomLeftPosition, float size) {
-            Point currentPoint = bottomLeftPosition;
-
-            points[0] = currentPoint;
-
-            currentPoint.setPosition(bottomLeftPosition.getPosition() + glm::vec2 { size, 0.0f }); points[1] = currentPoint;
-            currentPoint.setPosition(bottomLeftPosition.getPosition() + glm::vec2 { size, size }); points[2] = currentPoint;
-            currentPoint.setPosition(bottomLeftPosition.getPosition() + glm::vec2 { 0.0f, size }); points[3] = currentPoint;
-
-        }
-
-        void Quad::setRectangle(const Point& bottomLeftPosition, const glm::vec2& size) {
-            Point currentPoint = bottomLeftPosition;
-
-            points[0] = currentPoint;
-
-            currentPoint.setPosition(bottomLeftPosition.getPosition() + glm::vec2 { size.x, 0.0f   }); points[1] = currentPoint;
-            currentPoint.setPosition(bottomLeftPosition.getPosition() + glm::vec2 { size.x, size.y }); points[2] = currentPoint;
-            currentPoint.setPosition(bottomLeftPosition.getPosition() + glm::vec2 { 0.0f,   size.y }); points[3] = currentPoint;
         }
 
         void Quad::_pushToBatch(GeometryBatch& geometryBatch) const {

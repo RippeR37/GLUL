@@ -190,6 +190,7 @@
     <ClInclude Include="..\..\..\include\GLUL\Frameworks\Application.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Circle.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Disk.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Font.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Line.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\LineLoop.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\LineStrip.h" />
@@ -199,6 +200,13 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\GeometryBatch.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Ring.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Shape.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Text.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedGeometryBatch.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedPoint.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedPrimitive.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedQuad.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedShape.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedTriangle.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Triangle.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\TriangleFan.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\TriangleStrip.h" />
@@ -295,6 +303,7 @@
     <ClCompile Include="..\..\..\src\GLUL\Frameworks\Application.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Circle.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Disk.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Font.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Line.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\LineLoop.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\LineStrip.cpp" />
@@ -303,6 +312,11 @@
     <ClCompile Include="..\..\..\src\GLUL\G2D\Quad.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\GeometryBatch.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Ring.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedGeometryBatch.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedPoint.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedPrimitive.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedQuad.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedTriangle.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Triangle.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\TriangleFan.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\TriangleStrip.cpp" />

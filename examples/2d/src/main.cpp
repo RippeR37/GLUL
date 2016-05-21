@@ -9,6 +9,8 @@
 #include <GLUL/G2D/TriangleStrip.h>
 #include <GLUL/G2D/Quad.h>
 #include <GLUL/G2D/Ring.h>
+#include <GLUL/G2D/TexturedTriangle.h>
+#include <GLUL/G2D/TexturedQuad.h>
 
 
 void test_point() {
@@ -109,6 +111,44 @@ void test_rings_disks() {
     batch.render();
 }
 
+void test_textured_triangles() {
+    static GL::Texture texture("tex.bmp");
+
+    static GLUL::G2D::TexturedPoint tp1 { {  20.0f, 250.0f }, { 0.0f, 0.0f } };
+    static GLUL::G2D::TexturedPoint tp2 { { 120.0f, 250.0f }, { 1.0f, 0.0f } };
+    static GLUL::G2D::TexturedPoint tp3 { { 120.0f, 350.0f }, { 1.0f, 1.0f } };
+
+    static GLUL::G2D::TexturedPoint tp4 { {  20.0f, 260.0f }, { 0.0f, 0.0f } };
+    static GLUL::G2D::TexturedPoint tp5 { { 120.0f, 360.0f }, { 1.0f, 1.0f } };
+    static GLUL::G2D::TexturedPoint tp6 { {  20.0f, 360.0f }, { 0.0f, 1.0f } };
+
+    static GLUL::G2D::TexturedTriangle t1 { tp1, tp2, tp3 };
+    static GLUL::G2D::TexturedTriangle t2 { tp4, tp5, tp6 };
+    static GLUL::G2D::TexturedGeometryBatch batch { { t1, t2 }, texture };
+
+    batch.render();
+}
+
+void test_textured_batching() {
+    static GL::Texture texture1("tex.bmp");
+    static GL::Texture texture2("tex.bmp");
+
+    static GLUL::G2D::TexturedPoint tp_t1 { { 320.0f, 250.0f }, { 0.0f, 0.0f } };
+    static GLUL::G2D::TexturedPoint tp_t2 { { 420.0f, 250.0f }, { 1.0f, 0.0f } };
+    static GLUL::G2D::TexturedPoint tp_t3 { { 370.0f, 350.0f }, { 0.5f, 1.0f } };
+
+    static GLUL::G2D::TexturedPoint tp_q1 { { 160.0f, 255.0f }, { 0.0f, 0.0f } };
+    static GLUL::G2D::TexturedPoint tp_q2 { { 260.0f, 255.0f }, { 1.0f, 0.0f } };
+    static GLUL::G2D::TexturedPoint tp_q3 { { 260.0f, 355.0f }, { 1.0f, 1.0f } };
+    static GLUL::G2D::TexturedPoint tp_q4 { { 160.0f, 355.0f }, { 0.0f, 1.0f } };
+
+    static GLUL::G2D::TexturedTriangle triangle { tp_t1, tp_t2, tp_t3 };
+    static GLUL::G2D::TexturedQuad quad { tp_q1, tp_q2, tp_q3, tp_q4 };
+    static GLUL::G2D::TexturedGeometryBatch batch = { { quad, texture2 }, { triangle, texture1 } };
+
+    batch.render();
+}
+
 void run() {
     GLUL::GUI::Window window { 800, 600, "2D example" };
 
@@ -126,6 +166,8 @@ void run() {
         test_no_batch();
         test_circles();
         test_rings_disks();
+        test_textured_triangles();
+        test_textured_batching();
 
         window.render();
         window.update();

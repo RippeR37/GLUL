@@ -1,7 +1,8 @@
 #include <GLUL/Logger.h>
 #include <GLUL/GL++/Context.h>
-#include <GLUL/G2D/GeometryBatch.h>
-#include <GLUL/G2D/Primitive.h>
+#include <GLUL/GL++/Texture.h>
+#include <GLUL/G2D/TexturedGeometryBatch.h>
+#include <GLUL/G2D/TexturedPrimitive.h>
 
 #include <glm/vector_relational.hpp>
 
@@ -10,43 +11,58 @@ namespace GLUL {
 
     namespace G2D {
 
-        GeometryBatch::GeometryBatch() {
+        TexturedGeometryBatch::TexturedGeometryBatch() {
             _initializeVAO();
         }
 
-        GeometryBatch::GeometryBatch(const Primitive& primitive) : GeometryBatch() {
-            addPrimitive(primitive);
-
+        TexturedGeometryBatch::TexturedGeometryBatch(const TexturedPrimitive& primitive, const GL::Texture& texture)
+            : TexturedGeometryBatch()
+        {
+            addPrimitive(primitive, texture);
             compute();
         }
 
-        GeometryBatch::GeometryBatch(const std::vector<std::reference_wrapper<const Primitive>>& primitives) : GeometryBatch() {
+        TexturedGeometryBatch::TexturedGeometryBatch(const std::vector<TexturedPrimitiveRef>& primitives, const GL::Texture& texture)
+            : TexturedGeometryBatch()
+        {
+            addPrimitives(primitives, texture);
+            compute();
+        }
+
+        TexturedGeometryBatch::TexturedGeometryBatch(const std::vector< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives)
+            : TexturedGeometryBatch()
+        {
             addPrimitives(primitives);
-
             compute();
         }
 
-        GeometryBatch::GeometryBatch(const std::initializer_list<std::reference_wrapper<const Primitive>>& primitives) : GeometryBatch() {
+        TexturedGeometryBatch::TexturedGeometryBatch(const std::initializer_list< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives)
+            : TexturedGeometryBatch()
+        {
             addPrimitives(primitives);
-
             compute();
         }
 
-        void GeometryBatch::addPrimitive(const Primitive& primitive) {
-            primitive._pushToBatch(*this);
+        void TexturedGeometryBatch::addPrimitive(const TexturedPrimitive& primitive, const GL::Texture& texture) {
+            primitive._pushToBatch(*this, texture);
         }
 
-        void GeometryBatch::addPrimitives(const std::vector<std::reference_wrapper<const Primitive>>& primitives) {
+        void TexturedGeometryBatch::addPrimitives(const std::vector<TexturedPrimitiveRef>& primitives, const GL::Texture& texture) {
             for(auto& primitive : primitives)
-                addPrimitive(primitive);
+                addPrimitive(primitive, texture);
         }
 
-        void GeometryBatch::addPrimitives(const std::initializer_list<std::reference_wrapper<const Primitive>>& primitives) {
-            for(auto& primitive : primitives)
-                addPrimitive(primitive);
+        void TexturedGeometryBatch::addPrimitives(const std::vector< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives) {
+            for(auto& pair : primitives)
+                addPrimitive(pair.first, pair.second);
         }
 
-        void GeometryBatch::compute() {
+        void TexturedGeometryBatch::addPrimitives(const std::initializer_list< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives) {
+            for(auto& pair : primitives)
+                addPrimitive(pair.first, pair.second);
+        }
+
+        void TexturedGeometryBatch::compute() {
             if(!_vertexData.empty()) {
                 // Push data to VBO
                 _vbo.bind();
@@ -59,7 +75,7 @@ namespace GLUL {
             }
         }
 
-        void GeometryBatch::clear() {
+        void TexturedGeometryBatch::clear() {
             // Clear local data
             _vertexData.clear();
             _colorData.clear();
@@ -74,20 +90,24 @@ namespace GLUL {
             _cbo.unbind();
         }
 
-        void GeometryBatch::clearLocal() {
+        void TexturedGeometryBatch::clearLocal() {
             _vertexData.clear();
             _colorData.clear();
         }
 
-        void GeometryBatch::render() const {
-            render(getDefaultProgram());
+        void TexturedGeometryBatch::render(unsigned int textureUnit) const {
+            render(getDefaultProgram(), textureUnit);
         }
 
-        void GeometryBatch::render(const GL::Program& program) const {
+        void TexturedGeometryBatch::render(const GL::Program& program, unsigned int textureUnit) const {
             static glm::ivec2 windowSize;
 
             program.use();
             _vao.bind();
+
+            // TODO: HACK: change it with Context/Texture class
+            glActiveTexture(GL_TEXTURE0 + textureUnit);
+            program["texSampler"].setSampler(textureUnit);
 
             if(glm::any(glm::notEqual(windowSize, GL::Context::Current->getViewportSize()))) {
                 windowSize = GL::Context::Current->getViewportSize();
@@ -99,14 +119,16 @@ namespace GLUL {
                 _vao.setDrawCount(drawCall.count);
                 _vao.setDrawTarget(drawCall.target);
 
+                drawCall.texture.get().bind();
                 _vao.drawArrays();
+                drawCall.texture.get().unbind();
             }
 
             _vao.unbind();
             program.unbind();
         }
 
-        void GeometryBatch::_initializeVAO() {
+        void TexturedGeometryBatch::_initializeVAO() {
             _vao.bind();
                 _vbo.bind();
                 _vao.setAttribPointers({ GL::VertexAttrib(0, 4, GL_FLOAT, 0, nullptr) });
@@ -118,11 +140,10 @@ namespace GLUL {
             _vao.unbind();
         }
 
-
-        void GeometryBatch::_pushCall(
-            GL::VertexArray::DrawTarget drawTarget,
+        void TexturedGeometryBatch::_pushCall(GL::VertexArray::DrawTarget drawTarget,
             const std::vector<glm::vec4>& vertexData,
-            const std::vector<glm::vec4>& colorData)
+            const std::vector<glm::vec4>& colorData,
+            const GL::Texture& texture)
         {
             // Check if local data was not cleared
             if(_vertexData.empty() && !_drawCalls.empty())
@@ -135,11 +156,12 @@ namespace GLUL {
             }
 
             // Push draw call
-            if(_drawCalls.empty() || _drawCalls.back().target != drawTarget) {
+            if(_drawCalls.empty() || _drawCalls.back().target != drawTarget || _drawCalls.back().texture.get().getID() != texture.getID()) {
                 _drawCalls.push_back({
                     static_cast<GLint>(_vertexData.size()),
                     static_cast<GLsizei>(vertexData.size()),
-                    drawTarget
+                    drawTarget,
+                    texture
                 });
             } else {
                 _drawCalls.back().count += vertexData.size();
@@ -152,10 +174,10 @@ namespace GLUL {
             _colorData.insert(_colorData.end(), colorData.begin(), colorData.end());
         }
 
-        GL::Program& GeometryBatch::getDefaultProgram() {
+        GL::Program& TexturedGeometryBatch::getDefaultProgram() {
             static GL::Program program(
-                GL::Shader("assets/shaders/GLUL/G2D/Default.vp", GL::Shader::Type::VertexShader),
-                GL::Shader("assets/shaders/GLUL/G2D/Default.fp", GL::Shader::Type::FragmentShader)
+                GL::Shader("assets/shaders/GLUL/G2D/Textured.vp", GL::Shader::Type::VertexShader),
+                GL::Shader("assets/shaders/GLUL/G2D/Textured.fp", GL::Shader::Type::FragmentShader)
             );
 
             return program;

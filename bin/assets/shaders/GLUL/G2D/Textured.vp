@@ -1,0 +1,23 @@
+#version 330 core
+
+layout(location = 0) in vec4 vertexData;
+layout(location = 1) in vec4 vertexColor;
+
+out vec4 fragmentColor;
+out vec2 fragmentUV;
+
+uniform vec2 windowSize;
+
+
+vec2 screenToDevice(vec2 position) {
+    vec2 halfWindowSize = windowSize * 0.5;
+
+    return (position / halfWindowSize) - 1.0;
+}
+
+void main() {
+    gl_Position = vec4(screenToDevice(vertexData.xy), 0.0, 1.0);
+
+    fragmentColor = vertexColor;
+    fragmentUV = vertexData.zw;
+}

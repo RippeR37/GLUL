@@ -401,6 +401,30 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\Disk.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedShape.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Font.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Text.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedPrimitive.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedGeometryBatch.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedPoint.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedTriangle.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedQuad.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
@@ -668,6 +692,24 @@
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\Disk.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Font.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedPrimitive.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedPoint.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedTriangle.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedQuad.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedGeometryBatch.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
   </ItemGroup>

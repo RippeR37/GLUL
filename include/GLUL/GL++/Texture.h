@@ -18,15 +18,15 @@ namespace GL {
         public:
             enum class Target {
                 Tex1D = GL_TEXTURE_1D,
-                Tex2D = GL_TEXTURE_2D, 
-                Tex3D = GL_TEXTURE_3D, 
-                Tex1DArray = GL_TEXTURE_1D_ARRAY, 
-                Tex2DArray = GL_TEXTURE_2D_ARRAY, 
-                TexRectangle = GL_TEXTURE_RECTANGLE, 
-                TexCubeMap = GL_TEXTURE_CUBE_MAP, 
-                TexCubeMapArray = GL_TEXTURE_CUBE_MAP_ARRAY, 
-                TexBuffer = GL_TEXTURE_BUFFER, 
-                Tex2DMS = GL_TEXTURE_2D_MULTISAMPLE, 
+                Tex2D = GL_TEXTURE_2D,
+                Tex3D = GL_TEXTURE_3D,
+                Tex1DArray = GL_TEXTURE_1D_ARRAY,
+                Tex2DArray = GL_TEXTURE_2D_ARRAY,
+                TexRectangle = GL_TEXTURE_RECTANGLE,
+                TexCubeMap = GL_TEXTURE_CUBE_MAP,
+                TexCubeMapArray = GL_TEXTURE_CUBE_MAP_ARRAY,
+                TexBuffer = GL_TEXTURE_BUFFER,
+                Tex2DMS = GL_TEXTURE_2D_MULTISAMPLE,
                 Tex2DMSArray = GL_TEXTURE_2D_MULTISAMPLE_ARRAY,
             };
 
@@ -117,11 +117,11 @@ namespace GL {
         public:
             Texture();
 
-            Texture(const GLUL::Image& image, Target target = Target::Tex2D, 
+            Texture(const GLUL::Image& image, Target target = Target::Tex2D,
                 Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat);
 
-            Texture(const std::string& path, Target target = Target::Tex2D, 
-                Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat) 
+            Texture(const std::string& path, Target target = Target::Tex2D,
+                Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat)
                 throw(GLUL::Exception::InitializationFailed, GLUL::Exception::FatalError);
 
             Texture(Texture&& texture);
@@ -137,7 +137,7 @@ namespace GL {
             void bind() const;
             void unbind() const;
 
-            void load(const GLUL::Image& image, Target target = Target::Tex2D, 
+            void load(const GLUL::Image& image, Target target = Target::Tex2D,
                 Format format = Format::DefaultFormat, InternalFormat internalFormat = InternalFormat::DefaultFormat) throw(GLUL::Exception::FatalError);
 
             void generateMipmap();
@@ -145,6 +145,11 @@ namespace GL {
             void setData1D(GLsizei width, GLenum dataType, const GLvoid* data, GLint level = 0);
             void setData2D(GLsizei width, GLsizei height, GLenum dataType, const GLvoid* data, GLint level = 0);
             void setData3D(GLsizei width, GLsizei height, GLsizei depth, GLenum dataType, const GLvoid* data, GLint level = 0);
+
+            void setSubData1D(GLint xoffset, GLsizei width, GLenum dataType, const GLvoid* data, GLint level = 0);
+            void setSubData2D(GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum dataType, const GLvoid* data, GLint level = 0);
+            void setSubData3D(GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width,  GLsizei height, GLsizei depth,
+                GLenum dataType, const GLvoid * data, GLint level = 0);
 
             void setTarget(Target target);
             void setFormat(Format format);

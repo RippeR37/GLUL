@@ -39,7 +39,7 @@ namespace GL {
 
             void enableScissorTest();
             void disableScissorTest();
-            
+
 
             void setClearColor(const glm::vec4& data);
             void setClearDepth(const GLclampf value);
@@ -49,6 +49,9 @@ namespace GL {
             void setViewport(const glm::ivec2& position, const glm::ivec2& size);
             void setScissorBox(GLint x, GLint y, GLsizei width, GLsizei height);
             void setScissorBox(const GLUL::Rectangle& scissorBox);
+
+            void setPixelPackAlignment(GLint value);
+            void setPixelUnpackAlignment(GLint value);
 
             bool isScissorTestEnabled() const;
 
@@ -60,7 +63,11 @@ namespace GL {
             const glm::ivec2& getViewportPosition() const;
             const GLUL::Rectangle& getScissorBox() const;
 
+            GLint getPixelPackAlignment() const;
+            GLint getPixelUnpackAlignment() const;
+
             GLUL::Window* getWindow();
+
 
             static void GLAPIENTRY logError(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam);
 
@@ -77,6 +84,9 @@ namespace GL {
             glm::vec4 _clearColor;
             GLclampf _clearDepth;
             GLint _clearStencil;
+
+            GLint _pixelPackAlignment;
+            GLint _pixelUnpackAlignment;
 
             glm::ivec2 _viewportSize;
             glm::ivec2 _viewportPosition;

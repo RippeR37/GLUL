@@ -2,7 +2,7 @@
 
 
 namespace GL {
-    
+
     Texture::Texture() {
         _isCreated = false;
         _isAlpha = false;
@@ -20,8 +20,8 @@ namespace GL {
         load(image, target, format, internalFormat);
     }
 
-    Texture::Texture(const std::string& path, Target target, Format format, InternalFormat internalFormat) 
-        throw(GLUL::Exception::InitializationFailed, GLUL::Exception::FatalError) 
+    Texture::Texture(const std::string& path, Target target, Format format, InternalFormat internalFormat)
+        throw(GLUL::Exception::InitializationFailed, GLUL::Exception::FatalError)
         : Texture()
     {
         try {
@@ -40,7 +40,7 @@ namespace GL {
             throw;
         }
     }
-    
+
     Texture::Texture(Texture&& texture) : Texture() {
         std::swap(_isAlpha,   texture._isAlpha);
         std::swap(_isCreated, texture._isCreated);
@@ -100,14 +100,14 @@ namespace GL {
         bind();
 
         switch(target) {
-            case Texture::Target::Tex2D: 
+            case Texture::Target::Tex2D:
                 assingData2D(image, format, internalFormat);
                 break;
 
             default:
                 throw GLUL::Exception::FatalError("Load funcionality for non-2D textures is not yet implemented!");
         }
-        
+
         setParameters();
         generateMipmap();
         unbind();
@@ -121,13 +121,13 @@ namespace GL {
         setWidth(width);
 
         glTexImage1D(
-            static_cast<GLenum>(getTarget()), 
-            level, 
-            static_cast<GLenum>(getInternalFromat()), 
-            width, 
-            0, 
-            static_cast<GLenum>(getFormat()), 
-            dataType, 
+            static_cast<GLenum>(getTarget()),
+            level,
+            static_cast<GLenum>(getInternalFromat()),
+            width,
+            0,
+            static_cast<GLenum>(getFormat()),
+            dataType,
             data
         );
     }
@@ -135,16 +135,16 @@ namespace GL {
     void Texture::setData2D(GLsizei width, GLsizei height, GLenum dataType, const GLvoid* data, GLint level) {
         setWidth(width);
         setHeight(height);
-        
+
         glTexImage2D(
-            static_cast<GLenum>(getTarget()), 
-            level, 
-            static_cast<GLenum>(getInternalFromat()), 
-            width, 
+            static_cast<GLenum>(getTarget()),
+            level,
+            static_cast<GLenum>(getInternalFromat()),
+            width,
             height,
-            0, 
-            static_cast<GLenum>(getFormat()), 
-            dataType, 
+            0,
+            static_cast<GLenum>(getFormat()),
+            dataType,
             data
         );
     }
@@ -152,25 +152,69 @@ namespace GL {
     void Texture::setData3D(GLsizei width, GLsizei height, GLsizei depth, GLenum dataType, const GLvoid* data, GLint level) {
         setWidth(width);
         setHeight(height);
-        
+
         glTexImage3D(
-            static_cast<GLenum>(getTarget()), 
-            level, 
-            static_cast<GLenum>(getInternalFromat()), 
-            width, 
+            static_cast<GLenum>(getTarget()),
+            level,
+            static_cast<GLenum>(getInternalFromat()),
+            width,
             height,
             depth,
-            0, 
-            static_cast<GLenum>(getFormat()), 
-            dataType, 
+            0,
+            static_cast<GLenum>(getFormat()),
+            dataType,
             data
         );
     }
-    
+
+    void Texture::setSubData1D(GLint xoffset, GLsizei width, GLenum dataType, const GLvoid* data, GLint level) {
+        glTexSubImage1D(
+            static_cast<GLenum>(getTarget()),
+            level,
+            xoffset,
+            width,
+            static_cast<GLenum>(getFormat()),
+            dataType,
+            data
+        );
+    }
+
+    void Texture::setSubData2D(GLint xoffset, GLint yoffset, GLsizei width, GLsizei height, GLenum dataType, const GLvoid* data, GLint level) {
+        glTexSubImage2D(
+            static_cast<GLenum>(getTarget()),
+            level,
+            xoffset,
+            yoffset,
+            width,
+            height,
+            static_cast<GLenum>(getFormat()),
+            dataType,
+            data
+        );
+    }
+
+    void Texture::setSubData3D(GLint xoffset, GLint yoffset, GLint zoffset, GLsizei width, GLsizei height, GLsizei depth,
+        GLenum dataType, const GLvoid * data, GLint level)
+    {
+        glTexSubImage3D(
+            static_cast<GLenum>(getTarget()),
+            level,
+            xoffset,
+            yoffset,
+            zoffset,
+            width,
+            height,
+            depth,
+            static_cast<GLenum>(getFormat()),
+            dataType,
+            data
+        );
+    }
+
     void Texture::setTarget(Target target) {
         _target = target;
     }
-    
+
     void Texture::setParameters() {
         glTexParameteri(static_cast<GLenum>(getTarget()), GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(static_cast<GLenum>(getTarget()), GL_TEXTURE_WRAP_T, GL_REPEAT);
@@ -215,7 +259,7 @@ namespace GL {
     Texture::Format Texture::getFormat() const {
         return _format;
     }
-    
+
     Texture::InternalFormat Texture::getInternalFromat() const {
         return _internalFormat;
     }
@@ -230,7 +274,7 @@ namespace GL {
     void Texture::assingData2D(const GLUL::Image& image, const Format format, const InternalFormat internalFormat) throw(GLUL::Exception::FatalError) {
         if(format == Format::DefaultFormat) {
             switch(image.getBits()) {
-                case 24: 
+                case 24:
                     setInternalFromat(InternalFormat::RGB);
                     setFormat(Format::RGB);
                     break;
@@ -252,7 +296,7 @@ namespace GL {
 
         setData2D(image.getWidth(), image.getHeight(), GL_UNSIGNED_BYTE, image.getData());
     }
-    
+
     void Texture::setWidth(unsigned int width) {
         _width = width;
     }

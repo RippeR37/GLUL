@@ -51,7 +51,6 @@ namespace GLUL {
 
                 static GL::Program& getDefaultProgram();
 
-
                 std::vector<DrawCall> _drawCalls;
                 std::vector<glm::vec4> _vertexData;
                 std::vector<glm::vec4> _colorData;
@@ -61,6 +60,7 @@ namespace GLUL {
                 mutable GL::VertexBuffer _cbo;
 
                 friend class Primitive;
+                friend class Shape;
         };
 
     }

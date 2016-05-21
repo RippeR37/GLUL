@@ -16,6 +16,9 @@ namespace GL {
         _clearStencil = 0;
         _isScissorTestEnabled = false;
 
+        _pixelPackAlignment = 4;
+        _pixelUnpackAlignment = 4;
+
         _viewportSize = glm::ivec2(0, 0);
         _viewportPosition = glm::ivec2(0, 0);
     }
@@ -71,7 +74,7 @@ namespace GL {
     void Context::logError(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParam) {
         std::string logType;
         std::string logPriority;
-        
+
         (void) id;
         (void) source;
         (void) length;
@@ -179,6 +182,28 @@ namespace GL {
         }
     }
 
+    void Context::setPixelPackAlignment(GLint value) {
+        if(isActive()) {
+            if(_pixelPackAlignment != value &&
+                (value == 1 || value == 2 || value == 4 || value == 8))
+            {
+                glPixelStorei(GL_PACK_ALIGNMENT, value);
+                _pixelPackAlignment = value;
+            }
+        }
+    }
+
+    void Context::setPixelUnpackAlignment(GLint value) {
+        if(isActive()) {
+            if(_pixelUnpackAlignment != value &&
+                (value == 1 || value == 2 || value == 4 || value == 8))
+            {
+                glPixelStorei(GL_UNPACK_ALIGNMENT, value);
+                _pixelUnpackAlignment = value;
+            }
+        }
+    }
+
     bool Context::isScissorTestEnabled() const {
         return _isScissorTestEnabled;
     }
@@ -206,6 +231,14 @@ namespace GL {
 
     const GLUL::Rectangle& Context::getScissorBox() const {
         return _scissorBox;
+    }
+
+    GLint Context::getPixelPackAlignment() const {
+        return _pixelPackAlignment;
+    }
+
+    GLint Context::getPixelUnpackAlignment() const {
+        return _pixelUnpackAlignment;
     }
 
 
