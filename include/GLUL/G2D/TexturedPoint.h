@@ -15,6 +15,8 @@ namespace GLUL {
                 TexturedPoint();
                 TexturedPoint(const glm::vec2& position);
                 TexturedPoint(const glm::vec2& position, const glm::vec2& texCoords);
+                TexturedPoint(const glm::vec2& position, const glm::vec2& texCoords, const glm::vec3& color);
+                TexturedPoint(const glm::vec2& position, const glm::vec2& texCoords, const glm::vec4& color);
                 explicit TexturedPoint(const Point& point);
                 explicit TexturedPoint(const Point& point, const glm::vec2& texCoords);
 

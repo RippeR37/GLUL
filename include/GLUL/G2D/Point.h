@@ -13,6 +13,8 @@ namespace GLUL {
             public:
                 Point(unsigned int size = 1u);
                 Point(const glm::vec2& position, unsigned int size = 1u);
+                Point(const glm::vec2& position, const glm::vec3& color, unsigned int size = 1u);
+                Point(const glm::vec2& position, const glm::vec4& color, unsigned int size = 1u);
 
                 Point& operator=(const glm::vec2& position);
 

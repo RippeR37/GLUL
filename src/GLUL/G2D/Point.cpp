@@ -12,6 +12,14 @@ namespace GLUL {
             setPosition(position);
         }
 
+        Point::Point(const glm::vec2& position, const glm::vec3& color, unsigned int size)
+            : Point(position, glm::vec4 { color, 1.0f }, size) { }
+
+        Point::Point(const glm::vec2& position, const glm::vec4& color, unsigned int size) : Point(position, size)
+        {
+            setColor(color);
+        }
+
         Point& Point::operator=(const glm::vec2& position) {
             setPosition(position);
 

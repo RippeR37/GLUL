@@ -17,8 +17,15 @@ namespace GLUL {
             setTexCoords(texCoords);
         }
 
+        TexturedPoint::TexturedPoint(const glm::vec2& position, const glm::vec2& texCoords, const glm::vec3& color)
+            : TexturedPoint(position, texCoords, glm::vec4 { color, 1.0f }) { }
+
+        TexturedPoint::TexturedPoint(const glm::vec2& position, const glm::vec2& texCoords, const glm::vec4& color)
+            : TexturedPoint(Point { position, color }, texCoords) { }
+
         TexturedPoint::TexturedPoint(const Point& point) : TexturedPoint() {
             setPosition(point);
+            setColor(point.getColor());
         }
 
         TexturedPoint::TexturedPoint(const Point& point, const glm::vec2& texCoords)

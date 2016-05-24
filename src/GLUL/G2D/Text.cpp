@@ -135,7 +135,7 @@ namespace GLUL {
                 if(isDrawn)
                     texGeometryBatch.addPrimitive(
                         TexturedQuad {
-                            { characterPos, metric.texPosStart },
+                            { characterPos, metric.texPosStart, getColor() },
                             metric.size,
                             metric.texPosEnd - metric.texPosStart
                         },

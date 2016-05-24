@@ -5,8 +5,7 @@ namespace GLUL {
 
     namespace G2D {
 
-        enum class HorizontalAlignment
-        {
+        enum class HorizontalAlignment {
             Left,
             Center,
             Right
