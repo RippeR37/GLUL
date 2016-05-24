@@ -1,3 +1,4 @@
+#include <GLUL/String.h>
 #include <GLUL/G2D/Text.h>
 #include <GLUL/G2D/TexturedRectangle.h>
 
@@ -105,12 +106,10 @@ namespace GLUL {
             return _alignment;
         }
 
-        void Text::_moveCursor(glm::vec2& cursorPosition, char character, const Font& font) const {
-            const glm::vec2& basePoint = getPosition();
-
+        void Text::moveCursor(glm::vec2& cursorPosition, const glm::vec2& baseline, char character, const Font& font) {
             switch(character) {
                 case '\n':
-                    cursorPosition = { basePoint.x, (cursorPosition.y - font.getLineHeight()) };
+                    cursorPosition = { baseline.x, (cursorPosition.y - font.getLineHeight()) };
                     break;
 
                 case '\t':
@@ -123,8 +122,17 @@ namespace GLUL {
             }
         }
 
+        void Text::_alignCursor(glm::vec2& cursorPos, char character, unsigned int& line, const std::vector<float>& lineAlignments) const {
+            if(character == '\n' && line < lineAlignments.size())
+                cursorPos.x = std::round(cursorPos.x - lineAlignments[line++]);
+        }
+
         void Text::_pushToBatch(TexturedGeometryBatch& texGeometryBatch, const Font& font) const {
-            glm::vec2 cursorPos = getPosition();
+            auto lineAlignments = _getLinesAlignment(font, getText(), getAlignment());
+            auto cursorPos = getPosition();
+            auto line = 0u;
+
+            _alignCursor(cursorPos, '\n', line, lineAlignments);
 
             for(char character : getText())
             {
@@ -142,8 +150,41 @@ namespace GLUL {
                         font.getTexture()
                     );
 
-                _moveCursor(cursorPos, character, font);
+                moveCursor(cursorPos, getPosition(), character, font);
+                _alignCursor(cursorPos, character, line, lineAlignments);
             }
+        }
+
+        float Text::_getLineAlignment(const Font& font, const std::string& text, Alignment alignment) const {
+            auto bounds = font.getBoundsOf(text);
+            float alignFactor;
+
+            switch(alignment) {
+                case Alignment::Left:   alignFactor = 0.0f; break;
+                case Alignment::Center: alignFactor = 0.5f; break;
+                case Alignment::Right:  alignFactor = 1.0f; break;
+
+                default:
+                    alignFactor = 0.0f;
+            }
+
+            return alignFactor * bounds.x;
+        }
+
+        std::vector<float> Text::_getLinesAlignment(const Font& font, const std::string& text, Alignment alignment) const {
+            std::vector<float> result;
+            auto lines = String::split(text, '\n', false);
+
+            result.reserve(lines.size());
+
+            for(const auto& line : lines)
+                result.push_back(_getLineAlignment(font, line, alignment));
+
+            // Always return at least one element (for first line)
+            if(result.empty())
+                result.push_back(0.0f);
+
+            return result;
         }
 
     }

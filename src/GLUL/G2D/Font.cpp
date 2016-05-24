@@ -1,6 +1,7 @@
 #include <GLUL/Logger.h>
 #include <GLUL/GL++/Context.h>
 #include <GLUL/G2D/Font.h>
+#include <GLUL/G2D/Text.h>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -15,7 +16,7 @@ namespace GLUL {
 
         static FT_Library _FT_library;
 
-        Font::Font() throw(GLUL::Exception::FatalError) : _textureSet(false), _height(0u) {
+        Font::Font() throw(GLUL::Exception::FatalError) : _isGenerated(false), _height(0u) {
             _initializeFT();
             _face = new FT_Face();
         }
@@ -47,6 +48,8 @@ namespace GLUL {
 
         void Font::generate(unsigned int height) {
             _setHeight(height);
+            _glyphs.clear();
+            _glyphs.resize(128);
 
             auto textureRowAndTotalSizes = _computeTextureSizes();
             glm::uvec2 rowSize = textureRowAndTotalSizes.first;
@@ -69,9 +72,9 @@ namespace GLUL {
                     _logBrokenGlyph(glyph);
 
                 } else {
-                    if(std::isgraph(glyph)) {
-                        glyphSize = _getCurrentFaceGlyphSize();
+                    glyphSize = _getCurrentFaceGlyphSize();
 
+                    if(std::isgraph(glyph)) {
                         if(glyphOffset.x + glyphSize.x >= totalSize.x)
                             glyphOffset = { 0u, glyphOffset.y + rowSize.y };
 
@@ -81,13 +84,13 @@ namespace GLUL {
                         glyphOffset.x += glyphSize.x + pixelGlyphInterval;
 
                     } else {
-                        _computeEmptyGlyphMetric(glyph);
+                        _computeGlyphMetric(glyph, glyphSize, {}, totalSize);
                     }
                 }
             }
 
             _texture.unbind();
-            _correctSpaceMetric();
+            _isGenerated = true;
         }
 
         const std::string& Font::getPath() const {
@@ -118,6 +121,30 @@ namespace GLUL {
             return _glyphs[character];
         }
 
+        glm::vec2 Font::getBoundsOf(const std::string& text) const {
+            if(!_isGenerated)
+                return {};
+
+            glm::vec2 baseline;
+            glm::vec2 cursorPos;
+            glm::vec2 maxPos, minPos;
+
+            for(char character : text)
+            {
+                bool isDrawn = (std::isgraph(character) > 0);
+                auto& metric = getMetricOf(character);
+                auto posStart = cursorPos + metric.glyphPos - glm::vec2 { 0.0f, metric.size.y };
+                auto posEnd = posStart + metric.size;
+
+                maxPos = { std::max(maxPos.x, posEnd.x),   std::max(maxPos.y, posEnd.y)   };
+                minPos = { std::min(minPos.x, posStart.x), std::min(minPos.y, posStart.y) };
+
+                Text::moveCursor(cursorPos, baseline, character, *this);
+            }
+
+            return maxPos - minPos;
+        }
+
         void Font::_setHeight(unsigned int height) {
             FT_Face face = (*static_cast<FT_Face*>(_face));
 
@@ -129,7 +156,7 @@ namespace GLUL {
             _path = path;
         }
 
-        void Font::_logBrokenGlyph(unsigned int glyphCode) {
+        void Font::_logBrokenGlyph(unsigned int glyphCode) const {
             std::string warningMessage;
             warningMessage = "[FreeType2] Unable to load glyph of '";
             warningMessage.push_back(static_cast<char>(glyphCode));
@@ -139,7 +166,7 @@ namespace GLUL {
         }
 
         void Font::_prepareTexture(const glm::uvec2& textureSize) {
-            if(!_textureSet) {
+            if(!_isGenerated) {
                 _texture.setTarget(GL::Texture::Target::Tex2D);
                 _texture.setFormat(GL::Texture::Format::Red);
                 _texture.setInternalFromat(GL::Texture::InternalFormat::Red);
@@ -154,24 +181,9 @@ namespace GLUL {
                     { GL_TEXTURE_SWIZZLE_B, GL_ONE },
                     { GL_TEXTURE_SWIZZLE_A, GL_RED },
                 });
-
-                _textureSet = true;
             }
 
             _texture.setData2D(textureSize.x, textureSize.y, GL_UNSIGNED_BYTE, nullptr);
-        }
-
-        void Font::_computeEmptyGlyphMetric(unsigned int glyphCode) {
-            FT_Face face = (*static_cast<FT_Face*>(_face));
-
-            _glyphs[glyphCode].size = {};
-            _glyphs[glyphCode].glyphPos = { face->glyph->bitmap_left, face->glyph->bitmap_top };
-            _glyphs[glyphCode].advance = glm::vec2(
-                static_cast<float>(face->glyph->advance.x) / 64.0f,
-                static_cast<float>(face->glyph->advance.y) / 64.0f
-                );
-            _glyphs[glyphCode].texPosStart = {};
-            _glyphs[glyphCode].texPosEnd = {};
         }
 
         void Font::_computeGlyphMetric(
@@ -182,7 +194,7 @@ namespace GLUL {
         {
             FT_Face face = (*static_cast<FT_Face*>(_face));
 
-            _glyphs[glyphCode].size = {
+            _glyphs[glyphCode].size     = {
                 face->glyph->bitmap.width,
                 face->glyph->bitmap.rows
             };
@@ -192,7 +204,7 @@ namespace GLUL {
                 face->glyph->bitmap_top
             };
 
-            _glyphs[glyphCode].advance = {
+            _glyphs[glyphCode].advance  = {
                 static_cast<float>(face->glyph->advance.x) / 64.0f,
                 static_cast<float>(face->glyph->advance.y) / 64.0f
             };
@@ -208,12 +220,7 @@ namespace GLUL {
             };
         }
 
-        void Font::_correctSpaceMetric() {
-            // TODO: HACK: this might be solved better
-            _glyphs[static_cast<unsigned char>(' ')].size = _glyphs[static_cast<unsigned char>('a')].size;
-        }
-
-        glm::uvec2 Font::_getCurrentFaceGlyphSize() {
+        glm::uvec2 Font::_getCurrentFaceGlyphSize() const {
             FT_Face face = (*static_cast<FT_Face*>(_face));
 
             return {
@@ -222,7 +229,7 @@ namespace GLUL {
             };
         }
 
-        std::pair<glm::uvec2, glm::uvec2> Font::_computeTextureSizes() {
+        std::pair<glm::uvec2, glm::uvec2> Font::_computeTextureSizes() const {
             FT_Face face = (*static_cast<FT_Face*>(_face));
             glm::uvec2 rowSize;
             glm::uvec2 totalSize = { 0u, 1u };

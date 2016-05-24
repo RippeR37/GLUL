@@ -6,7 +6,7 @@ namespace GLUL {
 
     namespace G2D {
 
-        TexturedRectangle::TexturedRectangle() : _color(glm::vec4 { 1.0f }) { }
+        TexturedRectangle::TexturedRectangle() : _color({ 1.0f }), _texSize({ 1.0f }) {}
 
         TexturedRectangle::TexturedRectangle(const glm::vec2& position, float size)
             : TexturedRectangle()

@@ -11,6 +11,7 @@
 #include <GLUL/G2D/Quad.h>
 #include <GLUL/G2D/Ring.h>
 #include <GLUL/G2D/Text.h>
+#include <GLUL/G2D/TexturedRectangle.h>
 #include <GLUL/G2D/TexturedTriangle.h>
 #include <GLUL/G2D/TexturedQuad.h>
 
@@ -146,30 +147,23 @@ void test_textured_batching() {
 
     static GLUL::G2D::TexturedTriangle triangle { tp_t1, tp_t2, tp_t3 };
     static GLUL::G2D::TexturedQuad quad { tp_q1, tp_q2, tp_q3, tp_q4 };
-    static GLUL::G2D::TexturedGeometryBatch batch { { quad, texture2 }, { triangle, texture1 } };
+    static GLUL::G2D::TexturedRectangle rectangle { { 500.0f, 250.0f }, { 250.0f, 60.0f } };
+
+    static GLUL::G2D::TexturedGeometryBatch batch { { quad, texture2 }, { triangle, texture1 }, { rectangle, texture1 } };
 
     batch.render();
 }
 
-void test_font_bounds() {
-    static GLUL::G2D::Font font { "arial.ttf", 128 };
-
-    auto& metric = font.getMetricOf('a');
-    // auto textRect1 = font.getBoundsOf("Hello world");
-    // auto textRect2 = font.getBoundsOf("Hello world", 16);
-    // auto textRect3 = font.getBaselineBoundsOf("Hello world");
-    // auto textRect3 = font.getBaselineBoundsOf("Hello world", 16);
-}
-
 void test_font_text() {
     static GLUL::G2D::Font font { "arial.ttf", 24 };
-
-    static GLUL::G2D::Text text1 { "Hello world", { 150.0f,  50.0f } };
-    static GLUL::G2D::Text text2 { "Hello world", { 150.0f, 100.0f }, GLUL::G2D::Text::Alignment::Center };
-    static GLUL::G2D::Text text3 { "Hello world", { 150.0f, 150.0f }, { 0.2f, 0.2f, 1.0f } };
-    static GLUL::G2D::Text text4 { "Hello world", { 150.0f, 200.0f }, { 0.2f, 0.2f, 1.0f, 1.0f }, GLUL::G2D::Text::Alignment::Right };
-
-    static GLUL::G2D::TexturedGeometryBatch batch { { text1, text2, text3, text4 }, font };
+    static std::string lorem_ipsum { "Lorem ipsum" };
+    static std::string text1 { "To left\n"  + lorem_ipsum };
+    static std::string text2 { "To right\n" + lorem_ipsum };
+    static std::string text3 { "Centered\n" + lorem_ipsum };
+    static GLUL::G2D::Text t1 { text1, {  50.0f, 200.0f }, { 1.0f, 0.2f, 0.2f } };
+    static GLUL::G2D::Text t2 { text2, { 750.0f, 200.0f }, { 0.2f, 1.0f, 0.2f }, GLUL::G2D::Text::Alignment::Right };
+    static GLUL::G2D::Text t3 { text3, { 400.0f, 200.0f }, { 0.2f, 0.2f, 1.0f }, GLUL::G2D::Text::Alignment::Center };
+    static GLUL::G2D::TexturedGeometryBatch batch { { t1, t2, t3 }, font };
 
     batch.render();
 }

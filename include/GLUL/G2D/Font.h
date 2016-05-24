@@ -2,6 +2,7 @@
 
 #include <GLUL/Config.h>
 #include <GLUL/GL++/Texture.h>
+#include <GLUL/G2D/Rectangle.h>
 
 #include <glm/vec2.hpp>
 
@@ -44,30 +45,26 @@ namespace GLUL {
                 const Metric& getMetricOf(unsigned char character) const;
 
                 // Text metrics
-                void getBoundsOf(const std::string& text) const;
-                void getBoundsOf(const std::string& text, unsigned int height);
-                void getBaselineBoundsOf(const std::string& text);
-                void getBaselineBoundsOf(const std::string& text, unsigned int height);
+                glm::vec2 getBoundsOf(const std::string& text) const;
+                glm::vec2 getBoundsOf(const std::string& text, unsigned int height) const;
 
             private:
                 void _setHeight(unsigned int height);
                 void _setPath(const std::string& path);
 
-                void _logBrokenGlyph(unsigned int glyphCode);
+                void _logBrokenGlyph(unsigned int glyphCode) const;
                 void _prepareTexture(const glm::uvec2& textureSize);
-                void _computeEmptyGlyphMetric(unsigned int glyphCode);
                 void _computeGlyphMetric(unsigned int glyphCode,
                     const glm::uvec2& glyphSize, const glm::uvec2& glyphOffset, const glm::uvec2& textureSize);
-                void _correctSpaceMetric();
 
-                glm::uvec2 _getCurrentFaceGlyphSize();
-                std::pair<glm::uvec2, glm::uvec2> _computeTextureSizes();
+                glm::uvec2 _getCurrentFaceGlyphSize() const;
+                std::pair<glm::uvec2, glm::uvec2> _computeTextureSizes() const;
 
-                bool _textureSet;
+                bool _isGenerated;
                 unsigned int _height;
                 std::string _path;
                 GL::Texture _texture;
-                Metric _glyphs[128];
+                std::vector<Metric> _glyphs;
                 void* _face;
 
                 static void _initializeFT() throw(GLUL::Exception::FatalError);

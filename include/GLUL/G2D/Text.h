@@ -49,9 +49,15 @@ namespace GLUL {
                 void setAlignment(Alignment alignment);
                 Alignment getAlignment() const;
 
+                static void moveCursor(glm::vec2& cursorPos, const glm::vec2& baseline, char character, const Font& font);
+
             protected:
-                void _moveCursor(glm::vec2& cursorPosition, char character, const Font& font) const;
+                void _alignCursor(glm::vec2& cursorPos, char character, unsigned int& line, const std::vector<float>& lineAlignments) const;
                 void _pushToBatch(TexturedGeometryBatch& texGeometryBatch, const Font& font) const;
+
+                float _getLineAlignment(const Font& font, const std::string& text, Alignment alignment) const;
+                std::vector<float> _getLinesAlignment(const Font& font, const std::string& text, Alignment alignment) const;
+
 
                 std::string _text;
                 glm::vec2 _position;
