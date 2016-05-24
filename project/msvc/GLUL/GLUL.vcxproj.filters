@@ -428,6 +428,12 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\HorizontalAlignment.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Rectangle.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedRectangle.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
@@ -717,6 +723,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\Text.cpp">
       <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Rectangle.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedRectangle.cpp">
+      <Filter>Source Files\G2D</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

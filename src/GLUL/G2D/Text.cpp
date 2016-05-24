@@ -1,5 +1,5 @@
 #include <GLUL/G2D/Text.h>
-#include <GLUL/G2D/TexturedQuad.h>
+#include <GLUL/G2D/TexturedRectangle.h>
 
 #include <cctype>
 
@@ -134,7 +134,7 @@ namespace GLUL {
 
                 if(isDrawn)
                     texGeometryBatch.addPrimitive(
-                        TexturedQuad {
+                        TexturedRectangle {
                             { characterPos, metric.texPosStart, getColor() },
                             metric.size,
                             metric.texPosEnd - metric.texPosStart
