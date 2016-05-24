@@ -115,7 +115,7 @@ void test_rings_disks() {
 }
 
 void test_textured_triangles() {
-    static GL::Texture texture("tex.bmp");
+    static GL::Texture texture("assets/textures/tex.bmp");
 
     static GLUL::G2D::TexturedPoint tp1 { {  20.0f, 250.0f }, { 0.0f, 0.0f } };
     static GLUL::G2D::TexturedPoint tp2 { { 120.0f, 250.0f }, { 1.0f, 0.0f } };
@@ -133,8 +133,8 @@ void test_textured_triangles() {
 }
 
 void test_textured_batching() {
-    static GL::Texture texture1("tex.bmp");
-    static GL::Texture texture2("tex.bmp");
+    static GL::Texture texture1("assets/textures/tex.bmp");
+    static GL::Texture texture2("assets/textures/tex.bmp");
 
     static GLUL::G2D::TexturedPoint tp_t1 { { 320.0f, 250.0f }, { 0.0f, 0.0f } };
     static GLUL::G2D::TexturedPoint tp_t2 { { 420.0f, 250.0f }, { 1.0f, 0.0f } };
@@ -155,7 +155,7 @@ void test_textured_batching() {
 }
 
 void test_font_text() {
-    static GLUL::G2D::Font font { "arial.ttf", 24 };
+    static GLUL::G2D::Font font { "assets/fonts/arial.ttf", 24 };
     static std::string lorem_ipsum { "Lorem ipsum" };
     static std::string text1 { "To left\n"  + lorem_ipsum };
     static std::string text2 { "To right\n" + lorem_ipsum };

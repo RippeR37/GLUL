@@ -131,7 +131,6 @@ namespace GLUL {
 
             for(char character : text)
             {
-                bool isDrawn = (std::isgraph(character) > 0);
                 auto& metric = getMetricOf(character);
                 auto posStart = cursorPos + metric.glyphPos - glm::vec2 { 0.0f, metric.size.y };
                 auto posEnd = posStart + metric.size;
