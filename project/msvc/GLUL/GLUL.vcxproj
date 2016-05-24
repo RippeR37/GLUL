@@ -191,6 +191,7 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\Circle.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Disk.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Font.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\HorizontalAlignment.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Line.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\LineLoop.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\LineStrip.h" />
@@ -312,6 +313,7 @@
     <ClCompile Include="..\..\..\src\GLUL\G2D\Quad.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\GeometryBatch.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Ring.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Text.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedGeometryBatch.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedPoint.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedPrimitive.cpp" />

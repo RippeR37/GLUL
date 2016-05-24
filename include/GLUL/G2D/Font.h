@@ -33,21 +33,21 @@ namespace GLUL {
                 void load(const std::string& path, unsigned int height);
                 void generate(unsigned int height);
 
-                // Metrics
+                const std::string& getPath() const;
+                const GL::Texture& getTexture() const;
+
+                // Font metrics
                 float getLineHeight() const;
                 float getAscender() const;
                 float getDescender() const;
                 unsigned int getHeight() const;
+                const Metric& getMetricOf(unsigned char character) const;
 
-                const std::string& getPath() const;
-                const GL::Texture& getTexture() const;
-                const Metric& getMetric(unsigned char character) const;
-
-                // Other metrics
-                // ??
-                // ????
-                // ??????
-                // ????????
+                // Text metrics
+                void getBoundsOf(const std::string& text) const;
+                void getBoundsOf(const std::string& text, unsigned int height);
+                void getBaselineBoundsOf(const std::string& text);
+                void getBaselineBoundsOf(const std::string& text, unsigned int height);
 
             private:
                 void _setHeight(unsigned int height);
@@ -63,6 +63,7 @@ namespace GLUL {
                 glm::uvec2 _getCurrentFaceGlyphSize();
                 std::pair<glm::uvec2, glm::uvec2> _computeTextureSizes();
 
+                bool _textureSet;
                 unsigned int _height;
                 std::string _path;
                 GL::Texture _texture;
@@ -70,6 +71,8 @@ namespace GLUL {
                 void* _face;
 
                 static void _initializeFT() throw(GLUL::Exception::FatalError);
+
+                friend class TexturedGeometryBatch;
         };
 
     }

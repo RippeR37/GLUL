@@ -1,6 +1,8 @@
 #include <GLUL/Logger.h>
 #include <GLUL/GL++/Context.h>
 #include <GLUL/GL++/Texture.h>
+#include <GLUL/G2D/Font.h>
+#include <GLUL/G2D/Text.h>
 #include <GLUL/G2D/TexturedGeometryBatch.h>
 #include <GLUL/G2D/TexturedPrimitive.h>
 
@@ -43,6 +45,34 @@ namespace GLUL {
             compute();
         }
 
+        TexturedGeometryBatch::TexturedGeometryBatch(const Text& text, const Font& font)
+            : TexturedGeometryBatch()
+        {
+            addText(text, font);
+            compute();
+        }
+
+        TexturedGeometryBatch::TexturedGeometryBatch(const std::vector<TextRef>& texts, const Font& font)
+            : TexturedGeometryBatch()
+        {
+            addTexts(texts, font);
+            compute();
+        }
+
+        TexturedGeometryBatch::TexturedGeometryBatch(const std::vector< std::pair<TextRef, FontRef> >& texts)
+            : TexturedGeometryBatch()
+        {
+            addTexts(texts);
+            compute();
+        }
+
+        TexturedGeometryBatch::TexturedGeometryBatch(const std::initializer_list< std::pair<TextRef, FontRef> >& texts)
+            : TexturedGeometryBatch()
+        {
+            addTexts(texts);
+            compute();
+        }
+
         void TexturedGeometryBatch::addPrimitive(const TexturedPrimitive& primitive, const GL::Texture& texture) {
             primitive._pushToBatch(*this, texture);
         }
@@ -60,6 +90,29 @@ namespace GLUL {
         void TexturedGeometryBatch::addPrimitives(const std::initializer_list< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives) {
             for(auto& pair : primitives)
                 addPrimitive(pair.first, pair.second);
+        }
+
+        void TexturedGeometryBatch::addText(const Text& text, const Font& font)
+        {
+            text._pushToBatch(*this, font);
+        }
+
+        void TexturedGeometryBatch::addTexts(const std::vector<TextRef>& texts, const Font& font)
+        {
+            for(auto& text : texts)
+                addText(text, font);
+        }
+
+        void TexturedGeometryBatch::addTexts(const std::vector< std::pair<TextRef, FontRef> >& texts)
+        {
+            for(auto& pair : texts)
+                addText(pair.first, pair.second);
+        }
+
+        void TexturedGeometryBatch::addTexts(const std::initializer_list< std::pair<TextRef, FontRef> >& texts)
+        {
+            for(auto& pair : texts)
+                addText(pair.first, pair.second);
         }
 
         void TexturedGeometryBatch::compute() {

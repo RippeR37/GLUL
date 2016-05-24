@@ -31,7 +31,7 @@ namespace GLUL {
                 void load(const std::string& path, unsigned int fontHeight);
 
                 void generate(unsigned int fontHeight);
-                
+
                 float getLineHeight() const;
                 float getAscender() const;
                 float getDescender() const;

@@ -15,9 +15,8 @@ namespace GLUL {
 
         static FT_Library _FT_library;
 
-        Font::Font() throw(GLUL::Exception::FatalError) : _height(0) {
-            Font::_initializeFT();
-
+        Font::Font() throw(GLUL::Exception::FatalError) : _textureSet(false), _height(0u) {
+            _initializeFT();
             _face = new FT_Face();
         }
 
@@ -31,7 +30,6 @@ namespace GLUL {
 
         Font::~Font() {
             FT_Done_Face((*static_cast<FT_Face*>(_face)));
-
             delete static_cast<FT_Face*>(_face);
         }
 
@@ -39,7 +37,7 @@ namespace GLUL {
             _setPath(path);
 
             if(FT_New_Face(_FT_library, getPath().c_str(), 0, static_cast<FT_Face*>(_face)))
-                GLUL::Log::Stream("_Library").logError("[FreeType] Unable to load face from file '" + path + "'");
+                GLUL::Log::LibraryStream().logError("[FreeType] Unable to load face from file '" + path + "'");
         }
 
         void Font::load(const std::string& path, unsigned int height) {
@@ -48,6 +46,8 @@ namespace GLUL {
         }
 
         void Font::generate(unsigned int height) {
+            _setHeight(height);
+
             auto textureRowAndTotalSizes = _computeTextureSizes();
             glm::uvec2 rowSize = textureRowAndTotalSizes.first;
             glm::uvec2 totalSize = textureRowAndTotalSizes.second;
@@ -59,15 +59,12 @@ namespace GLUL {
             // Set pixel unpack alignment
             GL::Context::Current->setPixelUnpackAlignment(1);
 
-            // Set height
-            _setHeight(height);
-
             // Prepare texture
             _texture.bind();
             _prepareTexture(totalSize);
 
             // Fill texture with glyphs
-            for(int glyph = 0; glyph < 128; ++glyph) {
+            for(unsigned int glyph = 0u; glyph < 128u; ++glyph) {
                 if(FT_Load_Char(face, glyph, FT_LOAD_RENDER)) {
                     _logBrokenGlyph(glyph);
 
@@ -89,8 +86,16 @@ namespace GLUL {
                 }
             }
 
-            _correctSpaceMetric();
             _texture.unbind();
+            _correctSpaceMetric();
+        }
+
+        const std::string& Font::getPath() const {
+            return _path;
+        }
+
+        const GL::Texture& Font::getTexture() const {
+            return _texture;
         }
 
         float Font::getLineHeight() const {
@@ -109,15 +114,7 @@ namespace GLUL {
             return _height;
         }
 
-        const std::string& Font::getPath() const {
-            return _path;
-        }
-
-        const GL::Texture& Font::getTexture() const {
-            return _texture;
-        }
-
-        const Font::Metric& Font::getMetric(unsigned char character) const {
+        const Font::Metric& Font::getMetricOf(unsigned char character) const {
             return _glyphs[character];
         }
 
@@ -142,16 +139,24 @@ namespace GLUL {
         }
 
         void Font::_prepareTexture(const glm::uvec2& textureSize) {
-            _texture.setTarget(GL::Texture::Target::Tex2D);
-            _texture.setFormat(GL::Texture::Format::Red);
-            _texture.setInternalFromat(GL::Texture::InternalFormat::Red);
+            if(!_textureSet) {
+                _texture.setTarget(GL::Texture::Target::Tex2D);
+                _texture.setFormat(GL::Texture::Format::Red);
+                _texture.setInternalFromat(GL::Texture::InternalFormat::Red);
 
-            _texture.setParameters(std::list<std::pair<GLenum, GLint>>({
-                std::pair<GLenum, GLint>(GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE),
-                std::pair<GLenum, GLint>(GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE),
-                std::pair<GLenum, GLint>(GL_TEXTURE_MIN_FILTER, GL_LINEAR),
-                std::pair<GLenum, GLint>(GL_TEXTURE_MAG_FILTER, GL_LINEAR),
-            }));
+                _texture.setParameters(std::list<std::pair<GLenum, GLint>> {
+                    { GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE },
+                    { GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE },
+                    { GL_TEXTURE_MIN_FILTER, GL_LINEAR },
+                    { GL_TEXTURE_MAG_FILTER, GL_LINEAR },
+                    { GL_TEXTURE_SWIZZLE_R, GL_ONE },
+                    { GL_TEXTURE_SWIZZLE_G, GL_ONE },
+                    { GL_TEXTURE_SWIZZLE_B, GL_ONE },
+                    { GL_TEXTURE_SWIZZLE_A, GL_RED },
+                });
+
+                _textureSet = true;
+            }
 
             _texture.setData2D(textureSize.x, textureSize.y, GL_UNSIGNED_BYTE, nullptr);
         }
@@ -193,13 +198,13 @@ namespace GLUL {
             };
 
             _glyphs[glyphCode].texPosStart = {
-                static_cast<float>(glyphOffset.x) / static_cast<float>(totalSize.x),
+                static_cast<float>(glyphOffset.x)               / static_cast<float>(totalSize.x),
                 static_cast<float>(glyphOffset.y + glyphSize.y) / static_cast<float>(totalSize.y)
             };
 
             _glyphs[glyphCode].texPosEnd = {
                 static_cast<float>(glyphOffset.x + glyphSize.x) / static_cast<float>(totalSize.x),
-                static_cast<float>(glyphOffset.x) / static_cast<float>(totalSize.y)
+                static_cast<float>(glyphOffset.y)               / static_cast<float>(totalSize.y)
             };
         }
 
@@ -218,6 +223,7 @@ namespace GLUL {
         }
 
         std::pair<glm::uvec2, glm::uvec2> Font::_computeTextureSizes() {
+            FT_Face face = (*static_cast<FT_Face*>(_face));
             glm::uvec2 rowSize;
             glm::uvec2 totalSize = { 0u, 1u };
             unsigned int maxRowWidth = 2048u;
@@ -230,7 +236,7 @@ namespace GLUL {
             };
 
             for(unsigned int glyph = 0; glyph < 128u; ++glyph) {
-                if(FT_Load_Char((*static_cast<FT_Face*>(_face)), glyph, FT_LOAD_RENDER)) {
+                if(FT_Load_Char(face, glyph, FT_LOAD_RENDER)) {
                     _logBrokenGlyph(glyph);
                 } else {
                     if(std::isgraph(glyph)) {
@@ -252,7 +258,7 @@ namespace GLUL {
                 nextPowerOf2(totalSize.y * heighestRow, 1u) // totalSize.y stored row count
             };
 
-            return std::make_pair(rowSize, totalSize);
+            return { rowSize, totalSize };
         }
 
         void Font::_initializeFT() throw(GLUL::Exception::FatalError) {

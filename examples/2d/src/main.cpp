@@ -2,6 +2,7 @@
 #include <GLUL/GUI/Window.h>
 #include <GLUL/G2D/Circle.h>
 #include <GLUL/G2D/Disk.h>
+#include <GLUL/G2D/Font.h>
 #include <GLUL/G2D/Line.h>
 #include <GLUL/G2D/LineLoop.h>
 #include <GLUL/G2D/Point.h>
@@ -9,6 +10,7 @@
 #include <GLUL/G2D/TriangleStrip.h>
 #include <GLUL/G2D/Quad.h>
 #include <GLUL/G2D/Ring.h>
+#include <GLUL/G2D/Text.h>
 #include <GLUL/G2D/TexturedTriangle.h>
 #include <GLUL/G2D/TexturedQuad.h>
 
@@ -35,8 +37,8 @@ void test_lines() {
 
 void test_triangles() {
     static GLUL::G2D::Point p1 { { 350.0f, 490.0f } }; p1.setColor({ 1.0f, 0.0f, 0.0f, 1.0f });
-    static GLUL::G2D::Point p2 { { 400.0f, 565.0f } }; p2.setColor({ 0.0f, 1.0f, 0.0f, 1.0f });
-    static GLUL::G2D::Point p3 { { 450.0f, 490.0f } }; p3.setColor({ 0.0f, 0.0f, 1.0f, 1.0f });
+    static GLUL::G2D::Point p2 { { 450.0f, 490.0f } }; p2.setColor({ 0.0f, 1.0f, 0.0f, 1.0f });
+    static GLUL::G2D::Point p3 { { 400.0f, 565.0f } }; p3.setColor({ 0.0f, 0.0f, 1.0f, 1.0f });
     static GLUL::G2D::Triangle t { p1, p2, p3 };
     static GLUL::G2D::GeometryBatch batch { t };
 
@@ -71,15 +73,15 @@ void test_triangle_strips() {
 void test_no_batch() {
     static GLUL::G2D::Triangle triangle {
         glm::vec2 {  40.0f, 400.0f },
-        glm::vec2 {  70.0f, 460.0f },
-        glm::vec2 { 100.0f, 400.0f }
+        glm::vec2 { 100.0f, 400.0f },
+        glm::vec2 {  70.0f, 460.0f }
     };
 
     static GLUL::G2D::Quad quad {
-        glm::vec2 { 170.0f, 460.0f },
-        glm::vec2 { 250.0f, 460.0f },
+        glm::vec2 { 145.0f, 400.0f },
         glm::vec2 { 225.0f, 400.0f },
-        glm::vec2 { 145.0f, 400.0f }
+        glm::vec2 { 250.0f, 460.0f },
+        glm::vec2 { 170.0f, 460.0f }
     };
 
     triangle.setColor({ 0.3f, 0.8f, 0.5f, 1.0f });
@@ -144,7 +146,30 @@ void test_textured_batching() {
 
     static GLUL::G2D::TexturedTriangle triangle { tp_t1, tp_t2, tp_t3 };
     static GLUL::G2D::TexturedQuad quad { tp_q1, tp_q2, tp_q3, tp_q4 };
-    static GLUL::G2D::TexturedGeometryBatch batch = { { quad, texture2 }, { triangle, texture1 } };
+    static GLUL::G2D::TexturedGeometryBatch batch { { quad, texture2 }, { triangle, texture1 } };
+
+    batch.render();
+}
+
+void test_font_bounds() {
+    static GLUL::G2D::Font font { "arial.ttf", 128 };
+
+    auto& metric = font.getMetricOf('a');
+    // auto textRect1 = font.getBoundsOf("Hello world");
+    // auto textRect2 = font.getBoundsOf("Hello world", 16);
+    // auto textRect3 = font.getBaselineBoundsOf("Hello world");
+    // auto textRect3 = font.getBaselineBoundsOf("Hello world", 16);
+}
+
+void test_font_text() {
+    static GLUL::G2D::Font font { "arial.ttf", 24 };
+
+    static GLUL::G2D::Text text1 { "Hello world", { 150.0f,  50.0f } };
+    static GLUL::G2D::Text text2 { "Hello world", { 150.0f, 100.0f }, GLUL::G2D::Text::Alignment::Center };
+    static GLUL::G2D::Text text3 { "Hello world", { 150.0f, 150.0f }, { 0.2f, 0.2f, 1.0f } };
+    static GLUL::G2D::Text text4 { "Hello world", { 150.0f, 200.0f }, { 0.2f, 0.2f, 1.0f, 1.0f }, GLUL::G2D::Text::Alignment::Right };
+
+    static GLUL::G2D::TexturedGeometryBatch batch { { text1, text2, text3, text4 }, font };
 
     batch.render();
 }
@@ -154,6 +179,11 @@ void run() {
 
     window.create();
     window.getContext().setClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
+
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    glEnable(GL_CULL_FACE);
 
     while(window.isCreated() && !window.shouldClose()) {
         window.getContext().clearBuffers(GL::Context::BufferMask::Color);
@@ -168,6 +198,7 @@ void run() {
         test_rings_disks();
         test_textured_triangles();
         test_textured_batching();
+        test_font_text();
 
         window.render();
         window.update();

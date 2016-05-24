@@ -17,7 +17,7 @@ namespace GLUL {
                     void log(const std::string& message);
                     void logError(const std::string& errorMessage);
                     void logWarning(const std::string& warningMessage);
-                    
+
                 private:
                     LoggerStream();
                     LoggerStream(const LoggerStream&) = delete;
@@ -51,7 +51,7 @@ namespace GLUL {
             Logger();
             Logger(const Logger&) = delete;
             ~Logger();
-            
+
             Logger& operator=(const Logger&) = delete;
 
             static Logger& getInstance();

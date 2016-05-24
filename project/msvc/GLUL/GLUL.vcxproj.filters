@@ -209,13 +209,7 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Container.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Font.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\GUI\InnerText.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Text.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\GUI\TextField.h">
@@ -425,6 +419,15 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedQuad.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Text.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Font.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\HorizontalAlignment.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
@@ -541,13 +544,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Container.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Font.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\InnerText.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Text.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\TextField.cpp">
@@ -711,6 +708,15 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedGeometryBatch.cpp">
       <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Text.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Font.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Text.cpp">
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -31,7 +31,7 @@ namespace GLUL {
     }
 
     Logger::LoggerStream& Logger::Stream(const std::string& streamName) {
-        if(getInstance()._streams.count(streamName)) 
+        if(getInstance()._streams.count(streamName))
             return getInstance()._streams[streamName];
         else
             return LibraryStream();
@@ -39,11 +39,11 @@ namespace GLUL {
 
     Logger::LoggerStream& Logger::LibraryStream() {
         const std::string libraryStreamName = "_Library";
-        const std::string libraryStreamPath = "logLibrary.log";
+        const std::string libraryStreamPath = "logGLUL.log";
 
         if(getInstance()._streams.count(libraryStreamName) == 0)
             Stream(libraryStreamName, libraryStreamPath);
-        
+
         return Stream(libraryStreamName);
     }
 
@@ -80,11 +80,11 @@ namespace GLUL {
     }
 
     void Logger::LoggerStream::logError(const std::string& errorMessage) {
-        log(std::string("[Error]: ") + errorMessage);
+        log(std::string("[Error] ") + errorMessage);
     }
 
     void Logger::LoggerStream::logWarning(const std::string& warningMessage) {
-        log(std::string("[Warning]: ") + warningMessage);
+        log(std::string("[Warning] ") + warningMessage);
     }
 
     bool Logger::LoggerStream::open() {
