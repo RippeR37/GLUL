@@ -21,7 +21,7 @@
 void test_point() {
     static GLUL::G2D::Point p1 { {  40.0f, 500.0f },  5 };
     static GLUL::G2D::Point p2 { {  70.0f, 550.0f }, 10 };
-    static GLUL::G2D::Point p3 { { 100.0f, 500.0f },  5 };
+    static GLUL::G2D::Point p3 { { 100.0f, 500.0f }, 15 };
     static GLUL::G2D::Batch batch { p1, p2, p3 };
 
     batch.render();
@@ -39,9 +39,9 @@ void test_lines() {
 }
 
 void test_triangles() {
-    static GLUL::G2D::Point p1 { { 350.0f, 490.0f } }; p1.setColor({ 1.0f, 0.0f, 0.0f, 1.0f });
-    static GLUL::G2D::Point p2 { { 450.0f, 490.0f } }; p2.setColor({ 0.0f, 1.0f, 0.0f, 1.0f });
-    static GLUL::G2D::Point p3 { { 400.0f, 565.0f } }; p3.setColor({ 0.0f, 0.0f, 1.0f, 1.0f });
+    static GLUL::G2D::Point p1 { { 350.0f, 490.0f }, { 1.0f, 0.0f, 0.0f, 1.0f } };
+    static GLUL::G2D::Point p2 { { 450.0f, 490.0f }, { 0.0f, 1.0f, 0.0f, 1.0f } };
+    static GLUL::G2D::Point p3 { { 400.0f, 565.0f }, { 0.0f, 0.0f, 1.0f, 1.0f } };
     static GLUL::G2D::Triangle t { p1, p2, p3 };
     static GLUL::G2D::Batch batch { t };
 
@@ -75,16 +75,15 @@ void test_triangle_strips() {
 
 void test_no_batch() {
     static GLUL::G2D::Triangle triangle {
-        glm::vec2 {  40.0f, 400.0f },
-        glm::vec2 { 100.0f, 400.0f },
-        glm::vec2 {  70.0f, 460.0f }
+        {  40.0f, 400.0f },
+        { 100.0f, 400.0f },
+        {  70.0f, 460.0f }
     };
-
     static GLUL::G2D::Quad quad {
-        glm::vec2 { 145.0f, 400.0f },
-        glm::vec2 { 225.0f, 400.0f },
-        glm::vec2 { 250.0f, 460.0f },
-        glm::vec2 { 170.0f, 460.0f }
+        { 145.0f, 400.0f },
+        { 225.0f, 400.0f },
+        { 250.0f, 460.0f },
+        { 170.0f, 460.0f }
     };
 
     triangle.setColor({ 0.3f, 0.8f, 0.5f, 1.0f });
@@ -95,18 +94,18 @@ void test_no_batch() {
 }
 
 void test_circles() {
-    static GLUL::G2D::Circle c1 { glm::vec2 { 430.0f, 440.0f }, 40.0f }; c1.setColor({ 0.7f, 0.2f, 0.7f, 1.0f });
-    static GLUL::G2D::Circle c2 { glm::vec2 { 325.0f, 440.0f }, 30.0f }; c2.setColor({ 0.2f, 0.5f, 0.9f, 1.0f });
-    static GLUL::G2D::Circle c3 { glm::vec2 { 550.0f, 400.0f }, 70.0f }; c3.setColor({ 1.0f, 0.7f, 0.0f, 1.0f });
+    static GLUL::G2D::Circle c1 { { { 430.0f, 440.0f }, { 0.7f, 0.2f, 0.7f } }, 40.0f };
+    static GLUL::G2D::Circle c2 { { { 325.0f, 440.0f }, { 0.2f, 0.5f, 0.9f } }, 30.0f };
+    static GLUL::G2D::Circle c3 { { { 550.0f, 400.0f }, { 1.0f, 0.7f, 0.0f } }, 70.0f };
     static GLUL::G2D::Batch batch { c1, c2, c3 };
 
     batch.render();
 }
 
 void test_rings_disks() {
-    static GLUL::G2D::Ring r1 { glm::vec2 { 430.0f, 350.0f }, 30.0f, 40.0f }; r1.setColor({ 0.7f, 0.2f, 0.7f, 1.0f });
-    static GLUL::G2D::Ring r2 { glm::vec2 { 325.0f, 350.0f }, 15.0f, 30.0f }; r2.setColor({ 0.2f, 0.5f, 0.9f, 1.0f });
-    static GLUL::G2D::Disk d1 { glm::vec2 { 700.0f, 400.0f }, 35.0f, 70.0f };
+    static GLUL::G2D::Ring r1 { { { 430.0f, 350.0f }, { 0.7f, 0.2f, 0.7f } }, 30.0f, 40.0f };
+    static GLUL::G2D::Ring r2 { { { 325.0f, 350.0f }, { 0.2f, 0.5f, 0.9f } }, 15.0f, 30.0f};
+    static GLUL::G2D::Disk d1 { { 700.0f, 400.0f }, 35.0f, 70.0f };
 
     d1.setInnerColor({ 0.2f, 0.2f, 0.2f, 1.0f });
     d1.setOuterColor({ 1.0f, 0.7f, 0.0f, 1.0f });
@@ -158,13 +157,16 @@ void test_textured_batching() {
 
 void test_font_text() {
     static GLUL::G2D::Font font { "assets/fonts/arial.ttf", 24 };
+
     static std::string lorem_ipsum { "Lorem ipsum" };
     static std::string text1 { "To left\n"  + lorem_ipsum };
     static std::string text2 { "To right\n" + lorem_ipsum };
     static std::string text3 { "Centered\n" + lorem_ipsum };
+
     static GLUL::G2D::Text t1 { text1, {  50.0f, 200.0f }, { 1.0f, 0.2f, 0.2f } };
     static GLUL::G2D::Text t2 { text2, { 750.0f, 200.0f }, { 0.2f, 1.0f, 0.2f }, GLUL::G2D::Text::Alignment::Right };
     static GLUL::G2D::Text t3 { text3, { 400.0f, 200.0f }, { 0.2f, 0.2f, 1.0f }, GLUL::G2D::Text::Alignment::Center };
+
     static GLUL::G2D::TexturedBatch batch { { t1, t2, t3 }, font };
 
     batch.render();
