@@ -10,52 +10,54 @@
 
 
 ### Main features
+- **Modern library**
+    - designed with **C++11** and **OpenGL** >= **3.3** in mind
+    - no ugly hacks or workarounds
+    - easy to read and understand code
 - **Modern OpenGL object-oriented wrapper**
     - type safety with strongly typed enumerations
     - no more resource leaks thanks to RAII
     - grouped functionality for ease of use
     - **low-level access to OpenGL functionality**
     - **high-level abstractions to common usage patterns**
-- Window creation and management
-    - multiple window support (through _GLFW3_)
+- **Window creation and management**
+    - multiple window support
 - **Input management**
     - direct access to state of IO devices (Keyboard, Mouse, etc.)
     - event based abstractions
         - event aggregators, handlers and triggers
-- Framework(s) to speed-up building small-to-medium applications and games
-- Model loaders (e.g. OBJ model loader with full integration to library)
-- Many small usefull modules like:
-    - clock module to measure performance/time
-    - logging module (with custom streams)
-    - image module
-        - support for BMP, TGA, JPEG and PNG images
-        - both read and write for most popular formats
-    - operations on strings, files, timers, time loops, etc.
-    - and others...
-- **2D graphics module** (in progress)
+- **2D graphics module**
     - most popular primitives and shapes
-        - Points, Lines, Triangles, Quads, Circles, Rings, and so on...
+        - Points, Lines, Triangles, Quads, Rectangles, Circles, Disks and so on...
         - Sprites
         - Text rendering
             - dynamic fonts (through FreeType2)
     - easily extendable
     - very fast, uses:
         - modern OpenGL (VAOs, VBOs etc.)
-        - geometry batching (all geometry can be drawn in one call\*)
+        - batching (all geometry can be drawn in one call\*)
 - **GUI module** (in progress)
     - component/container architecture
     - easly extendable
     - many built-in widgets
         - buttons, checkboxes, input fields, sliders, progress bars etc.
-        - more on its way, and it's very easy to write new ones
     - many handy events like onMouseEnter, onMouseClick, onValueChange etc.
+- Framework(s) to speed-up building small-to-medium applications and games
+- Model loaders (e.g. OBJ model loader with full integration to library)
+- Many small usefull modules like:
+    - clock module to measure performance/time
+    - logging module (with custom streams)
+    - image module
+        - support for BMP, TGA, JPEG and PNG images (read & write)
+    - operations on strings, files, timers, time loops, etc.
+    - and others...
 - **Cross-platform support**
     - Windows
     - Linux
     - Mac OS
 
 
-Library strongly uses C++11 features like move constructors/assignment operators, lambdas, range-based loops, strongly typed pointers (with nullptr), strongly typed enumerations (_enum class_), hash maps etc. when it's clear much would be gained by it.
+Library frequently uses C++11 features like move constructors/assignment operators, lambdas, range-based loops, strongly typed pointers (with nullptr), strongly typed enumerations (_enum class_), hash maps etc.
 
 
 ## Building
@@ -89,8 +91,8 @@ Library strongly uses C++11 features like move constructors/assignment operators
 
 ### Compilers tested
 - MSVC (tested on Visual Studio 2013)
-- GCC (tested on 5.1.0)
-- Clang 3.6
+- GCC (tested on GCC 5.1.0)
+- Clang (testen on Clang 3.6)
 
 
 ### Dependencies
@@ -108,6 +110,7 @@ You can find provided example projects showcasing library's usage in `example` d
 
 Provided examples:
 
+* **2D example** (showcase of available 2D graphic objects and their usage)
 * Basic example (window creation and basic OpenGL usage)
 * Font example (basic text rendering and internal font processing demo)
 * Framework example (simple demo showing off basic framework for simple applications)
@@ -122,4 +125,6 @@ This project is licensed under the [MIT License](LICENSE).
 
 
 ## Contributions
-Feel free to fork library (leaving details about author) and work on it with me. Issue list should be up to date on what is to do and what is to fix. If you'd like to see new features or functionality please contact me or add new issue and i'll do my best.
+Feel free to fork library (leaving details about author) and work on it with me. 
+Issue list should be up to date on what is to do and what is to fix. 
+If you'd like to see new features or functionality please contact me or add new issue and i'll do my best to add them.
