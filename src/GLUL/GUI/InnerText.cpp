@@ -105,7 +105,7 @@ namespace GLUL {
         float InnerText::getAlpha() const {
             return _text.getAlpha();
         }
-        
+
         Style::HorizontalAlignment InnerText::getHorizontalAlignment() const {
             return _horizontalAlignment;
         }
@@ -113,23 +113,23 @@ namespace GLUL {
         Style::VerticalAlignment InnerText::getVerticalAlignment() const {
             return _verticalAlignment;
         }
-        
+
         /**
          * TODO: fix this
          */
         void InnerText::updatePosition() {
-            GLUL::Rectangle textBounds;
+            G2D::Rectangle textBounds;
             float factorX, factorY;
 
             // Use font's height, not bounded
             textBounds = _text.getBounds();
-            textBounds.setHeight(static_cast<float>(_text.getFontHeight()));
+            textBounds.setSize({ textBounds.getSize().x, static_cast<float>(_text.getFontHeight()) });
 
             switch(getHorizontalAlignment()) {
                 case GUI::Style::HorizontalAlignment::Left:   factorX = 0.0f; break;
                 case GUI::Style::HorizontalAlignment::Center: factorX = 0.5f; break;
                 case GUI::Style::HorizontalAlignment::Right:  factorX = 1.0f; break;
-                default: 
+                default:
                     factorX = 0.5f;
             }
 
@@ -137,13 +137,14 @@ namespace GLUL {
                 case GUI::Style::VerticalAlignment::Top:    factorY = 0.0f; break;
                 case GUI::Style::VerticalAlignment::Center: factorY = 0.5f; break;
                 case GUI::Style::VerticalAlignment::Bottom: factorY = 1.0f; break;
-                default: 
+                default:
                     factorY = 0.5f;
             }
-           
+
+            // TODO: change to vec's multiplication & subtraction
             glm::vec2 padding = glm::vec2(
-                 factorX * (_component.getSize().x - textBounds.getWidth()),
-                 factorY * (_component.getSize().y - textBounds.getHeight())
+                 factorX * (_component.getSize().x - textBounds.getSize().x),
+                 factorY * (_component.getSize().y - textBounds.getSize().y)
             );
 
             _text.setPosition(_component.getScreenPosition() + padding);

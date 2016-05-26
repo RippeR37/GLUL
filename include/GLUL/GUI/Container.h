@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLUL/Rectangle.h>
+#include <GLUL/G2D/Rectangle.h>
 #include <GLUL/GUI/Component.h>
 
 #include <list>
@@ -42,7 +42,7 @@ namespace GLUL {
 
 
                 bool _wasScissorTestActive;
-                GLUL::Rectangle _scissorTestBox;
+                GLUL::G2D::Rectangle _scissorTestBox;
                 std::list<Component*> _components;
                 std::set<Component*> _componentsUnderMouse;
 

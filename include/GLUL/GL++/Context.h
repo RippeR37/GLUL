@@ -1,7 +1,7 @@
 #pragma once
 
 #include <GLUL/Config.h>
-#include <GLUL/Rectangle.h>
+#include <GLUL/G2D/Rectangle.h>
 
 #include <GL/glew.h>
 #include <glm/vec2.hpp>
@@ -48,7 +48,7 @@ namespace GL {
             void setViewport(GLint x, GLint y, GLint width, GLint height);
             void setViewport(const glm::ivec2& position, const glm::ivec2& size);
             void setScissorBox(GLint x, GLint y, GLsizei width, GLsizei height);
-            void setScissorBox(const GLUL::Rectangle& scissorBox);
+            void setScissorBox(const GLUL::G2D::Rectangle& scissorBox);
 
             void setPixelPackAlignment(GLint value);
             void setPixelUnpackAlignment(GLint value);
@@ -61,7 +61,7 @@ namespace GL {
 
             const glm::ivec2& getViewportSize() const;
             const glm::ivec2& getViewportPosition() const;
-            const GLUL::Rectangle& getScissorBox() const;
+            const GLUL::G2D::Rectangle& getScissorBox() const;
 
             GLint getPixelPackAlignment() const;
             GLint getPixelUnpackAlignment() const;
@@ -90,7 +90,7 @@ namespace GL {
 
             glm::ivec2 _viewportSize;
             glm::ivec2 _viewportPosition;
-            GLUL::Rectangle _scissorBox;
+            GLUL::G2D::Rectangle _scissorBox;
 
             GLUL::Window* _window;
     };

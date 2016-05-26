@@ -1,6 +1,6 @@
-#include <GLUL/GL++/Context.h>
 #include <GLUL/Logger.h>
 #include <GLUL/Window.h>
+#include <GLUL/GL++/Context.h>
 
 
 namespace GL {
@@ -158,15 +158,13 @@ namespace GL {
 
 
     void Context::setScissorBox(GLint x, GLint y, GLsizei width, GLsizei height) {
-        setScissorBox(GLUL::Rectangle(
-            static_cast<float>(x),
-            static_cast<float>(y),
-            static_cast<float>(width),
-            static_cast<float>(height)
-        ));
+        setScissorBox({
+            { static_cast<float>(x),     static_cast<float>(y)      },
+            { static_cast<float>(width), static_cast<float>(height) }
+        });
     }
 
-    void Context::setScissorBox(const GLUL::Rectangle& scissorBox) {
+    void Context::setScissorBox(const GLUL::G2D::Rectangle& scissorBox) {
         if(isActive()) {
             if(isScissorTestEnabled() == false)
                 enableScissorTest();
@@ -176,7 +174,7 @@ namespace GL {
                 static_cast<GLint>(scissorBox.getPosition().y),
                 static_cast<GLsizei>(scissorBox.getSize().x),
                 static_cast<GLsizei>(scissorBox.getSize().y)
-                );
+            );
 
             _scissorBox = scissorBox;
         }
@@ -229,7 +227,7 @@ namespace GL {
         return _viewportPosition;
     }
 
-    const GLUL::Rectangle& Context::getScissorBox() const {
+    const GLUL::G2D::Rectangle& Context::getScissorBox() const {
         return _scissorBox;
     }
 

@@ -286,10 +286,10 @@ namespace GLUL {
         }
 
         void Container::enableClipping() const {
-            glm::vec2 windowSize = GL::Context::Current->getViewportSize();
-            GLUL::Rectangle containerBounds = getBounds();
+            auto windowSize = GL::Context::Current->getViewportSize();
+            auto containerBounds = getBounds();
 
-            containerBounds.setPoint({
+            containerBounds.setPosition({
                 containerBounds.getPosition().x,
                 windowSize.y - containerBounds.getPosition().y - getSize().y
             });

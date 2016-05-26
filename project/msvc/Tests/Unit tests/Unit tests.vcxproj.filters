@@ -19,12 +19,6 @@
     <ClCompile Include="..\..\..\..\tests\src\GLUL\Image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\src\GLUL\Line.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\src\GLUL\Point.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\tests\src\GLUL\String.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLUL/Rectangle.h>
+#include <GLUL/G2D/Rectangle.h>
 #include <GLUL/GUI/Events/Focus.h>
 #include <GLUL/GUI/Events/FocusLoss.h>
 #include <GLUL/GUI/Events/HandlerAggregator.hpp>
@@ -50,7 +50,7 @@ namespace GLUL {
                 Container* getParent();
 
                 virtual const glm::vec2 getScreenPosition() const;
-                virtual const GLUL::Rectangle getBounds() const;
+                virtual const G2D::Rectangle getBounds() const;
 
                 virtual Component& setEnabled(bool flag);
                 virtual Component& setFocused(bool flag);

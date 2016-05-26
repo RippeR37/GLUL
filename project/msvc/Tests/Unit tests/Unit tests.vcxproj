@@ -102,8 +102,6 @@
     <ClCompile Include="..\..\..\..\tests\src\GLUL\Clock.cpp" />
     <ClCompile Include="..\..\..\..\tests\src\GLUL\File.cpp" />
     <ClCompile Include="..\..\..\..\tests\src\GLUL\Image.cpp" />
-    <ClCompile Include="..\..\..\..\tests\src\GLUL\Line.cpp" />
-    <ClCompile Include="..\..\..\..\tests\src\GLUL\Point.cpp" />
     <ClCompile Include="..\..\..\..\tests\src\GLUL\String.cpp" />
     <ClCompile Include="..\..\..\..\tests\src\main.cpp" />
   </ItemGroup>
