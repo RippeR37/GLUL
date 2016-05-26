@@ -10,11 +10,13 @@
 
 
 ### Main features
-- **Modern library**
-    - designed with **C++11** and **OpenGL** >= **3.3** in mind
+- **Modern design**
+    - designed with **C++11** and **OpenGL 3.3+** in mind
     - no ugly hacks or workarounds
     - easy to read and understand code
-- **Modern OpenGL object-oriented wrapper**
+    - simple to use
+    - highly flexible
+- **OpenGL object-oriented wrapper**
     - type safety with strongly typed enumerations
     - no more resource leaks thanks to RAII
     - grouped functionality for ease of use
