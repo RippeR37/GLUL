@@ -18,7 +18,7 @@ namespace GLUL {
 
         class GLUL_API Primitive;
 
-        class GLUL_API GeometryBatch {
+        class GLUL_API Batch {
             public:
                 struct DrawCall {
                     GLint offset;
@@ -27,10 +27,10 @@ namespace GLUL {
                 };
 
             public:
-                GeometryBatch();
-                GeometryBatch(const Primitive& primitive);
-                GeometryBatch(const std::vector<std::reference_wrapper<const Primitive>>& primitives);
-                GeometryBatch(const std::initializer_list<std::reference_wrapper<const Primitive>>& primitives);
+                Batch();
+                Batch(const Primitive& primitive);
+                Batch(const std::vector<std::reference_wrapper<const Primitive>>& primitives);
+                Batch(const std::initializer_list<std::reference_wrapper<const Primitive>>& primitives);
 
                 void addPrimitive(const Primitive& primitive);
                 void addPrimitives(const std::vector<std::reference_wrapper<const Primitive>>& primitives);

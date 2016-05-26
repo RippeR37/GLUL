@@ -76,8 +76,8 @@ namespace GLUL {
             return _color;
         }
 
-        void Rectangle::_pushToBatch(GeometryBatch& geometryBatch) const {
-            geometryBatch.addPrimitive({
+        void Rectangle::_pushToBatch(Batch& batch) const {
+            batch.addPrimitive({
                 Quad {
                     Point { getPosition(), getColor() },
                     getSize()

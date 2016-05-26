@@ -1,7 +1,7 @@
 #pragma once
 
-#include <GLUL/G2D/Primitive.h>
 #include <GLUL/G2D/Point.h>
+#include <GLUL/G2D/Primitive.h>
 
 #include <array>
 
@@ -24,7 +24,7 @@ namespace GLUL {
                 std::array<Point, 2> points;
 
             protected:
-                void _pushToBatch(GeometryBatch& geometryBatch) const;
+                void _pushToBatch(Batch& batch) const;
 
                 using Primitive::setColor;
         };

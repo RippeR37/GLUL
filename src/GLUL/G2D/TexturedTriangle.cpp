@@ -31,7 +31,7 @@ namespace GLUL {
             return points[0].getColor();
         }
 
-        void TexturedTriangle::_pushToBatch(TexturedGeometryBatch& texGeometryBatch, const GL::Texture& texture) const {
+        void TexturedTriangle::_pushToBatch(TexturedBatch& texBatch, const GL::Texture& texture) const {
             std::vector<glm::vec4> vertexData {
                 glm::vec4 { points[0].getPosition(), points[0].getTexCoords() },
                 glm::vec4 { points[1].getPosition(), points[1].getTexCoords() },
@@ -44,7 +44,7 @@ namespace GLUL {
                 points[2].getColor()
             };
 
-            _pushDrawCall(texGeometryBatch, GL::VertexArray::DrawTarget::Triangles, vertexData, colorData, texture);
+            _pushDrawCall(texBatch, GL::VertexArray::DrawTarget::Triangles, vertexData, colorData, texture);
         }
 
     }

@@ -25,7 +25,7 @@ namespace GLUL {
                 std::vector<Point> points;
 
             protected:
-                void _pushToBatch(GeometryBatch& geometryBatch) const;
+                void _pushToBatch(Batch& batch) const;
 
                 using Primitive::setColor;
         };

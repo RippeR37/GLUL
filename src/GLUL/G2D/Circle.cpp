@@ -31,7 +31,7 @@ namespace GLUL {
             return result;
         }
 
-        void Circle::_pushToBatch(GeometryBatch& geometryBatch) const {
+        void Circle::_pushToBatch(Batch& batch) const {
             TriangleFan triangleFan;
             Point currentPoint = center;
 
@@ -53,7 +53,7 @@ namespace GLUL {
                 triangleFan.points.push_back(currentPoint);
             }
 
-            geometryBatch.addPrimitive(triangleFan);
+            batch.addPrimitive(triangleFan);
         }
 
     }

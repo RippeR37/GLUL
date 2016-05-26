@@ -1,7 +1,7 @@
 #pragma once
 
 #include <GLUL/Config.h>
-#include <GLUL/G2D/GeometryBatch.h>
+#include <GLUL/G2D/Batch.h>
 
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
@@ -21,12 +21,12 @@ namespace GLUL {
                 virtual const glm::vec4& getColor() const = 0;
 
             protected:
-                virtual void _pushToBatch(GeometryBatch& geometryBatch) const = 0;
+                virtual void _pushToBatch(Batch& batch) const = 0;
 
-                void _pushDrawCall(GeometryBatch& geometryBatch, GL::VertexArray::DrawTarget drawTarget,
+                void _pushDrawCall(Batch& batch, GL::VertexArray::DrawTarget drawTarget,
                     const std::vector<glm::vec4>& vertexData, const std::vector<glm::vec4>& colorData) const;
 
-                friend class GeometryBatch;
+                friend class Batch;
         };
 
     }

@@ -54,7 +54,7 @@ namespace GLUL {
             return Circle::defaultPointCount(outerRadius);
         }
 
-        void Disk::_pushToBatch(GeometryBatch& geometryBatch) const {
+        void Disk::_pushToBatch(Batch& batch) const {
             TriangleFan triangleFan;
             TriangleStrip triangleStrip;
             Point currentInnerPoint = center;
@@ -88,8 +88,8 @@ namespace GLUL {
                 triangleStrip.points.push_back(currentOuterPoint2);
             }
 
-            geometryBatch.addPrimitive(triangleFan);
-            geometryBatch.addPrimitive(triangleStrip);
+            batch.addPrimitive(triangleFan);
+            batch.addPrimitive(triangleStrip);
         }
 
     }

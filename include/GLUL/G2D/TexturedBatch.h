@@ -22,7 +22,7 @@ namespace GLUL {
         class GLUL_API Text;
         class GLUL_API TexturedPrimitive;
 
-        class GLUL_API TexturedGeometryBatch {
+        class GLUL_API TexturedBatch {
             public:
                 using FontRef = std::reference_wrapper<const Font>;
                 using TextRef = std::reference_wrapper<const Text>;
@@ -40,17 +40,17 @@ namespace GLUL {
                 };
 
             public:
-                TexturedGeometryBatch();
+                TexturedBatch();
 
-                TexturedGeometryBatch(const TexturedPrimitive& primitive, const GL::Texture& texture);
-                TexturedGeometryBatch(const std::vector<TexturedPrimitiveRef>& primitives, const GL::Texture& texture);
-                TexturedGeometryBatch(const std::vector< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives);
-                TexturedGeometryBatch(const std::initializer_list< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives);
+                TexturedBatch(const TexturedPrimitive& primitive, const GL::Texture& texture);
+                TexturedBatch(const std::vector<TexturedPrimitiveRef>& primitives, const GL::Texture& texture);
+                TexturedBatch(const std::vector< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives);
+                TexturedBatch(const std::initializer_list< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives);
 
-                TexturedGeometryBatch(const Text& text, const Font& font);
-                TexturedGeometryBatch(const std::vector<TextRef>& texts, const Font& font);
-                TexturedGeometryBatch(const std::vector< std::pair<TextRef, FontRef> >& texts);
-                TexturedGeometryBatch(const std::initializer_list< std::pair<TextRef, FontRef> >& texts);
+                TexturedBatch(const Text& text, const Font& font);
+                TexturedBatch(const std::vector<TextRef>& texts, const Font& font);
+                TexturedBatch(const std::vector< std::pair<TextRef, FontRef> >& texts);
+                TexturedBatch(const std::initializer_list< std::pair<TextRef, FontRef> >& texts);
 
 
                 void addPrimitive(const TexturedPrimitive& primitive, const GL::Texture& texture);

@@ -40,7 +40,7 @@ namespace GLUL {
                 const glm::vec2& getTexSize() const;
 
             protected:
-                void _pushToBatch(TexturedGeometryBatch& texGeometryBatch, const GL::Texture& texture) const;
+                void _pushToBatch(TexturedBatch& texBatch, const GL::Texture& texture) const;
 
                 glm::vec2 _position;
                 glm::vec2 _size;

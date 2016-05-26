@@ -60,9 +60,9 @@ namespace GLUL {
             return points[0].getColor();
         }
 
-        void Quad::_pushToBatch(GeometryBatch& geometryBatch) const {
-            geometryBatch.addPrimitive(Triangle { points[0], points[1], points[2] });
-            geometryBatch.addPrimitive(Triangle { points[0], points[2], points[3] });
+        void Quad::_pushToBatch(Batch& batch) const {
+            batch.addPrimitive(Triangle { points[0], points[1], points[2] });
+            batch.addPrimitive(Triangle { points[0], points[2], points[3] });
         }
 
     }

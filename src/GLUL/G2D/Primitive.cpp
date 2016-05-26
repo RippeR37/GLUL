@@ -6,11 +6,11 @@ namespace GLUL {
     namespace G2D {
 
         void Primitive::render() const {
-            render(GeometryBatch::getDefaultProgram());
+            render(Batch::getDefaultProgram());
         }
 
         void Primitive::render(const GL::Program& program) const {
-            static GeometryBatch geometry;
+            static Batch geometry;
 
             geometry.addPrimitive(*this);
             geometry.compute();
@@ -22,12 +22,12 @@ namespace GLUL {
             setColor(glm::vec4 { color, getColor().a });
         }
 
-        void Primitive::_pushDrawCall(GeometryBatch& geometryBatch,
+        void Primitive::_pushDrawCall(Batch& batch,
             GL::VertexArray::DrawTarget drawTarget,
             const std::vector<glm::vec4>& vertexData,
             const std::vector<glm::vec4>& colorData) const
         {
-            geometryBatch._pushCall(drawTarget, vertexData, colorData);
+            batch._pushCall(drawTarget, vertexData, colorData);
         }
 
     }

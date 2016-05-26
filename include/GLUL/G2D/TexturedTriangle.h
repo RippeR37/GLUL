@@ -22,7 +22,7 @@ namespace GLUL {
                 std::array<TexturedPoint, 3> points;
 
             protected:
-                void _pushToBatch(TexturedGeometryBatch& texGeometryBatch, const GL::Texture& texture) const;
+                void _pushToBatch(TexturedBatch& texBatch, const GL::Texture& texture) const;
 
                 using TexturedPrimitive::setColor;
         };

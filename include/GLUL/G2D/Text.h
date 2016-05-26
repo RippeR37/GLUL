@@ -53,7 +53,7 @@ namespace GLUL {
 
             protected:
                 void _alignCursor(glm::vec2& cursorPos, char character, unsigned int& line, const std::vector<float>& lineAlignments) const;
-                void _pushToBatch(TexturedGeometryBatch& texGeometryBatch, const Font& font) const;
+                void _pushToBatch(TexturedBatch& texBatch, const Font& font) const;
 
                 float _getLineAlignment(const Font& font, const std::string& text, Alignment alignment) const;
                 std::vector<float> _getLinesAlignment(const Font& font, const std::string& text, Alignment alignment) const;
@@ -64,7 +64,7 @@ namespace GLUL {
                 glm::vec4 _color;
                 Alignment _alignment;
 
-                friend class TexturedGeometryBatch;
+                friend class TexturedBatch;
         };
 
     }

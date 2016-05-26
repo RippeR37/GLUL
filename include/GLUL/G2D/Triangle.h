@@ -22,7 +22,7 @@ namespace GLUL {
                 std::array<Point, 3> points;
 
             protected:
-                void _pushToBatch(GeometryBatch& geometryBatch) const;
+                void _pushToBatch(Batch& batch) const;
 
                 using Primitive::setColor;
         };

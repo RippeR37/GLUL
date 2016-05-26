@@ -47,13 +47,13 @@ namespace GLUL {
                 return points[0].getColor();
         }
 
-        void LineLoop::_pushToBatch(GeometryBatch& geometryBatch) const {
+        void LineLoop::_pushToBatch(Batch& batch) const {
             // Normal lines
             for(std::size_t i = 0; i < points.size() - 1; ++i)
-                geometryBatch.addPrimitive(Line { points[i], points[i + 1] });
+                batch.addPrimitive(Line { points[i], points[i + 1] });
 
             // Loop's line
-            geometryBatch.addPrimitive(Line { points.back(), points.front() });
+            batch.addPrimitive(Line { points.back(), points.front() });
         }
 
     }

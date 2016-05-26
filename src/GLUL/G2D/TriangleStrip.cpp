@@ -47,15 +47,15 @@ namespace GLUL {
                 return points[0].getColor();
         }
 
-        void TriangleStrip::_pushToBatch(GeometryBatch& geometryBatch) const {
+        void TriangleStrip::_pushToBatch(Batch& batch) const {
             for(std::size_t i = 0; i < points.size() - 2; ++i) {
                 if(i % 2 == 0) {
-                    geometryBatch.addPrimitive(Triangle { points[i], points[i + 1], points[i + 2] });
+                    batch.addPrimitive(Triangle { points[i], points[i + 1], points[i + 2] });
 
                 } else {
                     // Inverted order
                     // This is to ensure each triangle has same orientation (CW/CCW)
-                    geometryBatch.addPrimitive(Triangle { points[i], points[i + 2], points[i + 1] });
+                    batch.addPrimitive(Triangle { points[i], points[i + 2], points[i + 1] });
                 }
             }
         }

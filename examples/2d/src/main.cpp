@@ -1,26 +1,28 @@
 #include <GLUL/Logger.h>
 #include <GLUL/GUI/Window.h>
+#include <GLUL/G2D/Batch.h>
 #include <GLUL/G2D/Circle.h>
 #include <GLUL/G2D/Disk.h>
 #include <GLUL/G2D/Font.h>
 #include <GLUL/G2D/Line.h>
 #include <GLUL/G2D/LineLoop.h>
 #include <GLUL/G2D/Point.h>
-#include <GLUL/G2D/Triangle.h>
-#include <GLUL/G2D/TriangleStrip.h>
-#include <GLUL/G2D/Quad.h>
 #include <GLUL/G2D/Ring.h>
 #include <GLUL/G2D/Text.h>
+#include <GLUL/G2D/TexturedBatch.h>
 #include <GLUL/G2D/TexturedRectangle.h>
 #include <GLUL/G2D/TexturedTriangle.h>
 #include <GLUL/G2D/TexturedQuad.h>
+#include <GLUL/G2D/Triangle.h>
+#include <GLUL/G2D/TriangleStrip.h>
+#include <GLUL/G2D/Quad.h>
 
 
 void test_point() {
     static GLUL::G2D::Point p1 { {  40.0f, 500.0f },  5 };
     static GLUL::G2D::Point p2 { {  70.0f, 550.0f }, 10 };
     static GLUL::G2D::Point p3 { { 100.0f, 500.0f },  5 };
-    static GLUL::G2D::GeometryBatch batch { p1, p2, p3 };
+    static GLUL::G2D::Batch batch { p1, p2, p3 };
 
     batch.render();
 }
@@ -31,7 +33,7 @@ void test_lines() {
     static GLUL::G2D::Line l3 { { 170.0f, 580.0f }, { 250.0f, 580.0f }, 3u };
     static GLUL::G2D::Line l4 { { 270.0f, 560.0f }, { 270.0f, 500.0f }, 4u };
     static GLUL::G2D::Line l5 { { 170.0f, 560.0f }, { 250.0f, 500.0f }, 5u };
-    static GLUL::G2D::GeometryBatch batch { l1, l2, l3, l4, l5 };
+    static GLUL::G2D::Batch batch { l1, l2, l3, l4, l5 };
 
     batch.render();
 }
@@ -41,7 +43,7 @@ void test_triangles() {
     static GLUL::G2D::Point p2 { { 450.0f, 490.0f } }; p2.setColor({ 0.0f, 1.0f, 0.0f, 1.0f });
     static GLUL::G2D::Point p3 { { 400.0f, 565.0f } }; p3.setColor({ 0.0f, 0.0f, 1.0f, 1.0f });
     static GLUL::G2D::Triangle t { p1, p2, p3 };
-    static GLUL::G2D::GeometryBatch batch { t };
+    static GLUL::G2D::Batch batch { t };
 
     batch.render();
 }
@@ -51,7 +53,7 @@ void test_line_loops() {
     static GLUL::G2D::Point p2 { { 550.0f, 565.0f } };
     static GLUL::G2D::Point p3 { { 600.0f, 490.0f } };
     static GLUL::G2D::LineLoop ll { { p1, p2, p3 } };
-    static GLUL::G2D::GeometryBatch batch { ll };
+    static GLUL::G2D::Batch batch { ll };
 
     batch.render();
 }
@@ -66,7 +68,7 @@ void test_triangle_strips() {
     static GLUL::G2D::Point p7 { { 740.0f, 555.0f } };
     static GLUL::G2D::Point p8 { { 740.0f, 505.0f } };
     static GLUL::G2D::TriangleStrip ts { { p1, p2, p3, p4, p5, p6, p7, p8 } };
-    static GLUL::G2D::GeometryBatch batch { ts };
+    static GLUL::G2D::Batch batch { ts };
 
     batch.render();
 }
@@ -96,7 +98,7 @@ void test_circles() {
     static GLUL::G2D::Circle c1 { glm::vec2 { 430.0f, 440.0f }, 40.0f }; c1.setColor({ 0.7f, 0.2f, 0.7f, 1.0f });
     static GLUL::G2D::Circle c2 { glm::vec2 { 325.0f, 440.0f }, 30.0f }; c2.setColor({ 0.2f, 0.5f, 0.9f, 1.0f });
     static GLUL::G2D::Circle c3 { glm::vec2 { 550.0f, 400.0f }, 70.0f }; c3.setColor({ 1.0f, 0.7f, 0.0f, 1.0f });
-    static GLUL::G2D::GeometryBatch batch { c1, c2, c3 };
+    static GLUL::G2D::Batch batch { c1, c2, c3 };
 
     batch.render();
 }
@@ -109,7 +111,7 @@ void test_rings_disks() {
     d1.setInnerColor({ 0.2f, 0.2f, 0.2f, 1.0f });
     d1.setOuterColor({ 1.0f, 0.7f, 0.0f, 1.0f });
 
-    static GLUL::G2D::GeometryBatch batch { r1, r2, d1 };
+    static GLUL::G2D::Batch batch { r1, r2, d1 };
 
     batch.render();
 }
@@ -127,7 +129,7 @@ void test_textured_triangles() {
 
     static GLUL::G2D::TexturedTriangle t1 { tp1, tp2, tp3 };
     static GLUL::G2D::TexturedTriangle t2 { tp4, tp5, tp6 };
-    static GLUL::G2D::TexturedGeometryBatch batch { { t1, t2 }, texture };
+    static GLUL::G2D::TexturedBatch batch { { t1, t2 }, texture };
 
     batch.render();
 }
@@ -149,7 +151,7 @@ void test_textured_batching() {
     static GLUL::G2D::TexturedQuad quad { tp_q1, tp_q2, tp_q3, tp_q4 };
     static GLUL::G2D::TexturedRectangle rectangle { { 500.0f, 250.0f }, { 250.0f, 60.0f } };
 
-    static GLUL::G2D::TexturedGeometryBatch batch { { quad, texture2 }, { triangle, texture1 }, { rectangle, texture1 } };
+    static GLUL::G2D::TexturedBatch batch { { quad, texture2 }, { triangle, texture1 }, { rectangle, texture1 } };
 
     batch.render();
 }
@@ -163,7 +165,7 @@ void test_font_text() {
     static GLUL::G2D::Text t1 { text1, {  50.0f, 200.0f }, { 1.0f, 0.2f, 0.2f } };
     static GLUL::G2D::Text t2 { text2, { 750.0f, 200.0f }, { 0.2f, 1.0f, 0.2f }, GLUL::G2D::Text::Alignment::Right };
     static GLUL::G2D::Text t3 { text3, { 400.0f, 200.0f }, { 0.2f, 0.2f, 1.0f }, GLUL::G2D::Text::Alignment::Center };
-    static GLUL::G2D::TexturedGeometryBatch batch { { t1, t2, t3 }, font };
+    static GLUL::G2D::TexturedBatch batch { { t1, t2, t3 }, font };
 
     batch.render();
 }

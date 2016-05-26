@@ -69,7 +69,7 @@ namespace GLUL {
 
                 static void _initializeFT() throw(GLUL::Exception::FatalError);
 
-                friend class TexturedGeometryBatch;
+                friend class TexturedBatch;
         };
 
     }

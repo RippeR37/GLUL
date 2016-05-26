@@ -58,16 +58,16 @@ namespace GLUL {
         }
 
         void Text::render(const Font& font) const {
-            render(TexturedGeometryBatch::getDefaultProgram(), font);
+            render(TexturedBatch::getDefaultProgram(), font);
         }
 
         void Text::render(const GL::Program& program, const Font& font) const {
-            static TexturedGeometryBatch texGeometryBatch;
+            static TexturedBatch texBatch;
 
-            texGeometryBatch.addText(*this, font);
-            texGeometryBatch.compute();
-            texGeometryBatch.render(program);
-            texGeometryBatch.clear();
+            texBatch.addText(*this, font);
+            texBatch.compute();
+            texBatch.render(program);
+            texBatch.clear();
         }
 
         void Text::setText(const std::string& text) {
@@ -127,7 +127,7 @@ namespace GLUL {
                 cursorPos.x = std::round(cursorPos.x - lineAlignments[line++]);
         }
 
-        void Text::_pushToBatch(TexturedGeometryBatch& texGeometryBatch, const Font& font) const {
+        void Text::_pushToBatch(TexturedBatch& texBatch, const Font& font) const {
             auto lineAlignments = _getLinesAlignment(font, getText(), getAlignment());
             auto cursorPos = getPosition();
             auto line = 0u;
@@ -141,7 +141,7 @@ namespace GLUL {
                 auto characterPos = cursorPos + metric.glyphPos - glm::vec2 { 0.0f, metric.size.y };
 
                 if(isDrawn)
-                    texGeometryBatch.addPrimitive(
+                    texBatch.addPrimitive(
                         TexturedRectangle {
                             { characterPos, metric.texPosStart, getColor() },
                             metric.size,

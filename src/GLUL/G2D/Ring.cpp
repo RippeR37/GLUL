@@ -29,7 +29,7 @@ namespace GLUL {
             return Circle::defaultPointCount(outerRadius);
         }
 
-        void Ring::_pushToBatch(GeometryBatch& geometryBatch) const {
+        void Ring::_pushToBatch(Batch& batch) const {
             TriangleStrip triangleStrip;
             Point currentInnerPoint = center;
             Point currentOuterPoint = center;
@@ -52,7 +52,7 @@ namespace GLUL {
                 triangleStrip.points.push_back(currentOuterPoint);
             }
 
-            geometryBatch.addPrimitive(triangleStrip);
+            batch.addPrimitive(triangleStrip);
         }
 
     }

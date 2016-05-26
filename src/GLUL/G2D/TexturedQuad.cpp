@@ -66,9 +66,9 @@ namespace GLUL {
             return points[0].getColor();
         }
 
-        void TexturedQuad::_pushToBatch(TexturedGeometryBatch& texGeometryBatch, const GL::Texture& texture) const {
-            texGeometryBatch.addPrimitive(TexturedTriangle { points[0], points[1], points[2] }, texture);
-            texGeometryBatch.addPrimitive(TexturedTriangle { points[0], points[2], points[3] }, texture);
+        void TexturedQuad::_pushToBatch(TexturedBatch& texBatch, const GL::Texture& texture) const {
+            texBatch.addPrimitive(TexturedTriangle { points[0], points[1], points[2] }, texture);
+            texBatch.addPrimitive(TexturedTriangle { points[0], points[2], points[3] }, texture);
         }
 
     }

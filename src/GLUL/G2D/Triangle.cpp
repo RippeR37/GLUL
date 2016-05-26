@@ -25,7 +25,7 @@ namespace GLUL {
             return points[0].getColor();
         }
 
-        void Triangle::_pushToBatch(GeometryBatch& geometryBatch) const {
+        void Triangle::_pushToBatch(Batch& batch) const {
             std::vector<glm::vec4> vertexData {
                 glm::vec4(points[0].getPosition(), 0.0f, 1.0f),
                 glm::vec4(points[1].getPosition(), 0.0f, 1.0f),
@@ -38,7 +38,7 @@ namespace GLUL {
                 points[2].getColor()
             };
 
-            _pushDrawCall(geometryBatch, GL::VertexArray::DrawTarget::Triangles, vertexData, colorData);
+            _pushDrawCall(batch, GL::VertexArray::DrawTarget::Triangles, vertexData, colorData);
         }
 
     }

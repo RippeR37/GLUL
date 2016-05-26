@@ -35,7 +35,7 @@ namespace GLUL {
                 const glm::vec4& getColor() const;
 
             protected:
-                void _pushToBatch(GeometryBatch& geometryBatch) const;
+                void _pushToBatch(Batch& batch) const;
 
                 glm::vec2 _position;
                 glm::vec2 _size;

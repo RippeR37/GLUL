@@ -26,7 +26,7 @@ namespace GLUL {
                 static unsigned int defaultPointCount(float radius);
 
             protected:
-                void _pushToBatch(GeometryBatch& geometryBatch) const;
+                void _pushToBatch(Batch& batch) const;
 
                 using Primitive::setColor;
         };

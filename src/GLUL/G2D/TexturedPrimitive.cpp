@@ -6,11 +6,11 @@ namespace GLUL {
     namespace G2D {
 
         void TexturedPrimitive::render(const GL::Texture& texture, unsigned int textureUnit) const {
-            render(TexturedGeometryBatch::getDefaultProgram(), texture, textureUnit);
+            render(TexturedBatch::getDefaultProgram(), texture, textureUnit);
         }
 
         void TexturedPrimitive::render(const GL::Program& program, const GL::Texture& texture, unsigned int textureUnit) const {
-            static TexturedGeometryBatch geometry;
+            static TexturedBatch geometry;
 
             geometry.addPrimitive(*this, texture);
             geometry.compute();
@@ -23,13 +23,13 @@ namespace GLUL {
         }
 
         void TexturedPrimitive::_pushDrawCall(
-            TexturedGeometryBatch& texGeometryBatch,
+            TexturedBatch& texBatch,
             GL::VertexArray::DrawTarget drawTarget,
             const std::vector<glm::vec4>& vertexData,
             const std::vector<glm::vec4>& colorData,
             const GL::Texture& texture) const
         {
-            texGeometryBatch._pushCall(drawTarget, vertexData, colorData, texture);
+            texBatch._pushCall(drawTarget, vertexData, colorData, texture);
         }
 
     }

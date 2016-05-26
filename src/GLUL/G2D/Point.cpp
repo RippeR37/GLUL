@@ -46,14 +46,14 @@ namespace GLUL {
             return _color;
         }
 
-        void Point::_pushToBatch(GeometryBatch& geometryBatch) const {
+        void Point::_pushToBatch(Batch& batch) const {
             Quad quad;
             Point bottomLeftPoint = *this;
 
             bottomLeftPoint.setPosition(getPosition() - glm::vec2 { static_cast<float>((size / 2)) });
             quad.setSquare(bottomLeftPoint, static_cast<float>(size));
 
-            geometryBatch.addPrimitive(quad);
+            batch.addPrimitive(quad);
         }
 
     }

@@ -47,9 +47,9 @@ namespace GLUL {
                 return points[0].getColor();
         }
 
-        void TriangleFan::_pushToBatch(GeometryBatch& geometryBatch) const {
+        void TriangleFan::_pushToBatch(Batch& batch) const {
             for(std::size_t i = 1; i < points.size() - 1; ++i)
-                geometryBatch.addPrimitive(Triangle { points[0], points[i], points[i + 1] });
+                batch.addPrimitive(Triangle { points[0], points[i], points[i + 1] });
         }
 
     }

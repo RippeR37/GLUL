@@ -3,7 +3,7 @@
 #include <GLUL/GL++/Texture.h>
 #include <GLUL/G2D/Font.h>
 #include <GLUL/G2D/Text.h>
-#include <GLUL/G2D/TexturedGeometryBatch.h>
+#include <GLUL/G2D/TexturedBatch.h>
 #include <GLUL/G2D/TexturedPrimitive.h>
 
 #include <glm/vector_relational.hpp>
@@ -13,109 +13,109 @@ namespace GLUL {
 
     namespace G2D {
 
-        TexturedGeometryBatch::TexturedGeometryBatch() {
+        TexturedBatch::TexturedBatch() {
             _initializeVAO();
         }
 
-        TexturedGeometryBatch::TexturedGeometryBatch(const TexturedPrimitive& primitive, const GL::Texture& texture)
-            : TexturedGeometryBatch()
+        TexturedBatch::TexturedBatch(const TexturedPrimitive& primitive, const GL::Texture& texture)
+            : TexturedBatch()
         {
             addPrimitive(primitive, texture);
             compute();
         }
 
-        TexturedGeometryBatch::TexturedGeometryBatch(const std::vector<TexturedPrimitiveRef>& primitives, const GL::Texture& texture)
-            : TexturedGeometryBatch()
+        TexturedBatch::TexturedBatch(const std::vector<TexturedPrimitiveRef>& primitives, const GL::Texture& texture)
+            : TexturedBatch()
         {
             addPrimitives(primitives, texture);
             compute();
         }
 
-        TexturedGeometryBatch::TexturedGeometryBatch(const std::vector< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives)
-            : TexturedGeometryBatch()
+        TexturedBatch::TexturedBatch(const std::vector< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives)
+            : TexturedBatch()
         {
             addPrimitives(primitives);
             compute();
         }
 
-        TexturedGeometryBatch::TexturedGeometryBatch(const std::initializer_list< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives)
-            : TexturedGeometryBatch()
+        TexturedBatch::TexturedBatch(const std::initializer_list< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives)
+            : TexturedBatch()
         {
             addPrimitives(primitives);
             compute();
         }
 
-        TexturedGeometryBatch::TexturedGeometryBatch(const Text& text, const Font& font)
-            : TexturedGeometryBatch()
+        TexturedBatch::TexturedBatch(const Text& text, const Font& font)
+            : TexturedBatch()
         {
             addText(text, font);
             compute();
         }
 
-        TexturedGeometryBatch::TexturedGeometryBatch(const std::vector<TextRef>& texts, const Font& font)
-            : TexturedGeometryBatch()
+        TexturedBatch::TexturedBatch(const std::vector<TextRef>& texts, const Font& font)
+            : TexturedBatch()
         {
             addTexts(texts, font);
             compute();
         }
 
-        TexturedGeometryBatch::TexturedGeometryBatch(const std::vector< std::pair<TextRef, FontRef> >& texts)
-            : TexturedGeometryBatch()
+        TexturedBatch::TexturedBatch(const std::vector< std::pair<TextRef, FontRef> >& texts)
+            : TexturedBatch()
         {
             addTexts(texts);
             compute();
         }
 
-        TexturedGeometryBatch::TexturedGeometryBatch(const std::initializer_list< std::pair<TextRef, FontRef> >& texts)
-            : TexturedGeometryBatch()
+        TexturedBatch::TexturedBatch(const std::initializer_list< std::pair<TextRef, FontRef> >& texts)
+            : TexturedBatch()
         {
             addTexts(texts);
             compute();
         }
 
-        void TexturedGeometryBatch::addPrimitive(const TexturedPrimitive& primitive, const GL::Texture& texture) {
+        void TexturedBatch::addPrimitive(const TexturedPrimitive& primitive, const GL::Texture& texture) {
             primitive._pushToBatch(*this, texture);
         }
 
-        void TexturedGeometryBatch::addPrimitives(const std::vector<TexturedPrimitiveRef>& primitives, const GL::Texture& texture) {
+        void TexturedBatch::addPrimitives(const std::vector<TexturedPrimitiveRef>& primitives, const GL::Texture& texture) {
             for(auto& primitive : primitives)
                 addPrimitive(primitive, texture);
         }
 
-        void TexturedGeometryBatch::addPrimitives(const std::vector< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives) {
+        void TexturedBatch::addPrimitives(const std::vector< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives) {
             for(auto& pair : primitives)
                 addPrimitive(pair.first, pair.second);
         }
 
-        void TexturedGeometryBatch::addPrimitives(const std::initializer_list< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives) {
+        void TexturedBatch::addPrimitives(const std::initializer_list< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives) {
             for(auto& pair : primitives)
                 addPrimitive(pair.first, pair.second);
         }
 
-        void TexturedGeometryBatch::addText(const Text& text, const Font& font)
+        void TexturedBatch::addText(const Text& text, const Font& font)
         {
             text._pushToBatch(*this, font);
         }
 
-        void TexturedGeometryBatch::addTexts(const std::vector<TextRef>& texts, const Font& font)
+        void TexturedBatch::addTexts(const std::vector<TextRef>& texts, const Font& font)
         {
             for(auto& text : texts)
                 addText(text, font);
         }
 
-        void TexturedGeometryBatch::addTexts(const std::vector< std::pair<TextRef, FontRef> >& texts)
+        void TexturedBatch::addTexts(const std::vector< std::pair<TextRef, FontRef> >& texts)
         {
             for(auto& pair : texts)
                 addText(pair.first, pair.second);
         }
 
-        void TexturedGeometryBatch::addTexts(const std::initializer_list< std::pair<TextRef, FontRef> >& texts)
+        void TexturedBatch::addTexts(const std::initializer_list< std::pair<TextRef, FontRef> >& texts)
         {
             for(auto& pair : texts)
                 addText(pair.first, pair.second);
         }
 
-        void TexturedGeometryBatch::compute() {
+        void TexturedBatch::compute() {
             if(!_vertexData.empty()) {
                 // Push data to VBO
                 _vbo.bind();
@@ -128,7 +128,7 @@ namespace GLUL {
             }
         }
 
-        void TexturedGeometryBatch::clear() {
+        void TexturedBatch::clear() {
             // Clear local data
             _vertexData.clear();
             _colorData.clear();
@@ -143,16 +143,16 @@ namespace GLUL {
             _cbo.unbind();
         }
 
-        void TexturedGeometryBatch::clearLocal() {
+        void TexturedBatch::clearLocal() {
             _vertexData.clear();
             _colorData.clear();
         }
 
-        void TexturedGeometryBatch::render(unsigned int textureUnit) const {
+        void TexturedBatch::render(unsigned int textureUnit) const {
             render(getDefaultProgram(), textureUnit);
         }
 
-        void TexturedGeometryBatch::render(const GL::Program& program, unsigned int textureUnit) const {
+        void TexturedBatch::render(const GL::Program& program, unsigned int textureUnit) const {
             static glm::ivec2 windowSize;
 
             program.use();
@@ -181,7 +181,7 @@ namespace GLUL {
             program.unbind();
         }
 
-        void TexturedGeometryBatch::_initializeVAO() {
+        void TexturedBatch::_initializeVAO() {
             _vao.bind();
                 _vbo.bind();
                 _vao.setAttribPointers({ GL::VertexAttrib(0, 4, GL_FLOAT, 0, nullptr) });
@@ -193,7 +193,7 @@ namespace GLUL {
             _vao.unbind();
         }
 
-        void TexturedGeometryBatch::_pushCall(GL::VertexArray::DrawTarget drawTarget,
+        void TexturedBatch::_pushCall(GL::VertexArray::DrawTarget drawTarget,
             const std::vector<glm::vec4>& vertexData,
             const std::vector<glm::vec4>& colorData,
             const GL::Texture& texture)
@@ -227,7 +227,7 @@ namespace GLUL {
             _colorData.insert(_colorData.end(), colorData.begin(), colorData.end());
         }
 
-        GL::Program& TexturedGeometryBatch::getDefaultProgram() {
+        GL::Program& TexturedBatch::getDefaultProgram() {
             static GL::Program program(
                 GL::Shader("assets/shaders/GLUL/G2D/Textured.vp", GL::Shader::Type::VertexShader),
                 GL::Shader("assets/shaders/GLUL/G2D/Textured.fp", GL::Shader::Type::FragmentShader)

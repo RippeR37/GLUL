@@ -36,7 +36,7 @@ namespace GLUL {
                 point.size = thickness;
         }
 
-        void Line::_pushToBatch(GeometryBatch& geometryBatch) const {
+        void Line::_pushToBatch(Batch& batch) const {
             Quad quad;
             Point point1 = points[0];
             Point point2 = points[1];
@@ -60,7 +60,7 @@ namespace GLUL {
             qPoints[3].setPosition(point1.getPosition() + (perpendicularLineVector * static_cast<float>(point1.size - (point1.size / 2))));
 
             quad.points = qPoints;
-            geometryBatch.addPrimitive(quad);
+            batch.addPrimitive(quad);
         }
 
     }

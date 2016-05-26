@@ -28,7 +28,7 @@ namespace GLUL {
                 unsigned int size;
 
             protected:
-                void _pushToBatch(GeometryBatch& geometryBatch) const;
+                void _pushToBatch(Batch& batch) const;
 
                 glm::vec2 _position;
                 glm::vec4 _color;

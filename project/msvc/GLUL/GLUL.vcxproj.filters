@@ -383,9 +383,6 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\Quad.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\G2D\GeometryBatch.h">
-      <Filter>Header Files\G2D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\G2D\Circle.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
@@ -405,9 +402,6 @@
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedPrimitive.h">
-      <Filter>Header Files\G2D</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedGeometryBatch.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedPoint.h">
@@ -432,6 +426,12 @@
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedRectangle.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\Batch.h">
+      <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedBatch.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
   </ItemGroup>
@@ -685,9 +685,6 @@
     <ClCompile Include="..\..\..\src\GLUL\G2D\TriangleStrip.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\G2D\GeometryBatch.cpp">
-      <Filter>Source Files\G2D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\Circle.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
@@ -712,9 +709,6 @@
     <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedQuad.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedGeometryBatch.cpp">
-      <Filter>Source Files\G2D</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\Text.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
@@ -728,6 +722,12 @@
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedRectangle.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\Batch.cpp">
+      <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedBatch.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
   </ItemGroup>

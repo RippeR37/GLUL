@@ -1,6 +1,6 @@
 #include <GLUL/Logger.h>
 #include <GLUL/GL++/Context.h>
-#include <GLUL/G2D/GeometryBatch.h>
+#include <GLUL/G2D/Batch.h>
 #include <GLUL/G2D/Primitive.h>
 
 #include <glm/vector_relational.hpp>
@@ -10,43 +10,43 @@ namespace GLUL {
 
     namespace G2D {
 
-        GeometryBatch::GeometryBatch() {
+        Batch::Batch() {
             _initializeVAO();
         }
 
-        GeometryBatch::GeometryBatch(const Primitive& primitive) : GeometryBatch() {
+        Batch::Batch(const Primitive& primitive) : Batch() {
             addPrimitive(primitive);
 
             compute();
         }
 
-        GeometryBatch::GeometryBatch(const std::vector<std::reference_wrapper<const Primitive>>& primitives) : GeometryBatch() {
+        Batch::Batch(const std::vector<std::reference_wrapper<const Primitive>>& primitives) : Batch() {
             addPrimitives(primitives);
 
             compute();
         }
 
-        GeometryBatch::GeometryBatch(const std::initializer_list<std::reference_wrapper<const Primitive>>& primitives) : GeometryBatch() {
+        Batch::Batch(const std::initializer_list<std::reference_wrapper<const Primitive>>& primitives) : Batch() {
             addPrimitives(primitives);
 
             compute();
         }
 
-        void GeometryBatch::addPrimitive(const Primitive& primitive) {
+        void Batch::addPrimitive(const Primitive& primitive) {
             primitive._pushToBatch(*this);
         }
 
-        void GeometryBatch::addPrimitives(const std::vector<std::reference_wrapper<const Primitive>>& primitives) {
+        void Batch::addPrimitives(const std::vector<std::reference_wrapper<const Primitive>>& primitives) {
             for(auto& primitive : primitives)
                 addPrimitive(primitive);
         }
 
-        void GeometryBatch::addPrimitives(const std::initializer_list<std::reference_wrapper<const Primitive>>& primitives) {
+        void Batch::addPrimitives(const std::initializer_list<std::reference_wrapper<const Primitive>>& primitives) {
             for(auto& primitive : primitives)
                 addPrimitive(primitive);
         }
 
-        void GeometryBatch::compute() {
+        void Batch::compute() {
             if(!_vertexData.empty()) {
                 // Push data to VBO
                 _vbo.bind();
@@ -59,7 +59,7 @@ namespace GLUL {
             }
         }
 
-        void GeometryBatch::clear() {
+        void Batch::clear() {
             // Clear local data
             _vertexData.clear();
             _colorData.clear();
@@ -74,16 +74,16 @@ namespace GLUL {
             _cbo.unbind();
         }
 
-        void GeometryBatch::clearLocal() {
+        void Batch::clearLocal() {
             _vertexData.clear();
             _colorData.clear();
         }
 
-        void GeometryBatch::render() const {
+        void Batch::render() const {
             render(getDefaultProgram());
         }
 
-        void GeometryBatch::render(const GL::Program& program) const {
+        void Batch::render(const GL::Program& program) const {
             static glm::ivec2 windowSize;
 
             program.use();
@@ -106,7 +106,7 @@ namespace GLUL {
             program.unbind();
         }
 
-        void GeometryBatch::_initializeVAO() {
+        void Batch::_initializeVAO() {
             _vao.bind();
                 _vbo.bind();
                 _vao.setAttribPointers({ GL::VertexAttrib(0, 4, GL_FLOAT, 0, nullptr) });
@@ -119,7 +119,7 @@ namespace GLUL {
         }
 
 
-        void GeometryBatch::_pushCall(
+        void Batch::_pushCall(
             GL::VertexArray::DrawTarget drawTarget,
             const std::vector<glm::vec4>& vertexData,
             const std::vector<glm::vec4>& colorData)
@@ -152,7 +152,7 @@ namespace GLUL {
             _colorData.insert(_colorData.end(), colorData.begin(), colorData.end());
         }
 
-        GL::Program& GeometryBatch::getDefaultProgram() {
+        GL::Program& Batch::getDefaultProgram() {
             static GL::Program program(
                 GL::Shader("assets/shaders/GLUL/G2D/Default.vp", GL::Shader::Type::VertexShader),
                 GL::Shader("assets/shaders/GLUL/G2D/Default.fp", GL::Shader::Type::FragmentShader)

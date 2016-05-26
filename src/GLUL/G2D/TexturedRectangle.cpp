@@ -100,8 +100,8 @@ namespace GLUL {
             return _texSize;
         }
 
-        void TexturedRectangle::_pushToBatch(TexturedGeometryBatch& texGeometryBatch, const GL::Texture& texture) const {
-            texGeometryBatch.addPrimitive(
+        void TexturedRectangle::_pushToBatch(TexturedBatch& texBatch, const GL::Texture& texture) const {
+            texBatch.addPrimitive(
                 TexturedQuad {
                     TexturedPoint { getPosition(), getTexPosition(), getColor() },
                     getSize(),
