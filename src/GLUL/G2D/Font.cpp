@@ -8,6 +8,7 @@
 
 #include <algorithm>
 #include <cctype>
+#include <climits>
 
 
 namespace GLUL {
@@ -89,6 +90,11 @@ namespace GLUL {
                 }
             }
 
+            // Mark (1, 1) corner as 100% visible
+            unsigned char visibleCornerData[1] = { UCHAR_MAX };
+            _texture.setSubData2D(totalSize.x - 1, totalSize.y - 1, 1, 1, GL_UNSIGNED_BYTE, visibleCornerData);
+
+            // Unbind texture not to mess with it anymore and mark as generated
             _texture.unbind();
             _isGenerated = true;
         }
@@ -246,11 +252,11 @@ namespace GLUL {
                     _logBrokenGlyph(glyph);
                 } else {
                     if(std::isgraph(glyph)) {
-                        totalSize.x += (*static_cast<FT_Face*>(_face))->glyph->bitmap.width + pixelGlyphInterval;
-                        heighestRow = std::max<long int>(heighestRow, (*static_cast<FT_Face*>(_face))->glyph->bitmap.rows);
+                        totalSize.x += face->glyph->bitmap.width + pixelGlyphInterval;
+                        heighestRow = std::max<long int>(heighestRow, face->glyph->bitmap.rows);
 
                         if(totalSize.x > maxRowWidth) {
-                            totalSize.x  = (*static_cast<FT_Face*>(_face))->glyph->bitmap.width;
+                            totalSize.x  = face->glyph->bitmap.width;
                             totalSize.y += 1u;
                         }
                     }
