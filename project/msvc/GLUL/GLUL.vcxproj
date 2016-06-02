@@ -189,7 +189,6 @@
     <ClInclude Include="..\..\..\include\GLUL\File.h" />
     <ClInclude Include="..\..\..\include\GLUL\Frameworks\Application.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Circle.h" />
-    <ClInclude Include="..\..\..\include\GLUL\G2D\Disk.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Font.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\HorizontalAlignment.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Line.h" />
@@ -302,7 +301,6 @@
     <ClCompile Include="..\..\..\src\GLUL\File.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Frameworks\Application.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Circle.cpp" />
-    <ClCompile Include="..\..\..\src\GLUL\G2D\Disk.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Font.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Line.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\LineLoop.cpp" />

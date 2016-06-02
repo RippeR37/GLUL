@@ -66,7 +66,6 @@ set(GLUL_SRCS
 
     "src/GLUL/G2D/Batch.cpp"
     "src/GLUL/G2D/Circle.cpp"
-    "src/GLUL/G2D/Disk.cpp"
     "src/GLUL/G2D/Font.cpp"
     "src/GLUL/G2D/Line.cpp"
     "src/GLUL/G2D/LineLoop.cpp"
@@ -182,7 +181,6 @@ set(GLUL_H
 
     "include/GLUL/G2D/Batch.h"
     "include/GLUL/G2D/Circle.h"
-    "include/GLUL/G2D/Disk.h"
     "include/GLUL/G2D/Font.h"
     "include/GLUL/G2D/HorizontalAlignment.h"
     "include/GLUL/G2D/Line.h"

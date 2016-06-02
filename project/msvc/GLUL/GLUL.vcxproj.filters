@@ -380,9 +380,6 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\Ring.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\G2D\Disk.h">
-      <Filter>Header Files\G2D</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedShape.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
@@ -671,9 +668,6 @@
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\Ring.cpp">
-      <Filter>Source Files\G2D</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\G2D\Disk.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\Font.cpp">

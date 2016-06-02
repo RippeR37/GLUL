@@ -2,7 +2,6 @@
 #include <GLUL/GUI/Window.h>
 #include <GLUL/G2D/Batch.h>
 #include <GLUL/G2D/Circle.h>
-#include <GLUL/G2D/Disk.h>
 #include <GLUL/G2D/Font.h>
 #include <GLUL/G2D/Line.h>
 #include <GLUL/G2D/LineLoop.h>
@@ -102,15 +101,17 @@ void test_circles() {
     batch.render();
 }
 
-void test_rings_disks() {
+void test_rings() {
     static GLUL::G2D::Ring r1 { { { 430.0f, 350.0f }, { 0.7f, 0.2f, 0.7f } }, 30.0f, 40.0f };
-    static GLUL::G2D::Ring r2 { { { 325.0f, 350.0f }, { 0.2f, 0.5f, 0.9f } }, 15.0f, 30.0f};
-    static GLUL::G2D::Disk d1 { { 700.0f, 400.0f }, 35.0f, 70.0f };
+    static GLUL::G2D::Ring r2 { { { 325.0f, 350.0f }, { 0.2f, 0.5f, 0.9f } }, 15.0f, 30.0f };
 
-    d1.setInnerColor({ 0.2f, 0.2f, 0.2f, 1.0f });
-    d1.setOuterColor({ 1.0f, 0.7f, 0.0f, 1.0f });
+    static GLUL::G2D::Ring r3   { { { 700.0f, 400.0f }, { 1.0f, 0.7f, 0.0f } }, 35.0f, 70.0f };
+    static GLUL::G2D::Circle c3 { { { 700.0f, 400.0f }, { 0.2f, 0.2f, 0.2f } }, 35.0f };
 
-    static GLUL::G2D::Batch batch { r1, r2, d1 };
+    // syncronize point count to avoid artifacts
+    c3.pointCount = r3.pointCount;
+
+    static GLUL::G2D::Batch batch { r1, r2, r3, c3 };
 
     batch.render();
 }
@@ -193,7 +194,7 @@ void run() {
         test_triangle_strips();
         test_no_batch();
         test_circles();
-        test_rings_disks();
+        test_rings();
         test_textured_triangles();
         test_textured_batching();
         test_font_text();
