@@ -26,10 +26,10 @@ namespace GLUL {
         }
 
         void Triangle::_pushToBatch(Batch& batch) const {
-            std::vector<glm::vec4> vertexData {
-                glm::vec4(points[0].getPosition(), 0.0f, 1.0f),
-                glm::vec4(points[1].getPosition(), 0.0f, 1.0f),
-                glm::vec4(points[2].getPosition(), 0.0f, 1.0f)
+            std::vector<glm::vec2> vertexData {
+                points[0].getPosition(),
+                points[1].getPosition(),
+                points[2].getPosition()
             };
 
             std::vector<glm::vec4> colorData {

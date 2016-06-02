@@ -3,6 +3,7 @@
 #include <GLUL/Config.h>
 #include <GLUL/G2D/Batch.h>
 
+#include <glm/vec2.hpp>
 #include <glm/vec3.hpp>
 #include <glm/vec4.hpp>
 
@@ -24,7 +25,7 @@ namespace GLUL {
                 virtual void _pushToBatch(Batch& batch) const = 0;
 
                 void _pushDrawCall(Batch& batch, GL::VertexArray::DrawTarget drawTarget,
-                    const std::vector<glm::vec4>& vertexData, const std::vector<glm::vec4>& colorData) const;
+                    const std::vector<glm::vec2>& vertexData, const std::vector<glm::vec4>& colorData) const;
 
                 friend class Batch;
         };

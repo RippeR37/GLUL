@@ -24,7 +24,7 @@ namespace GLUL {
 
         void Primitive::_pushDrawCall(Batch& batch,
             GL::VertexArray::DrawTarget drawTarget,
-            const std::vector<glm::vec4>& vertexData,
+            const std::vector<glm::vec2>& vertexData,
             const std::vector<glm::vec4>& colorData) const
         {
             batch._pushCall(drawTarget, vertexData, colorData);

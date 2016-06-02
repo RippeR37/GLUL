@@ -67,7 +67,7 @@ namespace GLUL {
 
             // Clear VBOs
             _vbo.bind();
-            _vbo.setData(std::vector<glm::vec4> { });
+            _vbo.setData(std::vector<glm::vec2> { });
             _vbo.unbind();
             _cbo.bind();
             _cbo.setData(std::vector<glm::vec4> { });
@@ -109,7 +109,7 @@ namespace GLUL {
         void Batch::_initializeVAO() {
             _vao.bind();
                 _vbo.bind();
-                _vao.setAttribPointers({ GL::VertexAttrib(0, 4, GL_FLOAT, 0, nullptr) });
+                _vao.setAttribPointers({ GL::VertexAttrib(0, 2, GL_FLOAT, 0, nullptr) });
                 _vbo.unbind();
 
                 _cbo.bind();
@@ -121,7 +121,7 @@ namespace GLUL {
 
         void Batch::_pushCall(
             GL::VertexArray::DrawTarget drawTarget,
-            const std::vector<glm::vec4>& vertexData,
+            const std::vector<glm::vec2>& vertexData,
             const std::vector<glm::vec4>& colorData)
         {
             // Check if local data was not cleared

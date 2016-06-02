@@ -1,6 +1,6 @@
 #version 330 core
 
-layout(location = 0) in vec4 vertexData;
+layout(location = 0) in vec2 vertexData;
 layout(location = 1) in vec4 vertexColor;
 out vec4 fragmentColor;
 
@@ -14,6 +14,6 @@ vec2 screenToDevice(vec2 position) {
 }
 
 void main() {
-    gl_Position = vec4(screenToDevice(vertexData.xy), 0.0, 1.0);
+    gl_Position = vec4(screenToDevice(vertexData), 0.0, 1.0);
 	fragmentColor = vertexColor;
 }

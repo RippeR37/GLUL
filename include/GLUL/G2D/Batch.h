@@ -5,6 +5,7 @@
 #include <GLUL/GL++/VertexArray.h>
 #include <GLUL/GL++/VertexBuffer.h>
 
+#include <glm/vec2.hpp>
 #include <glm/vec4.hpp>
 
 #include <functional>
@@ -47,12 +48,12 @@ namespace GLUL {
             private:
                 void _initializeVAO();
                 void _pushCall(GL::VertexArray::DrawTarget drawTarget,
-                    const std::vector<glm::vec4>& vertexData, const std::vector<glm::vec4>& colorData);
+                    const std::vector<glm::vec2>& vertexData, const std::vector<glm::vec4>& colorData);
 
                 static GL::Program& getDefaultProgram();
 
                 std::vector<DrawCall> _drawCalls;
-                std::vector<glm::vec4> _vertexData;
+                std::vector<glm::vec2> _vertexData;
                 std::vector<glm::vec4> _colorData;
                 mutable GL::Program _program;
                 mutable GL::VertexArray _vao;
