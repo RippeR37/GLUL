@@ -1,9 +1,9 @@
 #pragma once
 
-#include <GLUL/G2D/Rectangle.h>
 #include <GLUL/GUI/Component.h>
 
 #include <list>
+#include <memory>
 #include <set>
 
 
@@ -13,43 +13,46 @@ namespace GLUL {
 
         class GLUL_API Container : public Component {
             public:
-                Container(Container& parent);
-                Container(Container* const parent = nullptr);
-                virtual ~Container();
+                virtual ~Container() = default;
 
-                virtual const Container& render() const;
-                virtual Container& update(double deltaTime);
-                virtual const Container& validate() const;
+                virtual void render() const;
+                virtual void update(double deltaTime);
+                virtual void validate() const;
 
-                virtual Container& add(Component& component);
-                virtual Container& add(Component* const component);
+                template<class ComponentType, typename... CtorArgs>
+                ComponentType& add(CtorArgs...);
 
+                void remove(Component& component);
+
+                bool isUnderMouse(const Component& component) const;
                 virtual const glm::vec2 getOffset() const;
 
-                virtual Container& setInvalid();
-                virtual Container& setFocused(bool flag);
+                virtual void setInvalid() const;
+                virtual void setFocused(bool flag);
 
-            private:
-                void notifyChildsOfInvalidState();
-                void handleChildDestruction(Component* component);
-                void initializeEventForwarding();
+            protected:
+                Container();
+                Container(const Container& parent);
+                Container(const Container& parent, const glm::vec2& size, const glm::vec2& position);
 
-                bool isUnderMouse(Component* component) const;
+                void _invalidateComponents() const;
+                void _initializeEventForwarding();
+                void _rebuildBatch() const;
+                void _setupClipping() const;
+                void _revertClipping() const;
+                virtual void _pushToBatch(G2D::TexturedBatch& texBatch) const;
 
-                void setupClipping() const;
-                void enableClipping() const;
-                void revertClipping() const;
-
-
-                bool _wasScissorTestActive;
-                GLUL::G2D::Rectangle _scissorTestBox;
-                std::list<Component*> _components;
+                mutable bool _wasScissorTestActive;
+                mutable G2D::Rectangle _scissorTestBox;
+                mutable G2D::TexturedBatch _batch;
+                std::list<std::unique_ptr<Component>> _components;
                 std::set<Component*> _componentsUnderMouse;
 
-            public:
                 friend Component;
         };
 
     }
 
 }
+
+#include <GLUL/GUI/Container.hpp>

@@ -52,7 +52,6 @@ namespace GLUL {
                 TexturedBatch(const std::vector< std::pair<TextRef, FontRef> >& texts);
                 TexturedBatch(const std::initializer_list< std::pair<TextRef, FontRef> >& texts);
 
-
                 void addPrimitive(const TexturedPrimitive& primitive, const GL::Texture& texture);
                 void addPrimitives(const std::vector<TexturedPrimitiveRef>& primitives, const GL::Texture& texture);
                 void addPrimitives(const std::vector< std::pair<TexturedPrimitiveRef, TextureRef> >& primitives);
@@ -80,6 +79,7 @@ namespace GLUL {
 
                 static GL::Program& getDefaultProgram();
 
+                bool _isInitialized;
                 std::vector<DrawCall> _drawCalls;
                 std::vector<glm::vec4> _vertexData;
                 std::vector<glm::vec4> _colorData;

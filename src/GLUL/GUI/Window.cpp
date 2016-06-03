@@ -5,40 +5,40 @@ namespace GLUL {
 
     namespace GUI {
 
-        Window::Window() : GLUL::Window(), Container(nullptr) {
+        Window::Window() : GLUL::Window(), Container(*this) {
             this->eventAggregator.registerHandler(
                 {
                     GLUL::Input::Event::Type::Character,
                     GLUL::Input::Event::Type::Key,
-                    GLUL::Input::Event::Type::MouseButton, 
+                    GLUL::Input::Event::Type::MouseButton,
                     GLUL::Input::Event::Type::MouseMovement
                 },
                 this
             );
         }
 
-        Window::Window(unsigned int width, unsigned int height, const std::string& title) : GLUL::Window(width, height, title), Container(nullptr) {
-            GLUL::GUI::Container::setSize(glm::vec2(width, height));
+        Window::Window(unsigned int width, unsigned int height, const std::string& title) : GLUL::Window(width, height, title), Container(*this) {
+            Container::setSize({ width, height });
 
             this->eventAggregator.registerHandler(
                 {
                     GLUL::Input::Event::Type::Character,
                     GLUL::Input::Event::Type::Key,
-                    GLUL::Input::Event::Type::MouseButton, 
+                    GLUL::Input::Event::Type::MouseButton,
                     GLUL::Input::Event::Type::MouseMovement
                 },
                 this
             );
         }
 
-        Window::Window(const glm::uvec2& size, const std::string& title) : GLUL::Window(size, title), Container(nullptr) {
-            GLUL::GUI::Container::setSize(glm::vec2(size));
+        Window::Window(const glm::uvec2& size, const std::string& title) : GLUL::Window(size, title), Container(*this) {
+            Container::setSize(glm::vec2 { size });
 
             this->eventAggregator.registerHandler(
                 {
                     GLUL::Input::Event::Type::Character,
                     GLUL::Input::Event::Type::Key,
-                    GLUL::Input::Event::Type::MouseButton, 
+                    GLUL::Input::Event::Type::MouseButton,
                     GLUL::Input::Event::Type::MouseMovement
                 },
                 this
@@ -50,7 +50,7 @@ namespace GLUL {
                 {
                     GLUL::Input::Event::Type::Character,
                     GLUL::Input::Event::Type::Key,
-                    GLUL::Input::Event::Type::MouseButton, 
+                    GLUL::Input::Event::Type::MouseButton,
                     GLUL::Input::Event::Type::MouseMovement
                 },
                 this
@@ -64,30 +64,24 @@ namespace GLUL {
         }
 
         const glm::vec2& Window::getSize() const {
-            return GLUL::GUI::Container::getSize();
+            return Container::getSize();
         }
-        
-        Window& Window::setSize(unsigned int width, unsigned int height) {
+
+        void Window::setSize(unsigned int width, unsigned int height) {
             GLUL::Window::setSize(width, height);
-            GLUL::GUI::Container::setSize(glm::vec2(width, height));
-
-            return *this;
+            GLUL::GUI::Container::setSize(glm::vec2 { width, height });
         }
 
-        Window& Window::setSize(const glm::vec2& size) {
-            GLUL::Window::setSize(glm::uvec2(size));
-            GLUL::GUI::Container::setSize(size);
-
-            return *this;
-        }
-
-        Window& Window::setSize(const glm::uvec2& size) {
+        void Window::setSize(const glm::uvec2& size) {
             GLUL::Window::setSize(size);
-            GLUL::GUI::Container::setSize(glm::vec2(size));
-
-            return *this;
+            GLUL::GUI::Container::setSize(glm::vec2 { size });
         }
-        
+
+        void Window::setSize(const glm::vec2& size) {
+            GLUL::Window::setSize(glm::uvec2 { size });
+            GLUL::GUI::Container::setSize(size);
+        }
+
         void Window::handleInputEvent(const GLUL::Input::Event& inputEvent) {
             switch(inputEvent.getType()) {
                 case GLUL::Input::Event::Type::Character:

@@ -1,50 +1,33 @@
 #include <GLUL/GUI/Component.h>
 #include <GLUL/GUI/Container.h>
 
-#include <cmath>
+#include <algorithm>
 
 
 namespace GLUL {
 
     namespace GUI {
 
-        Component::Component(Container& parent) : Component(&parent) { }
+        Component::Component(const Container& parent) : Component(parent, {}, {}) { }
 
-        Component::Component(Container* const parent) {
-            setValid();
-            setParent(nullptr);
-            setVisible(true);
-            setEnabled(true);
-            setFocused(false);
-            setSize(glm::vec2(0.0f));
-            setPosition(glm::vec2(0.0f));
+        Component::Component(const Container& parent, const glm::vec2& size, const glm::vec2& position)
+            : _parent(parent), _size(size), _position(position),
+              _isEnabled(true), _isFocused(false),
+              _isVisible(true), _isValid(false) { }
 
-            setInvalid();
-
-            bindTo(parent);
+        void Component::render() const {
+            // do nothing
         }
 
-        Component::~Component() {
-            notifyParentOfDestruction();
+        void Component::update(double deltaTime) {
+            if(!isValid())
+                validate();
+
+            (void) deltaTime; // unused
         }
 
-        void Component::bindTo(Container& container) {
-            bindTo(&container);
-        }
-
-        void Component::bindTo(Container* container) {
-            notifyParentOfDestruction();
-
-            if(container)
-                container->add(this);
-            else
-                setParent(nullptr);
-        }
-
-        const Component& Component::validate() const {
-            const_cast<Component*>(this)->setValid();
-
-            return *this;
+        void Component::validate() const {
+            _setValid();
         }
 
         bool Component::isEnabled() const {
@@ -63,8 +46,15 @@ namespace GLUL {
             return _isValid;
         }
 
-        const glm::vec2& Component::getSize() const {
-            return _size;
+        bool Component::isUnderMouse() const {
+            if(&getParent() == this)
+                return false;
+
+            return getParent().isUnderMouse(*this);
+        }
+
+        const Container& Component::getParent() const {
+            return _parent;
         }
 
         const glm::vec2& Component::getPosition() const {
@@ -72,162 +62,65 @@ namespace GLUL {
         }
 
         const glm::vec2 Component::getScreenPosition() const {
-            if(getParent())
-                return getParent()->getScreenPosition() + getPosition();
+            if(&getParent() != this)
+                return getParent().getScreenPosition() + getPosition();
             else
                 return getPosition();
+        }
+
+        const glm::vec2& Component::getSize() const {
+            return _size;
         }
 
         const G2D::Rectangle Component::getBounds() const {
             return { Component::getScreenPosition(), getSize() };
         }
 
-        const Container* Component::getParent() const {
-            return _parent;
+        void Component::setInvalid() const {
+            _isValid = false;
+
+            getParent().setInvalid();
         }
 
-        Container* Component::getParent() {
-            return _parent;
-        }
-
-        Component& Component::setEnabled(bool flag) {
+        void Component::setEnabled(bool flag) {
             _isEnabled = flag;
 
             setInvalid();
-            validate();
-
-            return *this;
         }
 
-        Component& Component::setFocused(bool flag) {
+        void Component::setFocused(bool flag) {
             bool wasFocused = isFocused();
 
             _isFocused = flag;
 
             setInvalid();
-            validate();
 
             if(!wasFocused && isFocused())
                 onFocus.call(*this, {});
             else if(wasFocused && !isFocused())
                 onFocusLoss.call(*this, {});
-
-            return *this;
         }
 
-        Component& Component::setVisible(bool flag) {
+        void Component::setVisible(bool flag) {
             _isVisible = flag;
 
             setInvalid();
-            validate();
-
-            return *this;
         }
 
-        Component& Component::setInvalid() {
-            _isValid = false;
-
-            return *this;
-        }
-
-        Component& Component::setSize(const glm::vec2& size) {
+        void Component::setSize(const glm::vec2& size) {
             _size = size;
 
             setInvalid();
-            validate();
-
-            return *this;
         }
 
-        Component& Component::setPosition(const glm::vec2& position) {
+        void Component::setPosition(const glm::vec2& position) {
             _position = position;
 
             setInvalid();
-            validate();
-
-            return *this;
         }
 
-        Component& Component::setValid() {
+        void Component::_setValid() const {
             _isValid = true;
-
-            return *this;
-        }
-
-        Component& Component::setParent(Container* const parent) {
-            _parent = parent;
-
-            return *this;
-        }
-
-        void Component::notifyParentOfDestruction() {
-            if(getParent())
-                getParent()->handleChildDestruction(this);
-        }
-
-        bool Component::isUnderMouse() const {
-            if(getParent() == nullptr)
-                return false;
-
-            return getParent()->isUnderMouse(const_cast<Component*>(this));
-        }
-
-        void Component::pushColoredRectangle(
-            std::vector<glm::vec4>& result,
-            const glm::vec2& posStart,
-            const glm::vec2& posEnd,
-            const glm::vec4& color)
-        {
-            // Vertices                                                     // Colors
-            result.emplace_back(posStart.x, posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
-            result.emplace_back(posEnd.x,   posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
-            result.emplace_back(posStart.x, posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
-
-            result.emplace_back(posStart.x, posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
-            result.emplace_back(posEnd.x,   posStart.y, 0.0f, 1.0f);        result.emplace_back(color);
-            result.emplace_back(posEnd.x,   posEnd.y,   0.0f, 1.0f);        result.emplace_back(color);
-        }
-
-        void Component::pushColoredDisk(
-            std::vector<glm::vec4>&result,
-            const glm::vec2& posCenter,
-            float radius,
-            const glm::vec4& color)
-        {
-            const unsigned int steps = 32;
-            const float pi = 3.14159265358979323846f;
-            const float pi2 = pi * 2.0f;
-
-            for(unsigned int i = 0, j = i + 1; i < steps; ++i, j = (i+1) % steps) {
-                float steps_div = static_cast<float>(steps);
-
-                glm::vec2 offset1 = glm::vec2(std::cos(pi2 * (i / steps_div)), std::sin(pi2 * (i / steps_div)));
-                glm::vec2 offset2 = glm::vec2(std::cos(pi2 * (j / steps_div)), std::sin(pi2 * (j / steps_div)));
-
-                glm::vec2 p1 = posCenter;
-                glm::vec2 p2 = posCenter + radius * offset1;
-                glm::vec2 p3 = posCenter + radius * offset2;
-
-                result.emplace_back(p1.x, p1.y, 0.0f, 1.0f);    result.emplace_back(color);
-                result.emplace_back(p2.x, p2.y, 0.0f, 1.0f);    result.emplace_back(color);
-                result.emplace_back(p3.x, p3.y, 0.0f, 1.0f);    result.emplace_back(color);
-            }
-        }
-
-        void Component::pushColoredCircle(
-            std::vector<glm::vec4>&result,
-            const glm::vec2& posCenter,
-            float radius,
-            unsigned int width,
-            const glm::vec4& color)
-        {
-            (void) result;
-            (void) posCenter;
-            (void) radius;
-            (void) width;
-            (void) color;
-
-            // TODO: implement this with GL_LINES in mind
         }
 
     }

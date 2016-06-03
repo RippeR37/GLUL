@@ -13,9 +13,7 @@ namespace GLUL {
 
     namespace G2D {
 
-        TexturedBatch::TexturedBatch() {
-            _initializeVAO();
-        }
+        TexturedBatch::TexturedBatch() : _isInitialized(false) { }
 
         TexturedBatch::TexturedBatch(const TexturedPrimitive& primitive, const GL::Texture& texture)
             : TexturedBatch()
@@ -116,6 +114,11 @@ namespace GLUL {
         }
 
         void TexturedBatch::compute() {
+            if(!_isInitialized) {
+                _initializeVAO();
+                _isInitialized = true;
+            }
+
             if(!_vertexData.empty()) {
                 // Push data to VBO
                 _vbo.bind();

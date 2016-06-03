@@ -94,20 +94,15 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Events/MouseRelease.cpp"
     "src/GLUL/GUI/Events/TextInput.cpp"
 
-    "src/GLUL/GUI/Styles/Border.cpp"
-
     "src/GLUL/GUI/Button.cpp"
     "src/GLUL/GUI/Checkbox.cpp"
     "src/GLUL/GUI/Component.cpp"
     "src/GLUL/GUI/Container.cpp"
-    "src/GLUL/GUI/Font.cpp"
-    "src/GLUL/GUI/InnerText.cpp"
     "src/GLUL/GUI/Slider.cpp"
     "src/GLUL/GUI/Panel.cpp"
     "src/GLUL/GUI/ProgressBar.cpp"
     "src/GLUL/GUI/RadioButton.cpp"
     "src/GLUL/GUI/RadioButtonGroup.cpp"
-    "src/GLUL/GUI/Text.cpp"
     "src/GLUL/GUI/TextField.cpp"
     "src/GLUL/GUI/Window.cpp"
 
@@ -133,6 +128,8 @@ set(GLUL_SRCS
     "src/GLUL/Interfaces/ImageFile.cpp"
     "src/GLUL/Interfaces/Model.cpp"
     "src/GLUL/Interfaces/State.cpp"
+
+    "src/GLUL/Resource/Font.cpp"
 
     "src/GLUL/AABB.cpp"
     "src/GLUL/Clock.cpp"
@@ -217,23 +214,16 @@ set(GLUL_H
     "include/GLUL/GUI/Events/TextInput.h"
     "include/GLUL/GUI/Events/ValueChange.hpp"
 
-    "include/GLUL/GUI/Styles/Border.h"
-    "include/GLUL/GUI/Styles/HorizontalAlignment.h"
-    "include/GLUL/GUI/Styles/Orientation.h"
-    "include/GLUL/GUI/Styles/VerticalAlignment.h"
-
     "include/GLUL/GUI/Button.h"
     "include/GLUL/GUI/Checkbox.h"
     "include/GLUL/GUI/Component.h"
     "include/GLUL/GUI/Container.h"
-    "include/GLUL/GUI/Font.h"
-    "include/GLUL/GUI/InnerText.h"
+    "include/GLUL/GUI/Container.hpp"
     "include/GLUL/GUI/Slider.h"
     "include/GLUL/GUI/Panel.h"
     "include/GLUL/GUI/ProgressBar.h"
     "include/GLUL/GUI/RadioButton.h"
     "include/GLUL/GUI/RadioButtonGroup.h"
-    "include/GLUL/GUI/Text.h"
     "include/GLUL/GUI/TextField.h"
     "include/GLUL/GUI/Window.h"
 
@@ -265,6 +255,8 @@ set(GLUL_H
     "include/GLUL/Interfaces/ImageFile.h"
     "include/GLUL/Interfaces/Model.h"
     "include/GLUL/Interfaces/State.h"
+
+    "include/GLUL/Resource/Font.h"
 
     "include/GLUL/AABB.h"
     "include/GLUL/Clock.h"
@@ -427,38 +419,6 @@ target_link_libraries(GLUL_Example_Basic
 
 set_target_properties(GLUL_Example_Basic PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "examples/basic/bin/"
-)
-
-
-###############################################
-# Font example project
-###############################################
-
-project (GLUL_Example_Font CXX)
-
-# Include directories paths
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/include)
-
-# These files are to build font example
-set(GLUL_Example_Font_SRCS
-    "examples/font/src/main.cpp"
-)
-
-set(GLUL_Example_Font_H
-
-)
-
-add_executable(GLUL_Example_Font
-    ${GLUL_Example_Font_SRCS}
-    ${GLUL_Example_Font_H}
-)
-
-target_link_libraries(GLUL_Example_Font
-    GLUL_SHARED
-)
-
-set_target_properties(GLUL_Example_Font PROPERTIES
-    RUNTIME_OUTPUT_DIRECTORY "examples/font/bin/"
 )
 
 

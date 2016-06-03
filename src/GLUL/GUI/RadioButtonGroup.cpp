@@ -1,3 +1,4 @@
+#include <GLUL/GUI/Container.h>
 #include <GLUL/GUI/RadioButton.h>
 #include <GLUL/GUI/RadioButtonGroup.h>
 
@@ -8,24 +9,24 @@ namespace GLUL {
 
     namespace GUI {
 
-        RadioButtonGroup::RadioButtonGroup(Container& parent) 
-            : RadioButtonGroup(&parent) { }
+        RadioButtonGroup::RadioButtonGroup(const Container& parent)
+            : Component(parent, parent.getSize(), {}), _setButton(nullptr) { }
 
-        RadioButtonGroup::RadioButtonGroup(Container* const parent) 
-            : _parent(parent), _setButton(nullptr) { }
-
-
-        RadioButton& RadioButtonGroup::create() {
+        RadioButton& RadioButtonGroup::add(bool set) {
             bool isFirst = _buttons.empty();
-            std::unique_ptr<RadioButton> radioButtonPtr { new RadioButton(*this, _parent, isFirst) };
-            RadioButton& result = *radioButtonPtr;
 
-            _buttons.push_back(std::move(radioButtonPtr));
+            std::unique_ptr<RadioButton> radioButton { new RadioButton(getParent(), *this, isFirst) };
+            RadioButton& radioButtonRef = *radioButton;
+
+            _buttons.push_back(std::move(radioButton));
 
             if(isFirst)
-                _setButton = &result;
+                _setButton = &radioButtonRef;
 
-            return result;
+            if(set && !isFirst)
+                radioButtonRef.set();
+
+            return radioButtonRef;
         }
 
         void RadioButtonGroup::remove(RadioButton& radioButton) {
@@ -39,8 +40,8 @@ namespace GLUL {
                 // Remove button from vector
                 _buttons.erase(
                     std::remove_if(_buttons.begin(), _buttons.end(),
-                        [radioButtonPtr](const std::unique_ptr<RadioButton>& rbPtr) {
-                            return rbPtr.get() == radioButtonPtr;
+                        [radioButtonPtr](const std::unique_ptr<RadioButton>& radioButtonIter) {
+                            return radioButtonIter.get() == radioButtonPtr;
                         }
                     ),
                     _buttons.end()
@@ -53,12 +54,12 @@ namespace GLUL {
                 RadioButton& oldRef = *_setButton;
                 RadioButton& newRef = radioButton;
 
-                oldRef.setState(false);
-                newRef.setState(true);
+                oldRef._setState(false);
+                newRef._setState(true);
 
                 _setButton = &newRef;
 
-                onValueChange.call(radioButton, GLUL::GUI::Event::ValueChange<RadioButton&>(oldRef, newRef));
+                onValueChange.call(radioButton, { oldRef, newRef });
             }
         }
 
@@ -67,8 +68,8 @@ namespace GLUL {
             RadioButton* radioButtonPtr = &radioButton;
 
             auto find_result = std::find_if(_buttons.begin(), _buttons.end(),
-                [radioButtonPtr](std::unique_ptr<RadioButton>& rbPtr) {
-                    return rbPtr.get() == radioButtonPtr;
+                [radioButtonPtr](const std::unique_ptr<RadioButton>& radioButtonIter) {
+                    return radioButtonIter.get() == radioButtonPtr;
                 }
             );
 
@@ -79,18 +80,24 @@ namespace GLUL {
             bool setExisting = false;
 
             // Try to set another
-            for(auto& otherRadioButton : _buttons) {
-                if(otherRadioButton.get() != _setButton) {
-                    set(*otherRadioButton);
+            for(auto& radioButtonIter : _buttons) {
+                if(radioButtonIter.get() != _setButton) {
+                    set(*radioButtonIter);
                     setExisting = true;
                     break;
                 }
             }
 
             if(!setExisting)
-                _setButton = nullptr; // can't be fixed, it's the only button
+                _setButton = nullptr; // there aren't any other RadioButtons left
 
             return setExisting;
+        }
+
+        void RadioButtonGroup::_pushToBatch(G2D::TexturedBatch& texBatch) const {
+            (void) texBatch;
+
+            // do nothing, RadioButtons will be added by parent container
         }
 
     }

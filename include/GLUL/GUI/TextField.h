@@ -1,18 +1,11 @@
 #pragma once
 
-#include <GLUL/GL++/Program.h>
-#include <GLUL/GL++/VertexArray.h>
-#include <GLUL/GL++/VertexBuffer.h>
 #include <GLUL/GUI/Component.h>
-#include <GLUL/GUI/InnerText.h>
 #include <GLUL/GUI/Events/ValueChange.hpp>
-#include <GLUL/GUI/Styles/Border.h>
 
 #include <glm/vec2.hpp>
-#include <glm/vec4.hpp>
 
 #include <string>
-#include <vector>
 
 
 namespace GLUL {
@@ -21,42 +14,22 @@ namespace GLUL {
 
         class GLUL_API TextField : public Component {
             public:
-                TextField(Container& parent);
-                TextField(Container* const parent = nullptr);
-                ~TextField();
-
-                const TextField& render() const;
-                TextField& update(double deltaTime);
-
-                const TextField& validate() const;
-
-                const glm::vec4& getColor() const;
-                float getAlpha() const;
                 const std::string& getValue() const;
-                
-                TextField& setColor(const glm::vec3& color);
-                TextField& setColor(const glm::vec4& color);
-                TextField& setAlpha(const float alpha);
-                TextField& setValue(const std::string& value);
-                TextField& setSize(const glm::vec2& size);
-                TextField& setPosition(const glm::vec2& position);
 
-                InnerText text;
-                Style::Border border;
+                void setValue(const std::string& value);
 
-            public:
                 Event::HandlerAggregator<Event::ValueChange<std::string>> onValueChange;
 
-            private:
-                std::vector<glm::vec4> getVertices() const;
-                
-                bool _glInitialized;
-                glm::vec4 _color;
-                GL::VertexArray _vao;
-                GL::VertexBuffer _vbo;
+            protected:
+                TextField(const Container& parent, const std::string& value = "");
+                TextField(const Container& parent, const glm::vec2& size, const glm::vec2& position, const std::string& value = "");
 
-            private:
-                static GL::Program& getProgram();
+                void _initializeHandlers();
+                void _pushToBatch(G2D::TexturedBatch& texBatch) const;
+
+                std::string _value;
+
+                friend class Container;
         };
 
     }

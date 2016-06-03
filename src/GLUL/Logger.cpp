@@ -38,7 +38,7 @@ namespace GLUL {
     }
 
     Logger::LoggerStream& Logger::LibraryStream() {
-        const std::string libraryStreamName = "_Library";
+        const std::string libraryStreamName = "_GLUL";
         const std::string libraryStreamPath = "logGLUL.log";
 
         if(getInstance()._streams.count(libraryStreamName) == 0)

@@ -15,6 +15,7 @@
 #include <GLUL/G2D/Triangle.h>
 #include <GLUL/G2D/TriangleStrip.h>
 #include <GLUL/G2D/Quad.h>
+#include <GLUL/Resource/Font.h>
 
 
 void test_point() {
@@ -157,7 +158,7 @@ void test_textured_batching() {
 }
 
 void test_font_text() {
-    static GLUL::G2D::Font font { "assets/fonts/arial.ttf", 24 };
+    static GLUL::G2D::Font& font = GLUL::Resource::Font::GetDefault(24);
 
     static std::string lorem_ipsum { "Lorem ipsum" };
     static std::string text1 { "To left\n"  + lorem_ipsum };
@@ -202,6 +203,8 @@ void run() {
         window.render();
         window.update();
     }
+
+    GLUL::Resource::Font::ReleaseDefault(24);
 }
 
 int main() {

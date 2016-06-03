@@ -1,11 +1,10 @@
 #pragma once
 
-#include <GLUL/Config.h>
 #include <GLUL/GUI/Component.h>
 #include <GLUL/GUI/Events/ValueChange.hpp>
 
+#include <list>
 #include <memory>
-#include <vector>
 
 
 namespace GLUL {
@@ -14,29 +13,26 @@ namespace GLUL {
 
         class GLUL_API RadioButton;
 
-        class GLUL_API RadioButtonGroup {
+        class GLUL_API RadioButtonGroup : public Component {
             public:
-                RadioButtonGroup(Container& parent);
-                RadioButtonGroup(Container* const parent = nullptr);
-
-                RadioButtonGroup(const RadioButtonGroup&) = delete;
-                RadioButtonGroup& operator=(const RadioButtonGroup&) = delete;
-
-                RadioButton& create();
+                RadioButton& add(bool set = false);
                 void remove(RadioButton& radioButton);
 
                 void set(RadioButton& radioButton);
 
-            public:
                 Event::HandlerAggregator<Event::ValueChange<RadioButton&>> onValueChange;
 
-            private:
+            protected:
+                RadioButtonGroup(const Container& parent);
+
                 bool _isInGroup(RadioButton& radioButton);
                 bool _setDifferentThanCurrent();
+                void _pushToBatch(G2D::TexturedBatch& texBatch) const;
 
-                Container* _parent;
                 RadioButton* _setButton;
-                std::vector<std::unique_ptr<RadioButton>> _buttons;
+                std::list<std::unique_ptr<RadioButton>> _buttons;
+
+                friend class Container;
         };
 
     }

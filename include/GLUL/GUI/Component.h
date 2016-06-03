@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GLUL/G2D/Rectangle.h>
+#include <GLUL/G2D/TexturedBatch.h>
 #include <GLUL/GUI/Events/Focus.h>
 #include <GLUL/GUI/Events/FocusLoss.h>
 #include <GLUL/GUI/Events/HandlerAggregator.hpp>
@@ -13,10 +14,6 @@
 #include <GLUL/GUI/Events/TextInput.h>
 
 #include <glm/vec2.hpp>
-#include <glm/vec4.hpp>
-
-#include <functional>
-#include <vector>
 
 
 namespace GLUL {
@@ -27,40 +24,32 @@ namespace GLUL {
 
         class GLUL_API Component {
             public:
-                Component(Container& parent);
-                Component(Container* const parent = nullptr);
-                virtual ~Component();
+                virtual ~Component() = default;
 
-                virtual void bindTo(Container& container);
-                virtual void bindTo(Container* container);
-
-                virtual const Component& render() const = 0;
-                virtual Component& update(double deltaTime) = 0;
-
-                virtual const Component& validate() const;
+                virtual void render() const;
+                virtual void update(double deltaTime);
+                virtual void validate() const;
 
                 bool isEnabled() const;
                 bool isFocused() const;
                 bool isVisible() const;
                 bool isValid() const;
+                bool isUnderMouse() const;
+
+                const Container& getParent() const;
 
                 virtual const glm::vec2& getSize() const;
                 virtual const glm::vec2& getPosition() const;
-                const Container* getParent() const;
-                Container* getParent();
-
                 virtual const glm::vec2 getScreenPosition() const;
                 virtual const G2D::Rectangle getBounds() const;
 
-                virtual Component& setEnabled(bool flag);
-                virtual Component& setFocused(bool flag);
-                virtual Component& setVisible(bool flag);
-                virtual Component& setInvalid();
+                virtual void setInvalid() const;
+                virtual void setEnabled(bool flag);
+                virtual void setFocused(bool flag);
+                virtual void setVisible(bool flag);
+                virtual void setSize(const glm::vec2& size);
+                virtual void setPosition(const glm::vec2& position);
 
-                virtual Component& setSize(const glm::vec2& size);
-                virtual Component& setPosition(const glm::vec2& position);
-
-            public:
                 Event::HandlerAggregator<Event::Focus> onFocus;
                 Event::HandlerAggregator<Event::FocusLoss> onFocusLoss;
                 Event::HandlerAggregator<Event::KeyStroke> onKeyStroke;
@@ -72,32 +61,24 @@ namespace GLUL {
                 Event::HandlerAggregator<Event::TextInput> onTextInput;
 
             protected:
-                Component& setValid();
-                Component& setParent(Container* const parent);
-                void notifyParentOfDestruction();
+                Component(const Container& parent);
+                Component(const Container& parent, const glm::vec2& size, const glm::vec2& position);
 
-                bool isUnderMouse() const;
+                Component(const Component&) = delete;
+                Component& operator=(const Component&) = delete;
 
-                static void pushColoredRectangle(std::vector<glm::vec4>& result,
-                    const glm::vec2& posStart, const glm::vec2& posEnd, const glm::vec4& color);
+                void _setValid() const;
+                virtual void _pushToBatch(G2D::TexturedBatch& texBatch) const = 0;
 
-                static void pushColoredDisk(std::vector<glm::vec4>&result,
-                    const glm::vec2& posCenter, float radius, const glm::vec4& color);
-
-                static void pushColoredCircle(std::vector<glm::vec4>&result,
-                    const glm::vec2& posCenter, float radius, unsigned int width, const glm::vec4& color);
-
+                const Container& _parent;
+                glm::vec2 _size;
+                glm::vec2 _position;
                 bool _isEnabled;
                 bool _isFocused;
                 bool _isVisible;
-                bool _isValid;
+                mutable bool _isValid;
 
-                glm::vec2 _size;
-                glm::vec2 _position;
-                Container* _parent;
-
-            public:
-                friend Container;
+                friend class Container;
         };
 
     }

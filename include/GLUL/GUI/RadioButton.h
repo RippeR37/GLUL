@@ -1,12 +1,7 @@
 #pragma once
 
-#include <GLUL/Config.h>
-#include <GLUL/GL++/Program.h>
-#include <GLUL/GL++/VertexArray.h>
-#include <GLUL/GL++/VertexBuffer.h>
 #include <GLUL/GUI/Component.h>
 #include <GLUL/GUI/Events/ValueChange.hpp>
-#include <GLUL/GUI/Styles/Border.h>
 
 
 namespace GLUL {
@@ -19,51 +14,23 @@ namespace GLUL {
             public:
                 operator bool() const;
 
-                const RadioButton& render() const;
-                RadioButton& update(double deltaTime);
-
-                const RadioButton& validate() const;
-
-                const glm::vec4& getColor() const;
-                const glm::vec4& getMarkColor() const;
-                float getMarkScale() const;
-                float getAlpha() const;
                 bool getState() const;
 
-                RadioButton& set();
-                RadioButton& setColor(const glm::vec3& color);
-                RadioButton& setColor(const glm::vec4& color);
-                RadioButton& setMarkColor(const glm::vec3& color);
-                RadioButton& setMarkColor(const glm::vec4& color);
-                RadioButton& setMarkScale(float scale);
-                RadioButton& setAlpha(float alpha);
-                RadioButton& setSize(const glm::vec2& size);
-                RadioButton& setPosition(const glm::vec2& position);
-                
-                Style::Border border;
+                void set();
 
-            public:
                 Event::HandlerAggregator<Event::ValueChange<bool>> onValueChange;
 
-            private:
-                RadioButton(RadioButtonGroup& group, Container& parent, bool state = false);
-                RadioButton(RadioButtonGroup& group, Container* const parent = nullptr, bool state = false);
+            protected:
+                RadioButton(const Container& parent, RadioButtonGroup& group, bool state = false);
+                RadioButton(const Container& parent, RadioButtonGroup& group,
+                    const glm::vec2& size, const glm::vec2& position, bool state = false);
 
-                RadioButton& setState(bool state);
-
-                std::vector<glm::vec4> getVertices() const;
+                void _initializeHandlers();
+                void _setState(bool state);
+                void _pushToBatch(G2D::TexturedBatch& texBatch) const;
 
                 bool _state;
-                bool _glInitialized;
-                float _markScale;
-                glm::vec4 _color;
-                glm::vec4 _markColor;
-                GL::VertexArray _vao;
-                GL::VertexBuffer _vbo;
                 RadioButtonGroup& _group;
-
-            private:
-                static GL::Program& getProgram();
 
                 friend class RadioButtonGroup;
         };

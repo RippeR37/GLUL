@@ -17,16 +17,16 @@ namespace GLUL {
 
         static FT_Library _FT_library;
 
-        Font::Font() throw(GLUL::Exception::FatalError) : _isGenerated(false), _height(0u) {
+        Font::Font() throw(GLUL::Exception::InitializationFailed) : _isGenerated(false), _height(0u) {
             _initializeFT();
             _face = new FT_Face();
         }
 
-        Font::Font(const std::string& path) throw(GLUL::Exception::FatalError) : Font() {
+        Font::Font(const std::string& path) throw(GLUL::Exception::InitializationFailed) : Font() {
             load(path);
         }
 
-        Font::Font(const std::string& path, unsigned int height) throw(GLUL::Exception::FatalError) : Font(path) {
+        Font::Font(const std::string& path, unsigned int height) throw(Exception::InitializationFailed) : Font(path) {
             generate(height);
         }
 
@@ -35,14 +35,16 @@ namespace GLUL {
             delete static_cast<FT_Face*>(_face);
         }
 
-        void Font::load(const std::string& path) {
+        void Font::load(const std::string& path) throw(Exception::InitializationFailed) {
             _setPath(path);
 
-            if(FT_New_Face(_FT_library, getPath().c_str(), 0, static_cast<FT_Face*>(_face)))
+            if(FT_New_Face(_FT_library, getPath().c_str(), 0, static_cast<FT_Face*>(_face))) {
                 GLUL::Log::LibraryStream().logError("[FreeType] Unable to load face from file '" + path + "'");
+                throw Exception::InitializationFailed { "[FreeType] Unable to load face from file '" + path + "'" };
+            }
         }
 
-        void Font::load(const std::string& path, unsigned int height) {
+        void Font::load(const std::string& path, unsigned int height) throw(Exception::InitializationFailed) {
             load(path);
             generate(height);
         }

@@ -1,17 +1,10 @@
 #pragma once
 
-#include <GLUL/GL++/Program.h>
-#include <GLUL/GL++/VertexArray.h>
-#include <GLUL/GL++/VertexBuffer.h>
 #include <GLUL/GUI/Component.h>
-#include <GLUL/GUI/InnerText.h>
-#include <GLUL/GUI/Styles/Border.h>
 
 #include <glm/vec2.hpp>
-#include <glm/vec4.hpp>
 
 #include <string>
-#include <vector>
 
 
 namespace GLUL {
@@ -20,37 +13,20 @@ namespace GLUL {
 
         class GLUL_API Button : public Component {
             public:
-                Button(Container& parent);
-                Button(Container* const parent = nullptr);
-                ~Button();
+                const std::string& getText() const;
 
-                const Button& render() const;
-                Button& update(double deltaTime);
+                void setText(const std::string& text);
 
-                const Button& validate() const;
+            protected:
+                Button(const Container& parent);
+                Button(const Container& parent, const glm::vec2& size, const glm::vec2& position);
+                Button(const Container& parent, const glm::vec2& size, const glm::vec2& position, const std::string& text);
 
-                const glm::vec4& getColor() const;
-                float getAlpha() const;
-                
-                Button& setColor(const glm::vec3& color);
-                Button& setColor(const glm::vec4& color);
-                Button& setAlpha(float alpha);
-                Button& setSize(const glm::vec2& size);
-                Button& setPosition(const glm::vec2& position);
+                void _pushToBatch(G2D::TexturedBatch& texBatch) const;
 
-                InnerText text;
-                Style::Border border;
+                std::string _text;
 
-            private:
-                std::vector<glm::vec4> getVertices() const;
-                
-                bool _glInitialized;
-                glm::vec4 _color;
-                GL::VertexArray _vao;
-                GL::VertexBuffer _vbo;
-
-            private:
-                static GL::Program& getProgram();
+                friend class Container;
         };
 
     }

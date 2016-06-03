@@ -25,13 +25,13 @@ namespace GLUL {
                 };
 
             public:
-                Font() throw(GLUL::Exception::FatalError);
-                Font(const std::string& path) throw(GLUL::Exception::FatalError);
-                Font(const std::string& path, unsigned int height) throw(GLUL::Exception::FatalError);
+                Font() throw(Exception::InitializationFailed);
+                Font(const std::string& path) throw(Exception::InitializationFailed);
+                Font(const std::string& path, unsigned int height) throw(Exception::InitializationFailed);
                 ~Font();
 
-                void load(const std::string& path);
-                void load(const std::string& path, unsigned int height);
+                void load(const std::string& path) throw(Exception::InitializationFailed);
+                void load(const std::string& path, unsigned int height) throw(Exception::InitializationFailed);
                 void generate(unsigned int height);
 
                 const std::string& getPath() const;

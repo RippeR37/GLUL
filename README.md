@@ -114,7 +114,6 @@ Provided examples:
 
 * **2D example** (showcase of available 2D graphic objects and their usage)
 * Basic example (window creation and basic OpenGL usage)
-* Font example (basic text rendering and internal font processing demo)
 * Framework example (simple demo showing off basic framework for simple applications)
 * **GUI example** (showcase of GUI module - built in widgets, events etc.)
 * Image example (loading and saving of images, taking whole-window screenshots etc.)

@@ -69,23 +69,23 @@
     <Filter Include="Header Files\GUI\Events">
       <UniqueIdentifier>{a00e1cda-1dfb-4c93-9824-070b043c2578}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\GUI\Styles">
-      <UniqueIdentifier>{4a9415a3-eb51-4daa-bcab-5178a0795b55}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\GUI">
       <UniqueIdentifier>{09cdac41-a972-42f2-835b-90fd235e894d}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\GUI\Events">
       <UniqueIdentifier>{5f329a77-5ad4-421e-b07e-d9bbf9eb19fa}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\GUI\Styles">
-      <UniqueIdentifier>{13f59ee7-c625-4dbb-b4db-9d3ba4778b43}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\G2D">
       <UniqueIdentifier>{b6ff2566-416b-4158-8c70-a9496036c9d5}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\G2D">
       <UniqueIdentifier>{81bf0e55-f9ed-4d0a-b0c0-4cded687e58c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resource">
+      <UniqueIdentifier>{dd2952e2-5e63-43d5-aaa1-59b742558ac6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resource">
+      <UniqueIdentifier>{07bc8ff4-c57a-4d82-9e51-4df374400e22}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -200,9 +200,6 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Container.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\InnerText.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\GUI\TextField.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
@@ -232,15 +229,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseRelease.h">
       <Filter>Header Files\GUI\Events</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\Border.h">
-      <Filter>Header Files\GUI\Styles</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\HorizontalAlignment.h">
-      <Filter>Header Files\GUI\Styles</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\VerticalAlignment.h">
-      <Filter>Header Files\GUI\Styles</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\Helpers\HashEnum.h">
       <Filter>Header Files\Helpers</Filter>
@@ -332,9 +320,6 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\RadioButton.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Styles\Orientation.h">
-      <Filter>Header Files\GUI\Styles</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\GUI\Panel.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
@@ -401,12 +386,6 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedQuad.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Text.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Font.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\G2D\HorizontalAlignment.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
@@ -421,6 +400,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedBatch.h">
       <Filter>Header Files\G2D</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Container.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Resource\Font.h">
+      <Filter>Header Files\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -529,9 +514,6 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Container.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\InnerText.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\TextField.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
@@ -555,9 +537,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseRelease.cpp">
       <Filter>Source Files\GUI\Events</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Styles\Border.cpp">
-      <Filter>Source Files\GUI\Styles</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\Input\Event.cpp">
       <Filter>Source Files\Input</Filter>
@@ -688,12 +667,6 @@
     <ClCompile Include="..\..\..\src\GLUL\G2D\Text.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Font.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Text.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\Rectangle.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
@@ -705,6 +678,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedBatch.cpp">
       <Filter>Source Files\G2D</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Resource\Font.cpp">
+      <Filter>Source Files\Resource</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,7 +1,5 @@
-#include <GLUL/GL++/Context.h>
 #include <GLUL/GUI/Container.h>
 #include <GLUL/GUI/Slider.h>
-#include <GLUL/Logger.h>
 
 #include <algorithm>
 
@@ -10,120 +8,17 @@ namespace GLUL {
 
     namespace GUI {
 
-        Slider::Slider(Container& parent, Style::Orientation orientation, float min, float max, float value)
-            : Slider(&parent, orientation, min, max, value) { }
+        Slider::Slider(const Container& parent, float min, float max, float value)
+            : Slider(parent, {}, {}, min, max, value) { }
 
-        Slider::Slider(Container* const parent, Style::Orientation orientation, float min, float max, float value)
-            : Component(parent), border(*this), handleBorder(*this)
+        Slider::Slider(const Container& parent, const glm::vec2& size, const glm::vec2& position, float min, float max, float value)
+            : Component(parent, size, position), _rangeMin(min), _rangeMax(max), _value(value)
         {
-            setBackgroundColor(glm::vec4(glm::vec3(0.0f), 1.0f));
-            setHandleColor(glm::vec4(glm::vec3(1.0f), 1.0f));
-            setLineColor(glm::vec4(0.0f));
-            setOrientation(orientation);
-
-            restrictValuesToIntegers(false);
-            setRange(min, max);
-            setValue(value);
-            setMovingState(false);
-
-            initializeEvents();
-
-            _glInitialized = false;
-        }
-
-
-        const Slider& Slider::render() const {
-            if(isVisible() &&
-                (getBackgroundAlpha() > 0.0f || getLineAlpha() > 0.0f || getHandleAlpha() > 0.0f)) 
-            {
-                if(!isValid())
-                    validate();
-
-                getProgram().use();
-
-                _vao.bind();
-                _vao.drawArrays();
-                _vao.unbind();
-
-                getProgram().unbind();
-            }
-
-            return *this;
-        }
-
-        Slider& Slider::update(double deltaTime) {
-            if(!isValid())
-                validate();
-
-            (void)deltaTime; // unused
-
-            return *this;
-        }
-
-        const Slider& Slider::validate() const {
-            Slider* thisConstless = const_cast<Slider*>(this);
-
-            // (Re)build VBO
-            GL::VertexBuffer::Data vertexData;
-            std::vector<glm::vec4> vertices = getVertices();
-
-            vertexData.data = vertices.data();
-            vertexData.size = vertices.size() * sizeof(glm::vec4);
-            vertexData.pointers.push_back(GL::VertexAttrib(0, 4, GL_FLOAT, sizeof(glm::vec4) * 2, nullptr));
-            vertexData.pointers.push_back(GL::VertexAttrib(1, 4, GL_FLOAT, sizeof(glm::vec4) * 2, sizeof(glm::vec4)));
-
-            _vbo.bind();
-                thisConstless->_vbo.setUsage(GL::VertexBuffer::Usage::DynamicDraw);
-                thisConstless->_vbo.setData(vertexData);
-            _vbo.unbind();
-
-            // Set vertices draw count
-            thisConstless->_vao.setDrawCount(vertices.size() / 2);
-
-            // Initialize VAO
-            if(_glInitialized == false) {
-                thisConstless->_vao.setDrawTarget(GL::VertexArray::DrawTarget::Triangles);
-
-                _vao.bind();
-                    thisConstless->_vao.attachVBO(&_vbo);
-                    thisConstless->_vao.setAttribPointers();
-                _vao.unbind();
-
-                thisConstless->_glInitialized = true;
-            }
-
-            thisConstless->setValid();
-
-            return *this;
-        }
-
-
-        const glm::vec4& Slider::getBackgroundColor() const {
-            return _backgroundColor;
-        }
-
-        const glm::vec4& Slider::getLineColor() const {
-            return _lineColor;
-        }
-
-        const glm::vec4& Slider::getHandleColor() const {
-            return _handleColor;
-        }
-
-        float Slider::getBackgroundAlpha() const {
-            return getBackgroundColor().a;
-        }
-
-        float Slider::getLineAlpha() const {
-            return getLineColor().a;
-        }
-
-        float Slider::getHandleAlpha() const {
-            return getHandleColor().a;
+            _initializeHandlers();
         }
 
         float Slider::getValue() const {
-            return _currentValue;
+            return _value;
         }
 
         float Slider::getMin() const {
@@ -140,19 +35,6 @@ namespace GLUL {
                 return _possibleValues.back();
         }
 
-        const glm::vec2& Slider::getLineSize() const {
-            return _lineSize;
-        }
-
-        const glm::vec2& Slider::getHandleSize() const {
-            return _handleSize;
-        }
-
-        Style::Orientation Slider::getOrientation() const {
-            return _orientation;
-        }
-
-
         float Slider::normalizeValue(float value) const {
             return (value - getMin()) / (getMax() - getMin());
         }
@@ -161,96 +43,36 @@ namespace GLUL {
             return getMin() + (getMax() - getMin()) * normalizedValue;
         }
 
-
-        Slider& Slider::setBackgroundColor(const glm::vec3& color) {
-            return setBackgroundColor(glm::vec4(color, getBackgroundAlpha()));
-        }
-
-        Slider& Slider::setBackgroundColor(const glm::vec4& color) {
-            _backgroundColor = color;
-
-            setInvalid();
-
-            return *this;
-        }
-
-        Slider& Slider::setLineColor(const glm::vec3& lineColor) {
-            return setLineColor(glm::vec4(lineColor, getLineAlpha()));
-        }
-
-        Slider& Slider::setLineColor(const glm::vec4& lineColor) {
-            _lineColor = lineColor;
-
-            setInvalid();
-
-            return *this;
-        }
-
-        Slider& Slider::setHandleColor(const glm::vec3& handleColor) {
-            return setHandleColor(glm::vec4(handleColor, getHandleAlpha()));
-        }
-
-        Slider& Slider::setHandleColor(const glm::vec4& handleColor) {
-            _handleColor = handleColor;
-
-            setInvalid();
-
-            return *this;
-        }
-
-        Slider& Slider::setBackgroundAlpha(float alpha) {
-            glm::vec4 backgroundColor = getBackgroundColor();
-
-            backgroundColor.a = alpha;
-
-            return setBackgroundColor(backgroundColor);
-        }
-
-        Slider& Slider::setLineAlpha(float alpha) {
-            glm::vec4 color = getLineColor();
-
-            color.a = alpha;
-
-            return setLineColor(color);
-        }
-
-        Slider& Slider::setHandleAlpha(float alpha) {
-            glm::vec4 color = getHandleColor();
-
-            color.a = alpha;
-
-            return setHandleColor(color);
-        }
-
-        Slider& Slider::setRange(float min, float max) {
+        void Slider::setRange(float min, float max) {
             _rangeMin = min;
             _rangeMax = max;
+
+            // clear vector of possible values
             std::vector<float>().swap(_possibleValues);
 
-            clampValue();
-
-            return *this;
+            _clampValue();
         }
 
-        Slider& Slider::setMin(float min) {
-            return setRange(min, getMax());
+        void Slider::setMin(float min) {
+            setRange(min, getMax());
         }
 
-        Slider& Slider::setMax(float max) {
-            return setRange(getMin(), max);
+        void Slider::setMax(float max) {
+            setRange(getMin(), max);
         }
 
-        Slider& Slider::setValue(float value) {
+        void Slider::setValue(float value) {
             float oldValue = getValue();
 
             if(_possibleValues.empty()) {
-                _currentValue = value;
-                clampValue();
+                _value = value;
+                _clampValue();
 
             } else {
                 float currentBest = _possibleValues.front();
                 float currentDist = std::abs(value - currentBest);
 
+                // TODO: optimize this with std::lower_bound
                 for(float possibleValue : _possibleValues) {
                     if(std::abs(possibleValue - value) < currentDist) {
                         currentBest = possibleValue;
@@ -258,192 +80,50 @@ namespace GLUL {
                     }
                 }
 
-                _currentValue = currentBest;
+                _value = currentBest;
             }
 
             setInvalid();
 
             onValueChange.call(*this, GLUL::GUI::Event::ValueChange<float>(oldValue, getValue()));
-
-            return *this;
         }
 
-        Slider& Slider::setSize(const glm::vec2& size) {
+        void Slider::setSize(const glm::vec2& size) {
             Component::setSize(size);
 
-            if(getOrientation() == Style::Orientation::Horizontal) {
-                setLineSize(glm::vec2(size.x, size.y / 15.0f));
-                setHandleSize(glm::vec2(size.y / 3.0f, size.y * 1.2f));
-            } else {
-                setLineSize(glm::vec2(size.x / 15.0f, size.y));
-                setHandleSize(glm::vec2(size.x * 1.2f, size.x / 3.0f));
-            }
-
-            return *this;
+            // Orientation-dependent settings?
         }
 
-        Slider& Slider::setLineSize(const glm::vec2& lineSize) {
-            _lineSize = lineSize;
+        void Slider::restrictValuesToIntegers(bool value) {
+            _isIntegerRestricted = value;
+            _clampValue();
 
             setInvalid();
-
-            return *this;
         }
 
-        Slider& Slider::setHandleSize(const glm::vec2& handleSize) {
-            _handleSize = handleSize;
-
-            setInvalid();
-
-            return *this;
-        }
-
-        Slider& Slider::setPosition(const glm::vec2& position) {
-            Component::setPosition(position);
-
-            return *this;
-        }
-
-        Slider& Slider::setOrientation(Style::Orientation orientation) {
-            _orientation = orientation;
-
-            setInvalid();
-            validate();
-
-            return *this;
-        }
-
-
-        Slider& Slider::restrictValuesToIntegers(bool value) {
-            _integerRestriction = value;
-            clampValue();
-
-            return *this;
-        }
-
-        Slider& Slider::restrictValuesTo(std::initializer_list<float> values) {
-            std::vector<float>().swap(_possibleValues);
-            _possibleValues.reserve(values.size());
+        void Slider::restrictValuesTo(std::initializer_list<float> values) {
+            _possibleValues = std::vector<float>(values.size());
 
             std::copy(std::begin(values), std::end(values), std::begin(_possibleValues));
             std::sort(std::begin(_possibleValues), std::end(_possibleValues));
 
             setRange(_possibleValues.front(), _possibleValues.back());
             setValue(getValue());
-
-            return *this;
         }
 
+        void Slider::_clampValue() {
+            _value = std::min(_rangeMax, std::max(_rangeMin, _value));
 
-        void Slider::clampValue() {
-            _currentValue = std::min(_rangeMax, std::max(_rangeMin, _currentValue));
+            if(_isIntegerRestricted)
+                _value = std::round(_value);
 
-            if(_integerRestriction)
-                _currentValue = std::round(_currentValue);
-
-            if(_currentValue < _rangeMin) _currentValue += 1.0f;
-            if(_currentValue > _rangeMax) _currentValue -= 1.0f;
+            if(_value < _rangeMin) _value += 1.0f;
+            if(_value > _rangeMax) _value -= 1.0f;
 
             setInvalid();
         }
 
-        GL::Program& Slider::getProgram() {
-            static GL::Program program(
-                GL::Shader("assets/shaders/GLUL/GUI/Button.vp", GL::Shader::Type::VertexShader),
-                GL::Shader("assets/shaders/GLUL/GUI/Button.fp", GL::Shader::Type::FragmentShader)
-            );
-
-            return program;
-        }
-
-        std::vector<glm::vec4> Slider::getVertices() const {
-            std::vector<glm::vec4> result;
-
-            // Background position
-            glm::vec2 scrPos = getScreenPosition();
-            glm::vec2 posStart = glm::vec2(scrPos.x, GL::Context::Current->getViewportSize().y - scrPos.y);
-            glm::vec2 posEnd = posStart + glm::vec2(getSize().x, -getSize().y);
-
-            // Push vertices to vector
-            pushBackgroundVertices(result, posStart, posEnd);
-            pushLineVertices(result, posStart, posEnd);
-            pushHandleVertices(result, posStart, posEnd);
-
-            return result;
-        }
-
-        void Slider::pushBackgroundVertices(std::vector<glm::vec4>& result, const glm::vec2& posStart, const glm::vec2& posEnd) const {
-            // Background border position
-            glm::vec2 borStart = posStart - glm::vec2(border.getOffset(), -border.getOffset());
-            glm::vec2 borEnd = posEnd - glm::vec2(-border.getOffset(), border.getOffset());
-            glm::vec2 borWidth = glm::vec2(static_cast<float>(border.getWidth()));
-
-            // Vertices - background
-            if(getBackgroundAlpha() > 0.0f)
-                pushColoredRectangle(result, posStart, posEnd, getBackgroundColor());
-
-            // Vertices - background's border
-            pushColoredRectangle(result, glm::vec2(borStart.x, borStart.y), glm::vec2(borEnd.x, borStart.y - borWidth.y), border.getColor()); // top
-            pushColoredRectangle(result, glm::vec2(borStart.x, borStart.y), glm::vec2(borStart.x + borWidth.x, borEnd.y), border.getColor()); // left
-            pushColoredRectangle(result, glm::vec2(borEnd.x - borWidth.x, borStart.y), glm::vec2(borEnd.x, borEnd.y), border.getColor()); // right
-            pushColoredRectangle(result, glm::vec2(borStart.x, borEnd.y + borWidth.y), glm::vec2(borEnd.x, borEnd.y), border.getColor()); // bottom
-        }
-
-        void Slider::pushLineVertices(std::vector<glm::vec4>& result, const glm::vec2& posStart, const glm::vec2& posEnd) const {
-            const float lineWidthDiff = getSize().x - getLineSize().x;
-            const float lineHeightDiff = getSize().y - getLineSize().y;
-
-            glm::vec2 posStartLine, posEndLine;
-
-            // Line position
-            if(getOrientation() == Style::Orientation::Horizontal) {
-                posStartLine = glm::vec2(posStart.x + (lineWidthDiff * 0.5f), posStart.y - (getSize().y - getLineSize().y) * 0.5f);
-                posEndLine = glm::vec2(posEnd.x - (lineWidthDiff * 0.5f), posStartLine.y - getLineSize().y);
-            } else {
-                posStartLine = glm::vec2(posStart.x + (getSize().x - getLineSize().x) * 0.5f, posStart.y + lineHeightDiff * 0.5f);
-                posEndLine = glm::vec2(posStartLine.x + getLineSize().x, posStartLine.y + getLineSize().y);
-            }
-
-            // Vertices - line
-            if(getLineAlpha() > 0.0f)
-                pushColoredRectangle(result, posStartLine, posEndLine, getLineColor());
-        }
-
-        void Slider::pushHandleVertices(std::vector<glm::vec4>& result, const glm::vec2& posStart, const glm::vec2& posEnd) const {
-            glm::vec2 posStartHandle, posEndHandle;
-
-            // Handle position (depending on orientation)
-            if(getOrientation() == Style::Orientation::Horizontal) {
-                const float handleRange = getSize().x - getHandleSize().x;
-                const float handleHeightDiff = getSize().y - getHandleSize().y;
-
-                posStartHandle = glm::vec2(posStart.x + handleRange * normalizeValue(getValue()), posStart.y - (handleHeightDiff * 0.5f));
-                posEndHandle = glm::vec2(posStartHandle.x + getHandleSize().x, posEnd.y + (handleHeightDiff * 0.5f));
-            } else {
-                const float handleRange = getSize().y -getHandleSize().y;
-                const float handleWidthDiff = getSize().x - getHandleSize().x;
-
-                posStartHandle = glm::vec2(posStart.x + handleWidthDiff * 0.5f, posEnd.y + handleRange * normalizeValue(getValue()));
-                posEndHandle = glm::vec2(posEnd.x - handleWidthDiff * 0.5f, posStartHandle.y + getHandleSize().y);
-            }
-
-            // Handle border position
-            glm::vec2 hBorStart = posStartHandle - glm::vec2(handleBorder.getOffset(), -handleBorder.getOffset());
-            glm::vec2 hBorEnd = posEndHandle - glm::vec2(-handleBorder.getOffset(), handleBorder.getOffset());
-            glm::vec2 hBorWidth = glm::vec2(static_cast<float>(handleBorder.getWidth()));
-
-            // Vertices - handle
-            if(getHandleAlpha() > 0.0f)
-                pushColoredRectangle(result, posStartHandle, posEndHandle, getHandleColor());
-
-            // Vertices - handle's border
-            pushColoredRectangle(result, glm::vec2(hBorStart.x, hBorStart.y), glm::vec2(hBorEnd.x, hBorStart.y - hBorWidth.y), handleBorder.getColor()); // top
-            pushColoredRectangle(result, glm::vec2(hBorStart.x, hBorStart.y), glm::vec2(hBorStart.x + hBorWidth.x, hBorEnd.y), handleBorder.getColor()); // left
-            pushColoredRectangle(result, glm::vec2(hBorEnd.x - hBorWidth.x, hBorStart.y), glm::vec2(hBorEnd.x, hBorEnd.y), handleBorder.getColor()); // right
-            pushColoredRectangle(result, glm::vec2(hBorStart.x, hBorEnd.y + hBorWidth.y), glm::vec2(hBorEnd.x, hBorEnd.y), handleBorder.getColor()); // bottom
-        }
-
-        void Slider::initializeEvents() {
+        void Slider::_initializeHandlers() {
             // Move to point where you clicked
             onMouseClick += GLUL::GUI::Event::MouseClick::Handler(
                 "__GLUL::GUI::Slider::MouseClick::Move",
@@ -451,7 +131,7 @@ namespace GLUL {
                     Slider& slider = static_cast<Slider&>(component);
 
                     if(mouseClickEvent.button == GLUL::Input::MouseButton::Left)
-                        slider.updateValueFromPosition(mouseClickEvent.position);
+                        slider._updateValueFromPosition(mouseClickEvent.position);
                 }
             );
 
@@ -462,7 +142,7 @@ namespace GLUL {
                     Slider& slider = static_cast<Slider&>(component);
 
                     if(mouseClickEvent.button == GLUL::Input::MouseButton::Left)
-                        slider.setMovingState(true);
+                        slider._setMovingState(true);
                 }
             );
 
@@ -473,7 +153,7 @@ namespace GLUL {
                     Slider& slider = static_cast<Slider&>(component);
 
                     if(mouseReleaseEvent.button == GLUL::Input::MouseButton::Left)
-                        slider.setMovingState(false);
+                        slider._setMovingState(false);
                 }
             );
 
@@ -484,7 +164,7 @@ namespace GLUL {
                     (void) mouseLeaveEvent; // unused
 
                     Slider& slider = static_cast<Slider&>(component);
-                    slider.setMovingState(false);
+                    slider._setMovingState(false);
                 }
             );
 
@@ -493,23 +173,26 @@ namespace GLUL {
                 [&](GLUL::GUI::Component& component, const GLUL::GUI::Event::MouseMove& mouseMoveEvent) {
                     Slider& slider = static_cast<Slider&>(component);
 
-                    if(slider.isMoving())
-                        slider.updateValueFromPosition(mouseMoveEvent.position);
+                    if(slider._isMoving())
+                        slider._updateValueFromPosition(mouseMoveEvent.position);
                 }
             );
         }
 
-        bool Slider::isMoving() const {
-            return _isMoving;
+        bool Slider::_isMoving() const {
+            return _isMovingState;
         }
 
-        void Slider::setMovingState(bool value) {
-            _isMoving = value;
+        void Slider::_setMovingState(bool value) {
+            _isMovingState = value;
         }
 
-        void Slider::updateValueFromPosition(const glm::vec2& position) {
+        void Slider::_updateValueFromPosition(const glm::vec2& position) {
+            (void) position;
+            // TODO:
+
+            /*
             float normalizedNewValue;
-
             if(getOrientation() == Style::Orientation::Horizontal) {
                 float handleWidth = getHandleSize().x;
                 float sliderRange = getSize().x - handleWidth;
@@ -522,6 +205,12 @@ namespace GLUL {
             }
 
             setValue(denormalizeValue(normalizedNewValue));
+            */
+        }
+
+        void Slider::_pushToBatch(G2D::TexturedBatch& texBatch) const {
+            (void) texBatch;
+            // TODO:
         }
 
     }
