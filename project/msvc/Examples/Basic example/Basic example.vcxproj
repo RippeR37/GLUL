@@ -72,7 +72,7 @@
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(ProjectDir)\..\..\..\..\bin\GLULd.dll" "$(ProjectDir)$(OutDir)"
-xcopy /y /d /e /i "$(ProjectDir)\..\..\..\..\bin\assets" "$(ProjectDir)$(OutDir)\assets"</Command>
+xcopy /y /d /e /i "$(ProjectDir)\..\..\..\..\bin\resources" "$(ProjectDir)$(OutDir)\resources"</Command>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>
@@ -106,7 +106,7 @@ xcopy /y /d /e /i "$(ProjectDir)\..\..\..\..\bin\assets" "$(ProjectDir)$(OutDir)
     </Link>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(ProjectDir)\..\..\..\..\bin\GLUL.dll" "$(ProjectDir)$(OutDir)"
-xcopy /y /d /e /i "$(ProjectDir)\..\..\..\..\bin\assets" "$(ProjectDir)$(OutDir)\assets"</Command>
+xcopy /y /d /e /i "$(ProjectDir)\..\..\..\..\bin\resources" "$(ProjectDir)$(OutDir)\resources"</Command>
     </PostBuildEvent>
     <CustomBuildStep>
       <Command>

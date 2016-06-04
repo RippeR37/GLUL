@@ -5,6 +5,7 @@
 #include <GLUL/G2D/Text.h>
 #include <GLUL/G2D/TexturedBatch.h>
 #include <GLUL/G2D/TexturedPrimitive.h>
+#include <GLUL/Resources/Programs.h>
 
 #include <glm/vector_relational.hpp>
 
@@ -230,13 +231,8 @@ namespace GLUL {
             _colorData.insert(_colorData.end(), colorData.begin(), colorData.end());
         }
 
-        GL::Program& TexturedBatch::getDefaultProgram() {
-            static GL::Program program(
-                GL::Shader("assets/shaders/GLUL/G2D/Textured.vp", GL::Shader::Type::VertexShader),
-                GL::Shader("assets/shaders/GLUL/G2D/Textured.fp", GL::Shader::Type::FragmentShader)
-            );
-
-            return program;
+        const GL::Program& TexturedBatch::getDefaultProgram() {
+            return Resources::Programs::Get("G2D/Textured.vp", "G2D/Textured.fp", true);
         }
 
     }

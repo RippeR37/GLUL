@@ -77,7 +77,7 @@ namespace GLUL {
                     const std::vector<glm::vec4>& colorData,
                     const GL::Texture& texture);
 
-                static GL::Program& getDefaultProgram();
+                static const GL::Program& getDefaultProgram();
 
                 bool _isInitialized;
                 std::vector<DrawCall> _drawCalls;

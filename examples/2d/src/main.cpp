@@ -15,7 +15,8 @@
 #include <GLUL/G2D/Triangle.h>
 #include <GLUL/G2D/TriangleStrip.h>
 #include <GLUL/G2D/Quad.h>
-#include <GLUL/Resource/Font.h>
+#include <GLUL/Resources/Fonts.h>
+#include <GLUL/Resources/Textures.h>
 
 
 void test_point() {
@@ -118,7 +119,7 @@ void test_rings() {
 }
 
 void test_textured_triangles() {
-    static GL::Texture texture("assets/textures/tex.bmp");
+    static const GL::Texture& texture = GLUL::Resources::Textures::Get("tex.bmp");
 
     static GLUL::G2D::TexturedPoint tp1 { {  20.0f, 250.0f }, { 0.0f, 0.0f } };
     static GLUL::G2D::TexturedPoint tp2 { { 120.0f, 250.0f }, { 1.0f, 0.0f } };
@@ -136,8 +137,8 @@ void test_textured_triangles() {
 }
 
 void test_textured_batching() {
-    static GL::Texture texture1("assets/textures/tex.bmp");
-    static GL::Texture texture2("assets/textures/tex.bmp");
+    static const GL::Texture& texture1 = GLUL::Resources::Textures::Get("tex.bmp");
+    static const GL::Texture& texture2 = GLUL::Resources::Textures::Get("tex2.bmp"); // invalid, will load error texture
 
     static GLUL::G2D::TexturedPoint tp_t1 { { 320.0f, 250.0f }, { 0.0f, 0.0f } };
     static GLUL::G2D::TexturedPoint tp_t2 { { 420.0f, 250.0f }, { 1.0f, 0.0f } };
@@ -152,13 +153,13 @@ void test_textured_batching() {
     static GLUL::G2D::TexturedQuad quad { tp_q1, tp_q2, tp_q3, tp_q4 };
     static GLUL::G2D::TexturedRectangle rectangle { { 500.0f, 250.0f }, { 250.0f, 60.0f } };
 
-    static GLUL::G2D::TexturedBatch batch { { quad, texture2 }, { triangle, texture1 }, { rectangle, texture1 } };
+    static GLUL::G2D::TexturedBatch batch { { quad, texture1 }, { triangle, texture1 }, { rectangle, texture2 } };
 
     batch.render();
 }
 
 void test_font_text() {
-    static GLUL::G2D::Font& font = GLUL::Resource::Font::GetDefault(24);
+    static auto& font = GLUL::Resources::Fonts::GetDefault(24);
 
     static std::string lorem_ipsum { "Lorem ipsum" };
     static std::string text1 { "To left\n"  + lorem_ipsum };
@@ -204,7 +205,8 @@ void run() {
         window.update();
     }
 
-    GLUL::Resource::Font::ReleaseDefault(24);
+    GLUL::Resources::Fonts::ReleaseDefault(24);
+    GLUL::Resources::Textures::Release("tex.bmp");
 }
 
 int main() {

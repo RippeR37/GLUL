@@ -9,7 +9,7 @@
 *.suo
 *.exp
 
-examples/*/bin/assets/*/GLUL/*
+examples/*/bin/resources/*/GLUL/*
 examples/image/bin/lastImage.*
 examples/image/bin/screenshot.*
 

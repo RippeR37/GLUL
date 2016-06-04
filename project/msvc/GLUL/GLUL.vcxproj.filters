@@ -81,11 +81,11 @@
     <Filter Include="Source Files\G2D">
       <UniqueIdentifier>{81bf0e55-f9ed-4d0a-b0c0-4cded687e58c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Resource">
-      <UniqueIdentifier>{dd2952e2-5e63-43d5-aaa1-59b742558ac6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Resource">
+    <Filter Include="Header Files\Resourced">
       <UniqueIdentifier>{07bc8ff4-c57a-4d82-9e51-4df374400e22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Resources">
+      <UniqueIdentifier>{dd2952e2-5e63-43d5-aaa1-59b742558ac6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -404,8 +404,14 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Container.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\Resource\Font.h">
-      <Filter>Header Files\Resource</Filter>
+    <ClInclude Include="..\..\..\include\GLUL\Resources\Textures.h">
+      <Filter>Header Files\Resourced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Resources\Programs.h">
+      <Filter>Header Files\Resourced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\Resources\Fonts.h">
+      <Filter>Header Files\Resourced</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -679,8 +685,14 @@
     <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedBatch.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\Resource\Font.cpp">
-      <Filter>Source Files\Resource</Filter>
+    <ClCompile Include="..\..\..\src\GLUL\Resources\Textures.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Resources\Programs.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\Resources\Fonts.cpp">
+      <Filter>Source Files\Resources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

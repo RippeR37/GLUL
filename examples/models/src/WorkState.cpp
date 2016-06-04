@@ -44,8 +44,8 @@ void WorkState::onLoad() {
 
     // Load models
     bool loaded[2];
-    loaded[0] = _modelOBJ[0].load("assets/models/teapot/teapot.obj");
-    loaded[1] = _modelOBJ[1].load("assets/models/suzanne/suzanne.obj");
+    loaded[0] = _modelOBJ[0].load("resources/models/teapot/teapot.obj");
+    loaded[1] = _modelOBJ[1].load("resources/models/suzanne/suzanne.obj");
 
     _modelOBJ[0].setMatrix(glm::translate(glm::mat4(1.0), glm::vec3(-1.5, -0.5, -4.0)));
     _modelOBJ[1].setMatrix(glm::translate(glm::mat4(1.0), glm::vec3( 1.3,  0.0, -4.0)));
@@ -73,7 +73,7 @@ void WorkState::handleInputEvent(const GLUL::Input::Event& inputEvent) {
 
         if(keyEvent.getAction() == GLUL::Input::Action::Press) {
             switch(keyEvent.getKey()) {
-                case GLUL::Input::Key::Escacpe: 
+                case GLUL::Input::Key::Escacpe:
                     const_cast<WorkState*>(this)->changeTo(_parentState);
                     break;
 

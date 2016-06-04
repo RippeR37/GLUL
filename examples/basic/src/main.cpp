@@ -16,8 +16,8 @@ void initVertices(std::vector<glm::vec4>& vertices) {
 
 void initProgram(GL::Program& program) {
     program.load(
-        GL::Shader("assets/shaders/basic.vp", GL::Shader::Type::VertexShader),
-        GL::Shader("assets/shaders/basic.fp", GL::Shader::Type::FragmentShader)
+        GL::Shader("resources/shaders/basic.vp", GL::Shader::Type::VertexShader),
+        GL::Shader("resources/shaders/basic.fp", GL::Shader::Type::FragmentShader)
     );
 }
 
@@ -71,7 +71,7 @@ void run() {
             vao.drawArrays();
             vao.unbind();
         program.unbind();
-        
+
         window.update();
     }
 }

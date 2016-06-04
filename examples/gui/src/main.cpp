@@ -11,7 +11,7 @@
 #include <GLUL/GUI/RadioButtonGroup.h>
 #include <GLUL/GUI/TextField.h>
 #include <GLUL/GUI/Window.h>
-#include <GLUL/Resource/Font.h>
+#include <GLUL/Resources/Fonts.h>
 
 #include <cmath>
 #include <iostream>
@@ -156,7 +156,7 @@ void run() {
         window.update();
     }
 
-    GLUL::Resource::Font::ReleaseDefault(16);
+    GLUL::Resources::Fonts::ReleaseDefault(16);
 }
 
 /**

@@ -129,7 +129,9 @@ set(GLUL_SRCS
     "src/GLUL/Interfaces/Model.cpp"
     "src/GLUL/Interfaces/State.cpp"
 
-    "src/GLUL/Resource/Font.cpp"
+    "src/GLUL/Resources/Fonts.cpp"
+    "src/GLUL/Resources/Programs.cpp"
+    "src/GLUL/Resources/Textures.cpp"
 
     "src/GLUL/AABB.cpp"
     "src/GLUL/Clock.cpp"
@@ -256,7 +258,9 @@ set(GLUL_H
     "include/GLUL/Interfaces/Model.h"
     "include/GLUL/Interfaces/State.h"
 
-    "include/GLUL/Resource/Font.h"
+    "include/GLUL/Resources/Fonts.h"
+    "include/GLUL/Resources/Programs.h"
+    "include/GLUL/Resources/Textures.h"
 
     "include/GLUL/AABB.h"
     "include/GLUL/Clock.h"

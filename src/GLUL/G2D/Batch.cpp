@@ -2,6 +2,7 @@
 #include <GLUL/GL++/Context.h>
 #include <GLUL/G2D/Batch.h>
 #include <GLUL/G2D/Primitive.h>
+#include <GLUL/Resources/Programs.h>
 
 #include <glm/vector_relational.hpp>
 
@@ -152,13 +153,8 @@ namespace GLUL {
             _colorData.insert(_colorData.end(), colorData.begin(), colorData.end());
         }
 
-        GL::Program& Batch::getDefaultProgram() {
-            static GL::Program program(
-                GL::Shader("assets/shaders/GLUL/G2D/Default.vp", GL::Shader::Type::VertexShader),
-                GL::Shader("assets/shaders/GLUL/G2D/Default.fp", GL::Shader::Type::FragmentShader)
-            );
-
-            return program;
+        const GL::Program& Batch::getDefaultProgram() {
+            return Resources::Programs::Get("G2D/Default.vp", "G2D/Default.fp", true);
         }
 
     }

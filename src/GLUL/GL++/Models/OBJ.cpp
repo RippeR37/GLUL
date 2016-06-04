@@ -13,8 +13,8 @@ namespace GL {
 
         OBJ::OBJ() {
             _program.load(
-                GL::Shader("assets/shaders/GLUL/GL++/Models/MeshOBJ.vp", GL::Shader::Type::VertexShader),
-                GL::Shader("assets/shaders/GLUL/GL++/Models/MeshOBJ.fp", GL::Shader::Type::FragmentShader)
+                GL::Shader("resources/shaders/GLUL/GL++/Models/MeshOBJ.vp", GL::Shader::Type::VertexShader),
+                GL::Shader("resources/shaders/GLUL/GL++/Models/MeshOBJ.fp", GL::Shader::Type::FragmentShader)
             );
         }
 
@@ -96,11 +96,11 @@ namespace GL {
 
         bool OBJ::parseFile (
             const std::string& path,
-            GLUL::AABB& aabb, 
+            GLUL::AABB& aabb,
             std::vector<Mesh>& meshes,
-            std::unordered_map<std::string, Material>& materials, 
-            std::unordered_map<std::string, GL::Texture>& textures, 
-            NormalType forcedNormalType) 
+            std::unordered_map<std::string, Material>& materials,
+            std::unordered_map<std::string, GL::Texture>& textures,
+            NormalType forcedNormalType)
 
         {
             int lineNumber = 0;
@@ -120,7 +120,7 @@ namespace GL {
             relativePath = GLUL::File::getPath(path);
             meshInitialized = false;
             smoothNormals = (forcedNormalType == NormalType::Smooth);
-            
+
             objFile.open(path);
 
             if(objFile.is_open() == false) {
@@ -142,7 +142,7 @@ namespace GL {
                             if(tokens.size() > 1) {
                                 loadMaterials(relativePath + tokens[1], materials, textures);
                             } else {
-                                GLUL::Log::LibraryStream() << 
+                                GLUL::Log::LibraryStream() <<
                                     "[" + std::to_string(lineNumber) + "] Unable to read parameter '" + tokens[0] + "' in file '" + path + "'";
                             }
 
@@ -389,8 +389,8 @@ namespace GL {
             const std::string& path,
             std::unordered_map<std::string, Material>& materials,
             std::unordered_map<std::string, GL::Texture>& textures
-        ) 
-        
+        )
+
         {
             std::ifstream mtlFile;
             std::string currentLine;
@@ -427,9 +427,9 @@ namespace GL {
                                             currentDirectory + tokens[1]
                                         );
                                     } catch(...) {
-                                        GLUL::Log::LibraryStream().log( 
-                                            "Unable to load material's texture '" + 
-                                            currentDirectory + tokens[1] + 
+                                        GLUL::Log::LibraryStream().log(
+                                            "Unable to load material's texture '" +
+                                            currentDirectory + tokens[1] +
                                             "' from material file '" + path + "'"
                                         );
                                     }

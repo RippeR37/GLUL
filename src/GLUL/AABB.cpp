@@ -114,7 +114,7 @@ namespace GLUL {
         intersect.x = (box1.getMax().x > box2.getMin().x) && (box1.getMin().x < box2.getMax().x);
         intersect.y = (box1.getMax().y > box2.getMin().y) && (box2.getMin().y < box2.getMax().y);
         intersect.z = (box1.getMax().z > box2.getMin().z) && (box2.getMin().y < box2.getMax().y);
-        
+
         return (intersect.x && intersect.y && intersect.z);
     }
 
@@ -129,8 +129,8 @@ namespace GLUL {
 
         if(initialized == false) {
             program.load(
-                GL::Shader("assets/shaders/GLUL/AABB.vp", GL::Shader::Type::VertexShader),
-                GL::Shader("assets/shaders/GLUL/AABB.fp", GL::Shader::Type::FragmentShader)
+                GL::Shader("resources/shaders/GLUL/AABB.vp", GL::Shader::Type::VertexShader),
+                GL::Shader("resources/shaders/GLUL/AABB.fp", GL::Shader::Type::FragmentShader)
             );
 
             vbo.setUsage(GL::VertexBuffer::Usage::DynamicDraw);

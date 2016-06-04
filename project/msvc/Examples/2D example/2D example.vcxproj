@@ -67,7 +67,7 @@
     </BuildLog>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(ProjectDir)\..\..\..\..\bin\GLULd.dll" "$(ProjectDir)$(OutDir)"
-xcopy /y /d /e /i "$(ProjectDir)\..\..\..\..\bin\assets" "$(ProjectDir)$(OutDir)\assets"</Command>
+xcopy /y /d /e /i "$(ProjectDir)\..\..\..\..\bin\resources" "$(ProjectDir)$(OutDir)\resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -93,7 +93,7 @@ xcopy /y /d /e /i "$(ProjectDir)\..\..\..\..\bin\assets" "$(ProjectDir)$(OutDir)
     </BuildLog>
     <PostBuildEvent>
       <Command>xcopy /y /d "$(ProjectDir)\..\..\..\..\bin\GLUL.dll" "$(ProjectDir)$(OutDir)"
-xcopy /y /d /e /i "$(ProjectDir)\..\..\..\..\bin\assets" "$(ProjectDir)$(OutDir)\assets"</Command>
+xcopy /y /d /e /i "$(ProjectDir)\..\..\..\..\bin\resources" "$(ProjectDir)$(OutDir)\resources"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
