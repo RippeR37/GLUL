@@ -239,6 +239,8 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\RadioButton.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\RadioButtonGroup.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Slider.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\TextArea.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\TextComponent.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\TextField.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\Focus.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\FocusLoss.h" />
@@ -343,6 +345,8 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\RadioButton.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\RadioButtonGroup.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Slider.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextArea.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextComponent.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextField.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\KeyStroke.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseClick.cpp" />

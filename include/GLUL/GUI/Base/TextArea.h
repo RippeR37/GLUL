@@ -13,13 +13,13 @@ namespace GLUL {
 
         namespace Base {
 
-            class GLUL_API TextField : public TextComponent {
+            class GLUL_API TextArea : public TextComponent {
                 public:
-                    virtual ~TextField() = default;
+                    virtual ~TextArea() = default;
 
                 protected:
-                    TextField(const Container& parent, const std::string& value);
-                    TextField(const Container& parent, const glm::vec2& size, const glm::vec2& position, const std::string& value);
+                    TextArea(const Container& parent, const std::string& value);
+                    TextArea(const Container& parent, const glm::vec2& size, const glm::vec2& position, const std::string& value);
 
                     virtual bool _isAcceptedCharacter(char character);
 

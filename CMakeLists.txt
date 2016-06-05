@@ -95,6 +95,8 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Base/ProgressBar.cpp"
     "src/GLUL/GUI/Base/RadioButton.cpp"
     "src/GLUL/GUI/Base/RadioButtonGroup.cpp"
+    "src/GLUL/GUI/Base/TextArea.cpp"
+    "src/GLUL/GUI/Base/TextComponent.cpp"
     "src/GLUL/GUI/Base/TextField.cpp"
 
     "src/GLUL/GUI/Events/KeyStroke.cpp"
@@ -214,6 +216,8 @@ set(GLUL_H
     "include/GLUL/GUI/Base/ProgressBar.h"
     "include/GLUL/GUI/Base/RadioButton.h"
     "include/GLUL/GUI/Base/RadioButtonGroup.h"
+    "include/GLUL/GUI/Base/TextArea.h"
+    "include/GLUL/GUI/Base/TextComponent.h"
     "include/GLUL/GUI/Base/TextField.h"
 
     "include/GLUL/GUI/Events/EventTemplate.hpp"

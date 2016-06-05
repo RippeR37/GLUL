@@ -419,6 +419,12 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\RadioButtonGroup.h">
       <Filter>Header Files\GUI\Base</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\TextComponent.h">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\TextArea.h">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
@@ -698,6 +704,12 @@
       <Filter>Source Files\GUI\Base</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\RadioButtonGroup.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextComponent.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextArea.cpp">
       <Filter>Source Files\GUI\Base</Filter>
     </ClCompile>
   </ItemGroup>
