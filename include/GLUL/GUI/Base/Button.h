@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLUL/GUI/Component.h>
+#include <GLUL/GUI/Base/Component.h>
 
 #include <glm/vec2.hpp>
 
@@ -11,23 +11,20 @@ namespace GLUL {
 
     namespace GUI {
 
-        class GLUL_API Button : public Component {
-            public:
-                const std::string& getText() const;
+        namespace Base {
 
-                void setText(const std::string& text);
+            class GLUL_API Button : public Component {
+                public:
+                    virtual ~Button() = default;
 
-            protected:
-                Button(const Container& parent);
-                Button(const Container& parent, const glm::vec2& size, const glm::vec2& position);
-                Button(const Container& parent, const glm::vec2& size, const glm::vec2& position, const std::string& text);
+                protected:
+                    Button(const Container& parent);
+                    Button(const Container& parent, const glm::vec2& size, const glm::vec2& position);
 
-                void _pushToBatch(G2D::TexturedBatch& texBatch) const;
+                    friend class Container;
+            };
 
-                std::string _text;
-
-                friend class Container;
-        };
+        }
 
     }
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLUL/GUI/Component.h>
+#include <GLUL/GUI/Base/Component.h>
 #include <GLUL/GUI/Events/ValueChange.hpp>
 
 #include <glm/vec2.hpp>
@@ -10,29 +10,33 @@ namespace GLUL {
 
     namespace GUI {
 
-        class GLUL_API ProgressBar : public Component {
-            public:
-                operator float() const;
+        namespace Base {
 
-                float getProgress() const;
+            class GLUL_API ProgressBar : public Component {
+                public:
+                    virtual ~ProgressBar() = default;
 
-                void setProgress(float progress);
+                    operator float() const;
 
-                bool increaseProgress(float value);
-                bool decreaseProgress(float value);
+                    virtual float getProgress() const;
 
-                Event::HandlerAggregator<Event::ValueChange<float>> onValueChange;
+                    virtual void setProgress(float progress);
 
-            protected:
-                ProgressBar(const Container& parent, float progress = 0.0f);
-                ProgressBar(const Container& parent, const glm::vec2& size, const glm::vec2& position, float progress = 0.0f);
+                    virtual bool increaseProgress(float value);
+                    virtual bool decreaseProgress(float value);
 
-                void _pushToBatch(G2D::TexturedBatch& texBatch) const;
+                    Event::HandlerAggregator<Event::ValueChange<float>> onValueChange;
 
-                float _progress;
+                protected:
+                    ProgressBar(const Container& parent, float progress);
+                    ProgressBar(const Container& parent, const glm::vec2& size, const glm::vec2& position, float progress);
 
-                friend class Container;
-        };
+                    float _progress;
+
+                    friend class Container;
+            };
+
+        }
 
     }
 

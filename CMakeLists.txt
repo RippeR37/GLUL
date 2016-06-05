@@ -94,6 +94,7 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Base/Panel.cpp"
     "src/GLUL/GUI/Base/ProgressBar.cpp"
     "src/GLUL/GUI/Base/RadioButton.cpp"
+    "src/GLUL/GUI/Base/RadioButtonGroup.cpp"
     "src/GLUL/GUI/Base/TextField.cpp"
 
     "src/GLUL/GUI/Events/KeyStroke.cpp"
@@ -104,7 +105,6 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Events/MouseRelease.cpp"
     "src/GLUL/GUI/Events/TextInput.cpp"
 
-    "src/GLUL/GUI/RadioButtonGroup.cpp"
     "src/GLUL/GUI/Window.cpp"
 
     "src/GLUL/Input/EventTypes/CharacterEvent.cpp"
@@ -213,6 +213,7 @@ set(GLUL_H
     "include/GLUL/GUI/Base/Panel.h"
     "include/GLUL/GUI/Base/ProgressBar.h"
     "include/GLUL/GUI/Base/RadioButton.h"
+    "include/GLUL/GUI/Base/RadioButtonGroup.h"
     "include/GLUL/GUI/Base/TextField.h"
 
     "include/GLUL/GUI/Events/EventTemplate.hpp"
@@ -228,7 +229,6 @@ set(GLUL_H
     "include/GLUL/GUI/Events/TextInput.h"
     "include/GLUL/GUI/Events/ValueChange.hpp"
 
-    "include/GLUL/GUI/RadioButtonGroup.h"
     "include/GLUL/GUI/Window.h"
 
     "include/GLUL/Helpers/HashEnum.h"

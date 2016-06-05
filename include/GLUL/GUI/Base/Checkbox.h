@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLUL/GUI/Component.h>
+#include <GLUL/GUI/Base/Component.h>
 #include <GLUL/GUI/Events/ValueChange.hpp>
 
 #include <glm/vec2.hpp>
@@ -10,29 +10,34 @@ namespace GLUL {
 
     namespace GUI {
 
-        class GLUL_API Checkbox : public Component {
-            public:
-                operator bool() const;
+        namespace Base {
 
-                bool getState() const;
+            class GLUL_API Checkbox : public Component {
+                public:
+                    virtual ~Checkbox() = default;
 
-                void setState(bool state);
+                    operator bool() const;
 
-                bool switchState();
+                    virtual bool getState() const;
 
-                Event::HandlerAggregator<Event::ValueChange<bool>> onValueChange;
+                    virtual void setState(bool state);
 
-            protected:
-                Checkbox(const Container& parent, bool state = false);
-                Checkbox(const Container& parent, const glm::vec2& size, const glm::vec2& position, bool state = false);
+                    virtual bool switchState();
 
-                void _initializeHandlers();
-                void _pushToBatch(G2D::TexturedBatch& texBatch) const;
+                    Event::HandlerAggregator<Event::ValueChange<bool>> onValueChange;
 
-                bool _state;
+                protected:
+                    Checkbox(const Container& parent, bool state);
+                    Checkbox(const Container& parent, const glm::vec2& size, const glm::vec2& position, bool state);
 
-                friend class Container;
-        };
+                    void _initializeHandlers();
+
+                    bool _state;
+
+                    friend class Container;
+            };
+
+        }
 
     }
 

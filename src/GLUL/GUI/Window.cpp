@@ -69,17 +69,17 @@ namespace GLUL {
 
         void Window::setSize(unsigned int width, unsigned int height) {
             GLUL::Window::setSize(width, height);
-            GLUL::GUI::Container::setSize(glm::vec2 { width, height });
+            GLUL::GUI::Base::Container::setSize(glm::vec2 { width, height });
         }
 
         void Window::setSize(const glm::uvec2& size) {
             GLUL::Window::setSize(size);
-            GLUL::GUI::Container::setSize(glm::vec2 { size });
+            GLUL::GUI::Base::Container::setSize(glm::vec2 { size });
         }
 
         void Window::setSize(const glm::vec2& size) {
             GLUL::Window::setSize(glm::uvec2 { size });
-            GLUL::GUI::Container::setSize(size);
+            GLUL::GUI::Base::Container::setSize(size);
         }
 
         void Window::handleInputEvent(const GLUL::Input::Event& inputEvent) {

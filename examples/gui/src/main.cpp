@@ -2,14 +2,14 @@
 #include <GLUL/GL++/Program.h>
 #include <GLUL/GL++/VertexArray.h>
 #include <GLUL/GL++/VertexBuffer.h>
-#include <GLUL/GUI/Button.h>
-#include <GLUL/GUI/Checkbox.h>
-#include <GLUL/GUI/Slider.h>
-#include <GLUL/GUI/Panel.h>
-#include <GLUL/GUI/ProgressBar.h>
-#include <GLUL/GUI/RadioButton.h>
-#include <GLUL/GUI/RadioButtonGroup.h>
-#include <GLUL/GUI/TextField.h>
+// #include <GLUL/GUI/Button.h>
+// #include <GLUL/GUI/Checkbox.h>
+// #include <GLUL/GUI/Slider.h>
+// #include <GLUL/GUI/Panel.h>
+// #include <GLUL/GUI/ProgressBar.h>
+// #include <GLUL/GUI/RadioButton.h>
+// #include <GLUL/GUI/RadioButtonGroup.h>
+// #include <GLUL/GUI/TextField.h>
 #include <GLUL/GUI/Window.h>
 #include <GLUL/Resources/Fonts.h>
 

@@ -1,5 +1,5 @@
-#include <GLUL/GUI/Container.h>
-#include <GLUL/GUI/Slider.h>
+#include <GLUL/GUI/Base/Container.h>
+#include <GLUL/GUI/Base/Slider.h>
 
 #include <algorithm>
 
@@ -8,209 +8,208 @@ namespace GLUL {
 
     namespace GUI {
 
-        Slider::Slider(const Container& parent, float min, float max, float value)
-            : Slider(parent, {}, {}, min, max, value) { }
+        namespace Base {
 
-        Slider::Slider(const Container& parent, const glm::vec2& size, const glm::vec2& position, float min, float max, float value)
-            : Component(parent, size, position), _rangeMin(min), _rangeMax(max), _value(value)
-        {
-            _initializeHandlers();
-        }
+            Slider::Slider(const Container& parent, float min, float max, float value)
+                : Slider(parent, {}, {}, min, max, value) { }
 
-        float Slider::getValue() const {
-            return _value;
-        }
+            Slider::Slider(const Container& parent, const glm::vec2& size, const glm::vec2& position, float min, float max, float value)
+                : Component(parent, size, position), _rangeMin(min), _rangeMax(max), _value(value)
+            {
+                _initializeHandlers();
+            }
 
-        float Slider::getMin() const {
-            if(_possibleValues.empty())
-                return _rangeMin;
-            else
-                return _possibleValues.front();
-        }
+            float Slider::getValue() const {
+                return _value;
+            }
 
-        float Slider::getMax() const {
-            if(_possibleValues.empty())
-                return _rangeMax;
-            else
-                return _possibleValues.back();
-        }
+            float Slider::getMin() const {
+                if(_possibleValues.empty())
+                    return _rangeMin;
+                else
+                    return _possibleValues.front();
+            }
 
-        float Slider::normalizeValue(float value) const {
-            return (value - getMin()) / (getMax() - getMin());
-        }
+            float Slider::getMax() const {
+                if(_possibleValues.empty())
+                    return _rangeMax;
+                else
+                    return _possibleValues.back();
+            }
 
-        float Slider::denormalizeValue(float normalizedValue) const {
-            return getMin() + (getMax() - getMin()) * normalizedValue;
-        }
+            float Slider::normalizeValue(float value) const {
+                return (value - getMin()) / (getMax() - getMin());
+            }
 
-        void Slider::setRange(float min, float max) {
-            _rangeMin = min;
-            _rangeMax = max;
+            float Slider::denormalizeValue(float normalizedValue) const {
+                return getMin() + (getMax() - getMin()) * normalizedValue;
+            }
 
-            // clear vector of possible values
-            std::vector<float>().swap(_possibleValues);
+            void Slider::setRange(float min, float max) {
+                _rangeMin = min;
+                _rangeMax = max;
 
-            _clampValue();
-        }
+                // clear vector of possible values
+                std::vector<float>().swap(_possibleValues);
 
-        void Slider::setMin(float min) {
-            setRange(min, getMax());
-        }
+                _clampValue();
+            }
 
-        void Slider::setMax(float max) {
-            setRange(getMin(), max);
-        }
+            void Slider::setMin(float min) {
+                setRange(min, getMax());
+            }
 
-        void Slider::setValue(float value) {
-            float oldValue = getValue();
+            void Slider::setMax(float max) {
+                setRange(getMin(), max);
+            }
 
-            if(_possibleValues.empty()) {
-                _value = value;
+            void Slider::setValue(float value) {
+                float oldValue = getValue();
+
+                if(_possibleValues.empty()) {
+                    _value = value;
+                    _clampValue();
+
+                } else {
+                    float currentBest = _possibleValues.front();
+                    float currentDist = std::abs(value - currentBest);
+
+                    // TODO: optimize this with std::lower_bound
+                    for(float possibleValue : _possibleValues) {
+                        if(std::abs(possibleValue - value) < currentDist) {
+                            currentBest = possibleValue;
+                            currentDist = std::abs(possibleValue - value);
+                        }
+                    }
+
+                    _value = currentBest;
+                }
+
+                setInvalid();
+
+                onValueChange.call(*this, { oldValue, getValue() });
+            }
+
+            void Slider::setSize(const glm::vec2& size) {
+                Component::setSize(size);
+
+                // TODO: Orientation-dependent settings?
+            }
+
+            void Slider::restrictValuesToIntegers(bool value) {
+                _isIntegerRestricted = value;
                 _clampValue();
 
-            } else {
-                float currentBest = _possibleValues.front();
-                float currentDist = std::abs(value - currentBest);
+                setInvalid();
+            }
 
-                // TODO: optimize this with std::lower_bound
-                for(float possibleValue : _possibleValues) {
-                    if(std::abs(possibleValue - value) < currentDist) {
-                        currentBest = possibleValue;
-                        currentDist = std::abs(possibleValue - value);
+            void Slider::restrictValuesTo(std::initializer_list<float> values) {
+                _possibleValues = std::vector<float>(values.size());
+
+                std::copy(std::begin(values), std::end(values), std::begin(_possibleValues));
+                std::sort(std::begin(_possibleValues), std::end(_possibleValues));
+
+                setRange(_possibleValues.front(), _possibleValues.back());
+                setValue(getValue());
+            }
+
+            void Slider::_clampValue() {
+                _value = std::min(_rangeMax, std::max(_rangeMin, _value));
+
+                if(_isIntegerRestricted)
+                    _value = std::round(_value);
+
+                if(_value < _rangeMin) _value += 1.0f;
+                if(_value > _rangeMax) _value -= 1.0f;
+
+                setInvalid();
+            }
+
+            void Slider::_initializeHandlers() {
+                // Move to point where you clicked
+                onMouseClick += Event::MouseClick::Handler(
+                    "__GLUL::GUI::Base::Slider::MouseClick::Move",
+                    [&](Component& component, const Event::MouseClick& mouseClickEvent) {
+                        Slider& slider = static_cast<Slider&>(component);
+
+                        if(mouseClickEvent.button == Input::MouseButton::Left)
+                            slider._updateValueFromPosition(mouseClickEvent.position);
                     }
-                }
+                );
 
-                _value = currentBest;
-            }
+                // Set slider's handle state to being dragged
+                onMouseClick += Event::MouseClick::Handler(
+                    "__GLUL::GUI::Base::Slider::MouseClick::SetMoving",
+                    [&](Component& component, const Event::MouseClick& mouseClickEvent) {
+                        Slider& slider = static_cast<Slider&>(component);
 
-            setInvalid();
+                        if(mouseClickEvent.button == Input::MouseButton::Left)
+                            slider._setMovingState(true);
+                    }
+                );
 
-            onValueChange.call(*this, GLUL::GUI::Event::ValueChange<float>(oldValue, getValue()));
-        }
+                // Set slider's handle state to being released
+                onMouseRelease += Event::MouseRelease::Handler(
+                    "__GLUL::GUI::Base::Slider::MouseRelease::SetNotMoving",
+                    [&](Component& component, const Event::MouseRelease& mouseReleaseEvent) {
+                        Slider& slider = static_cast<Slider&>(component);
 
-        void Slider::setSize(const glm::vec2& size) {
-            Component::setSize(size);
+                        if(mouseReleaseEvent.button == Input::MouseButton::Left)
+                            slider._setMovingState(false);
+                    }
+                );
 
-            // Orientation-dependent settings?
-        }
+                // Set slider's handle state to being released
+                onMouseLeave += Event::MouseLeave::Handler(
+                    "__GLUL::GUI::Base::Slider::MouseLeave::SetNotMoving",
+                    [&](Component& component, const Event::MouseLeave& mouseLeaveEvent) {
+                        (void) mouseLeaveEvent; // unused
 
-        void Slider::restrictValuesToIntegers(bool value) {
-            _isIntegerRestricted = value;
-            _clampValue();
-
-            setInvalid();
-        }
-
-        void Slider::restrictValuesTo(std::initializer_list<float> values) {
-            _possibleValues = std::vector<float>(values.size());
-
-            std::copy(std::begin(values), std::end(values), std::begin(_possibleValues));
-            std::sort(std::begin(_possibleValues), std::end(_possibleValues));
-
-            setRange(_possibleValues.front(), _possibleValues.back());
-            setValue(getValue());
-        }
-
-        void Slider::_clampValue() {
-            _value = std::min(_rangeMax, std::max(_rangeMin, _value));
-
-            if(_isIntegerRestricted)
-                _value = std::round(_value);
-
-            if(_value < _rangeMin) _value += 1.0f;
-            if(_value > _rangeMax) _value -= 1.0f;
-
-            setInvalid();
-        }
-
-        void Slider::_initializeHandlers() {
-            // Move to point where you clicked
-            onMouseClick += GLUL::GUI::Event::MouseClick::Handler(
-                "__GLUL::GUI::Slider::MouseClick::Move",
-                [&](GLUL::GUI::Component& component, const GLUL::GUI::Event::MouseClick& mouseClickEvent) {
-                    Slider& slider = static_cast<Slider&>(component);
-
-                    if(mouseClickEvent.button == GLUL::Input::MouseButton::Left)
-                        slider._updateValueFromPosition(mouseClickEvent.position);
-                }
-            );
-
-            // Set slider's handle state to being dragged
-            onMouseClick += GLUL::GUI::Event::MouseClick::Handler(
-                "__GLUL::GUI::Slider::MouseClick::SetMoving",
-                [&](GLUL::GUI::Component& component, const GLUL::GUI::Event::MouseClick& mouseClickEvent) {
-                    Slider& slider = static_cast<Slider&>(component);
-
-                    if(mouseClickEvent.button == GLUL::Input::MouseButton::Left)
-                        slider._setMovingState(true);
-                }
-            );
-
-            // Set slider's handle state to being released
-            onMouseRelease += GLUL::GUI::Event::MouseRelease::Handler(
-                "__GLUL::GUI::Slider::MouseRelease::SetNotMoving",
-                [&](GLUL::GUI::Component& component, const GLUL::GUI::Event::MouseRelease& mouseReleaseEvent) {
-                    Slider& slider = static_cast<Slider&>(component);
-
-                    if(mouseReleaseEvent.button == GLUL::Input::MouseButton::Left)
+                        Slider& slider = static_cast<Slider&>(component);
                         slider._setMovingState(false);
-                }
-            );
+                    }
+                );
 
-            // Set slider's handle state to being released
-            onMouseLeave += GLUL::GUI::Event::MouseLeave::Handler(
-                "__GLUL::GUI::Slider::MouseLeave::SetNotMoving",
-                [&](GLUL::GUI::Component& component, const GLUL::GUI::Event::MouseLeave& mouseLeaveEvent) {
-                    (void) mouseLeaveEvent; // unused
+                onMouseMove += Event::MouseMove::Handler(
+                    "__GLUL::GUI::Base::Slider::MouseMove::UpdateValue",
+                    [&](Component& component, const Event::MouseMove& mouseMoveEvent) {
+                        Slider& slider = static_cast<Slider&>(component);
 
-                    Slider& slider = static_cast<Slider&>(component);
-                    slider._setMovingState(false);
-                }
-            );
-
-            onMouseMove += GLUL::GUI::Event::MouseMove::Handler(
-                "__GLUL::GUI::Slider::MouseMove::UpdateValue",
-                [&](GLUL::GUI::Component& component, const GLUL::GUI::Event::MouseMove& mouseMoveEvent) {
-                    Slider& slider = static_cast<Slider&>(component);
-
-                    if(slider._isMoving())
-                        slider._updateValueFromPosition(mouseMoveEvent.position);
-                }
-            );
-        }
-
-        bool Slider::_isMoving() const {
-            return _isMovingState;
-        }
-
-        void Slider::_setMovingState(bool value) {
-            _isMovingState = value;
-        }
-
-        void Slider::_updateValueFromPosition(const glm::vec2& position) {
-            (void) position;
-            // TODO:
-
-            /*
-            float normalizedNewValue;
-            if(getOrientation() == Style::Orientation::Horizontal) {
-                float handleWidth = getHandleSize().x;
-                float sliderRange = getSize().x - handleWidth;
-                normalizedNewValue = (position.x - 0.5f * handleWidth) / sliderRange;
-
-            } else {
-                float handleHeight = getHandleSize().y;
-                float sliderRange = getSize().y - handleHeight;
-                normalizedNewValue = 1.0f - ((position.y - 0.5f * handleHeight) / sliderRange); // inverted (bottom is min, top is max)
+                        if(slider._isMoving())
+                            slider._updateValueFromPosition(mouseMoveEvent.position);
+                    }
+                );
             }
 
-            setValue(denormalizeValue(normalizedNewValue));
-            */
-        }
+            bool Slider::_isMoving() const {
+                return _isMovingState;
+            }
 
-        void Slider::_pushToBatch(G2D::TexturedBatch& texBatch) const {
-            (void) texBatch;
-            // TODO:
+            void Slider::_setMovingState(bool value) {
+                _isMovingState = value;
+            }
+
+            void Slider::_updateValueFromPosition(const glm::vec2& position) {
+                (void) position;
+
+                // TODO:
+                /*
+                float normalizedNewValue;
+                if(getOrientation() == Style::Orientation::Horizontal) {
+                    float handleWidth = getHandleSize().x;
+                    float sliderRange = getSize().x - handleWidth;
+                    normalizedNewValue = (position.x - 0.5f * handleWidth) / sliderRange;
+
+                } else {
+                    float handleHeight = getHandleSize().y;
+                    float sliderRange = getSize().y - handleHeight;
+                    normalizedNewValue = 1.0f - ((position.y - 0.5f * handleHeight) / sliderRange); // inverted (bottom is min, top is max)
+                }
+
+                setValue(denormalizeValue(normalizedNewValue));
+                */
+            }
+
         }
 
     }

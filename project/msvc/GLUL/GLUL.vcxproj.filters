@@ -299,9 +299,6 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\ValueChange.hpp">
       <Filter>Header Files\GUI\Events</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\RadioButtonGroup.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\Focus.h">
       <Filter>Header Files\GUI\Events</Filter>
     </ClInclude>
@@ -417,6 +414,9 @@
       <Filter>Header Files\GUI\Base</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\TextField.h">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\RadioButtonGroup.h">
       <Filter>Header Files\GUI\Base</Filter>
     </ClInclude>
   </ItemGroup>
@@ -598,9 +598,6 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\TextInput.cpp">
       <Filter>Source Files\GUI\Events</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\RadioButtonGroup.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\Point.cpp">
       <Filter>Source Files\G2D</Filter>
     </ClCompile>
@@ -698,6 +695,9 @@
       <Filter>Source Files\GUI\Base</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextField.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\RadioButtonGroup.cpp">
       <Filter>Source Files\GUI\Base</Filter>
     </ClCompile>
   </ItemGroup>

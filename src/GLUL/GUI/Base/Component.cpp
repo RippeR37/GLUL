@@ -1,5 +1,5 @@
-#include <GLUL/GUI/Component.h>
-#include <GLUL/GUI/Container.h>
+#include <GLUL/GUI/Base/Component.h>
+#include <GLUL/GUI/Base/Container.h>
 
 #include <algorithm>
 
@@ -8,119 +8,123 @@ namespace GLUL {
 
     namespace GUI {
 
-        Component::Component(const Container& parent) : Component(parent, {}, {}) { }
+        namespace Base {
 
-        Component::Component(const Container& parent, const glm::vec2& size, const glm::vec2& position)
-            : _parent(parent), _size(size), _position(position),
-              _isEnabled(true), _isFocused(false),
-              _isVisible(true), _isValid(false) { }
+            Component::Component(const Container& parent) : Component(parent, {}, {}) { }
 
-        void Component::render() const {
-            // do nothing
-        }
+            Component::Component(const Container& parent, const glm::vec2& size, const glm::vec2& position)
+                : _parent(parent), _size(size), _position(position),
+                  _isEnabled(true), _isFocused(false),
+                  _isVisible(true), _isValid(false) { }
 
-        void Component::update(double deltaTime) {
-            if(!isValid())
-                validate();
+            void Component::render() const {
+                // do nothing
+            }
 
-            (void) deltaTime; // unused
-        }
+            void Component::update(double deltaTime) {
+                if(!isValid())
+                    validate();
 
-        void Component::validate() const {
-            _setValid();
-        }
+                (void) deltaTime; // unused
+            }
 
-        bool Component::isEnabled() const {
-            return _isEnabled;
-        }
+            void Component::validate() const {
+                _setValid();
+            }
 
-        bool Component::isFocused() const {
-            return _isFocused;
-        }
+            bool Component::isEnabled() const {
+                return _isEnabled;
+            }
 
-        bool Component::isVisible() const {
-            return _isVisible;
-        }
+            bool Component::isFocused() const {
+                return _isFocused;
+            }
 
-        bool Component::isValid() const {
-            return _isValid;
-        }
+            bool Component::isVisible() const {
+                return _isVisible;
+            }
 
-        bool Component::isUnderMouse() const {
-            if(&getParent() == this)
-                return false;
+            bool Component::isValid() const {
+                return _isValid;
+            }
 
-            return getParent().isUnderMouse(*this);
-        }
+            bool Component::isUnderMouse() const {
+                if(&getParent() == this)
+                    return false;
 
-        const Container& Component::getParent() const {
-            return _parent;
-        }
+                return getParent().isUnderMouse(*this);
+            }
 
-        const glm::vec2& Component::getPosition() const {
-            return _position;
-        }
+            const Container& Component::getParent() const {
+                return _parent;
+            }
 
-        const glm::vec2 Component::getScreenPosition() const {
-            if(&getParent() != this)
-                return getParent().getScreenPosition() + getPosition();
-            else
-                return getPosition();
-        }
+            const glm::vec2& Component::getPosition() const {
+                return _position;
+            }
 
-        const glm::vec2& Component::getSize() const {
-            return _size;
-        }
+            const glm::vec2 Component::getScreenPosition() const {
+                if(&getParent() != this)
+                    return getParent().getScreenPosition() + getPosition();
+                else
+                    return getPosition();
+            }
 
-        const G2D::Rectangle Component::getBounds() const {
-            return { Component::getScreenPosition(), getSize() };
-        }
+            const glm::vec2& Component::getSize() const {
+                return _size;
+            }
 
-        void Component::setInvalid() const {
-            _isValid = false;
+            const G2D::Rectangle Component::getBounds() const {
+                return { Component::getScreenPosition(), getSize() };
+            }
 
-            getParent().setInvalid();
-        }
+            void Component::setInvalid() const {
+                _isValid = false;
 
-        void Component::setEnabled(bool flag) {
-            _isEnabled = flag;
+                getParent().setInvalid();
+            }
 
-            setInvalid();
-        }
+            void Component::setEnabled(bool flag) {
+                _isEnabled = flag;
 
-        void Component::setFocused(bool flag) {
-            bool wasFocused = isFocused();
+                setInvalid();
+            }
 
-            _isFocused = flag;
+            void Component::setFocused(bool flag) {
+                bool wasFocused = isFocused();
 
-            setInvalid();
+                _isFocused = flag;
 
-            if(!wasFocused && isFocused())
-                onFocus.call(*this, {});
-            else if(wasFocused && !isFocused())
-                onFocusLoss.call(*this, {});
-        }
+                setInvalid();
 
-        void Component::setVisible(bool flag) {
-            _isVisible = flag;
+                if(!wasFocused && isFocused())
+                    onFocus.call(*this, {});
+                else if(wasFocused && !isFocused())
+                    onFocusLoss.call(*this, {});
+            }
 
-            setInvalid();
-        }
+            void Component::setVisible(bool flag) {
+                _isVisible = flag;
 
-        void Component::setSize(const glm::vec2& size) {
-            _size = size;
+                setInvalid();
+            }
 
-            setInvalid();
-        }
+            void Component::setSize(const glm::vec2& size) {
+                _size = size;
 
-        void Component::setPosition(const glm::vec2& position) {
-            _position = position;
+                setInvalid();
+            }
 
-            setInvalid();
-        }
+            void Component::setPosition(const glm::vec2& position) {
+                _position = position;
 
-        void Component::_setValid() const {
-            _isValid = true;
+                setInvalid();
+            }
+
+            void Component::_setValid() const {
+                _isValid = true;
+            }
+
         }
 
     }

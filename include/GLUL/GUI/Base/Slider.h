@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLUL/GUI/Component.h>
+#include <GLUL/GUI/Base/Component.h>
 #include <GLUL/GUI/Events/ValueChange.hpp>
 
 #include <glm/vec2.hpp>
@@ -10,47 +10,52 @@ namespace GLUL {
 
     namespace GUI {
 
-        class GLUL_API Slider : public Component {
-            public:
-                operator float() const;
+        namespace Base {
 
-                float getValue() const;
-                float getMin() const;
-                float getMax() const;
-                float normalizeValue(float value) const;
-                float denormalizeValue(float normalizedValue) const;
+            class GLUL_API Slider : public Component {
+                public:
+                    virtual ~Slider() = default;
 
-                void setRange(float min, float max);
-                void setMin(float min);
-                void setMax(float max);
-                void setValue(float progress);
-                void setSize(const glm::vec2& size);
-                void restrictValuesToIntegers(bool value);
-                void restrictValuesTo(std::initializer_list<float> values);
+                    operator float() const;
 
-                Event::HandlerAggregator<Event::ValueChange<float>> onValueChange;
+                    virtual float getValue() const;
+                    virtual float getMin() const;
+                    virtual float getMax() const;
+                    virtual float normalizeValue(float value) const;
+                    virtual float denormalizeValue(float normalizedValue) const;
 
-            protected:
-                Slider(const Container& parent, float min = 0.0f, float max = 1.0f, float value = 0.0f);
-                Slider(const Container& parent, const glm::vec2& size, const glm::vec2& position,
-                    float min = 0.0f, float max = 1.0f, float value = 0.0f);
+                    virtual void setRange(float min, float max);
+                    virtual void setMin(float min);
+                    virtual void setMax(float max);
+                    virtual void setValue(float progress);
+                    virtual void setSize(const glm::vec2& size);
+                    virtual void restrictValuesToIntegers(bool value);
+                    virtual void restrictValuesTo(std::initializer_list<float> values);
 
-                void _initializeHandlers();
-                void _clampValue();
-                bool _isMoving() const;
-                void _setMovingState(bool value);
-                void _updateValueFromPosition(const glm::vec2& position);
-                void _pushToBatch(G2D::TexturedBatch& texBatch) const;
+                    Event::HandlerAggregator<Event::ValueChange<float>> onValueChange;
 
-                bool _isMovingState;
-                bool _isIntegerRestricted;
-                float _rangeMin;
-                float _rangeMax;
-                float _value;
-                std::vector<float> _possibleValues;
+                protected:
+                    Slider(const Container& parent, float min, float max, float value);
+                    Slider(const Container& parent, const glm::vec2& size, const glm::vec2& position,
+                        float min, float max, float value);
 
-                friend class Container;
-        };
+                    void _initializeHandlers();
+                    void _clampValue();
+                    bool _isMoving() const;
+                    void _setMovingState(bool value);
+                    virtual void _updateValueFromPosition(const glm::vec2& position);
+
+                    bool _isMovingState;
+                    bool _isIntegerRestricted;
+                    float _rangeMin;
+                    float _rangeMax;
+                    float _value;
+                    std::vector<float> _possibleValues;
+
+                    friend class Container;
+            };
+
+        }
 
     }
 

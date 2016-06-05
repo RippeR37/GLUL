@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLUL/GUI/Component.h>
+#include <GLUL/GUI/Base/Component.h>
 #include <GLUL/GUI/Events/ValueChange.hpp>
 
 #include <glm/vec2.hpp>
@@ -12,25 +12,30 @@ namespace GLUL {
 
     namespace GUI {
 
-        class GLUL_API TextField : public Component {
-            public:
-                const std::string& getValue() const;
+        namespace Base {
 
-                void setValue(const std::string& value);
+            class GLUL_API TextField : public Component {
+                public:
+                    virtual ~TextField() = default;
 
-                Event::HandlerAggregator<Event::ValueChange<std::string>> onValueChange;
+                    virtual const std::string& getValue() const;
 
-            protected:
-                TextField(const Container& parent, const std::string& value = "");
-                TextField(const Container& parent, const glm::vec2& size, const glm::vec2& position, const std::string& value = "");
+                    virtual void setValue(const std::string& value);
 
-                void _initializeHandlers();
-                void _pushToBatch(G2D::TexturedBatch& texBatch) const;
+                    Event::HandlerAggregator<Event::ValueChange<std::string>> onValueChange;
 
-                std::string _value;
+                protected:
+                    TextField(const Container& parent, const std::string& value);
+                    TextField(const Container& parent, const glm::vec2& size, const glm::vec2& position, const std::string& value);
 
-                friend class Container;
-        };
+                    void _initializeHandlers();
+
+                    std::string _value;
+
+                    friend class Container;
+            };
+
+        }
 
     }
 

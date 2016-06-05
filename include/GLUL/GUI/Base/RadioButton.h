@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLUL/GUI/Component.h>
+#include <GLUL/GUI/Base/Component.h>
 #include <GLUL/GUI/Events/ValueChange.hpp>
 
 
@@ -8,32 +8,37 @@ namespace GLUL {
 
     namespace GUI  {
 
-        class GLUL_API RadioButtonGroup;
+        namespace Base {
 
-        class GLUL_API RadioButton : public Component {
-            public:
-                operator bool() const;
+            class GLUL_API RadioButtonGroup;
 
-                bool getState() const;
+            class GLUL_API RadioButton : public Component {
+                public:
+                    virtual ~RadioButton() = default;
 
-                void set();
+                    operator bool() const;
 
-                Event::HandlerAggregator<Event::ValueChange<bool>> onValueChange;
+                    virtual bool isSet() const;
 
-            protected:
-                RadioButton(const Container& parent, RadioButtonGroup& group, bool state = false);
-                RadioButton(const Container& parent, RadioButtonGroup& group,
-                    const glm::vec2& size, const glm::vec2& position, bool state = false);
+                    virtual void set();
 
-                void _initializeHandlers();
-                void _setState(bool state);
-                void _pushToBatch(G2D::TexturedBatch& texBatch) const;
+                    Event::HandlerAggregator<Event::ValueChange<bool>> onValueChange;
 
-                bool _state;
-                RadioButtonGroup& _group;
+                protected:
+                    RadioButton(const Container& parent, RadioButtonGroup& group, bool state);
+                    RadioButton(const Container& parent, RadioButtonGroup& group,
+                        const glm::vec2& size, const glm::vec2& position, bool state);
 
-                friend class RadioButtonGroup;
-        };
+                    void _initializeHandlers();
+                    void _setState(bool state);
+
+                    bool _state;
+                    RadioButtonGroup& _group;
+
+                    friend class RadioButtonGroup;
+            };
+
+        }
 
     }
 

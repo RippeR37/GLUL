@@ -24,7 +24,7 @@ namespace GLUL {
                         return remove(handlerName);
                     }
 
-                    void operator()(Component& component, const EventType& eventArg) {
+                    void operator()(Base::Component& component, const EventType& eventArg) {
                         call(component, eventArg);
                     }
 
@@ -38,7 +38,7 @@ namespace GLUL {
                         return *this;
                     }
 
-                    void call(Component& component, const EventType& eventArg) {
+                    void call(Base::Component& component, const EventType& eventArg) {
                         for(auto& handlerEntry : _handlers) {
                             handlerEntry.second(component, eventArg); // handlerEntry is std::pair of (handlerName, handler)
                         }

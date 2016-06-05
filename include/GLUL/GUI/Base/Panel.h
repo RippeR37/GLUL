@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLUL/GUI/Container.h>
+#include <GLUL/GUI/Base/Container.h>
 
 #include <glm/vec2.hpp>
 
@@ -9,29 +9,31 @@ namespace GLUL {
 
     namespace GUI {
 
-        class GLUL_API Panel : public Container {
-            public:
-                virtual ~Panel() = default;
+        namespace Base {
 
-                virtual void validate() const;
+            class GLUL_API Panel : public Container {
+                public:
+                    virtual ~Panel() = default;
 
-                const glm::vec2 getScreenPosition() const;
-                const glm::vec2 getOffset() const;
-                const glm::vec2& getAreaSize() const;
+                    virtual void validate() const;
 
-                void setAreaSize(const glm::vec2& areaSize);
+                    virtual const glm::vec2 getScreenPosition() const;
+                    virtual const glm::vec2 getOffset() const;
+                    virtual const glm::vec2& getAreaSize() const;
 
-            protected:
-                Panel(const Container& parent);
-                Panel(const Container& parent, const glm::vec2& position, const glm::vec2& size);
-                Panel(const Container& parent, const glm::vec2& position, const glm::vec2& size, const glm::vec2& areaSize);
+                    virtual void setAreaSize(const glm::vec2& areaSize);
 
-                virtual void _pushToBatch(G2D::TexturedBatch& texBatch) const;
+                protected:
+                    Panel(const Container& parent);
+                    Panel(const Container& parent, const glm::vec2& position, const glm::vec2& size);
+                    Panel(const Container& parent, const glm::vec2& position, const glm::vec2& size, const glm::vec2& areaSize);
 
-                glm::vec2 _areaSize;
+                    glm::vec2 _areaSize;
 
-                friend class Container;
-        };
+                    friend class Container;
+            };
+
+        }
 
     }
 

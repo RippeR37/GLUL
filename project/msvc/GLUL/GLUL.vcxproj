@@ -237,6 +237,7 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Panel.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\ProgressBar.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\RadioButton.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\RadioButtonGroup.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Slider.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\TextField.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\Focus.h" />
@@ -251,7 +252,6 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseMove.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\MouseRelease.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\ValueChange.hpp" />
-    <ClInclude Include="..\..\..\include\GLUL\GUI\RadioButtonGroup.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Window.h" />
     <ClInclude Include="..\..\..\include\GLUL\Helpers\HashEnum.h" />
     <ClInclude Include="..\..\..\include\GLUL\Image.h" />
@@ -341,6 +341,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Panel.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\ProgressBar.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\RadioButton.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\RadioButtonGroup.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Slider.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextField.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\KeyStroke.cpp" />
@@ -350,7 +351,6 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseMove.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseRelease.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\TextInput.cpp" />
-    <ClCompile Include="..\..\..\src\GLUL\GUI\RadioButtonGroup.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Window.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Image.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Input\Event.cpp" />

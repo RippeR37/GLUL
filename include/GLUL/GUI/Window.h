@@ -1,6 +1,6 @@
 #pragma once
 
-#include <GLUL/GUI/Container.h>
+#include <GLUL/GUI/Base/Container.h>
 #include <GLUL/Input/EventHandler.h>
 #include <GLUL/Window.h>
 
@@ -11,7 +11,7 @@ namespace GLUL {
 
     namespace GUI {
 
-        class GLUL_API Window : public GLUL::Window, public Container, protected GLUL::Input::EventHandler {
+        class GLUL_API Window : public GLUL::Window, public Base::Container, protected GLUL::Input::EventHandler {
             public:
                 Window();
                 Window(unsigned int width, unsigned int height, const std::string& title);
