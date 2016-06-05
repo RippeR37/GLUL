@@ -87,6 +87,12 @@
     <Filter Include="Source Files\Resources">
       <UniqueIdentifier>{dd2952e2-5e63-43d5-aaa1-59b742558ac6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\GUI\Base">
+      <UniqueIdentifier>{c4119bf9-9ec4-4f4b-85b1-212741eac3df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\GUI\Base">
+      <UniqueIdentifier>{ae9a9543-d685-42cb-af4c-98a2eb1ef5ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\include\GLUL\AABB.h">
@@ -191,18 +197,6 @@
     <ClInclude Include="..\..\..\include\GLUL\GL++\Models\OBJ.h">
       <Filter>Header Files\GL++\Models</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Button.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Component.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Container.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\TextField.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\GUI\Window.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
@@ -302,25 +296,10 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\TextInput.h">
       <Filter>Header Files\GUI\Events</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Checkbox.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\ProgressBar.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Slider.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\ValueChange.hpp">
       <Filter>Header Files\GUI\Events</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\GUI\RadioButtonGroup.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\RadioButton.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Panel.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\GUI\Events\Focus.h">
@@ -401,9 +380,6 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\TexturedBatch.h">
       <Filter>Header Files\G2D</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\include\GLUL\GUI\Container.hpp">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\Resources\Textures.h">
       <Filter>Header Files\Resourced</Filter>
     </ClInclude>
@@ -412,6 +388,36 @@
     </ClInclude>
     <ClInclude Include="..\..\..\include\GLUL\Resources\Fonts.h">
       <Filter>Header Files\Resourced</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Button.h">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Checkbox.h">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Component.h">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Container.h">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Container.hpp">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Panel.h">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\ProgressBar.h">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\RadioButton.h">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Slider.h">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\TextField.h">
+      <Filter>Header Files\GUI\Base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -511,18 +517,6 @@
     <ClCompile Include="..\..\..\src\GLUL\GL++\Models\OBJ.cpp">
       <Filter>Source Files\GL++\Models</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Button.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Component.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Container.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\TextField.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\Window.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
@@ -604,22 +598,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\TextInput.cpp">
       <Filter>Source Files\GUI\Events</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Checkbox.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\ProgressBar.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Slider.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\RadioButtonGroup.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\RadioButton.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\src\GLUL\GUI\Panel.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\G2D\Point.cpp">
@@ -693,6 +672,33 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\Resources\Fonts.cpp">
       <Filter>Source Files\Resources</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Button.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Checkbox.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Component.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Container.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Panel.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\ProgressBar.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\RadioButton.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Slider.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextField.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
