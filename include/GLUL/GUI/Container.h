@@ -1,5 +1,6 @@
 #pragma once
 
+#include <GLUL/G2D/Font.h>
 #include <GLUL/GUI/Component.h>
 
 #include <list>
@@ -26,9 +27,11 @@ namespace GLUL {
 
                 bool isUnderMouse(const Component& component) const;
                 virtual const glm::vec2 getOffset() const;
+                const G2D::Font& getFont() const;
 
                 virtual void setInvalid() const;
                 virtual void setFocused(bool flag);
+                void setFont(const G2D::Font& font);
 
             protected:
                 Container();
@@ -45,6 +48,7 @@ namespace GLUL {
                 mutable bool _wasScissorTestActive;
                 mutable G2D::Rectangle _scissorTestBox;
                 mutable G2D::TexturedBatch _batch;
+                mutable std::reference_wrapper<const G2D::Font> _font;
                 std::list<std::unique_ptr<Component>> _components;
                 std::set<Component*> _componentsUnderMouse;
 

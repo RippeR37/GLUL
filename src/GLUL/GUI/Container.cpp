@@ -1,17 +1,27 @@
 #include <GLUL/GL++/Context.h>
 #include <GLUL/GUI/Container.h>
-
+#include <GLUL/Resources/Fonts.h>
 
 namespace GLUL {
 
     namespace GUI {
+
+        /*
+         * GUI::Component (GUI::Window) can't request already created G2D::Font
+         * because proper OpenGL context hasn't been created yet!
+         * That's why we're creating empty shell of Font object, so it will work as stub.
+         * When user will request Container's font, it will be hot-swapped with default font.
+         * Container has only const reference of given font, so it can't modify it in any way.
+         */
+        static G2D::Font _emptyFont;
+
 
         Container::Container() : Container(*this) { }
 
         Container::Container(const Container& parent) : Container(parent, {}, {}) { }
 
         Container::Container(const Container& parent, const glm::vec2& size, const glm::vec2& position)
-            : Component(parent, size, position), _wasScissorTestActive(false)
+            : Component(parent, size, position), _wasScissorTestActive(false), _font(_emptyFont)
         {
             _initializeEventForwarding();
         }
@@ -70,6 +80,14 @@ namespace GLUL {
             return { 0.0f, 0.0f };
         }
 
+        const G2D::Font& Container::getFont() const {
+            // If custom font hasn't been asigned, request default one
+            if(&_font.get() == &_emptyFont)
+                _font = GLUL::Resources::Fonts::GetDefault();
+
+            return _font;
+        }
+
         void Container::setInvalid() const {
             _isValid = false;
         }
@@ -79,6 +97,12 @@ namespace GLUL {
 
             for(auto& component : _components)
                 component->setFocused(flag);
+        }
+
+        void Container::setFont(const G2D::Font& font) {
+            _font = font;
+
+            setInvalid();
         }
 
         void Container::_invalidateComponents() const {
