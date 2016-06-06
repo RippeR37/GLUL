@@ -8,11 +8,11 @@ namespace GLUL {
 
         namespace Base {
 
-            Button::Button(const Container& parent)
-                : Button(parent, {}, {}) { }
+            Button::Button(const Container& parent, Background* background)
+                : ComponentWithBackground(parent, background) { }
 
-            Button::Button(const Container& parent, const glm::vec2& size, const glm::vec2& position)
-                : Component(parent, size, position) { }
+            Button::Button(const Container& parent, const glm::vec2& size, const glm::vec2& position, Background* background)
+                : ComponentWithBackground(parent, size, position, background) { }
 
         }
 

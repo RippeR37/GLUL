@@ -2,7 +2,7 @@
 #include <GLUL/GL++/Program.h>
 #include <GLUL/GL++/VertexArray.h>
 #include <GLUL/GL++/VertexBuffer.h>
-// #include <GLUL/GUI/Button.h>
+#include <GLUL/GUI/Button.h>
 // #include <GLUL/GUI/Checkbox.h>
 // #include <GLUL/GUI/Slider.h>
 // #include <GLUL/GUI/Panel.h>
@@ -30,14 +30,18 @@ void run() {
     window.registerEvents();
     window.getContext().setClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 
-    /*
-    GLUL::G2D::Font& defaultFont = GLUL::Resource::Font::GetDefault(16);
+    auto& defaultFont = GLUL::Resources::Fonts::GetDefault(16);
 
     // Buttons
-    auto& button1 = window.add<Button>();
-    auto& button2 = window.add<Button>();
-    auto& button3 = window.add<Button>();
+    auto& button1 = window.add<Button>(glm::vec2 { 100.0f, 25.0f }, glm::vec2 { 50.0f,  50.0f });
+    auto& button2 = window.add<Button>(glm::vec2 { 100.0f, 25.0f }, glm::vec2 { 50.0f,  90.0f });
+    auto& button3 = window.add<Button>(glm::vec2 { 100.0f, 25.0f }, glm::vec2 { 50.0f, 130.0f });
 
+    button1.getBackground<RectangleBackground>().setColor(glm::vec3 { 0.1f, 0.1f, 0.8f });
+    button1.getBackground<RectangleBackground>().border.setWidth(1u);
+    button1.getBackground<RectangleBackground>().border.setColor(glm::vec3 { 0.0f });
+
+    /*
     // TextField
     auto& textField1 = window.add<TextField>();
     auto& textField2 = window.add<TextField>();

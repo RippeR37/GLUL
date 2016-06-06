@@ -86,9 +86,12 @@ set(GLUL_SRCS
     "src/GLUL/G2D/TriangleFan.cpp"
     "src/GLUL/G2D/TriangleStrip.cpp"
 
+    "src/GLUL/GUI/Base/Background.cpp"
+    "src/GLUL/GUI/Base/Border.cpp"
     "src/GLUL/GUI/Base/Button.cpp"
     "src/GLUL/GUI/Base/Checkbox.cpp"
     "src/GLUL/GUI/Base/Component.cpp"
+    "src/GLUL/GUI/Base/ComponentWithBackground.cpp"
     "src/GLUL/GUI/Base/Container.cpp"
     "src/GLUL/GUI/Base/Slider.cpp"
     "src/GLUL/GUI/Base/Panel.cpp"
@@ -107,6 +110,8 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Events/MouseRelease.cpp"
     "src/GLUL/GUI/Events/TextInput.cpp"
 
+    "src/GLUL/GUI/Button.cpp"
+    "src/GLUL/GUI/RectangleBackground.cpp"
     "src/GLUL/GUI/Window.cpp"
 
     "src/GLUL/Input/EventTypes/CharacterEvent.cpp"
@@ -206,9 +211,13 @@ set(GLUL_H
     "include/GLUL/G2D/TriangleFan.h"
     "include/GLUL/G2D/TriangleStrip.h"
 
+    "include/GLUL/GUI/Base/Background.h"
+    "include/GLUL/GUI/Base/Border.h"
     "include/GLUL/GUI/Base/Button.h"
     "include/GLUL/GUI/Base/Checkbox.h"
     "include/GLUL/GUI/Base/Component.h"
+    "include/GLUL/GUI/Base/ComponentWithBackground.h"
+    "include/GLUL/GUI/Base/ComponentWithBackground.hpp"
     "include/GLUL/GUI/Base/Container.h"
     "include/GLUL/GUI/Base/Container.hpp"
     "include/GLUL/GUI/Base/Slider.h"
@@ -233,6 +242,8 @@ set(GLUL_H
     "include/GLUL/GUI/Events/TextInput.h"
     "include/GLUL/GUI/Events/ValueChange.hpp"
 
+    "include/GLUL/GUI/Button.h"
+    "include/GLUL/GUI/RectangleBackground.h"
     "include/GLUL/GUI/Window.h"
 
     "include/GLUL/Helpers/HashEnum.h"

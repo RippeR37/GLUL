@@ -15,11 +15,11 @@ namespace GLUL {
             {
                 static_assert(
                     std::is_base_of<Component, ComponentType>::value,
-                    "Can't add component that doesn't derive from GLUL::GUI::Component!"
+                    "Invalid ComponentType: must derive from GLUL::GUI::Base::Component!"
                 );
                 static_assert(
                     std::is_abstract<ComponentType>::value == false,
-                    "Cant add component of abstract type!"
+                    "Invalid ComponentType: can't be abstract type!"
                 );
 
                 std::unique_ptr<ComponentType> component { new ComponentType(*this, std::forward<CtorArgs>(ctorArgs)...) };

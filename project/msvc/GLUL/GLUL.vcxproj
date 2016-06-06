@@ -229,6 +229,12 @@
     <ClInclude Include="..\..\..\include\GLUL\GL++\VertexArray.h" />
     <ClInclude Include="..\..\..\include\GLUL\GL++\VertexAttrib.h" />
     <ClInclude Include="..\..\..\include\GLUL\GL++\VertexBuffer.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Border.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\ComponentWithBackground.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\ComponentWithBackground.hpp" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Button.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\RectangleBackground.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Background.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Button.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Checkbox.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Component.h" />
@@ -336,9 +342,12 @@
     <ClCompile Include="..\..\..\src\GLUL\GL++\VertexArray.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GL++\VertexAttrib.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GL++\VertexBuffer.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Background.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Border.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Button.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Checkbox.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Component.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\ComponentWithBackground.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Container.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Panel.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\ProgressBar.cpp" />
@@ -348,6 +357,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextArea.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextComponent.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextField.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Button.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\KeyStroke.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseClick.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseEnter.cpp" />
@@ -355,6 +365,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseMove.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseRelease.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\TextInput.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\RectangleBackground.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Window.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Image.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Input\Event.cpp" />
