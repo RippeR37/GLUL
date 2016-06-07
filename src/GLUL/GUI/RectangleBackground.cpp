@@ -9,7 +9,7 @@ namespace GLUL {
     namespace GUI {
 
         RectangleBackground::RectangleBackground(const Base::Component& owner)
-            : RectangleBackground(owner, glm::vec4 { 1.0f }) { }
+            : RectangleBackground(owner, glm::vec4 { 1.0f, 1.0f, 1.0f, 1.0f }) { }
 
         RectangleBackground::RectangleBackground(const Base::Component& owner, const glm::vec3& color)
             : RectangleBackground(owner, glm::vec4 { color, 1.0f }) { }
@@ -35,33 +35,36 @@ namespace GLUL {
             glm::vec2 borderSize { static_cast<float>(border.getWidth()) };
 
             // Border
-            texBatch.addPrimitive(
-                G2D::TexturedRectangle {
-                    G2D::TexturedPoint {
-                        _owner.getScreenPosition() - glm::vec2 { 0.0f, _owner.getSize().y } - borderSize,
-                        { 1.0f, 1.0f },
-                        border.getColor()
+            if(border.getWidth() != 0 && border.getColor().a != 0.0f) {
+                texBatch.addPrimitive(
+                    G2D::TexturedRectangle {
+                        G2D::TexturedPoint {
+                            _owner.getScreenPosition() - glm::vec2 { 0.0f, _owner.getSize().y } -borderSize,
+                            { 1.0f, 1.0f },
+                            border.getColor()
+                        },
+                        _owner.getSize() + (2.0f * borderSize),
+                        { 0.0f, 0.0f }
                     },
-                    _owner.getSize() + (2.0f * borderSize),
-                    { 0.0f, 0.0f }
-                },
-                _owner.getParent().getFont().getTexture()
-            );
+                    _owner.getParent().getFont().getTexture()
+                );
+            }
 
             // Background
-            texBatch.addPrimitive(
-                G2D::TexturedRectangle {
-                    G2D::TexturedPoint {
-                        _owner.getScreenPosition() - glm::vec2 { 0.0f, _owner.getSize().y },
-                        { 1.0f, 1.0f },
-                        getColor()
+            if(_owner.isVisible() && _owner.getSize().x > 0.0f && _owner.getSize().y > 0.0f && getColor().a != 0) {
+                texBatch.addPrimitive(
+                    G2D::TexturedRectangle {
+                        G2D::TexturedPoint {
+                            _owner.getScreenPosition() - glm::vec2 { 0.0f, _owner.getSize().y },
+                            { 1.0f, 1.0f },
+                            getColor()
+                        },
+                        _owner.getSize(),
+                        { 0.0f, 0.0f }
                     },
-                    _owner.getSize(),
-                    { 0.0f, 0.0f }
-                },
-                _owner.getParent().getFont().getTexture()
-            );
-
+                    _owner.getParent().getFont().getTexture()
+                );
+            }
         }
 
     }

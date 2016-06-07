@@ -30,6 +30,12 @@ void run() {
     window.registerEvents();
     window.getContext().setClearColor({ 0.1f, 0.1f, 0.1f, 1.0f });
 
+    // GL state (blending & culling)
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_CULL_FACE);
+
+
     auto& defaultFont = GLUL::Resources::Fonts::GetDefault(16);
 
     // Buttons
@@ -38,8 +44,7 @@ void run() {
     auto& button3 = window.add<Button>(glm::vec2 { 100.0f, 25.0f }, glm::vec2 { 50.0f, 130.0f });
 
     button1.getBackground<RectangleBackground>().setColor(glm::vec3 { 0.1f, 0.1f, 0.8f });
-    button1.getBackground<RectangleBackground>().border.setWidth(1u);
-    button1.getBackground<RectangleBackground>().border.setColor(glm::vec3 { 0.0f });
+    button1.getBackground<RectangleBackground>().border.set(1, glm::vec3 { 0.0f });
 
     /*
     // TextField

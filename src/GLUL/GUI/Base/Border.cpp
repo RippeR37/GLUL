@@ -9,7 +9,7 @@ namespace GLUL {
         namespace Base {
 
             Border::Border(const Component& owner)
-                : Border(owner, 0, glm::vec4 {}) { }
+                : Border(owner, 0, glm::vec4 { 0.0f, 0.0f, 0.0f, 1.0f }) { }
 
             Border::Border(const Component& owner, unsigned int width, const glm::vec3& color)
                 : Border(owner, width, glm::vec4 { color, 1.0f }) { }
@@ -23,6 +23,16 @@ namespace GLUL {
 
             const glm::vec4& Border::getColor() const {
                 return _color;
+            }
+
+            void Border::set(unsigned int width, const glm::vec3& color) {
+                setWidth(width);
+                setColor(color);
+            }
+
+            void Border::set(unsigned int width, const glm::vec4& color) {
+                setWidth(width);
+                setColor(color);
             }
 
             void Border::setWidth(unsigned int width) {
