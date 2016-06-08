@@ -32,25 +32,22 @@ namespace GLUL {
         }
 
         void RectangularBackground::_pushToBatch(G2D::TexturedBatch& texBatch) {
-            if(_owner.isVisible()) {
+            if(border.getWidth() > 0 && border.getColor().a > 0.0f)
+                _pushBorderToBatch(texBatch);
 
-                if(border.getWidth() > 0 && border.getColor().a > 0.0f)
-                    _pushBorderToBatch(texBatch);
-
-                if(_owner.getSize().x > 0.0f && _owner.getSize().y > 0.0f && getColor().a != 0)
-                    _pushBackgroundToBatch(texBatch);
-
-            }
+            if(_owner.getSize().x > 0.0f && _owner.getSize().y > 0.0f && getColor().a != 0)
+                _pushBackgroundToBatch(texBatch);
         }
 
         void RectangularBackground::_pushBorderToBatch(G2D::TexturedBatch& texBatch) {
             glm::vec2 borderSize { static_cast<float>(border.getWidth()) };
+            glm::vec2 realScreenPosition = _getOwnersRealScreenPosition();
 
             // Up (whole line)
             texBatch.addPrimitive(
                 G2D::TexturedRectangle {
                     G2D::TexturedPoint {
-                        _owner.getScreenPosition() + glm::vec2 { -borderSize.x, 0.0f },
+                        realScreenPosition + glm::vec2 { -borderSize.x, 0.0f },
                         { 1.0f, 1.0f },
                         border.getColor()
                     },
@@ -64,7 +61,7 @@ namespace GLUL {
             texBatch.addPrimitive(
                 G2D::TexturedRectangle {
                     G2D::TexturedPoint {
-                        _owner.getScreenPosition() - borderSize - glm::vec2 { 0.0f, _owner.getSize().y },
+                        realScreenPosition - borderSize - glm::vec2 { 0.0f, _owner.getSize().y },
                         { 1.0f, 1.0f },
                         border.getColor()
                     },
@@ -78,7 +75,7 @@ namespace GLUL {
             texBatch.addPrimitive(
                 G2D::TexturedRectangle {
                     G2D::TexturedPoint {
-                        _owner.getScreenPosition() - glm::vec2 { borderSize.x, _owner.getSize().y },
+                        realScreenPosition - glm::vec2 { borderSize.x, _owner.getSize().y },
                         { 1.0f, 1.0f },
                         border.getColor()
                     },
@@ -92,7 +89,7 @@ namespace GLUL {
             texBatch.addPrimitive(
                 G2D::TexturedRectangle {
                     G2D::TexturedPoint {
-                        _owner.getScreenPosition() + glm::vec2 { _owner.getSize().x, -_owner.getSize().y },
+                        realScreenPosition + glm::vec2 { _owner.getSize().x, -_owner.getSize().y },
                         { 1.0f, 1.0f },
                         border.getColor()
                     },
@@ -104,10 +101,12 @@ namespace GLUL {
         }
 
         void RectangularBackground::_pushBackgroundToBatch(G2D::TexturedBatch& texBatch) {
+            glm::vec2 realScreenPosition = _getOwnersRealScreenPosition();
+
             texBatch.addPrimitive(
                 G2D::TexturedRectangle {
                     G2D::TexturedPoint {
-                        _owner.getScreenPosition() - glm::vec2 { 0.0f, _owner.getSize().y },
+                        realScreenPosition - glm::vec2 { 0.0f, _owner.getSize().y },
                         { 1.0f, 1.0f },
                         getColor()
                     },

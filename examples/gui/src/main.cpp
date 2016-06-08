@@ -3,7 +3,7 @@
 #include <GLUL/GL++/VertexArray.h>
 #include <GLUL/GL++/VertexBuffer.h>
 #include <GLUL/GUI/Button.h>
-// #include <GLUL/GUI/Checkbox.h>
+#include <GLUL/GUI/Checkbox.h>
 // #include <GLUL/GUI/Slider.h>
 // #include <GLUL/GUI/Panel.h>
 // #include <GLUL/GUI/ProgressBar.h>
@@ -36,29 +36,30 @@ void run() {
     glEnable(GL_CULL_FACE);
 
 
-    auto& defaultFont = GLUL::Resources::Fonts::GetDefault(16);
+    // auto& defaultFont = GLUL::Resources::Fonts::GetDefault(16);
 
     // Buttons
-    auto& button1 = window.add<Button>(glm::vec2 { 100.0f, 25.0f }, glm::vec2 { 50.0f,  50.0f });
-    auto& button2 = window.add<Button>(glm::vec2 { 100.0f, 25.0f }, glm::vec2 { 50.0f,  90.0f });
-    auto& button3 = window.add<Button>(glm::vec2 { 100.0f, 25.0f }, glm::vec2 { 50.0f, 130.0f });
+    auto& button1 = window.add<Button>(glm::vec2 { 100.0f, 26.0f }, glm::vec2 { 50.0f,  50.0f });
+    auto& button2 = window.add<Button>(glm::vec2 { 100.0f, 26.0f }, glm::vec2 { 50.0f,  90.0f });
+    auto& button3 = window.add<Button>(glm::vec2 { 100.0f, 26.0f }, glm::vec2 { 50.0f, 130.0f });
 
     button1.getBackground<RectangularBackground>().setColor(glm::vec3 { 0.1f, 0.1f, 0.8f });
     button1.getBackground<RectangularBackground>().border.set(2, glm::vec3 { 0.0f });
+
+    // Checkboxes
+    auto& checkbox1_on = window.add<Checkbox>(20.0f, glm::vec2 { 200.0f,  53.0f }, true);
+    auto& checkbox2_on = window.add<Checkbox>(20.0f, glm::vec2 { 200.0f,  93.0f }, true);
+    auto& checkbox3_on = window.add<Checkbox>(20.0f, glm::vec2 { 200.0f, 133.0f }, true);
+    auto& checkbox1_off = window.add<Checkbox>(20.0f, glm::vec2 { 240.0f,  53.0f }, false);
+    auto& checkbox2_off = window.add<Checkbox>(20.0f, glm::vec2 { 240.0f,  93.0f }, false);
+    auto& checkbox3_off = window.add<Checkbox>(20.0f, glm::vec2 { 240.0f, 133.0f }, false);
+
 
     /*
     // TextField
     auto& textField1 = window.add<TextField>();
     auto& textField2 = window.add<TextField>();
     auto& textField3 = window.add<TextField>();
-
-    // Checkboxes
-    auto& checkbox1_on  = window.add<Checkbox>(true);
-    auto& checkbox2_on  = window.add<Checkbox>(true);
-    auto& checkbox3_on  = window.add<Checkbox>(true);
-    auto& checkbox1_off = window.add<Checkbox>(false);
-    auto& checkbox2_off = window.add<Checkbox>(false);
-    auto& checkbox3_off = window.add<Checkbox>(false);
 
     // Radio buttons
     auto& rbGroup = window.add<RadioButtonGroup>();     // RadioButtonGroup creates (and manages lifetime) radio buttons

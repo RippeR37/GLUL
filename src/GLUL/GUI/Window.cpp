@@ -5,7 +5,9 @@ namespace GLUL {
 
     namespace GUI {
 
-        Window::Window() : GLUL::Window(), Container(*this) {
+        Window::Window()
+            : GLUL::Window(), Container(*this)
+        {
             this->eventAggregator.registerHandler(
                 {
                     GLUL::Input::Event::Type::Character,
@@ -17,7 +19,9 @@ namespace GLUL {
             );
         }
 
-        Window::Window(unsigned int width, unsigned int height, const std::string& title) : GLUL::Window(width, height, title), Container(*this) {
+        Window::Window(unsigned int width, unsigned int height, const std::string& title)
+            : GLUL::Window(width, height, title), Container(*this)
+        {
             Container::setSize({ width, height });
 
             this->eventAggregator.registerHandler(
@@ -31,7 +35,9 @@ namespace GLUL {
             );
         }
 
-        Window::Window(const glm::uvec2& size, const std::string& title) : GLUL::Window(size, title), Container(*this) {
+        Window::Window(const glm::uvec2& size, const std::string& title)
+            : GLUL::Window(size, title), Container(*this)
+        {
             Container::setSize(glm::vec2 { size });
 
             this->eventAggregator.registerHandler(
@@ -61,6 +67,10 @@ namespace GLUL {
             GLUL::Window::update();
 
             Container::update(getFrameTime());
+        }
+
+        const Window& Window::getWindow() const {
+            return *this;
         }
 
         const glm::vec2& Window::getSize() const {

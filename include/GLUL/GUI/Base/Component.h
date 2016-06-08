@@ -20,6 +20,8 @@ namespace GLUL {
 
     namespace GUI {
 
+        class Window;
+
         namespace Base {
 
             class Container;
@@ -39,6 +41,7 @@ namespace GLUL {
                     virtual bool isUnderMouse() const;
 
                     const Container& getParent() const;
+                    virtual const Window& getWindow() const;
 
                     virtual const glm::vec2& getSize() const;
                     virtual const glm::vec2& getPosition() const;
@@ -70,9 +73,11 @@ namespace GLUL {
                     Component& operator=(const Component&) = delete;
 
                     void _setValid() const;
+                    virtual glm::vec2 _getRealScreenPosition() const;
                     virtual void _pushToBatch(G2D::TexturedBatch& texBatch) const = 0;
 
                     const Container& _parent;
+                    const Window& _window;
                     glm::vec2 _size;
                     glm::vec2 _position;
                     bool _isEnabled;
@@ -80,6 +85,7 @@ namespace GLUL {
                     bool _isVisible;
                     mutable bool _isValid;
 
+                    friend class Background;
                     friend class Container;
             };
 

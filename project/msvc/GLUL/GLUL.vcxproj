@@ -233,7 +233,9 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Border.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\ComponentWithBackground.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\ComponentWithBackground.hpp" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Mark.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Button.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Checkbox.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\RectangularBackground.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Background.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Button.h" />
@@ -351,6 +353,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Component.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\ComponentWithBackground.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Container.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Mark.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Panel.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\ProgressBar.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\RadioButton.cpp" />
@@ -360,6 +363,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextComponent.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Base\TextField.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Button.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Checkbox.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\KeyStroke.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseClick.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseEnter.cpp" />

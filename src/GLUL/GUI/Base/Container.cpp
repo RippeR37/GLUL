@@ -18,8 +18,6 @@ namespace GLUL {
             static G2D::Font _emptyFont;
 
 
-            Container::Container() : Container(*this) { }
-
             Container::Container(const Container& parent) : Container(parent, {}, {}) { }
 
             Container::Container(const Container& parent, const glm::vec2& size, const glm::vec2& position)
@@ -251,7 +249,8 @@ namespace GLUL {
                 _batch.clear();
 
                 for(auto& component : _components)
-                    component->_pushToBatch(_batch);
+                    if(component->isVisible())
+                        component->_pushToBatch(_batch);
 
                 _batch.compute();
                 _batch.clearLocal();

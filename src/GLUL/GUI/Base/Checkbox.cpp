@@ -8,25 +8,25 @@ namespace GLUL {
 
         namespace Base {
 
-            Checkbox::Checkbox(const Container& parent, bool state)
-                : Checkbox(parent, {}, {}, state) { }
+            Checkbox::Checkbox(const Container& parent, bool state, Background* background)
+                : Checkbox(parent, {}, {}, state, background) { }
 
-            Checkbox::Checkbox(const Container& parent, const glm::vec2& size, const glm::vec2& position, bool state)
-                : Component(parent, size, position), _state(state)
+            Checkbox::Checkbox(const Container& parent, const glm::vec2& size, const glm::vec2& position, bool state, Background* background)
+                : ComponentWithBackground(parent, size, position, background), mark(*this), _state(state)
             {
                 _initializeHandlers();
             }
 
             Checkbox::operator bool() const {
-                return getState();
+                return isSet();
             }
 
-            bool Checkbox::getState() const {
+            bool Checkbox::isSet() const {
                 return _state;
             }
 
-            void Checkbox::setState(bool state) {
-                if(getState() != state) {
+            void Checkbox::set(bool state) {
+                if(isSet() != state) {
                     _state = state;
                     setInvalid();
 
@@ -35,9 +35,9 @@ namespace GLUL {
             }
 
             bool Checkbox::switchState() {
-                setState(!getState());
+                set(!isSet());
 
-                return getState();
+                return isSet();
             }
 
             void Checkbox::_initializeHandlers() {

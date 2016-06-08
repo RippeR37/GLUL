@@ -36,7 +36,6 @@ namespace GLUL {
                     void setFont(const G2D::Font& font);
 
                 protected:
-                    Container();
                     Container(const Container& parent);
                     Container(const Container& parent, const glm::vec2& size, const glm::vec2& position);
 

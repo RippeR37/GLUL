@@ -20,6 +20,8 @@ namespace GLUL {
 
                 virtual void update();
 
+                const Window& getWindow() const;
+
                 const glm::vec2& getSize() const;
 
                 void setSize(unsigned int width, unsigned int height);

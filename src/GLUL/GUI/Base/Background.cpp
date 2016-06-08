@@ -15,6 +15,10 @@ namespace GLUL {
                 _owner.setInvalid();
             }
 
+            glm::vec2 Background::_getOwnersRealScreenPosition() const {
+                return _owner._getRealScreenPosition();
+            }
+
         }
 
     }

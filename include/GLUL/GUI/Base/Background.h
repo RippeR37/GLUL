@@ -28,6 +28,7 @@ namespace GLUL {
 
                 protected:
                     void _invalidate();
+                    glm::vec2 _getOwnersRealScreenPosition() const;
                     virtual void _pushToBatch(G2D::TexturedBatch& texBatch) = 0;
 
                     const Component& _owner;

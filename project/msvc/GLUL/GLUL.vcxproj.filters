@@ -446,6 +446,12 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\RectangularBackground.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Checkbox.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Mark.h">
+      <Filter>Header Files\GUI\Base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\src\GLUL\AABB.cpp">
@@ -750,6 +756,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\src\GLUL\GUI\RectangularBackground.cpp">
       <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Checkbox.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\src\GLUL\GUI\Base\Mark.cpp">
+      <Filter>Source Files\GUI\Base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

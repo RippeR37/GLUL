@@ -1,5 +1,6 @@
 #include <GLUL/GUI/Base/Component.h>
 #include <GLUL/GUI/Base/Container.h>
+#include <GLUL/GUI/Window.h>
 
 #include <algorithm>
 
@@ -13,7 +14,8 @@ namespace GLUL {
             Component::Component(const Container& parent) : Component(parent, {}, {}) { }
 
             Component::Component(const Container& parent, const glm::vec2& size, const glm::vec2& position)
-                : _parent(parent), _size(size), _position(position),
+                : _parent(parent),  _window(parent.getWindow()),
+                  _size(size),      _position(position),
                   _isEnabled(true), _isFocused(false),
                   _isVisible(true), _isValid(false) { }
 
@@ -57,6 +59,10 @@ namespace GLUL {
 
             const Container& Component::getParent() const {
                 return _parent;
+            }
+
+            const Window& Component::getWindow() const {
+                return _window;
             }
 
             const glm::vec2& Component::getPosition() const {
@@ -123,6 +129,21 @@ namespace GLUL {
 
             void Component::_setValid() const {
                 _isValid = true;
+            }
+
+            /*
+             * Returns inverted screen position for drawing operations
+             * - G2D module assumes (0,0) is lower left window's corner
+             * - GUI module assumes (0,0) is upper left window's corner
+             * This method converts GUI coordinates to OpenGL ones based on window it is drawn in
+             */
+            glm::vec2 Component::_getRealScreenPosition() const {
+                auto screenPosition = getScreenPosition();
+
+                return {
+                    screenPosition.x,
+                    getWindow().getSize().y - screenPosition.y
+                };
             }
 
         }

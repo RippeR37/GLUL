@@ -94,6 +94,7 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Base/Component.cpp"
     "src/GLUL/GUI/Base/ComponentWithBackground.cpp"
     "src/GLUL/GUI/Base/Container.cpp"
+    "src/GLUL/GUI/Base/Mark.cpp"
     "src/GLUL/GUI/Base/Slider.cpp"
     "src/GLUL/GUI/Base/Panel.cpp"
     "src/GLUL/GUI/Base/ProgressBar.cpp"
@@ -112,6 +113,7 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Events/TextInput.cpp"
 
     "src/GLUL/GUI/Button.cpp"
+    "src/GLUL/GUI/Checkbox.cpp"
     "src/GLUL/GUI/RectangularBackground.cpp"
     "src/GLUL/GUI/Window.cpp"
 
@@ -222,6 +224,7 @@ set(GLUL_H
     "include/GLUL/GUI/Base/ComponentWithBackground.hpp"
     "include/GLUL/GUI/Base/Container.h"
     "include/GLUL/GUI/Base/Container.hpp"
+    "include/GLUL/GUI/Base/Mark.h"
     "include/GLUL/GUI/Base/Slider.h"
     "include/GLUL/GUI/Base/Panel.h"
     "include/GLUL/GUI/Base/ProgressBar.h"
@@ -245,6 +248,7 @@ set(GLUL_H
     "include/GLUL/GUI/Events/ValueChange.hpp"
 
     "include/GLUL/GUI/Button.h"
+    "include/GLUL/GUI/Checkbox.h"
     "include/GLUL/GUI/RectangularBackground.h"
     "include/GLUL/GUI/Window.h"
 
