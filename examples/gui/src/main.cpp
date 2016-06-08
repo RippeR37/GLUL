@@ -43,8 +43,8 @@ void run() {
     auto& button2 = window.add<Button>(glm::vec2 { 100.0f, 25.0f }, glm::vec2 { 50.0f,  90.0f });
     auto& button3 = window.add<Button>(glm::vec2 { 100.0f, 25.0f }, glm::vec2 { 50.0f, 130.0f });
 
-    button1.getBackground<RectangleBackground>().setColor(glm::vec3 { 0.1f, 0.1f, 0.8f });
-    button1.getBackground<RectangleBackground>().border.set(1, glm::vec3 { 0.0f });
+    button1.getBackground<RectangularBackground>().setColor(glm::vec3 { 0.1f, 0.1f, 0.8f });
+    button1.getBackground<RectangularBackground>().border.set(2, glm::vec3 { 0.0f });
 
     /*
     // TextField

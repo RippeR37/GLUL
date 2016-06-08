@@ -2,7 +2,7 @@
 
 #include <GLUL/Config.h>
 #include <GLUL/GUI/Base/Button.h>
-#include <GLUL/GUI/RectangleBackground.h>
+#include <GLUL/GUI/RectangularBackground.h>
 
 
 namespace GLUL {

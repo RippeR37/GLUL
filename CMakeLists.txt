@@ -74,6 +74,7 @@ set(GLUL_SRCS
     "src/GLUL/G2D/Primitive.cpp"
     "src/GLUL/G2D/Quad.cpp"
     "src/GLUL/G2D/Rectangle.cpp"
+    "src/GLUL/G2D/RectangularBorder.cpp"
     "src/GLUL/G2D/Ring.cpp"
     "src/GLUL/G2D/Text.cpp"
     "src/GLUL/G2D/TexturedBatch.cpp"
@@ -111,7 +112,7 @@ set(GLUL_SRCS
     "src/GLUL/GUI/Events/TextInput.cpp"
 
     "src/GLUL/GUI/Button.cpp"
-    "src/GLUL/GUI/RectangleBackground.cpp"
+    "src/GLUL/GUI/RectangularBackground.cpp"
     "src/GLUL/GUI/Window.cpp"
 
     "src/GLUL/Input/EventTypes/CharacterEvent.cpp"
@@ -197,6 +198,7 @@ set(GLUL_H
     "include/GLUL/G2D/Primitive.h"
     "include/GLUL/G2D/Quad.h"
     "include/GLUL/G2D/Rectangle.h"
+    "include/GLUL/G2D/RectangularBorder.h"
     "include/GLUL/G2D/Ring.h"
     "include/GLUL/G2D/Shape.h"
     "include/GLUL/G2D/Text.h"
@@ -243,7 +245,7 @@ set(GLUL_H
     "include/GLUL/GUI/Events/ValueChange.hpp"
 
     "include/GLUL/GUI/Button.h"
-    "include/GLUL/GUI/RectangleBackground.h"
+    "include/GLUL/GUI/RectangularBackground.h"
     "include/GLUL/GUI/Window.h"
 
     "include/GLUL/Helpers/HashEnum.h"

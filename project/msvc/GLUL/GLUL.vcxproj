@@ -199,6 +199,7 @@
     <ClInclude Include="..\..\..\include\GLUL\G2D\Quad.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Batch.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Rectangle.h" />
+    <ClInclude Include="..\..\..\include\GLUL\G2D\RectangularBorder.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Ring.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Shape.h" />
     <ClInclude Include="..\..\..\include\GLUL\G2D\Text.h" />
@@ -233,7 +234,7 @@
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\ComponentWithBackground.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\ComponentWithBackground.hpp" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Button.h" />
-    <ClInclude Include="..\..\..\include\GLUL\GUI\RectangleBackground.h" />
+    <ClInclude Include="..\..\..\include\GLUL\GUI\RectangularBackground.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Background.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Button.h" />
     <ClInclude Include="..\..\..\include\GLUL\GUI\Base\Checkbox.h" />
@@ -315,6 +316,7 @@
     <ClCompile Include="..\..\..\src\GLUL\G2D\Quad.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Batch.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Rectangle.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\G2D\RectangularBorder.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Ring.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\Text.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\G2D\TexturedBatch.cpp" />
@@ -365,7 +367,7 @@
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseMove.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\MouseRelease.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Events\TextInput.cpp" />
-    <ClCompile Include="..\..\..\src\GLUL\GUI\RectangleBackground.cpp" />
+    <ClCompile Include="..\..\..\src\GLUL\GUI\RectangularBackground.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\GUI\Window.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Image.cpp" />
     <ClCompile Include="..\..\..\src\GLUL\Input\Event.cpp" />
