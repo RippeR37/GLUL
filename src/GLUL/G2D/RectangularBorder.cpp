@@ -25,7 +25,7 @@ namespace GLUL {
             : RectangularBorder(position, rectangleSize, borderSize, glm::vec4 { color, 1.0f }) { }
 
         RectangularBorder::RectangularBorder(const glm::vec2& position, const glm::vec2& rectangleSize, const glm::vec2& borderSize, const glm::vec4& color)
-            : _position(position), _rectangleSize(rectangleSize), _size(borderSize), _color(color) { }
+            : _position(position), _size(borderSize), _rectangleSize(rectangleSize), _color(color) { }
 
         RectangularBorder::RectangularBorder(const Point& point, float rectangleSize, float borderSize)
             : RectangularBorder(point.getPosition(), rectangleSize, borderSize, point.getColor()) { }
