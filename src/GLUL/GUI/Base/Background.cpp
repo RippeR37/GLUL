@@ -9,7 +9,7 @@ namespace GLUL {
 
         namespace Base {
 
-            Background::Background(const Component& owner) : _owner(owner), border(owner) { }
+            Background::Background(const Component& owner) : border(owner), _owner(owner) { }
 
             void Background::_invalidate() {
                 _owner.setInvalid();

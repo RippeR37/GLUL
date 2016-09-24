@@ -14,7 +14,7 @@ namespace GLUL {
 
             RadioButton::RadioButton(const Container& parent, RadioButtonGroup& group,
                 const glm::vec2& size, const glm::vec2& position, bool state)
-                : Component(parent, size, position), _group(group), _state(state)
+                : Component(parent, size, position), _state(state), _group(group)
             {
                 _initializeHandlers();
             }

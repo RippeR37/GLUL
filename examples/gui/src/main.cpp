@@ -38,6 +38,7 @@ void run() {
 
     // auto& defaultFont = GLUL::Resources::Fonts::GetDefault(16);
 
+    /*
     // Buttons
     auto& button1 = window.add<Button>(glm::vec2 { 100.0f, 26.0f }, glm::vec2 { 50.0f,  50.0f });
     auto& button2 = window.add<Button>(glm::vec2 { 100.0f, 26.0f }, glm::vec2 { 50.0f,  90.0f });
@@ -54,8 +55,6 @@ void run() {
     auto& checkbox2_off = window.add<Checkbox>(20.0f, glm::vec2 { 240.0f,  93.0f }, false);
     auto& checkbox3_off = window.add<Checkbox>(20.0f, glm::vec2 { 240.0f, 133.0f }, false);
 
-
-    /*
     // TextField
     auto& textField1 = window.add<TextField>();
     auto& textField2 = window.add<TextField>();

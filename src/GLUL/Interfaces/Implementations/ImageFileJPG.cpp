@@ -127,8 +127,8 @@ namespace GLUL {
             cinfo.in_color_space = colorSpace;
 
             jpeg_set_defaults(&cinfo);
-            jpeg_set_quality(&cinfo, _quality, true);
-            jpeg_start_compress(&cinfo, true);
+            jpeg_set_quality(&cinfo, _quality, TRUE);
+            jpeg_start_compress(&cinfo, TRUE);
 
             while(cinfo.next_scanline < cinfo.image_height) {
                 rowPointer[0] = data + (cinfo.image_height - cinfo.next_scanline - 1) * rowStride;
