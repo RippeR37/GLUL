@@ -1,0 +1,28 @@
+[submodule "third_party/glfw"]
+	path = third_party/glfw
+	url = https://github.com/glfw/glfw.git
+	ignore = dirty
+[submodule "third_party/glew"]
+	path = third_party/glew
+	url = https://github.com/nigels-com/glew.git
+	ignore = dirty
+[submodule "third_party/glm"]
+	path = third_party/glm
+	url = https://github.com/g-truc/glm.git
+	ignore = dirty
+[submodule "third_party/freetype2"]
+	path = third_party/freetype2
+	url = http://git.sv.nongnu.org/r/freetype/freetype2.git
+	ignore = dirty
+[submodule "third_party/libpng"]
+	path = third_party/libpng
+	url = https://github.com/glennrp/libpng.git
+	ignore = dirty
+[submodule "third_party/libjpeg"]
+	path = third_party/libjpeg
+	url = https://github.com/RippeR37/libjpeg.git
+	ignore = dirty
+[submodule "third_party/zlib"]
+	path = third_party/zlib
+	url = https://github.com/madler/zlib.git
+	ignore = dirty

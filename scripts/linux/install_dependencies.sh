@@ -1,62 +1,30 @@
 #!/bin/bash
 
 
+# This script should be run from GLUL's base directory,
+# i.e. ./scripts/linux/install_dependencies.sh
+SCRIPT_DIR="`dirname $0`"
+
+
+# Helper function
+function install_dependency {
+    echo "Installing $1..." && chmod +x $SCRIPT_DIR/dependencies/$1.sh && $SCRIPT_DIR/dependencies/$1.sh && echo "Done!" || echo "Error!" 
+}
+
+
+# Main script
+
 echo "###############################"
 echo "### Installing dependencies ###"
 echo "###############################"
+echo ""
 
+install_dependency "GLFW"
+install_dependency "GLEW"
+install_dependency "GLM"
+install_dependency "FreeType2"
+install_dependency "libJPEG"
+install_dependency "zlib"
+install_dependency "libPNG"
+install_dependency "gtest"
 
-DEPENDENCY_GLM_BRANCH="0.9.5"
-DEPENDENCY_GLEW_VERSION="1.13.0"
-DEPENDENCY_FT2_VERSION="2.6"
-DEPENDENCY_FT2_VERSION_FILE="26"
-
-
-echo "Configuring directories..."
-    cd ../../
-    mkdir external
-    cd external
-echo "Done."
-
-
-echo "Installing GLM..."
-    git clone -b $DEPENDENCY_GLM_BRANCH --depth 1 https://github.com/g-truc/glm.git glm
-    cd glm
-    cmake .
-    sudo make install
-    cd ..
-echo "Done."
-
-
-echo "Installing GLEW..."
-    wget -O glew-${DEPENDENCY_GLEW_VERSION}.zip https://sourceforge.net/projects/glew/files/glew/${DEPENDENCY_GLEW_VERSION}/glew-${DEPENDENCY_GLEW_VERSION}.zip/download
-    unzip glew-${DEPENDENCY_GLEW_VERSION}.zip
-    cd glew-${DEPENDENCY_GLEW_VERSION}
-    make
-    sudo make install
-    cd ..
-echo "Done."
-
-
-echo "Installing GLFW..."
-    git clone -q --depth 1 https://github.com/glfw/glfw.git glfw
-    cd glfw
-    cmake -DBUILD_SHARED_LIBS=ON
-    sudo make install
-    cd ..
-echo "Done."
-
-
-echo "Installing FreeType2..."
-    wget -O ft${DEPENDENCY_FT2_VERSION_FILE}.zip http://sourceforge.net/projects/freetype/files/freetype2/${DEPENDENCY_FT2_VERSION}/ft${DEPENDENCY_FT2_VERSION_FILE}.zip/download
-    unzip ft${DEPENDENCY_FT2_VERSION_FILE}.zip
-    cd freetype-${DEPENDENCY_FT2_VERSION}
-    cmake .
-    sudo make install
-    cd ..
-echo "Done."
-
-
-echo "Ending instalation..."
-    cd ..
-echo "Done."

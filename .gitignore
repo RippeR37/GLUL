@@ -13,7 +13,13 @@ examples/*/bin/resources/*/GLUL/*
 examples/image/bin/lastImage.*
 examples/image/bin/screenshot.*
 
+lib/*
 libs/*
 personal/*
 
+build/*
 project/msvc/Build/*
+
+examples/*/bin/glul_*_example
+tests/bin/glul_*_tests
+
