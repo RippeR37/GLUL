@@ -22,9 +22,11 @@ option(GLUL_BUILD_EXAMPLES "Build all examples."   ON)
 
 enable_language(CXX)
 
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU" OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
     set(WARNINGS    "-Wall -Wextra -Werror")
-    set(EXTRA_FLAGS "-std=c++11")
     if(GLUL_BUILD_TESTS)
         set(COVERAGE_FLAGS "-g -fprofile-arcs -ftest-coverage")
     endif()

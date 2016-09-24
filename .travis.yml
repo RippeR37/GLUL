@@ -66,15 +66,9 @@ install:
   ######################
   
   # INSTALLING DEPENDENCIES
-  - cd scripts/linux/
-  - sudo chmod +x install_dependencies.sh
-  - sudo ./install_dependencies.sh
-  - cd ../..
+  - chmod +x scripts/linux/install_dependencies.sh
+  - sudo ./scripts/linux/install_dependencies.sh
   
-  # CONFIGURE INSTALLED DEPENDENCIES
-  - export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
-  - sudo ldconfig
-
   # CREATE FAKE DISPLAY
   - export DISPLAY=:99.0
   - sh -e /etc/init.d/xvfb start
@@ -93,7 +87,7 @@ before_script:
 script:
   # TASK = build
   - if [ "$TASK" = "build" ]; then cmake .; fi
-  - if [ "$TASK" = "build" ]; then make;    fi
+  - if [ "$TASK" = "build" ]; then make -j 8;    fi
 
   # TASK = analyze (GCC-5)
   - if [ "$TASK" = "analyze" ] && [ "$CXX" = "g++-5" ]; then cppcheck "src" --inline-suppr --template=vs --enable=style --force --std=c++11 -j 8 -I "include" 2> cppcheck.txt; fi
@@ -104,10 +98,10 @@ script:
   - if [ "$TASK" = "analyze" ] && [ "$CXX" = "clang++-3.6" ]; then scan-build-3.6 --status-bugs -v make -j 8; fi
 
   # TASK = unit_tests
-  - if [ "$TASK" = "unit_tests" ]; then cmake -DBUILD_TESTS=ON .; fi
-  - if [ "$TASK" = "unit_tests" ]; then make; fi
+  - if [ "$TASK" = "unit_tests" ]; then cmake .; fi
+  - if [ "$TASK" = "unit_tests" ]; then make -j 8; fi
   - if [ "$TASK" = "unit_tests" ]; then cd tests/bin/; fi
-  - if [ "$TASK" = "unit_tests" ]; then ./GLUL_Unit_Tests; fi
+  - if [ "$TASK" = "unit_tests" ]; then ./glul_unit_tests; fi
   - if [ "$TASK" = "unit_tests" ]; then cd ../../; fi
 
 
@@ -148,9 +142,9 @@ before_deploy:
   - cp -r README.md       "${DEPLOY_DIR_FULL}/"
   
   # Add build info
-  - echo "Build id - ${TRAVIS_BUILD_ID} (#${TRAVIS_BUILD_NUMBER})" > "${DEPLOY_DIR_FULL}/BuildInfo.txt"
-  - echo "Branch - ${TRAVIS_BRANCH}" >> "${DEPLOY_DIR_FULL}/BuildInfo.txt"
-  - echo "Date of build - ${DEPLOY_DATE}" >> "${DEPLOY_DIR_FULL}/BuildInfo.txt"
+  - echo "Build id         ${TRAVIS_BUILD_ID} (#${TRAVIS_BUILD_NUMBER})" > "${DEPLOY_DIR_FULL}/BuildInfo.txt"
+  - echo "Branch           ${TRAVIS_BRANCH}" >> "${DEPLOY_DIR_FULL}/BuildInfo.txt"
+  - echo "Date of build    ${DEPLOY_DATE}" >> "${DEPLOY_DIR_FULL}/BuildInfo.txt"
   
   # Create package to upload
   - cd deploy/ubuntu
