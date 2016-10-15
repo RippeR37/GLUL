@@ -9,7 +9,7 @@ namespace GLUL {
 
     namespace G2D {
 
-        Text::Text() : _color({ 1.0f }), _alignment(Alignment::Left) { }
+        Text::Text() : _color(glm::vec4 { 1.0f }), _alignment(Alignment::Left) { }
 
         Text::Text(const std::string& text)
             : Text()

@@ -120,7 +120,7 @@ namespace GLUL {
     void Image::load(const std::string& path, const Interface::ImageFile& fileInterface) throw(Exception::InitializationFailed) {
         reset();
 
-        *this = std::move(fileInterface.read(path));
+        *this = fileInterface.read(path);
     }
     
     void Image::load(unsigned int width, unsigned int height, unsigned int bits, unsigned char* data, bool isRGB) {

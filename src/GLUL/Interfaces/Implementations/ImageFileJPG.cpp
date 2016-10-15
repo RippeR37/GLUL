@@ -107,7 +107,7 @@ namespace GLUL {
                 case 24: data = image.getData(); break;
 
                 default:
-                    rgbData = std::move(getRGBDataOf(image));
+                    rgbData = getRGBDataOf(image);
                     data = rgbData.data();
             }
 

@@ -54,7 +54,7 @@ namespace GLUL {
                 if(&getParent() == this)
                     return false;
 
-                return getParent().isUnderMouse(*this);
+                return getParent()._hasUnderMouse(*this);
             }
 
             const Container& Component::getParent() const {

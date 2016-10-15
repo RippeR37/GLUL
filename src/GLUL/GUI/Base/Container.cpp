@@ -70,12 +70,6 @@ namespace GLUL {
                 setInvalid();
             }
 
-            bool Container::isUnderMouse(const Component& component) const {
-                Component* componentPtr = const_cast<Component*>(&component);
-
-                return _componentsUnderMouse.find(componentPtr) != _componentsUnderMouse.end();
-            }
-
             const glm::vec2 Container::getOffset() const {
                 return { 0.0f, 0.0f };
             }
@@ -211,7 +205,7 @@ namespace GLUL {
                         for(auto& component : _components) {
                             glm::vec2 newPosition = onMouseMoveEvent.position - component->getPosition() + getOffset();
 
-                            bool wasUnderMouseBefore = isUnderMouse(*component); // returns result from previous frame
+                            bool wasUnderMouseBefore = _hasUnderMouse(*component); // returns result from previous frame
                             bool isUnderMouseNow = (newPosition.x >= 0 && newPosition.x < component->getSize().x &&
                                                     newPosition.y >= 0 && newPosition.y < component->getSize().y);
 
@@ -284,6 +278,12 @@ namespace GLUL {
                 (void) texBatch; // unused
 
                 // don't push anything to parent container
+            }
+
+            bool Container::_hasUnderMouse(const Component& component) const {
+                Component* componentPtr = const_cast<Component*>(&component);
+
+                return _componentsUnderMouse.find(componentPtr) != _componentsUnderMouse.end();
             }
 
         }

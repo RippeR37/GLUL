@@ -5,7 +5,7 @@ namespace GLUL {
 
     namespace G2D {
 
-        TexturedPoint::TexturedPoint() : _color({ 1.0f }) { }
+        TexturedPoint::TexturedPoint() : _color(glm::vec4 { 1.0f }) { }
 
         TexturedPoint::TexturedPoint(const glm::vec2& position) : TexturedPoint() {
             setPosition(position);

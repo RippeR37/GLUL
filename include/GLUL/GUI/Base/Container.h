@@ -27,7 +27,6 @@ namespace GLUL {
 
                     void remove(Component& component);
 
-                    bool isUnderMouse(const Component& component) const;
                     virtual const glm::vec2 getOffset() const;
                     const G2D::Font& getFont() const;
 
@@ -45,6 +44,7 @@ namespace GLUL {
                     void _setupClipping() const;
                     void _revertClipping() const;
                     virtual void _pushToBatch(G2D::TexturedBatch& texBatch) const;
+                    bool _hasUnderMouse(const Component& component) const;
 
                     mutable bool _wasScissorTestActive;
                     mutable G2D::Rectangle _scissorTestBox;
