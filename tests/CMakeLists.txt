@@ -5,6 +5,7 @@
 enable_testing()
 
 find_package (Threads)
+find_package (GTest REQUIRED)
 
 file(GLOB_RECURSE GLUL_UNIT_TEST_HEADERS "src/*.h" "src/*.hpp")
 file(GLOB_RECURSE GLUL_UNIT_TEST_SOURCES "src/*.cpp")
@@ -14,12 +15,14 @@ add_executable(GLUL_UNIT_TESTS
     ${GLUL_UNIT_TEST_HEADERS}
 )
 
-include_directories(${CMAKE_SOURCE_DIR}/include)
+include_directories(
+    ${CMAKE_SOURCE_DIR}/include
+    ${GTEST_INCLUDE_DIR}
+)
 
 target_link_libraries(GLUL_UNIT_TESTS
     GLUL_SHARED
-    gtest
-    gtest_main
+    ${GTEST_BOTH_LIBRARIES}
     ${CMAKE_THREAD_LIBS_INIT}
 )
 
